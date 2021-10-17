@@ -8,6 +8,7 @@ import (
 	v12 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
+	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -51,7 +52,7 @@ func (state *EntityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 		if anyMessageForContainer && state.client != nil {
 			logs, err := state.client.GetPodLogs(pod.Namespace, pod.Name, containerStatus.Name)
 			if err != nil {
-				fmt.Printf("failed to get logs of %v.%v.%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
+				log.Printf("failed to get logs of %v/%v/%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
 			} else if logs != "" {
 				state.logsCollections[containerStatus.Name] = logs
 			}
@@ -219,7 +220,7 @@ func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time
 		if found {
 			desiredReplicas, err = strconv.Atoi(desiredReplicasAnnotation)
 			if err != nil {
-				fmt.Printf("Failed to parse desired replicas annotation value '%v': %v", desiredReplicasAnnotation, err)
+				log.Printf("Failed to parse desired replicas annotation value '%v': %v", desiredReplicasAnnotation, err)
 				err = nil
 				desiredReplicas = 1
 			}

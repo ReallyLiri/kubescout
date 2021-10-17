@@ -2,8 +2,8 @@ package diag
 
 import (
 	"KubeScout/kubeclient"
-	"fmt"
 	"github.com/stretchr/testify/require"
+	"log"
 	"strings"
 	"testing"
 )
@@ -41,7 +41,7 @@ func TestReplicaSetState_ExceededQuota(t *testing.T) {
 	for _, index := range errorSets {
 		state, err := testContext().replicaSetState(&sets[index], now)
 		require.Nil(t, err)
-		fmt.Printf("%v) %v", index, state)
+		log.Printf("%v) %v", index, state)
 		require.False(t, state.IsHealthy())
 		require.NotEmpty(t, state.FullName)
 		messages := state.Messages()

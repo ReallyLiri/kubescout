@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/urfave/cli/v2"
 	"go.uber.org/multierr"
+	"log"
 	"strings"
 	"time"
 )
@@ -46,9 +47,11 @@ func (context *diagContext) handleState(state *EntityState, printOnlyIfUnhealthy
 			builder := strings.Builder{}
 			for container, logs := range state.logsCollections {
 				builder.WriteString(fmt.Sprintf("logs of container %v:\n", container))
+				builder.WriteString("<<<<<<<<<<\n")
 				builder.WriteString(logs)
+				builder.WriteString(">>>>>>>>>>")
 			}
-			message = fmt.Sprintf("%v\n%v", message, builder)
+			message = message + builder.String()
 		}
 		context.store.TryAdd(messageHash, message, context.now)
 	}
@@ -73,13 +76,13 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		excludedNamespacesSet: toBoolMap(cfg.ExcludeNamespaces),
 	}
 
-	fmt.Printf("Diagnosing cluster %v ...\n%v\n", cfg.ClusterName, SEPERATOR)
+	log.Printf("Diagnosing cluster %v ...\n%v\n", cfg.ClusterName, SEPERATOR)
 
 	nodes, err := client.GetNodes()
 	if err != nil {
 		aggregatedError = multierr.Append(aggregatedError, err)
 	} else {
-		fmt.Printf("Disocvered %v nodes\n%v\n", len(nodes), SEPERATOR)
+		log.Printf("Disocvered %v nodes\n%v\n", len(nodes), SEPERATOR)
 		for _, node := range nodes {
 			nodeState, err := ctx.nodeState(&node, now, false)
 			if err != nil {
@@ -96,7 +99,7 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		return
 	}
 
-	fmt.Printf("Disocvered %v namespaces\n%v\n", len(namespaces), SEPERATOR)
+	log.Printf("Disocvered %v namespaces\n%v\n", len(namespaces), SEPERATOR)
 	for _, namespace := range namespaces {
 		namespaceName := namespace.Name
 		if !ctx.isNamespaceRelevant(namespaceName) {
@@ -109,7 +112,7 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		if err != nil {
 			aggregatedError = multierr.Append(aggregatedError, err)
 		} else {
-			fmt.Printf("Disocvered %v pods in namespace %v\n%v\n", len(pods), namespaceName, SUB_SEPERATOR)
+			log.Printf("Disocvered %v pods in namespace %v\n%v\n", len(pods), namespaceName, SUB_SEPERATOR)
 			for _, pod := range pods {
 				podState, err := ctx.podState(&pod, now, client)
 				if err != nil {
@@ -125,7 +128,7 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		if err != nil {
 			aggregatedError = multierr.Append(aggregatedError, err)
 		} else {
-			fmt.Printf("Disocvered %v replica sets in namespace %v\n%v\n", len(replicaSets), namespaceName, SUB_SEPERATOR)
+			log.Printf("Disocvered %v replica sets in namespace %v\n%v\n", len(replicaSets), namespaceName, SUB_SEPERATOR)
 			for _, replicaSet := range replicaSets {
 				replicaSetState, err := ctx.replicaSetState(&replicaSet, now)
 				if err != nil {
@@ -141,7 +144,7 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		if err != nil {
 			aggregatedError = multierr.Append(aggregatedError, err)
 		} else {
-			fmt.Printf("Disocvered %v events in namespace %v\n%v\n", len(events), namespaceName, SUB_SEPERATOR)
+			log.Printf("Disocvered %v events in namespace %v\n%v\n", len(events), namespaceName, SUB_SEPERATOR)
 			for _, event := range events {
 				eventState, err := ctx.eventState(&event, now)
 				if err != nil {
@@ -153,6 +156,11 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 				}
 			}
 		}
+	}
+
+	err = store.Flush()
+	if err != nil {
+		aggregatedError = multierr.Append(aggregatedError, err)
 	}
 
 	return

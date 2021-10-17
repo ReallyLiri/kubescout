@@ -1,0 +1,1711 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "action": "Binding",
+            "apiVersion": "v1",
+            "eventTime": "2021-10-17T14:15:13.268835Z",
+            "firstTimestamp": null,
+            "involvedObject": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "test-1-healthy-78b86cd8d5-6vktk",
+                "namespace": "default",
+                "resourceVersion": "3751",
+                "uid": "1607c76c-e737-4a14-8881-ba6066fecd37"
+            },
+            "kind": "Event",
+            "lastTimestamp": null,
+            "message": "Successfully assigned default/test-1-healthy-78b86cd8d5-6vktk to minikube",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-1-healthy-78b86cd8d5-6vktk.16aed700cfd4f1b8",
+                "namespace": "default",
+                "resourceVersion": "3779",
+                "uid": "99b4f349-2b11-43f1-8a48-c7e447e8f52e"
+            },
+            "reason": "Scheduled",
+            "reportingComponent": "default-scheduler",
+            "reportingInstance": "default-scheduler-minikube",
+            "source": {},
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:14Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-1-healthy}",
+                "kind": "Pod",
+                "name": "test-1-healthy-78b86cd8d5-6vktk",
+                "namespace": "default",
+                "resourceVersion": "3771",
+                "uid": "1607c76c-e737-4a14-8881-ba6066fecd37"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:14Z",
+            "message": "Pulling image \"nginx\"",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:14Z",
+                "name": "test-1-healthy-78b86cd8d5-6vktk.16aed7010631ca9c",
+                "namespace": "default",
+                "resourceVersion": "3811",
+                "uid": "e64fb6da-c6a0-4a35-9d9a-f9f71f055a00"
+            },
+            "reason": "Pulling",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:25Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-1-healthy}",
+                "kind": "Pod",
+                "name": "test-1-healthy-78b86cd8d5-6vktk",
+                "namespace": "default",
+                "resourceVersion": "3771",
+                "uid": "1607c76c-e737-4a14-8881-ba6066fecd37"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:25Z",
+            "message": "Successfully pulled image \"nginx\" in 11.606795s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:25Z",
+                "name": "test-1-healthy-78b86cd8d5-6vktk.16aed703b7f70330",
+                "namespace": "default",
+                "resourceVersion": "3824",
+                "uid": "21de1549-139d-4929-adcb-e0542abc291d"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:25Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-1-healthy}",
+                "kind": "Pod",
+                "name": "test-1-healthy-78b86cd8d5-6vktk",
+                "namespace": "default",
+                "resourceVersion": "3771",
+                "uid": "1607c76c-e737-4a14-8881-ba6066fecd37"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:25Z",
+            "message": "Created container test-1-healthy",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:25Z",
+                "name": "test-1-healthy-78b86cd8d5-6vktk.16aed703c64c4b20",
+                "namespace": "default",
+                "resourceVersion": "3826",
+                "uid": "c2e29a51-e495-4687-b1a5-52ff35a3bc2e"
+            },
+            "reason": "Created",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:26Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-1-healthy}",
+                "kind": "Pod",
+                "name": "test-1-healthy-78b86cd8d5-6vktk",
+                "namespace": "default",
+                "resourceVersion": "3771",
+                "uid": "1607c76c-e737-4a14-8881-ba6066fecd37"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:26Z",
+            "message": "Started container test-1-healthy",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:26Z",
+                "name": "test-1-healthy-78b86cd8d5-6vktk.16aed703cccf391c",
+                "namespace": "default",
+                "resourceVersion": "3827",
+                "uid": "ea712dd8-369a-4ade-aa72-0ba040c9c3f1"
+            },
+            "reason": "Started",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "test-1-healthy-78b86cd8d5",
+                "namespace": "default",
+                "resourceVersion": "3737",
+                "uid": "69d769ce-5d91-4fcc-83c3-983194a97778"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Created pod: test-1-healthy-78b86cd8d5-6vktk",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-1-healthy-78b86cd8d5.16aed700ca5fba9c",
+                "namespace": "default",
+                "resourceVersion": "3753",
+                "uid": "41fac95c-36ef-4e01-9c02-ddc3ec23c668"
+            },
+            "reason": "SuccessfulCreate",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "replicaset-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "test-1-healthy",
+                "namespace": "default",
+                "resourceVersion": "3734",
+                "uid": "9c29ad1b-caa0-4814-abf5-b3930719fd45"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Scaled up replica set test-1-healthy-78b86cd8d5 to 1",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-1-healthy.16aed700c8bde2a4",
+                "namespace": "default",
+                "resourceVersion": "3743",
+                "uid": "974ed9c3-044a-4190-a5aa-884bcb3694f1"
+            },
+            "reason": "ScalingReplicaSet",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "deployment-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "action": "Binding",
+            "apiVersion": "v1",
+            "eventTime": "2021-10-17T14:15:13.272065Z",
+            "firstTimestamp": null,
+            "involvedObject": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f",
+                "namespace": "default",
+                "resourceVersion": "3750",
+                "uid": "ee592aae-4f46-4a86-82e0-40d83b67bf3a"
+            },
+            "kind": "Event",
+            "lastTimestamp": null,
+            "message": "Successfully assigned default/test-2-broken-image-7cbf974df9-4jv8f to minikube",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f.16aed700d005c5b8",
+                "namespace": "default",
+                "resourceVersion": "3781",
+                "uid": "b38a0b01-ca5e-482f-a1aa-bd9cb6243f85"
+            },
+            "reason": "Scheduled",
+            "reportingComponent": "default-scheduler",
+            "reportingInstance": "default-scheduler-minikube",
+            "source": {},
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:14Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-2-broken-image}",
+                "kind": "Pod",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f",
+                "namespace": "default",
+                "resourceVersion": "3772",
+                "uid": "ee592aae-4f46-4a86-82e0-40d83b67bf3a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:05Z",
+            "message": "Pulling image \"nginx:l4t3st\"",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:14Z",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f.16aed7013567db6c",
+                "namespace": "default",
+                "resourceVersion": "4016",
+                "uid": "d9fb5bb5-c79a-4318-8663-aa0281b54733"
+            },
+            "reason": "Pulling",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:30Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-2-broken-image}",
+                "kind": "Pod",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f",
+                "namespace": "default",
+                "resourceVersion": "3772",
+                "uid": "ee592aae-4f46-4a86-82e0-40d83b67bf3a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:08Z",
+            "message": "Failed to pull image \"nginx:l4t3st\": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:30Z",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f.16aed704c0ac5e70",
+                "namespace": "default",
+                "resourceVersion": "4019",
+                "uid": "49723b1d-999e-4a7e-9532-23eee3d7529f"
+            },
+            "reason": "Failed",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Warning"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:30Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-2-broken-image}",
+                "kind": "Pod",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f",
+                "namespace": "default",
+                "resourceVersion": "3772",
+                "uid": "ee592aae-4f46-4a86-82e0-40d83b67bf3a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:08Z",
+            "message": "Error: ErrImagePull",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:30Z",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f.16aed704c0ad5104",
+                "namespace": "default",
+                "resourceVersion": "4020",
+                "uid": "7c04bbf5-21b6-4334-bdc6-a3ec6fb63883"
+            },
+            "reason": "Failed",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Warning"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 7,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:30Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-2-broken-image}",
+                "kind": "Pod",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f",
+                "namespace": "default",
+                "resourceVersion": "3772",
+                "uid": "ee592aae-4f46-4a86-82e0-40d83b67bf3a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:30Z",
+            "message": "Back-off pulling image \"nginx:l4t3st\"",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:30Z",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f.16aed704c222785c",
+                "namespace": "default",
+                "resourceVersion": "4049",
+                "uid": "20090dca-fb78-4168-9170-cfebde910a1f"
+            },
+            "reason": "BackOff",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 6,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:30Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-2-broken-image}",
+                "kind": "Pod",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f",
+                "namespace": "default",
+                "resourceVersion": "3772",
+                "uid": "ee592aae-4f46-4a86-82e0-40d83b67bf3a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:19Z",
+            "message": "Error: ImagePullBackOff",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:30Z",
+                "name": "test-2-broken-image-7cbf974df9-4jv8f.16aed704c222cd20",
+                "namespace": "default",
+                "resourceVersion": "4037",
+                "uid": "a9324d0d-e97d-4966-9be9-257d8185ae17"
+            },
+            "reason": "Failed",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Warning"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "test-2-broken-image-7cbf974df9",
+                "namespace": "default",
+                "resourceVersion": "3736",
+                "uid": "ee6999e1-be23-4d12-ae31-259a200063b3"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Created pod: test-2-broken-image-7cbf974df9-4jv8f",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-2-broken-image-7cbf974df9.16aed700ca701eb4",
+                "namespace": "default",
+                "resourceVersion": "3758",
+                "uid": "7fdcb81a-2854-4d08-afe0-97021dafc33f"
+            },
+            "reason": "SuccessfulCreate",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "replicaset-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "test-2-broken-image",
+                "namespace": "default",
+                "resourceVersion": "3735",
+                "uid": "7144a18c-8083-418c-a799-86b5ed7cce20"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Scaled up replica set test-2-broken-image-7cbf974df9 to 1",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-2-broken-image.16aed700c8a5c5fc",
+                "namespace": "default",
+                "resourceVersion": "3741",
+                "uid": "9bf57f5e-5530-4fa6-b033-e1e002f68daf"
+            },
+            "reason": "ScalingReplicaSet",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "deployment-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "action": "Scheduling",
+            "apiVersion": "v1",
+            "eventTime": "2021-10-17T14:15:13.178788Z",
+            "firstTimestamp": null,
+            "involvedObject": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "test-3-excessive-resources-699d58f55f-q9z65",
+                "namespace": "default",
+                "resourceVersion": "3749",
+                "uid": "a9e211d2-c079-400a-9cae-ca902d764364"
+            },
+            "kind": "Event",
+            "lastTimestamp": null,
+            "message": "0/1 nodes are available: 1 Insufficient memory.",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-3-excessive-resources-699d58f55f-q9z65.16aed700ca768560",
+                "namespace": "default",
+                "resourceVersion": "3759",
+                "uid": "e9843bfb-996e-42b1-bcd9-2480ac58c457"
+            },
+            "reason": "FailedScheduling",
+            "reportingComponent": "default-scheduler",
+            "reportingInstance": "default-scheduler-minikube",
+            "source": {},
+            "type": "Warning"
+        },
+        {
+            "action": "Scheduling",
+            "apiVersion": "v1",
+            "eventTime": "2021-10-17T14:16:37.775846Z",
+            "firstTimestamp": null,
+            "involvedObject": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "test-3-excessive-resources-699d58f55f-q9z65",
+                "namespace": "default",
+                "resourceVersion": "3761",
+                "uid": "a9e211d2-c079-400a-9cae-ca902d764364"
+            },
+            "kind": "Event",
+            "lastTimestamp": null,
+            "message": "0/1 nodes are available: 1 Insufficient memory.",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:16:37Z",
+                "name": "test-3-excessive-resources-699d58f55f-q9z65.16aed7147cd72954",
+                "namespace": "default",
+                "resourceVersion": "4056",
+                "uid": "3b99844e-a21a-4e4d-9f79-51d182c748d2"
+            },
+            "reason": "FailedScheduling",
+            "reportingComponent": "default-scheduler",
+            "reportingInstance": "default-scheduler-minikube",
+            "series": {
+                "count": 1,
+                "lastObservedTime": "2021-10-17T14:17:37.709459Z"
+            },
+            "source": {},
+            "type": "Warning"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "test-3-excessive-resources-699d58f55f",
+                "namespace": "default",
+                "resourceVersion": "3742",
+                "uid": "672bd087-778a-45c1-bcd9-fe45d0d0e4f1"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Created pod: test-3-excessive-resources-699d58f55f-q9z65",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-3-excessive-resources-699d58f55f.16aed700ca74b168",
+                "namespace": "default",
+                "resourceVersion": "3767",
+                "uid": "d349902f-e4ca-4d82-b5ea-568f2400bcff"
+            },
+            "reason": "SuccessfulCreate",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "replicaset-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "test-3-excessive-resources",
+                "namespace": "default",
+                "resourceVersion": "3738",
+                "uid": "2289a651-4964-4967-b505-77a6018cebc3"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Scaled up replica set test-3-excessive-resources-699d58f55f to 1",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-3-excessive-resources.16aed700c93b1cd8",
+                "namespace": "default",
+                "resourceVersion": "3747",
+                "uid": "cfea5256-0fd5-41fd-8712-46de1ea47799"
+            },
+            "reason": "ScalingReplicaSet",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "deployment-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "action": "Binding",
+            "apiVersion": "v1",
+            "eventTime": "2021-10-17T14:15:13.271859Z",
+            "firstTimestamp": null,
+            "involvedObject": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3764",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": null,
+            "message": "Successfully assigned default/test-4-crashlooping-dbdd84589-8m7kj to minikube",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed700d002af18",
+                "namespace": "default",
+                "resourceVersion": "3780",
+                "uid": "c05dd757-e02b-4c83-8947-7cb36368c0a7"
+            },
+            "reason": "Scheduled",
+            "reportingComponent": "default-scheduler",
+            "reportingInstance": "default-scheduler-minikube",
+            "source": {},
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 5,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:14Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-4-crashlooping}",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3774",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:10Z",
+            "message": "Pulling image \"nginx\"",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:14Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed70130627744",
+                "namespace": "default",
+                "resourceVersion": "4025",
+                "uid": "c201ef7c-ba80-4f31-8702-cd7dba6a8dfd"
+            },
+            "reason": "Pulling",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:27Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-4-crashlooping}",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3774",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:27Z",
+            "message": "Successfully pulled image \"nginx\" in 12.8012657s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:27Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed7042959d91c",
+                "namespace": "default",
+                "resourceVersion": "3831",
+                "uid": "453b18b9-02e9-4b35-a163-4bcd43198908"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:27Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-4-crashlooping}",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3774",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:21Z",
+            "message": "Created container test-4-crashlooping",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:27Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed7042def31ac",
+                "namespace": "default",
+                "resourceVersion": "3950",
+                "uid": "e4f4abd1-1615-433c-8cf4-02a194a53314"
+            },
+            "reason": "Created",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:27Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-4-crashlooping}",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3774",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:21Z",
+            "message": "Started container test-4-crashlooping",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:27Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed70435986c48",
+                "namespace": "default",
+                "resourceVersion": "3951",
+                "uid": "473f7a49-9b53-4393-92eb-bed023804f77"
+            },
+            "reason": "Started",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:35Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-4-crashlooping}",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3774",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:35Z",
+            "message": "Successfully pulled image \"nginx\" in 7.7404264s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:35Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed70616e6e4f8",
+                "namespace": "default",
+                "resourceVersion": "3859",
+                "uid": "1d8bc6d3-38a5-4529-850b-d7c3979f7724"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 8,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:36Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-4-crashlooping}",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3774",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:58Z",
+            "message": "Back-off restarting failed container",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:36Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed7062f06751c",
+                "namespace": "default",
+                "resourceVersion": "4009",
+                "uid": "53969382-d102-4bae-bf00-b9a0b22bbcf8"
+            },
+            "reason": "BackOff",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Warning"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:49Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-4-crashlooping}",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3774",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:49Z",
+            "message": "Successfully pulled image \"nginx\" in 1.9004777s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:49Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed70958bb0910",
+                "namespace": "default",
+                "resourceVersion": "3895",
+                "uid": "24df5467-1904-4ccc-b1ce-1ac59a76efbd"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:16:20Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-4-crashlooping}",
+                "kind": "Pod",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj",
+                "namespace": "default",
+                "resourceVersion": "3774",
+                "uid": "0e2ce798-4b75-4f2d-8049-a0886cf66712"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:20Z",
+            "message": "Successfully pulled image \"nginx\" in 1.9940716s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:16:20Z",
+                "name": "test-4-crashlooping-dbdd84589-8m7kj.16aed71093e29344",
+                "namespace": "default",
+                "resourceVersion": "3949",
+                "uid": "660f1ce1-295f-49f1-87a3-23b4ba526a40"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "test-4-crashlooping-dbdd84589",
+                "namespace": "default",
+                "resourceVersion": "3757",
+                "uid": "226aa1a4-f6ec-4511-9fe6-95da6cd80e23"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Created pod: test-4-crashlooping-dbdd84589-8m7kj",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-4-crashlooping-dbdd84589.16aed700cf317ba0",
+                "namespace": "default",
+                "resourceVersion": "3776",
+                "uid": "083254e2-ce7c-4b4e-aadb-a4fca97f765e"
+            },
+            "reason": "SuccessfulCreate",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "replicaset-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "test-4-crashlooping",
+                "namespace": "default",
+                "resourceVersion": "3748",
+                "uid": "71b07bf1-55e9-4c95-9d32-127de2044f61"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Scaled up replica set test-4-crashlooping-dbdd84589 to 1",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-4-crashlooping.16aed700cb02acac",
+                "namespace": "default",
+                "resourceVersion": "3763",
+                "uid": "39b03e2d-5cac-44a3-979a-34d63ef236e2"
+            },
+            "reason": "ScalingReplicaSet",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "deployment-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "action": "Binding",
+            "apiVersion": "v1",
+            "eventTime": "2021-10-17T14:15:13.415432Z",
+            "firstTimestamp": null,
+            "involvedObject": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3782",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": null,
+            "message": "Successfully assigned default/test-5-completed-757685986-qxbqp to minikube",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed700d8916d90",
+                "namespace": "default",
+                "resourceVersion": "3790",
+                "uid": "4977c6b5-b411-48c1-a72a-5695c3c0ef72"
+            },
+            "reason": "Scheduled",
+            "reportingComponent": "default-scheduler",
+            "reportingInstance": "default-scheduler-minikube",
+            "source": {},
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 5,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:15Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-5-completed}",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3787",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:17Z",
+            "message": "Pulling image \"nginx\"",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:15Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed7013a0a17fc",
+                "namespace": "default",
+                "resourceVersion": "4032",
+                "uid": "cab1910b-d35f-40c1-a940-ebd32e10c264"
+            },
+            "reason": "Pulling",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:32Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-5-completed}",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3787",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:32Z",
+            "message": "Successfully pulled image \"nginx\" in 17.1144376s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:32Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed70534191cf4",
+                "namespace": "default",
+                "resourceVersion": "3846",
+                "uid": "af4842b4-aaf0-46e1-9f17-031e4f3f7496"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:32Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-5-completed}",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3787",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:22Z",
+            "message": "Created container test-5-completed",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:32Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed70535ac0b58",
+                "namespace": "default",
+                "resourceVersion": "3958",
+                "uid": "c1d16022-56a9-484a-9fd8-fe4ae1ef1d3a"
+            },
+            "reason": "Created",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:32Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-5-completed}",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3787",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:23Z",
+            "message": "Started container test-5-completed",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:32Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed7053c846d1c",
+                "namespace": "default",
+                "resourceVersion": "3959",
+                "uid": "6627c49d-5030-4352-b262-582f9eb2d999"
+            },
+            "reason": "Started",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:37Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-5-completed}",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3787",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:37Z",
+            "message": "Successfully pulled image \"nginx\" in 4.5439086s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:37Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed706884cb0b4",
+                "namespace": "default",
+                "resourceVersion": "3867",
+                "uid": "cdb729e1-2320-4801-83e8-78a1824841cb"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 8,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:38Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-5-completed}",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3787",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:02Z",
+            "message": "Back-off restarting failed container",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:38Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed706a8bbfd3c",
+                "namespace": "default",
+                "resourceVersion": "4013",
+                "uid": "c01c6d30-7657-4180-a895-aeabef6035da"
+            },
+            "reason": "BackOff",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Warning"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:54Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-5-completed}",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3787",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:54Z",
+            "message": "Successfully pulled image \"nginx\" in 1.8929809s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:54Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed70a82416044",
+                "namespace": "default",
+                "resourceVersion": "3905",
+                "uid": "bb7c9682-8913-477c-a33a-913ce1a54b9b"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:16:22Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.containers{test-5-completed}",
+                "kind": "Pod",
+                "name": "test-5-completed-757685986-qxbqp",
+                "namespace": "default",
+                "resourceVersion": "3787",
+                "uid": "27ccb8b9-4d4f-4b4b-a5fa-42ec1490b44a"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:22Z",
+            "message": "Successfully pulled image \"nginx\" in 3.9062222s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:16:22Z",
+                "name": "test-5-completed-757685986-qxbqp.16aed71105dcfbec",
+                "namespace": "default",
+                "resourceVersion": "3957",
+                "uid": "77ecd52f-83ea-4c31-abb5-4dbff0fbeba6"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "test-5-completed-757685986",
+                "namespace": "default",
+                "resourceVersion": "3777",
+                "uid": "5ac52c20-9b30-4d43-8a8c-0957e9a1127e"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Created pod: test-5-completed-757685986-qxbqp",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-5-completed-757685986.16aed700d85bb858",
+                "namespace": "default",
+                "resourceVersion": "3788",
+                "uid": "36fd15ba-819d-4179-a92f-86dfbf565509"
+            },
+            "reason": "SuccessfulCreate",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "replicaset-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "test-5-completed",
+                "namespace": "default",
+                "resourceVersion": "3768",
+                "uid": "e09d9083-f82e-4236-aa33-95ff966285a1"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Scaled up replica set test-5-completed-757685986 to 1",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-5-completed.16aed700d4c16e7c",
+                "namespace": "default",
+                "resourceVersion": "3785",
+                "uid": "91cd2c92-4647-4018-ae82-b170efe87d27"
+            },
+            "reason": "ScalingReplicaSet",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "deployment-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "action": "Binding",
+            "apiVersion": "v1",
+            "eventTime": "2021-10-17T14:15:13.474440Z",
+            "firstTimestamp": null,
+            "involvedObject": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3793",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": null,
+            "message": "Successfully assigned default/test-6-crashlooping-init-644545f5b7-l468n to minikube",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed700dc15de10",
+                "namespace": "default",
+                "resourceVersion": "3803",
+                "uid": "88f5b67a-ffa8-4981-8d10-596b3b299a6c"
+            },
+            "reason": "Scheduled",
+            "reportingComponent": "default-scheduler",
+            "reportingInstance": "default-scheduler-minikube",
+            "source": {},
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 5,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:15Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:07Z",
+            "message": "Pulling image \"nginx\"",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:15Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed7013c2a8634",
+                "namespace": "default",
+                "resourceVersion": "4018",
+                "uid": "d76b4748-6683-49a7-b54f-073fc201e8dd"
+            },
+            "reason": "Pulling",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:34Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:34Z",
+            "message": "Successfully pulled image \"nginx\" in 18.9732779s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:34Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed705a5033e7c",
+                "namespace": "default",
+                "resourceVersion": "3853",
+                "uid": "6026878d-4306-4899-8500-f9102f7ae40f"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:34Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:24Z",
+            "message": "Created container test-6-crashlooping-init-container",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:34Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed705a6f9822c",
+                "namespace": "default",
+                "resourceVersion": "3964",
+                "uid": "7cec0ef8-11ca-4d5d-a77d-d524dcf69955"
+            },
+            "reason": "Created",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 4,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:34Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:25Z",
+            "message": "Started container test-6-crashlooping-init-container",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:34Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed705adee64d0",
+                "namespace": "default",
+                "resourceVersion": "3965",
+                "uid": "358de1b5-f41d-4a95-b11a-afa9b694e138"
+            },
+            "reason": "Started",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:39Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:39Z",
+            "message": "Successfully pulled image \"nginx\" in 5.4520842s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:39Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed706faeae9b0",
+                "namespace": "default",
+                "resourceVersion": "3876",
+                "uid": "dd92c6d0-b12b-45cc-a741-cac2559a0956"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 7,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:40Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:52Z",
+            "message": "Back-off restarting failed container",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:40Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed707233dd738",
+                "namespace": "default",
+                "resourceVersion": "4004",
+                "uid": "506ee1fe-62cf-442e-bfab-df8bb443dcea"
+            },
+            "reason": "BackOff",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Warning"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:56Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:56Z",
+            "message": "Successfully pulled image \"nginx\" in 2.0010213s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:56Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed70afdd50990",
+                "namespace": "default",
+                "resourceVersion": "3912",
+                "uid": "321bf6a6-f7eb-4b7c-8e8e-13f789b53cc9"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:16:24Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:16:24Z",
+            "message": "Successfully pulled image \"nginx\" in 2.8939397s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:16:24Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed7117c6fc744",
+                "namespace": "default",
+                "resourceVersion": "3963",
+                "uid": "1b4e1e02-0a90-4f8f-a43e-684af0532f29"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:17:10Z",
+            "involvedObject": {
+                "apiVersion": "v1",
+                "fieldPath": "spec.initContainers{test-6-crashlooping-init-container}",
+                "kind": "Pod",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n",
+                "namespace": "default",
+                "resourceVersion": "3798",
+                "uid": "e3d8328d-9bc3-4a28-ad6c-5f567351aad7"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:17:10Z",
+            "message": "Successfully pulled image \"nginx\" in 2.5139981s",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:17:10Z",
+                "name": "test-6-crashlooping-init-644545f5b7-l468n.16aed71c177bf640",
+                "namespace": "default",
+                "resourceVersion": "4023",
+                "uid": "8a26571a-4d4e-4785-b231-97db62663e44"
+            },
+            "reason": "Pulled",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "test-6-crashlooping-init-644545f5b7",
+                "namespace": "default",
+                "resourceVersion": "3789",
+                "uid": "061ec784-37af-49b5-bcf7-c3a8c667fc3f"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Created pod: test-6-crashlooping-init-644545f5b7-l468n",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-6-crashlooping-init-644545f5b7.16aed700db631b2c",
+                "namespace": "default",
+                "resourceVersion": "3800",
+                "uid": "9199cd55-09ac-4628-aa85-2cc2e8e7399e"
+            },
+            "reason": "SuccessfulCreate",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "replicaset-controller"
+            },
+            "type": "Normal"
+        },
+        {
+            "apiVersion": "v1",
+            "count": 1,
+            "eventTime": null,
+            "firstTimestamp": "2021-10-17T14:15:13Z",
+            "involvedObject": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "test-6-crashlooping-init",
+                "namespace": "default",
+                "resourceVersion": "3783",
+                "uid": "17eade04-dd32-40bf-989b-a21eb2c2ad14"
+            },
+            "kind": "Event",
+            "lastTimestamp": "2021-10-17T14:15:13Z",
+            "message": "Scaled up replica set test-6-crashlooping-init-644545f5b7 to 1",
+            "metadata": {
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "name": "test-6-crashlooping-init.16aed700dab0cd78",
+                "namespace": "default",
+                "resourceVersion": "3791",
+                "uid": "0c9ecf63-8933-44a2-85bb-5e4e096a203e"
+            },
+            "reason": "ScalingReplicaSet",
+            "reportingComponent": "",
+            "reportingInstance": "",
+            "source": {
+                "component": "deployment-controller"
+            },
+            "type": "Normal"
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": "",
+        "selfLink": ""
+    }
+}

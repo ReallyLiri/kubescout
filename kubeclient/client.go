@@ -12,6 +12,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	"log"
+	"strings"
 )
 
 const PAGE_SIZE = 32
@@ -151,12 +152,15 @@ func (client *remoteKubernetesClient) GetPodLogs(namespace string, podName strin
 	})
 	stream, err := logsRequest.Stream(context.Background())
 	if err != nil {
+		if strings.Contains(err.Error(), "waiting to start") {
+			return "", nil
+		}
 		return "", fmt.Errorf("failed to stream logs of %v/%v/%v : %v", namespace, podName, containerName, err)
 	}
 	defer func() {
 		err := stream.Close()
 		if err != nil {
-			fmt.Printf("failed to close stream for log request of %v/%v/%v: %v", namespace, podName, containerName, err)
+			log.Printf("failed to close stream for log request of %v/%v/%v: %v", namespace, podName, containerName, err)
 		}
 	}()
 

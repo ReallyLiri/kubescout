@@ -1,0 +1,164 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-1-healthy
+  labels:
+    app: test-1-healthy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-1-healthy
+  template:
+    metadata:
+      labels:
+        app: test-1-healthy
+    spec:
+      containers:
+        - name: test-1-healthy
+          image: nginx
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-2-broken-image
+  labels:
+    app: test-2-broken-image
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-2-broken-image
+  template:
+    metadata:
+      labels:
+        app: test-2-broken-image
+    spec:
+      containers:
+        - name: test-2-broken-image
+          image: nginx:l4t3st
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-3-excessive-resources
+  labels:
+    app: test-3-excessive-resources
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-3-excessive-resources
+  template:
+    metadata:
+      labels:
+        app: test-3-excessive-resources
+    spec:
+      containers:
+        - name: test-3-excessive-resources
+          image: nginx
+          resources:
+            requests:
+              memory: 420Gi
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-4-crashlooping
+  labels:
+    app: test-4-crashlooping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-4-crashlooping
+  template:
+    metadata:
+      labels:
+        app: test-4-crashlooping
+    spec:
+      containers:
+        - name: test-4-crashlooping
+          image: nginx
+          command: [ "bash" ]
+          args:
+            - '-c'
+            - |
+              END=5
+              for ((i=1;i<=END;i++)); do
+                  echo $i
+              done
+              exit 1
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-5-completed
+  labels:
+    app: test-5-completed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-5-completed
+  template:
+    metadata:
+      labels:
+        app: test-5-completed
+    spec:
+      containers:
+        - name: test-5-completed
+          image: nginx
+          command: [ "bash" ]
+          args:
+            - '-c'
+            - |
+              END=5
+              for ((i=1;i<=END;i++)); do
+                  echo $i
+              done
+              exit 0
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-6-crashlooping-init
+  labels:
+    app: test-6-crashlooping-init
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-6-crashlooping-init
+  template:
+    metadata:
+      labels:
+        app: test-6-crashlooping-init
+    spec:
+      initContainers:
+        - name: test-6-crashlooping-init-container
+          image: nginx
+          command: [ "bash" ]
+          args:
+            - '-c'
+            - |
+              END=5
+              for ((i=1;i<=END;i++)); do
+                  echo $i
+              done
+              exit 1
+      containers:
+        - name: test-6-crashlooping-init
+          image: nginx
+          ports:
+            - containerPort: 80

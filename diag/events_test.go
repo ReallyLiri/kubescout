@@ -4,6 +4,7 @@ import (
 	"KubeScout/kubeclient"
 	"fmt"
 	"github.com/stretchr/testify/require"
+	"log"
 	"testing"
 )
 
@@ -55,7 +56,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 
 	state, err := testContext().eventState(&events[1], now)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 1, state)
+	log.Printf("%v) %v", 1, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages := state.Messages()
@@ -66,7 +67,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 
 	state, err = testContext().eventState(&events[10], now)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 10, state)
+	log.Printf("%v) %v", 10, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages = state.Messages()
@@ -77,7 +78,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 
 	state, err = testContext().eventState(&events[11], now)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 11, state)
+	log.Printf("%v) %v", 11, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages = state.Messages()
@@ -88,7 +89,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 
 	state, err = testContext().eventState(&events[12], now)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 12, state)
+	log.Printf("%v) %v", 12, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages = state.Messages()
@@ -109,7 +110,7 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 
 	state, err := testContext().eventState(&events[0], now)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 0, state)
+	log.Printf("%v) %v", 0, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages := state.Messages()
@@ -119,7 +120,7 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 
 	state, err = testContext().eventState(&events[1], now)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 1, state)
+	log.Printf("%v) %v", 1, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages = state.Messages()

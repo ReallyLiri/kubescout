@@ -4,6 +4,7 @@ import (
 	"KubeScout/kubeclient"
 	"fmt"
 	"github.com/stretchr/testify/require"
+	"log"
 	"strings"
 	"testing"
 )
@@ -264,7 +265,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		crashingPod := pods[index]
 		state, err := testContext().podState(&crashingPod, now, mockClient)
 		require.Nil(t, err)
-		fmt.Printf("%v) %v", index, state)
+		log.Printf("%v) %v", index, state)
 		require.False(t, state.IsHealthy())
 		require.NotEmpty(t, state.FullName)
 		messages := state.Messages()
@@ -282,7 +283,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		initializingPods := pods[index]
 		state, err := testContext().podState(&initializingPods, now, mockClient)
 		require.Nil(t, err)
-		fmt.Printf("%v) %v", index, state)
+		log.Printf("%v) %v", index, state)
 		require.False(t, state.IsHealthy())
 		require.NotEmpty(t, state.FullName)
 		messages := state.Messages()
@@ -359,7 +360,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	restartingPod := pods[0]
 	state, err := testContext().podState(&restartingPod, now, nil)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 0, state)
+	log.Printf("%v) %v", 0, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages := state.Messages()
@@ -371,7 +372,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	pendingPod := pods[1]
 	state, err = testContext().podState(&pendingPod, now, nil)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 1, state)
+	log.Printf("%v) %v", 1, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages = state.Messages()
@@ -418,7 +419,7 @@ func TestPodState_JobFailed(t *testing.T) {
 		}
 		state, err := testContext().podState(&failedPod, now, nil)
 		require.Nil(t, err)
-		fmt.Printf("%v) %v", i, state)
+		log.Printf("%v) %v", i, state)
 		require.False(t, state.IsHealthy())
 		require.NotEmpty(t, state.FullName)
 		messages := state.Messages()
@@ -440,7 +441,7 @@ func TestPodState_PodsStuckTerminating(t *testing.T) {
 	for i, terminatingPod := range pods {
 		state, err := testContext().podState(&terminatingPod, now, nil)
 		require.Nil(t, err)
-		fmt.Printf("%v) %v", i, state)
+		log.Printf("%v) %v", i, state)
 		require.False(t, state.IsHealthy())
 		require.NotEmpty(t, state.FullName)
 		messages := state.Messages()
@@ -460,7 +461,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 
 	state, err := testContext().podState(&pods[0], now, nil)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 0, state)
+	log.Printf("%v) %v", 0, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages := state.Messages()
@@ -471,7 +472,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 
 	state, err = testContext().podState(&pods[1], now, nil)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 1, state)
+	log.Printf("%v) %v", 1, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages = state.Messages()
@@ -482,7 +483,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 
 	state, err = testContext().podState(&pods[2], now, nil)
 	require.Nil(t, err)
-	fmt.Printf("%v) %v", 2, state)
+	log.Printf("%v) %v", 2, state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
 	messages = state.Messages()

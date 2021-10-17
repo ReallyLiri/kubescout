@@ -1,0 +1,509 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "generation": 1,
+                "labels": {
+                    "app": "test-1-healthy",
+                    "pod-template-hash": "78b86cd8d5"
+                },
+                "name": "test-1-healthy-78b86cd8d5",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "test-1-healthy",
+                        "uid": "9c29ad1b-caa0-4814-abf5-b3930719fd45"
+                    }
+                ],
+                "resourceVersion": "3829",
+                "uid": "69d769ce-5d91-4fcc-83c3-983194a97778"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "test-1-healthy",
+                        "pod-template-hash": "78b86cd8d5"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "test-1-healthy",
+                            "pod-template-hash": "78b86cd8d5"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "nginx",
+                                "imagePullPolicy": "Always",
+                                "name": "test-1-healthy",
+                                "ports": [
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "generation": 1,
+                "labels": {
+                    "app": "test-2-broken-image",
+                    "pod-template-hash": "7cbf974df9"
+                },
+                "name": "test-2-broken-image-7cbf974df9",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "test-2-broken-image",
+                        "uid": "7144a18c-8083-418c-a799-86b5ed7cce20"
+                    }
+                ],
+                "resourceVersion": "3765",
+                "uid": "ee6999e1-be23-4d12-ae31-259a200063b3"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "test-2-broken-image",
+                        "pod-template-hash": "7cbf974df9"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "test-2-broken-image",
+                            "pod-template-hash": "7cbf974df9"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "nginx:l4t3st",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "test-2-broken-image",
+                                "ports": [
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "generation": 1,
+                "labels": {
+                    "app": "test-3-excessive-resources",
+                    "pod-template-hash": "699d58f55f"
+                },
+                "name": "test-3-excessive-resources-699d58f55f",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "test-3-excessive-resources",
+                        "uid": "2289a651-4964-4967-b505-77a6018cebc3"
+                    }
+                ],
+                "resourceVersion": "3766",
+                "uid": "672bd087-778a-45c1-bcd9-fe45d0d0e4f1"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "test-3-excessive-resources",
+                        "pod-template-hash": "699d58f55f"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "test-3-excessive-resources",
+                            "pod-template-hash": "699d58f55f"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "nginx",
+                                "imagePullPolicy": "Always",
+                                "name": "test-3-excessive-resources",
+                                "ports": [
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {
+                                    "requests": {
+                                        "memory": "420Gi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "generation": 1,
+                "labels": {
+                    "app": "test-4-crashlooping",
+                    "pod-template-hash": "dbdd84589"
+                },
+                "name": "test-4-crashlooping-dbdd84589",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "test-4-crashlooping",
+                        "uid": "71b07bf1-55e9-4c95-9d32-127de2044f61"
+                    }
+                ],
+                "resourceVersion": "3796",
+                "uid": "226aa1a4-f6ec-4511-9fe6-95da6cd80e23"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "test-4-crashlooping",
+                        "pod-template-hash": "dbdd84589"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "test-4-crashlooping",
+                            "pod-template-hash": "dbdd84589"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "-c",
+                                    "END=5\nfor ((i=1;i\u003c=END;i++)); do\n    echo $i\ndone\nexit 1\n"
+                                ],
+                                "command": [
+                                    "bash"
+                                ],
+                                "image": "nginx",
+                                "imagePullPolicy": "Always",
+                                "name": "test-4-crashlooping",
+                                "ports": [
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "generation": 1,
+                "labels": {
+                    "app": "test-5-completed",
+                    "pod-template-hash": "757685986"
+                },
+                "name": "test-5-completed-757685986",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "test-5-completed",
+                        "uid": "e09d9083-f82e-4236-aa33-95ff966285a1"
+                    }
+                ],
+                "resourceVersion": "3805",
+                "uid": "5ac52c20-9b30-4d43-8a8c-0957e9a1127e"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "test-5-completed",
+                        "pod-template-hash": "757685986"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "test-5-completed",
+                            "pod-template-hash": "757685986"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "-c",
+                                    "END=5\nfor ((i=1;i\u003c=END;i++)); do\n    echo $i\ndone\nexit 0\n"
+                                ],
+                                "command": [
+                                    "bash"
+                                ],
+                                "image": "nginx",
+                                "imagePullPolicy": "Always",
+                                "name": "test-5-completed",
+                                "ports": [
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2021-10-17T14:15:13Z",
+                "generation": 1,
+                "labels": {
+                    "app": "test-6-crashlooping-init",
+                    "pod-template-hash": "644545f5b7"
+                },
+                "name": "test-6-crashlooping-init-644545f5b7",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "test-6-crashlooping-init",
+                        "uid": "17eade04-dd32-40bf-989b-a21eb2c2ad14"
+                    }
+                ],
+                "resourceVersion": "3807",
+                "uid": "061ec784-37af-49b5-bcf7-c3a8c667fc3f"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "test-6-crashlooping-init",
+                        "pod-template-hash": "644545f5b7"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "test-6-crashlooping-init",
+                            "pod-template-hash": "644545f5b7"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "nginx",
+                                "imagePullPolicy": "Always",
+                                "name": "test-6-crashlooping-init",
+                                "ports": [
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "initContainers": [
+                            {
+                                "args": [
+                                    "-c",
+                                    "END=5\nfor ((i=1;i\u003c=END;i++)); do\n    echo $i\ndone\nexit 1\n"
+                                ],
+                                "command": [
+                                    "bash"
+                                ],
+                                "image": "nginx",
+                                "imagePullPolicy": "Always",
+                                "name": "test-6-crashlooping-init-container",
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": "",
+        "selfLink": ""
+    }
+}

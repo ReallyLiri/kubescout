@@ -95,6 +95,9 @@ func formatUnitsSize(message string) string {
 }
 
 func formatDuration(olderDate time.Time, newerDate time.Time) string {
+	if olderDate.IsZero() {
+		return ""
+	}
 	return humanize.RelTime(olderDate, newerDate, "ago", "")
 }
 
@@ -107,6 +110,9 @@ func asTime(dateString string) time.Time {
 }
 
 func formatTime(tm time.Time, format string) string {
+	if tm.IsZero() {
+		return "unavailable time"
+	}
 	return tm.Format(format)
 }
 

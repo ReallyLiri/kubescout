@@ -43,8 +43,9 @@ func LoadOrCreate(config *config.Config) (*Store, error) {
 
 func loadOrCreate(filePath string, dedupDuration time.Duration) (*Store, error) {
 	store := &Store{
-		dedupDuration: dedupDuration,
-		filePath:      filePath,
+		ClusterStoresByName: make(map[string]*ClusterStore),
+		dedupDuration:       dedupDuration,
+		filePath:            filePath,
 	}
 	content, err := ioutil.ReadFile(filePath)
 	if err != nil {
@@ -52,6 +53,9 @@ func loadOrCreate(filePath string, dedupDuration time.Duration) (*Store, error) 
 			return store, nil
 		}
 		return nil, fmt.Errorf("failed to read store file from '%v': %v", filePath, err)
+	}
+	if len(content) == 0 {
+		return store, nil
 	}
 
 	err = json.Unmarshal(content, store)

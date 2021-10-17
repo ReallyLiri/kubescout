@@ -29,7 +29,7 @@ func (state *EntityState) String() string {
 	if state.IsHealthy() {
 		builder.WriteString(fmt.Sprintf("%v is healthy\n", state.FullName))
 	} else {
-		builder.WriteString(fmt.Sprintf("%v is un-healthy\n", state.FullName))
+		builder.WriteString(fmt.Sprintf("%v %v is un-healthy\n", state.Kind, state.FullName))
 		for _, message := range state.Messages() {
 			builder.WriteString(fmt.Sprintf("\t%v\n", message))
 		}
