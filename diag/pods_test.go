@@ -219,7 +219,7 @@ func TestPodState_CreateFailed(t *testing.T) {
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "queue-consumer still waiting due to CreateContainerError: context deadline exceeded", messages[0])
 	require.Equal(t, 1, len(state.logsCollections))
-	require.Equal(t, "nxgn/app6-go-6595586ddf-5t9hx/queue-consumer/logs", state.logsCollections["queue-consumer"])
+	require.Equal(t, "ci/app6-go-6595586ddf-5t9hx/queue-consumer/logs", state.logsCollections["queue-consumer"])
 }
 
 func TestPodState_Creating(t *testing.T) {
@@ -274,7 +274,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		require.Equal(t, "wait-for-database (init) still waiting due to CrashLoopBackOff: back-off 5m0s restarting failed container", messages[1])
 		require.Equal(t, "wait-for-database (init) had restarted 6 times last exit due to Error (exit code 1)", messages[2])
 		require.Equal(t, 1, len(state.logsCollections))
-		require.True(t, strings.HasPrefix(state.logsCollections["wait-for-database"], "gp/"))
+		require.True(t, strings.HasPrefix(state.logsCollections["wait-for-database"], "ci/"))
 		require.True(t, strings.HasSuffix(state.logsCollections["wait-for-database"], "/wait-for-database/logs"))
 	}
 
