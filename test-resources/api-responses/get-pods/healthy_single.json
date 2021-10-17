@@ -1,0 +1,140 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"name\":\"memory-bomb\",\"namespace\":\"default\"},\"spec\":{\"containers\":[{\"args\":[\"-c\",\"\\u003c/dev/zero head -c 4G\"],\"command\":[\"/bin/sh\"],\"image\":\"debian\",\"name\":\"memory-bomb-container\"}],\"restartPolicy\":\"OnFailure\"}}\n"
+        },
+        "creationTimestamp": "2021-07-18T07:13:42Z",
+        "name": "memory-bomb",
+        "namespace": "default",
+        "resourceVersion": "1533391",
+        "selfLink": "/api/v1/namespaces/default/pods/memory-bomb",
+        "uid": "8a07bb03-fb35-44d9-ae1f-a26ba0c6388a"
+      },
+      "spec": {
+        "containers": [
+          {
+            "args": [
+              "-c",
+              "</dev/zero head -c 4G"
+            ],
+            "command": [
+              "/bin/sh"
+            ],
+            "image": "debian",
+            "imagePullPolicy": "Always",
+            "name": "memory-bomb-container",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-ghbw2",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "gke-liri-cluster-default-pool-498e245c-219m",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "OnFailure",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-ghbw2",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-ghbw2"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-18T07:13:42Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-18T07:13:46Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-18T07:13:46Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-18T07:13:42Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://16a74b0fcfa23cc6aaa9070eb837617b811fd2e958ad5ef07ac132a638e17980",
+            "image": "docker.io/library/debian:latest",
+            "imageID": "docker.io/library/debian@sha256:dcb20da8d9d73c9dab5059668852555c171d40cdec297da845da9c929b70e0b1",
+            "lastState": {},
+            "name": "memory-bomb-container",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2021-07-18T07:13:46Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.142.0.7",
+        "phase": "Running",
+        "podIP": "10.88.2.5",
+        "podIPs": [
+          {
+            "ip": "10.88.2.5"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-18T07:13:42Z"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

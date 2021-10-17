@@ -1,0 +1,3291 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:17:02Z",
+        "generateName": "profiler-manual-",
+        "labels": {
+          "controller-uid": "5fd2cefc-0f1f-4743-87b0-74a8acc26ef1",
+          "job-name": "profiler-manual"
+        },
+        "name": "profiler-manual-sdvms",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "profiler-manual",
+            "uid": "5fd2cefc-0f1f-4743-87b0-74a8acc26ef1"
+          }
+        ],
+        "resourceVersion": "51314112",
+        "selfLink": "/api/v1/namespaces/ci/pods/profiler-manual-sdvms",
+        "uid": "dba38e1f-7ec7-4506-ad90-139d397d5413"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/profiler:0599a39",
+            "imagePullPolicy": "Always",
+            "name": "profiler",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:17:02Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:17:06Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:17:06Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:17:02Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://29515ca9350aad6f5dd408aedbbc6f515b93a9ca11a9c9e71e09c843b6b7f9b2",
+            "image": "docker/profiler:0599a39",
+            "imageID": "docker-pullable://docker/profiler@sha256:60e01a0e053523dcff3bf5f480dcc174ed20528ca0d6a96d681c890770a35685",
+            "lastState": {},
+            "name": "profiler",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2021-07-30T12:17:05Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Running",
+        "podIP": "10.80.2.156",
+        "podIPs": [
+          {
+            "ip": "10.80.2.156"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:17:02Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:00:09Z",
+        "generateName": "smoke-tester-1627642800-",
+        "labels": {
+          "controller-uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa",
+          "job-name": "smoke-tester-1627642800"
+        },
+        "name": "smoke-tester-1627642800-24gfp",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627642800",
+            "uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa"
+          }
+        ],
+        "resourceVersion": "51283344",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627642800-24gfp",
+        "uid": "a851d320-5079-4d2b-85d9-f5294800779b"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:09Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:13Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:13Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:09Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://8058db018e90f60b695c4c94fa559baf03b410e43a25669ba9884432238883b6",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://8058db018e90f60b695c4c94fa559baf03b410e43a25669ba9884432238883b6",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:00:12Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:00:11Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.213",
+        "podIPs": [
+          {
+            "ip": "10.80.0.213"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:00:09Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:00:23Z",
+        "generateName": "smoke-tester-1627642800-",
+        "labels": {
+          "controller-uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa",
+          "job-name": "smoke-tester-1627642800"
+        },
+        "name": "smoke-tester-1627642800-6kmlw",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627642800",
+            "uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa"
+          }
+        ],
+        "resourceVersion": "51283455",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627642800-6kmlw",
+        "uid": "188baf44-b55b-4a61-92e6-42d56420d930"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:23Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:26Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:26Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:23Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://272887d2ffb436095e89a70bc9221924594f9781d41b8445c50a8077a5199780",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://272887d2ffb436095e89a70bc9221924594f9781d41b8445c50a8077a5199780",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:00:25Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:00:24Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.215",
+        "podIPs": [
+          {
+            "ip": "10.80.0.215"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:00:23Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:00:13Z",
+        "generateName": "smoke-tester-1627642800-",
+        "labels": {
+          "controller-uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa",
+          "job-name": "smoke-tester-1627642800"
+        },
+        "name": "smoke-tester-1627642800-bnd4d",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627642800",
+            "uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa"
+          }
+        ],
+        "resourceVersion": "51283377",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627642800-bnd4d",
+        "uid": "867e9225-a987-4bf4-80ef-4fee331e02c4"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:13Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:16Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:16Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:13Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://cf2b77e1f2dd3482ad3cf9fc2399ae7aa6b8043a444ba1c3c1eb113d652ff9cb",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://cf2b77e1f2dd3482ad3cf9fc2399ae7aa6b8043a444ba1c3c1eb113d652ff9cb",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:00:15Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:00:14Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.214",
+        "podIPs": [
+          {
+            "ip": "10.80.0.214"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:00:13Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:02:03Z",
+        "generateName": "smoke-tester-1627642800-",
+        "labels": {
+          "controller-uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa",
+          "job-name": "smoke-tester-1627642800"
+        },
+        "name": "smoke-tester-1627642800-vfmkh",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627642800",
+            "uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa"
+          }
+        ],
+        "resourceVersion": "51284131",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627642800-vfmkh",
+        "uid": "14be644c-00b7-4491-bc64-5e68a8dbaa66"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:02:03Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:02:03Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:02:03Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:02:03Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://493ed102dd763bbe6a52f6d76aa4d5a022a1b131273b5fe69f85faa7821d6e0d",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://493ed102dd763bbe6a52f6d76aa4d5a022a1b131273b5fe69f85faa7821d6e0d",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:02:05Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:02:04Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.217",
+        "podIPs": [
+          {
+            "ip": "10.80.0.217"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:02:03Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:00:43Z",
+        "generateName": "smoke-tester-1627642800-",
+        "labels": {
+          "controller-uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa",
+          "job-name": "smoke-tester-1627642800"
+        },
+        "name": "smoke-tester-1627642800-wf8wh",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627642800",
+            "uid": "dfe5bd06-eae0-4a2f-8ab4-30e2eb9c7caa"
+          }
+        ],
+        "resourceVersion": "51283594",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627642800-wf8wh",
+        "uid": "7e9de1a3-16e1-4f10-a781-fd5987d8b063"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:43Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:43Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:43Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:43Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://53dcc5c2d5c3228837faccb5d5f3152881499cb166c452f1e98c93012216fb4c",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://53dcc5c2d5c3228837faccb5d5f3152881499cb166c452f1e98c93012216fb4c",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:00:45Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:00:44Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.216",
+        "podIPs": [
+          {
+            "ip": "10.80.0.216"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:00:43Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:01:01Z",
+        "generateName": "smoke-tester-1627646400-",
+        "labels": {
+          "controller-uid": "940ab92e-607c-4c42-863a-6a78918ffd58",
+          "job-name": "smoke-tester-1627646400"
+        },
+        "name": "smoke-tester-1627646400-7dpzf",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627646400",
+            "uid": "940ab92e-607c-4c42-863a-6a78918ffd58"
+          }
+        ],
+        "resourceVersion": "51307612",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627646400-7dpzf",
+        "uid": "dee844da-0461-4e02-b72c-01eb8f9c47c7"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:01:01Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:01:01Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:01:01Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:01:01Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://4fc2a316c53babe706d193d01a542a5e1f07fb3b7a378d7fb373627682022b79",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://4fc2a316c53babe706d193d01a542a5e1f07fb3b7a378d7fb373627682022b79",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:01:03Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:01:02Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.221",
+        "podIPs": [
+          {
+            "ip": "10.80.0.221"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:01:01Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:00:11Z",
+        "generateName": "smoke-tester-1627646400-",
+        "labels": {
+          "controller-uid": "940ab92e-607c-4c42-863a-6a78918ffd58",
+          "job-name": "smoke-tester-1627646400"
+        },
+        "name": "smoke-tester-1627646400-97rvx",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627646400",
+            "uid": "940ab92e-607c-4c42-863a-6a78918ffd58"
+          }
+        ],
+        "resourceVersion": "51307262",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627646400-97rvx",
+        "uid": "7c442fb2-3527-4b2f-91d7-3a9ac843f148"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:11Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:11Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:11Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:11Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://c7f7ade5316b4d3ac9befba615daadde6b27cdd3d4d8739df8ab024ec43fb632",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://c7f7ade5316b4d3ac9befba615daadde6b27cdd3d4d8739df8ab024ec43fb632",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:00:14Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:00:14Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.219",
+        "podIPs": [
+          {
+            "ip": "10.80.0.219"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:00:11Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:00:21Z",
+        "generateName": "smoke-tester-1627646400-",
+        "labels": {
+          "controller-uid": "940ab92e-607c-4c42-863a-6a78918ffd58",
+          "job-name": "smoke-tester-1627646400"
+        },
+        "name": "smoke-tester-1627646400-gqnz7",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627646400",
+            "uid": "940ab92e-607c-4c42-863a-6a78918ffd58"
+          }
+        ],
+        "resourceVersion": "51307337",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627646400-gqnz7",
+        "uid": "a23f2800-e443-4323-891d-20da4d95aa8f"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:21Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:21Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:21Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:21Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://9e3e5cf70b586d8ff66355a12d75a0cbbe657f977454c7244d826df44df698ec",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://9e3e5cf70b586d8ff66355a12d75a0cbbe657f977454c7244d826df44df698ec",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:00:23Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:00:22Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.220",
+        "podIPs": [
+          {
+            "ip": "10.80.0.220"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:00:21Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:03:41Z",
+        "generateName": "smoke-tester-1627646400-",
+        "labels": {
+          "controller-uid": "940ab92e-607c-4c42-863a-6a78918ffd58",
+          "job-name": "smoke-tester-1627646400"
+        },
+        "name": "smoke-tester-1627646400-zjfjd",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627646400",
+            "uid": "940ab92e-607c-4c42-863a-6a78918ffd58"
+          }
+        ],
+        "resourceVersion": "51308719",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627646400-zjfjd",
+        "uid": "77c38d54-86f6-4957-8530-c890f7cbc479"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:03:41Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:03:41Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:03:41Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:03:41Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://aacba8b0a2047c99d64f797ff906cb1124c75c3304c7f0c049987018de408daf",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://aacba8b0a2047c99d64f797ff906cb1124c75c3304c7f0c049987018de408daf",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:03:43Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:03:42Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.224",
+        "podIPs": [
+          {
+            "ip": "10.80.0.224"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:03:41Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:00:07Z",
+        "generateName": "smoke-tester-1627646400-",
+        "labels": {
+          "controller-uid": "940ab92e-607c-4c42-863a-6a78918ffd58",
+          "job-name": "smoke-tester-1627646400"
+        },
+        "name": "smoke-tester-1627646400-zwdps",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-1627646400",
+            "uid": "940ab92e-607c-4c42-863a-6a78918ffd58"
+          }
+        ],
+        "resourceVersion": "51307227",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-1627646400-zwdps",
+        "uid": "f11804b2-e30b-4118-b108-234799eb2e93"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:07Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:07Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:07Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:07Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://3c000b34f01066ce5301034216f27bc654fb45353db45a853b3d0aae9f432990",
+            "image": "docker/smoke-tester:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester@sha256:e514cf3822eb2a2a2983b05c61667900eaab35d4564aa6b5cf41fffd152024e7",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://3c000b34f01066ce5301034216f27bc654fb45353db45a853b3d0aae9f432990",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:00:10Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:00:10Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.218",
+        "podIPs": [
+          {
+            "ip": "10.80.0.218"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:00:07Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:00:22Z",
+        "generateName": "smoke-tester-aio-1627642800-",
+        "labels": {
+          "controller-uid": "e9c06514-aa51-47b2-8875-f9f248abce5b",
+          "job-name": "smoke-tester-aio-1627642800"
+        },
+        "name": "smoke-tester-aio-1627642800-2cv9t",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627642800",
+            "uid": "e9c06514-aa51-47b2-8875-f9f248abce5b"
+          }
+        ],
+        "resourceVersion": "51283448",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627642800-2cv9t",
+        "uid": "a9064586-37a8-4e92-b9d7-4d2f2e89dc8f"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:22Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:22Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:22Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:22Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://f80b0c07803af7216d33a130f963c520fa391c55693a08a0395f314cfd7ec184",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://f80b0c07803af7216d33a130f963c520fa391c55693a08a0395f314cfd7ec184",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:00:25Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:00:24Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.147",
+        "podIPs": [
+          {
+            "ip": "10.80.2.147"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:00:22Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:00:09Z",
+        "generateName": "smoke-tester-aio-1627642800-",
+        "labels": {
+          "controller-uid": "e9c06514-aa51-47b2-8875-f9f248abce5b",
+          "job-name": "smoke-tester-aio-1627642800"
+        },
+        "name": "smoke-tester-aio-1627642800-479xn",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627642800",
+            "uid": "e9c06514-aa51-47b2-8875-f9f248abce5b"
+          }
+        ],
+        "resourceVersion": "51283330",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627642800-479xn",
+        "uid": "8332f396-1095-4cdc-bdf4-8d0563bd0c0e"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:09Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:09Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:09Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:09Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://7ebdea01667214796c3f7b6d329e4c85d7096ab4d1f32077d06b8526456f3972",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://7ebdea01667214796c3f7b6d329e4c85d7096ab4d1f32077d06b8526456f3972",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:00:11Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:00:11Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.145",
+        "podIPs": [
+          {
+            "ip": "10.80.2.145"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:00:09Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:01:22Z",
+        "generateName": "smoke-tester-aio-1627642800-",
+        "labels": {
+          "controller-uid": "e9c06514-aa51-47b2-8875-f9f248abce5b",
+          "job-name": "smoke-tester-aio-1627642800"
+        },
+        "name": "smoke-tester-aio-1627642800-4zpp8",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627642800",
+            "uid": "e9c06514-aa51-47b2-8875-f9f248abce5b"
+          }
+        ],
+        "resourceVersion": "51283859",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627642800-4zpp8",
+        "uid": "7cd9f166-0290-4662-8b65-49b4ab8fccd9"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:01:22Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:01:22Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:01:22Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:01:22Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://33c1856a977afe801cf5ecf9d905c7665a9652ad5271e58c29cea76b1018e128",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://33c1856a977afe801cf5ecf9d905c7665a9652ad5271e58c29cea76b1018e128",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:01:24Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:01:23Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.149",
+        "podIPs": [
+          {
+            "ip": "10.80.2.149"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:01:22Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:00:42Z",
+        "generateName": "smoke-tester-aio-1627642800-",
+        "labels": {
+          "controller-uid": "e9c06514-aa51-47b2-8875-f9f248abce5b",
+          "job-name": "smoke-tester-aio-1627642800"
+        },
+        "name": "smoke-tester-aio-1627642800-kbxkt",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627642800",
+            "uid": "e9c06514-aa51-47b2-8875-f9f248abce5b"
+          }
+        ],
+        "resourceVersion": "51283586",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627642800-kbxkt",
+        "uid": "3fd82022-d6ee-4779-8aa0-19b3137a6edd"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:42Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:42Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:42Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:42Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://223f664d97165c9731d06ab10fefe25f58d601cbd015b6aaa25a1f0073c4ec51",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://223f664d97165c9731d06ab10fefe25f58d601cbd015b6aaa25a1f0073c4ec51",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:00:44Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:00:43Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.148",
+        "podIPs": [
+          {
+            "ip": "10.80.2.148"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:00:42Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T11:00:12Z",
+        "generateName": "smoke-tester-aio-1627642800-",
+        "labels": {
+          "controller-uid": "e9c06514-aa51-47b2-8875-f9f248abce5b",
+          "job-name": "smoke-tester-aio-1627642800"
+        },
+        "name": "smoke-tester-aio-1627642800-q9xvl",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627642800",
+            "uid": "e9c06514-aa51-47b2-8875-f9f248abce5b"
+          }
+        ],
+        "resourceVersion": "51283359",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627642800-q9xvl",
+        "uid": "64053356-8d0b-46ed-85a9-ab7543575621"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:12Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:12Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:12Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T11:00:12Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://a3f7694fd830beca2f7daf00352647284672836b9caf5e656d1954670ca61f04",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://a3f7694fd830beca2f7daf00352647284672836b9caf5e656d1954670ca61f04",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T11:00:14Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T11:00:13Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.146",
+        "podIPs": [
+          {
+            "ip": "10.80.2.146"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T11:00:12Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:01:19Z",
+        "generateName": "smoke-tester-aio-1627646400-",
+        "labels": {
+          "controller-uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853",
+          "job-name": "smoke-tester-aio-1627646400"
+        },
+        "name": "smoke-tester-aio-1627646400-72r4d",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627646400",
+            "uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853"
+          }
+        ],
+        "resourceVersion": "51307741",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627646400-72r4d",
+        "uid": "a6f17816-7f7c-455f-8360-a590ccf373b3"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:01:19Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:01:19Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:01:19Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:01:19Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://815971bdae342b98d1dc2c59bdf1aeb1a227a63fbd48630ca21dbcde279986cb",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://815971bdae342b98d1dc2c59bdf1aeb1a227a63fbd48630ca21dbcde279986cb",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:01:21Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:01:21Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.154",
+        "podIPs": [
+          {
+            "ip": "10.80.2.154"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:01:19Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:00:39Z",
+        "generateName": "smoke-tester-aio-1627646400-",
+        "labels": {
+          "controller-uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853",
+          "job-name": "smoke-tester-aio-1627646400"
+        },
+        "name": "smoke-tester-aio-1627646400-htlj6",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627646400",
+            "uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853"
+          }
+        ],
+        "resourceVersion": "51307466",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627646400-htlj6",
+        "uid": "fa456c5b-4dca-42da-8481-7f4434f4a932"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:39Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:42Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:42Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:39Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://1cf2299431784a54dd1c27cc755487e9b2e992894b7281c07ddf3ee85aa1da35",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://1cf2299431784a54dd1c27cc755487e9b2e992894b7281c07ddf3ee85aa1da35",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:00:41Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:00:41Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.153",
+        "podIPs": [
+          {
+            "ip": "10.80.2.153"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:00:39Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:00:09Z",
+        "generateName": "smoke-tester-aio-1627646400-",
+        "labels": {
+          "controller-uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853",
+          "job-name": "smoke-tester-aio-1627646400"
+        },
+        "name": "smoke-tester-aio-1627646400-jzchq",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627646400",
+            "uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853"
+          }
+        ],
+        "resourceVersion": "51307276",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627646400-jzchq",
+        "uid": "7825c91c-cd8b-4583-8d2d-af5bb690a045"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:09Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:16Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:16Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:09Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://a9c4fc30e6ec8894934245618a3f26def112a309745da4a14bb4d3a7125449bf",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://a9c4fc30e6ec8894934245618a3f26def112a309745da4a14bb4d3a7125449bf",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:00:15Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:00:15Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.151",
+        "podIPs": [
+          {
+            "ip": "10.80.2.151"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:00:09Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:05:19Z",
+        "generateName": "smoke-tester-aio-1627646400-",
+        "labels": {
+          "controller-uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853",
+          "job-name": "smoke-tester-aio-1627646400"
+        },
+        "name": "smoke-tester-aio-1627646400-l5n94",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627646400",
+            "uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853"
+          }
+        ],
+        "resourceVersion": "51309442",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627646400-l5n94",
+        "uid": "df609118-e7ea-4886-96eb-c7baf872fa31"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-4s7t",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:05:19Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:05:26Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:05:26Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:05:19Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://b4bd43ff1631aa8603892000488ad5d1f734f42451a42089e21a92cb34130fc9",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://b4bd43ff1631aa8603892000488ad5d1f734f42451a42089e21a92cb34130fc9",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:05:25Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:05:24Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.6",
+        "phase": "Failed",
+        "podIP": "10.80.3.231",
+        "podIPs": [
+          {
+            "ip": "10.80.3.231"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:05:19Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:00:19Z",
+        "generateName": "smoke-tester-aio-1627646400-",
+        "labels": {
+          "controller-uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853",
+          "job-name": "smoke-tester-aio-1627646400"
+        },
+        "name": "smoke-tester-aio-1627646400-nnj8x",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627646400",
+            "uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853"
+          }
+        ],
+        "resourceVersion": "51307328",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627646400-nnj8x",
+        "uid": "f894ce10-5e62-495b-bdcd-3db9060e4e49"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:19Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:22Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:22Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:19Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://106fbfe56ac6e643cfa27d8266763ca39bac9bcf12ce6434e24d2318aa212985",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://106fbfe56ac6e643cfa27d8266763ca39bac9bcf12ce6434e24d2318aa212985",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:00:22Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:00:21Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.152",
+        "podIPs": [
+          {
+            "ip": "10.80.2.152"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:00:19Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:02:39Z",
+        "generateName": "smoke-tester-aio-1627646400-",
+        "labels": {
+          "controller-uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853",
+          "job-name": "smoke-tester-aio-1627646400"
+        },
+        "name": "smoke-tester-aio-1627646400-q8b4k",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627646400",
+            "uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853"
+          }
+        ],
+        "resourceVersion": "51308285",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627646400-q8b4k",
+        "uid": "24a9af3c-ea01-41d9-94a3-9a9bbb9e21cb"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-1rd7",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:02:39Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:02:39Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:02:39Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:02:39Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://0b9192a64e59c953d9798390657687c96558c76c4ee74beb8244a96c66f7f09a",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://0b9192a64e59c953d9798390657687c96558c76c4ee74beb8244a96c66f7f09a",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:02:41Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:02:41Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.4",
+        "phase": "Failed",
+        "podIP": "10.80.0.222",
+        "podIPs": [
+          {
+            "ip": "10.80.0.222"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:02:39Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-07-30T12:00:07Z",
+        "generateName": "smoke-tester-aio-1627646400-",
+        "labels": {
+          "controller-uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853",
+          "job-name": "smoke-tester-aio-1627646400"
+        },
+        "name": "smoke-tester-aio-1627646400-vv66b",
+        "namespace": "ci",
+        "ownerReferences": [
+          {
+            "apiVersion": "batch/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Job",
+            "name": "smoke-tester-aio-1627646400",
+            "uid": "f4ea5363-0dd9-4eb3-a7b0-5a12201d6853"
+          }
+        ],
+        "resourceVersion": "51307210",
+        "selfLink": "/api/v1/namespaces/ci/pods/smoke-tester-aio-1627646400-vv66b",
+        "uid": "00a91032-8709-4a32-bfb8-9dfb7c42a3c5"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "docker/smoke-tester-aio:320657b",
+            "imagePullPolicy": "Always",
+            "name": "smoke-tester",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6vtvm",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "node-pool--19cbb605-zeg6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6vtvm",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6vtvm"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:07Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:07Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:07Z",
+            "message": "containers with unready status: [smoke-tester]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-07-30T12:00:07Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://93404319734ee298ed0d560760f83f61a2cb3193f950d7feb4763c04dd517598",
+            "image": "docker/smoke-tester-aio:320657b",
+            "imageID": "docker-pullable://docker/smoke-tester-aio@sha256:120af42a4116356517dac75967618152dff49d4ad070c3074baa87b7b6d97558",
+            "lastState": {},
+            "name": "smoke-tester",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "docker://93404319734ee298ed0d560760f83f61a2cb3193f950d7feb4763c04dd517598",
+                "exitCode": 1,
+                "finishedAt": "2021-07-30T12:00:09Z",
+                "reason": "Error",
+                "startedAt": "2021-07-30T12:00:08Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.2",
+        "phase": "Failed",
+        "podIP": "10.80.2.150",
+        "podIPs": [
+          {
+            "ip": "10.80.2.150"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-07-30T12:00:07Z"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

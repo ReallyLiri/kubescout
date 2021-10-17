@@ -1,0 +1,561 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T12:00:44Z",
+        "generateName": "nginx-1-7dfc456b4f-",
+        "labels": {
+          "app": "nginx-1",
+          "pod-template-hash": "7dfc456b4f"
+        },
+        "name": "nginx-1-7dfc456b4f-78mtz",
+        "namespace": "liri",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "nginx-1-7dfc456b4f",
+            "uid": "888ed8bc-e172-4ebc-994a-b99b4fcd42fb"
+          }
+        ],
+        "resourceVersion": "1279577",
+        "uid": "1abdade1-3a05-46e6-bdef-2d7dc27e1636"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "nginx:l4t3st",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "nginx-1",
+            "ports": [
+              {
+                "containerPort": 80,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6xwwv",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "gke-fun-time-default-pool-f64eef98-vxx6",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6xwwv",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6xwwv"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:44Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:44Z",
+            "message": "containers with unready status: [nginx-1]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:44Z",
+            "message": "containers with unready status: [nginx-1]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:44Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "image": "nginx:l4t3st",
+            "imageID": "",
+            "lastState": {},
+            "name": "nginx-1",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "waiting": {
+                "message": "Back-off pulling image \"nginx:l4t3st\"",
+                "reason": "ImagePullBackOff"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.142.15.193",
+        "phase": "Pending",
+        "podIP": "10.36.1.9",
+        "podIPs": [
+          {
+            "ip": "10.36.1.9"
+          }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2021-10-12T12:00:44Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T12:00:45Z",
+        "generateName": "nginx-2-6f8f94f55c-",
+        "labels": {
+          "app": "nginx-2",
+          "pod-template-hash": "6f8f94f55c"
+        },
+        "name": "nginx-2-6f8f94f55c-fmcjs",
+        "namespace": "liri",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "nginx-2-6f8f94f55c",
+            "uid": "ae331a8f-d74f-4c4d-a812-5fede577f0cd"
+          }
+        ],
+        "resourceVersion": "1251680",
+        "uid": "302ff4b5-2b53-4160-85c4-2851b2f21882"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "nginx",
+            "imagePullPolicy": "Always",
+            "name": "nginx-2",
+            "ports": [
+              {
+                "containerPort": 80,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "memory": "420Gi"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6xwwv",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-6xwwv",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6xwwv"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:45Z",
+            "message": "0/7 nodes are available: 7 Insufficient memory.",
+            "reason": "Unschedulable",
+            "status": "False",
+            "type": "PodScheduled"
+          }
+        ],
+        "phase": "Pending",
+        "qosClass": "Burstable"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T12:00:46Z",
+        "generateName": "nginx-3-d75464d75-",
+        "labels": {
+          "app": "nginx-3",
+          "pod-template-hash": "d75464d75"
+        },
+        "name": "nginx-3-d75464d75-llslq",
+        "namespace": "liri",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "nginx-3-d75464d75",
+            "uid": "5a56c58b-ec6a-42a4-88d6-c5c6498a404d"
+          }
+        ],
+        "resourceVersion": "1251319",
+        "uid": "9f48de91-9a61-4650-90c5-0c02c0233a31"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "nginx",
+            "imagePullPolicy": "Always",
+            "name": "nginx-3",
+            "ports": [
+              {
+                "containerPort": 80,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "600m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/usr/share/nginx/html",
+                "name": "nginx-pvc"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6xwwv",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "gke-fun-time-default-pool-f64eef98-shzd",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "nginx-pvc",
+            "persistentVolumeClaim": {
+              "claimName": "nginx-pvc"
+            }
+          },
+          {
+            "name": "default-token-6xwwv",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6xwwv"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:55Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:55Z",
+            "message": "containers with unready status: [nginx-3]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:55Z",
+            "message": "containers with unready status: [nginx-3]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:55Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "image": "nginx",
+            "imageID": "",
+            "lastState": {},
+            "name": "nginx-3",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "waiting": {
+                "reason": "ContainerCreating"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.142.15.196",
+        "phase": "Pending",
+        "qosClass": "Burstable",
+        "startTime": "2021-10-12T12:00:55Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T12:00:46Z",
+        "generateName": "nginx-3-d75464d75-",
+        "labels": {
+          "app": "nginx-3",
+          "pod-template-hash": "d75464d75"
+        },
+        "name": "nginx-3-d75464d75-vnfb2",
+        "namespace": "liri",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "nginx-3-d75464d75",
+            "uid": "5a56c58b-ec6a-42a4-88d6-c5c6498a404d"
+          }
+        ],
+        "resourceVersion": "1251366",
+        "uid": "9f4e8391-2bb8-4ac4-86cc-ff119c464755"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "nginx",
+            "imagePullPolicy": "Always",
+            "name": "nginx-3",
+            "ports": [
+              {
+                "containerPort": 80,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "600m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/usr/share/nginx/html",
+                "name": "nginx-pvc"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-6xwwv",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "gke-fun-time-default-pool-f64eef98-z3kr",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "nginx-pvc",
+            "persistentVolumeClaim": {
+              "claimName": "nginx-pvc"
+            }
+          },
+          {
+            "name": "default-token-6xwwv",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-6xwwv"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:48Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:01:03Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:01:03Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2021-10-12T12:00:48Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://e0b98fea697cb356c6497bb270963b151914871ecfd1c7ac3a992625957d0e24",
+            "image": "docker.io/library/nginx:latest",
+            "imageID": "docker.io/library/nginx@sha256:b0c17557e2a3a17bcf18498222824312832f69dbf78edab10f08334900bd7fda",
+            "lastState": {},
+            "name": "nginx-3",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2021-10-12T12:01:03Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.142.15.203",
+        "phase": "Running",
+        "podIP": "10.36.6.2",
+        "podIPs": [
+          {
+            "ip": "10.36.6.2"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2021-10-12T12:00:48Z"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

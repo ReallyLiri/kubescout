@@ -1,0 +1,374 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "annotations": {
+          "kubeadm.alpha.kubernetes.io/cri-socket": "/run/containerd/containerd.sock",
+          "node.alpha.kubernetes.io/ttl": "0",
+          "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+        },
+        "creationTimestamp": "2021-10-13T09:12:35Z",
+        "labels": {
+          "beta.kubernetes.io/arch": "amd64",
+          "beta.kubernetes.io/os": "linux",
+          "kubernetes.io/arch": "amd64",
+          "kubernetes.io/hostname": "multi-master-auto-initiated-2021-10-13-12-06",
+          "kubernetes.io/os": "linux",
+          "kurl.sh/cluster": "true",
+          "node-role.kubernetes.io/master": ""
+        },
+        "name": "multi-master-auto-initiated-2021-10-13-12-06",
+        "resourceVersion": "9903",
+        "selfLink": "/api/v1/nodes/multi-master-auto-initiated-2021-10-13-12-06",
+        "uid": "30688b1d-6759-472c-8ec9-fee3bd2cdb0d"
+      },
+      "spec": {
+        "taints": [
+          {
+            "effect": "NoSchedule",
+            "key": "node.kubernetes.io/unreachable",
+            "timeAdded": "2021-10-13T14:04:09Z"
+          }
+        ]
+      },
+      "status": {
+        "addresses": [
+          {
+            "address": "10.128.0.87",
+            "type": "InternalIP"
+          },
+          {
+            "address": "multi-master-auto-initiated-2021-10-13-12-06",
+            "type": "Hostname"
+          }
+        ],
+        "allocatable": {
+          "cpu": "10",
+          "ephemeral-storage": "479360260122",
+          "hugepages-1Gi": "0",
+          "hugepages-2Mi": "0",
+          "memory": "20448328Ki",
+          "pods": "110"
+        },
+        "capacity": {
+          "cpu": "10",
+          "ephemeral-storage": "520139172Ki",
+          "hugepages-1Gi": "0",
+          "hugepages-2Mi": "0",
+          "memory": "20550728Ki",
+          "pods": "110"
+        },
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2021-10-13T14:01:58Z",
+            "lastTransitionTime": "2021-10-13T14:01:58Z",
+            "message": "Weave pod has set this",
+            "reason": "WeaveIsUp",
+            "status": "False",
+            "type": "NetworkUnavailable"
+          },
+          {
+            "lastHeartbeatTime": "2021-10-13T14:01:36Z",
+            "lastTransitionTime": "2021-10-13T14:04:09Z",
+            "message": "Kubelet stopped posting node status.",
+            "reason": "NodeStatusUnknown",
+            "status": "Unknown",
+            "type": "MemoryPressure"
+          },
+          {
+            "lastHeartbeatTime": "2021-10-13T14:01:36Z",
+            "lastTransitionTime": "2021-10-13T14:04:09Z",
+            "message": "Kubelet stopped posting node status.",
+            "reason": "NodeStatusUnknown",
+            "status": "Unknown",
+            "type": "DiskPressure"
+          },
+          {
+            "lastHeartbeatTime": "2021-10-13T14:01:36Z",
+            "lastTransitionTime": "2021-10-13T14:04:09Z",
+            "message": "Kubelet stopped posting node status.",
+            "reason": "NodeStatusUnknown",
+            "status": "Unknown",
+            "type": "PIDPressure"
+          },
+          {
+            "lastHeartbeatTime": "2021-10-13T14:01:36Z",
+            "lastTransitionTime": "2021-10-13T14:04:09Z",
+            "message": "Kubelet stopped posting node status.",
+            "reason": "NodeStatusUnknown",
+            "status": "Unknown",
+            "type": "Ready"
+          }
+        ],
+        "daemonEndpoints": {
+          "kubeletEndpoint": {
+            "Port": 10250
+          }
+        },
+        "images": [
+          {
+            "names": [
+              "docker/app2@sha256:2abe9f688eef933f26edf67acd347e9eea97f99cecc44349ab8533ec05385937",
+              "docker/app2:372cb73"
+            ],
+            "sizeBytes": 1255488542
+          },
+          {
+            "names": [
+              "docker/app8@sha256:e36eb7b0ec09023b24e508cd9b24c8f2f5e64107d31dd93f8a7a8fdc8b03b894",
+              "docker/app8:488c29f"
+            ],
+            "sizeBytes": 675351849
+          },
+          {
+            "names": [
+              "docker/app5@sha256:0aa682ee2a961cd99fb28019f6b9cd69d7183783afac7b412f75af4079340538",
+              "docker/app5:1078c4f"
+            ],
+            "sizeBytes": 491752126
+          },
+          {
+            "names": [
+              "docker.io/replicated/kurl-util:v2021.10.08-0"
+            ],
+            "sizeBytes": 428420158
+          },
+          {
+            "names": [
+              "k8s.gcr.io/etcd:3.4.13-0"
+            ],
+            "sizeBytes": 254659261
+          },
+          {
+            "names": [
+              "docker/registry-agent@sha256:cf4e4126c81e5acbfa6f7f27b51a34acf69e08030dd189517f0848a088e44da8",
+              "docker/registry-agent:1.4"
+            ],
+            "sizeBytes": 185349753
+          },
+          {
+            "names": [
+              "docker/app7@sha256:6168760d4bb2a6a41cb8722a8cdc98d445b9bbaa8193fabc9bef16b44302a0b6",
+              "docker/app7:6864d9a"
+            ],
+            "sizeBytes": 176917585
+          },
+          {
+            "names": [
+              "docker/database@sha256:50fb390f0b9175cd6ca26796e1d87d0d7acb7e54cb63b14ed973edf1d9049dc3",
+              "docker/database:4.4.8-v1.6"
+            ],
+            "sizeBytes": 171199901
+          },
+          {
+            "names": [
+              "docker/logging-agent@sha256:db7d4b4bfb841cf0897c48d2ac64bf0a7985febdd533de82deddb07942aff933",
+              "docker/logging-agent:2.0.38"
+            ],
+            "sizeBytes": 158042263
+          },
+          {
+            "names": [
+              "docker/api@sha256:3aaad0be10bfeca83a091e222618d295b18355ed55e694c266e5f16d419650cc",
+              "docker/api:b8d18f3"
+            ],
+            "sizeBytes": 150236542
+          },
+          {
+            "names": [
+              "docker.io/weaveworks/weaveexec:2.6.5"
+            ],
+            "sizeBytes": 149996059
+          },
+          {
+            "names": [
+              "docker/app6@sha256:786059339574f08d2779a3e52a39818daff9e28a175b1d1d2854236d5a1f2105",
+              "docker/app6:372cb73"
+            ],
+            "sizeBytes": 146711168
+          },
+          {
+            "names": [
+              "docker/app6@sha256:e74b13b117c6da92d4fb7771df27ceaf3f7b084abbb3d247fc56eec815b6ccf6",
+              "docker/app6:cb9c925"
+            ],
+            "sizeBytes": 146635922
+          },
+          {
+            "names": [
+              "docker/app9@sha256:8726431916aa90fa38421a8d390141753b7678a4956d0280a4d8cf17631bde01",
+              "docker/app9:372cb73"
+            ],
+            "sizeBytes": 142578316
+          },
+          {
+            "names": [
+              "docker/queue-publisher@sha256:6b0f92acb969cd629205a6deca9a62c003b7bf10be5cd8ae591bff275e1649c6",
+              "docker/queue-publisher:1.29"
+            ],
+            "sizeBytes": 139327888
+          },
+          {
+            "names": [
+              "docker/app1@sha256:ec160db6745fb0ea57eb43e38841637795f729bf9ad37bd8641248475594b9c1",
+              "docker/app1:372cb73"
+            ],
+            "sizeBytes": 137796170
+          },
+          {
+            "names": [
+              "docker/migration-barrier@sha256:1e0ee265837f107bcad33c0e88804019a181d75e9914c263d6678a0630b0bd66",
+              "docker/migration-barrier:372cb73"
+            ],
+            "sizeBytes": 137793455
+          },
+          {
+            "names": [
+              "docker/migrator@sha256:2fc495287718a1c052669cb6a5c6eed78b7c83f6364070ae4062a2d1b715029f",
+              "docker/migrator:372cb73"
+            ],
+            "sizeBytes": 137718263
+          },
+          {
+            "names": [
+              "docker/queue-consumer@sha256:2b566a5b79610075ddcffaa48a7b01871001a148deaaf2f19ac849f05007d196",
+              "docker/queue-consumer:1.30"
+            ],
+            "sizeBytes": 137610606
+          },
+          {
+            "names": [
+              "docker/app10@sha256:7565eb6886d2cdbe9d7aa4e9aae17ba4a4d549bb67e3d00c029b3e770f5ed6bb",
+              "docker/app10:372cb73"
+            ],
+            "sizeBytes": 137481494
+          },
+          {
+            "names": [
+              "docker/app3@sha256:c74da0d028a28efea0ccbce76653805fe6b84268a91ddb4e336eec7bbfa3a556",
+              "docker/app3:488c29f"
+            ],
+            "sizeBytes": 133033960
+          },
+          {
+            "names": [
+              "docker.io/weaveworks/weave-kube:2.6.5"
+            ],
+            "sizeBytes": 124221097
+          },
+          {
+            "names": [
+              "k8s.gcr.io/kube-apiserver:v1.19.15"
+            ],
+            "sizeBytes": 120125746
+          },
+          {
+            "names": [
+              "k8s.gcr.io/kube-controller-manager:v1.19.15"
+            ],
+            "sizeBytes": 112097614
+          },
+          {
+            "names": [
+              "k8s.gcr.io/kube-proxy:v1.19.15"
+            ],
+            "sizeBytes": 100748383
+          },
+          {
+            "names": [
+              "docker/app4@sha256:49042f4ae09eb4a12227aa218cccead4c722619aeb43b71878f99eecafc16112",
+              "docker/app4:488c29f"
+            ],
+            "sizeBytes": 95051007
+          },
+          {
+            "names": [
+              "docker/queue@sha256:3d6a40ad4b6240c72f5fdc0db37b18d1733476cd332e2a68af86376560bd0627",
+              "docker/queue:3.8.18-management-alpine-v1.3"
+            ],
+            "sizeBytes": 85857294
+          },
+          {
+            "names": [
+              "k8s.gcr.io/kube-scheduler:v1.19.15"
+            ],
+            "sizeBytes": 47741243
+          },
+          {
+            "names": [
+              "docker/init-container@sha256:3a08c1aab2ae7110ff603ae6e55d8c316d16b054adb86c72ca3fc6e89bfa9e77",
+              "docker/init-container:1.4"
+            ],
+            "sizeBytes": 47577832
+          },
+          {
+            "names": [
+              "k8s.gcr.io/coredns:1.7.0"
+            ],
+            "sizeBytes": 45355487
+          },
+          {
+            "names": [
+              "docker.io/weaveworks/weave-npc:2.6.5"
+            ],
+            "sizeBytes": 37190078
+          },
+          {
+            "names": [
+              "docker/telegraf@sha256:802359edd058c5c1155028b786093f4f6ef1b833cec51abee09325e3e2208ad3",
+              "docker/telegraf:1.6"
+            ],
+            "sizeBytes": 26218223
+          },
+          {
+            "names": [
+              "docker/database-ping@sha256:4d3b5e26e644a6b35cb7037b439c9dd007b9b9c9b0bb0b9368ace7b1d89b4940",
+              "docker/database-ping:1.1"
+            ],
+            "sizeBytes": 21764623
+          },
+          {
+            "names": [
+              "docker/queue-ping@sha256:acc66b826e17bf87128fdcbe3d58556d02ff7bcac534ebc4e0bf188282e6c12c",
+              "docker/queue-ping:1.1"
+            ],
+            "sizeBytes": 21550380
+          },
+          {
+            "names": [
+              "docker/license-parser@sha256:fe39123b3b15ffd8f6c3c1cc083b598626a0732748945312cf18cb6caa1dde81",
+              "docker/license-parser:1.2"
+            ],
+            "sizeBytes": 6455354
+          },
+          {
+            "names": [
+              "k8s.gcr.io/pause:3.2"
+            ],
+            "sizeBytes": 685729
+          }
+        ],
+        "nodeInfo": {
+          "architecture": "amd64",
+          "bootID": "f6eff07a-8bae-4109-abf1-bc3da7bf952c",
+          "containerRuntimeVersion": "containerd://1.4.6",
+          "kernelVersion": "5.0.0-1025-gcp",
+          "kubeProxyVersion": "v1.19.15",
+          "kubeletVersion": "v1.19.15",
+          "machineID": "95aecbc7e74afb583d8e0cad8eab9500",
+          "operatingSystem": "linux",
+          "osImage": "Ubuntu 18.04.3 LTS",
+          "systemUUID": "95aecbc7-e74a-fb58-3d8e-0cad8eab9500"
+        }
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

@@ -1,0 +1,5384 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-7455c74b9c-hdt7r",
+        "namespace": "ci",
+        "resourceVersion": "94203744",
+        "uid": "fd0d62e2-2f2e-4d5f-a69b-5fc0588d6ecc"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Stopping container api",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "api-7455c74b9c-hdt7r.16ad4cff8fad807b",
+        "namespace": "ci",
+        "resourceVersion": "1298840",
+        "selfLink": "/api/v1/namespaces/ci/events/api-7455c74b9c-hdt7r.16ad4cff8fad807b",
+        "uid": "1ef74f7f-0cff-4630-b4cd-5d287ebf3829"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "api-7455c74b9c-hdt7r",
+        "namespace": "ci",
+        "resourceVersion": "94203744",
+        "uid": "fd0d62e2-2f2e-4d5f-a69b-5fc0588d6ecc"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "api-7455c74b9c-hdt7r.16ad4cff8faf3883",
+        "namespace": "ci",
+        "resourceVersion": "1298842",
+        "selfLink": "/api/v1/namespaces/ci/events/api-7455c74b9c-hdt7r.16ad4cff8faf3883",
+        "uid": "fb5c87ad-5e35-4045-a372-f2c2cbcdca40"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "api-7455c74b9c",
+        "namespace": "ci",
+        "resourceVersion": "94228590",
+        "uid": "4b96efc3-340f-408f-b623-a2da1dc6ceea"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Deleted pod: api-7455c74b9c-hdt7r",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "api-7455c74b9c.16ad4cff8f9e4851",
+        "namespace": "ci",
+        "resourceVersion": "1298841",
+        "selfLink": "/api/v1/namespaces/ci/events/api-7455c74b9c.16ad4cff8f9e4851",
+        "uid": "4c4c7bac-0994-453d-b102-959fa61637b0"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:16Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228037",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:16Z",
+      "message": "Waiting for pod to become healthy in at least one of the NEG(s): [k8s1-8e05844f-ci-api-nodeport-80-17a206fe]",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:16Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf56c13448d",
+        "namespace": "ci",
+        "resourceVersion": "1298714",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf56c13448d",
+        "uid": "05ee2daf-a160-402e-beca-d2eb073d6810"
+      },
+      "reason": "LoadBalancerNegNotReady",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "neg-readiness-reflector"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:16Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228037",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:16Z",
+      "message": "Successfully assigned ci/api-d4bd6d886-v9r55 to node-pool--19cbb605-22h0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:16Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf56df945d8",
+        "namespace": "ci",
+        "resourceVersion": "1298715",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf56df945d8",
+        "uid": "28ebfc5c-6fba-4f54-a03d-e2ea8407daa1"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:20Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:20Z",
+      "message": "Container image \"docker/database-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:20Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf6646c067f",
+        "namespace": "ci",
+        "resourceVersion": "1298742",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf6646c067f",
+        "uid": "da517d82-3a8d-4616-a52b-2357af56617b"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:20Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:20Z",
+      "message": "Created container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:20Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf66644808e",
+        "namespace": "ci",
+        "resourceVersion": "1298743",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf66644808e",
+        "uid": "d646bdb7-7b14-4cb2-b52d-cfe9219baa9a"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:21Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:21Z",
+      "message": "Started container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:21Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf66b4e6b26",
+        "namespace": "ci",
+        "resourceVersion": "1298744",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf66b4e6b26",
+        "uid": "b26aa718-03c8-4234-9cae-4aec033e8922"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Container image \"docker/queue-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf6b66a9f7a",
+        "namespace": "ci",
+        "resourceVersion": "1298757",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf6b66a9f7a",
+        "uid": "f8b369e3-98c4-4e3f-bdb3-77e0b80d3afe"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Created container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf6b8912fb9",
+        "namespace": "ci",
+        "resourceVersion": "1298758",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf6b8912fb9",
+        "uid": "f742f505-ff23-46c0-9cee-8abc2fb87427"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Started container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf6bdb9940f",
+        "namespace": "ci",
+        "resourceVersion": "1298760",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf6bdb9940f",
+        "uid": "a08ecf75-1bd1-47c3-9ea6-d6978acf0145"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{init-container}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Container image \"docker/init-container:1.4\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf6f248b3fc",
+        "namespace": "ci",
+        "resourceVersion": "1298764",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf6f248b3fc",
+        "uid": "894d8fa3-31a6-4c9b-a9cb-2c30e6ee7278"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{init-container}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Created container init-container",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf6f476d9cc",
+        "namespace": "ci",
+        "resourceVersion": "1298765",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf6f476d9cc",
+        "uid": "573a5574-aeba-492b-984e-712c13a83af1"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{init-container}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Started container init-container",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cf6f9af7599",
+        "namespace": "ci",
+        "resourceVersion": "1298766",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cf6f9af7599",
+        "uid": "b30f4bf9-1674-4146-baeb-b889234fc130"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:37Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{run-migrations}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:37Z",
+      "message": "Pulling image \"docker/migrator:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:37Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfa3852eb2d",
+        "namespace": "ci",
+        "resourceVersion": "1298794",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfa3852eb2d",
+        "uid": "fc1c1d1c-ee36-4c83-a908-b1bcbd556359"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:38Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{run-migrations}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:38Z",
+      "message": "Successfully pulled image \"docker/migrator:ebd6c1e\" in 888.465383ms",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:38Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfa6d4849b1",
+        "namespace": "ci",
+        "resourceVersion": "1298795",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfa6d4849b1",
+        "uid": "5992fe7f-2e46-4ed2-a12a-be452e5d612b"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:38Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{run-migrations}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:38Z",
+      "message": "Created container run-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:38Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfa72815edd",
+        "namespace": "ci",
+        "resourceVersion": "1298796",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfa72815edd",
+        "uid": "8dbae7ad-945b-41e3-a65d-1571d59ceb7a"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:38Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{run-migrations}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:38Z",
+      "message": "Started container run-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:38Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfa77681593",
+        "namespace": "ci",
+        "resourceVersion": "1298797",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfa77681593",
+        "uid": "8aa022dd-8b32-4b55-b541-a7bc41d681dd"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:40Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:40Z",
+      "message": "Pulling image \"docker/api:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:40Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfaec1cbcff",
+        "namespace": "ci",
+        "resourceVersion": "1298799",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfaec1cbcff",
+        "uid": "16d34be4-c42c-4720-bc05-827d1add2953"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Successfully pulled image \"docker/api:ebd6c1e\" in 1.836699074s",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfb5996e005",
+        "namespace": "ci",
+        "resourceVersion": "1298803",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfb5996e005",
+        "uid": "d7b75bde-ea27-487c-b61a-5672fccd475f"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Created container api",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfb5bc8850b",
+        "namespace": "ci",
+        "resourceVersion": "1298804",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfb5bc8850b",
+        "uid": "6b65712a-a541-4092-9401-18957bd1641e"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Started container api",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfb61f3b093",
+        "namespace": "ci",
+        "resourceVersion": "1298806",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfb61f3b093",
+        "uid": "c2894bbf-654e-42ae-bd43-483c823645f3"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Container image \"docker/queue-consumer:1.30\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfb6200f64c",
+        "namespace": "ci",
+        "resourceVersion": "1298807",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfb6200f64c",
+        "uid": "58a22676-d9dd-4edb-95d8-e6c9912ff632"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Created container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfb6467783e",
+        "namespace": "ci",
+        "resourceVersion": "1298809",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfb6467783e",
+        "uid": "931b7ca2-212b-4bc7-bc47-804e9f383cae"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228045",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Started container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfb6d83fe3c",
+        "namespace": "ci",
+        "resourceVersion": "1298811",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfb6d83fe3c",
+        "uid": "dfe0ac48-b9c2-4ffd-807e-587b8132fa70"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:55Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "api-d4bd6d886-v9r55",
+        "namespace": "ci",
+        "resourceVersion": "94228416",
+        "uid": "7cdf1e71-0c00-4466-afd8-ba7328478706"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:55Z",
+      "message": "Pod has become Healthy in NEG \"Key{\\\"k8s1-8e05844f-ci-api-nodeport-80-17a206fe\\\", zone: \\\"us-central1-c\\\"}\" attached to BackendService \"Key{\\\"k8s1-8e05844f-ci-api-nodeport-80-17a206fe\\\"}\". Marking condition \"cloud.google.com/load-balancer-neg-ready\" to True.",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:55Z",
+        "name": "api-d4bd6d886-v9r55.16ad4cfe7fa35a0b",
+        "namespace": "ci",
+        "resourceVersion": "1298829",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886-v9r55.16ad4cfe7fa35a0b",
+        "uid": "f69715fe-6373-4729-bd50-11a9b6ca7e01"
+      },
+      "reason": "LoadBalancerNegReady",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "neg-readiness-reflector"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:16Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "api-d4bd6d886",
+        "namespace": "ci",
+        "resourceVersion": "94228027",
+        "uid": "7e53436c-ec3c-4886-b095-3b875c83da76"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:16Z",
+      "message": "Created pod: api-d4bd6d886-v9r55",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:16Z",
+        "name": "api-d4bd6d886.16ad4cf56c60cb5d",
+        "namespace": "ci",
+        "resourceVersion": "1298713",
+        "selfLink": "/api/v1/namespaces/ci/events/api-d4bd6d886.16ad4cf56c60cb5d",
+        "uid": "dabb6c9b-f174-45bf-b2a5-0dd35fc71c34"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 30,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-06T07:56:32Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "name": "api-nodeport",
+        "namespace": "ci",
+        "resourceVersion": "3290334",
+        "uid": "72cf699e-7d22-4450-a2fd-6d3c3ae559e2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Attach 1 network endpoint(s) (NEG \"k8s1-8e05844f-ci-api-nodeport-80-17a206fe\" in zone \"us-central1-c\")",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T12:53:47Z",
+        "name": "api-nodeport.16ab61f471be6c32",
+        "namespace": "ci",
+        "resourceVersion": "1298763",
+        "selfLink": "/api/v1/namespaces/ci/events/api-nodeport.16ab61f471be6c32",
+        "uid": "262b5e5e-dd9c-4fed-9010-1e80d1ac963b"
+      },
+      "reason": "Attach",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "neg-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 30,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-06T07:57:19Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "name": "api-nodeport",
+        "namespace": "ci",
+        "resourceVersion": "3290334",
+        "uid": "72cf699e-7d22-4450-a2fd-6d3c3ae559e2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:07Z",
+      "message": "Detach 1 network endpoint(s) (NEG \"k8s1-8e05844f-ci-api-nodeport-80-17a206fe\" in zone \"us-central1-c\")",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:07Z",
+        "name": "api-nodeport.16ab61ff88d954f3",
+        "namespace": "ci",
+        "resourceVersion": "1298869",
+        "selfLink": "/api/v1/namespaces/ci/events/api-nodeport.16ab61ff88d954f3",
+        "uid": "f7af2474-950f-4bde-9326-c3f3470221d2"
+      },
+      "reason": "Detach",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "neg-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:16Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "api",
+        "namespace": "ci",
+        "resourceVersion": "94228026",
+        "uid": "87cc127f-b691-489f-9d36-fb6110ce0eca"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:16Z",
+      "message": "Scaled up replica set api-d4bd6d886 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:16Z",
+        "name": "api.16ad4cf5677e8c13",
+        "namespace": "ci",
+        "resourceVersion": "1298708",
+        "selfLink": "/api/v1/namespaces/ci/events/api.16ad4cf5677e8c13",
+        "uid": "f902ccce-04cc-4cbe-aaee-485ec7c21784"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "api",
+        "namespace": "ci",
+        "resourceVersion": "94228060",
+        "uid": "87cc127f-b691-489f-9d36-fb6110ce0eca"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Scaled down replica set api-7455c74b9c to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "api.16ad4cff8f150cf9",
+        "namespace": "ci",
+        "resourceVersion": "1298839",
+        "selfLink": "/api/v1/namespaces/ci/events/api.16ad4cff8f150cf9",
+        "uid": "b599f470-c491-4152-81a8-9807b20a7e48"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:16Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app10}",
+        "kind": "Pod",
+        "name": "app10-676d7ccd9b-99jr5",
+        "namespace": "ci",
+        "resourceVersion": "94155301",
+        "uid": "dac23e85-070a-4472-acae-505ce5265cc1"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:16Z",
+      "message": "Stopping container app10",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:16Z",
+        "name": "app10-676d7ccd9b-99jr5.16ad4cf56a196f8b",
+        "namespace": "ci",
+        "resourceVersion": "1298711",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-676d7ccd9b-99jr5.16ad4cf56a196f8b",
+        "uid": "110126ee-3c2a-4040-be8a-54c3a0193dbe"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:16Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app10-676d7ccd9b-99jr5",
+        "namespace": "ci",
+        "resourceVersion": "94155301",
+        "uid": "dac23e85-070a-4472-acae-505ce5265cc1"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:16Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:16Z",
+        "name": "app10-676d7ccd9b-99jr5.16ad4cf56a1a35c4",
+        "namespace": "ci",
+        "resourceVersion": "1298712",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-676d7ccd9b-99jr5.16ad4cf56a1a35c4",
+        "uid": "ac604919-b1b2-4fbe-9f66-f1194090b2ea"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:16Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app10-676d7ccd9b",
+        "namespace": "ci",
+        "resourceVersion": "94228030",
+        "uid": "2e6ed0af-147e-46ec-b5cb-a0c0ad465f49"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:16Z",
+      "message": "Deleted pod: app10-676d7ccd9b-99jr5",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:16Z",
+        "name": "app10-676d7ccd9b.16ad4cf56a201f7d",
+        "namespace": "ci",
+        "resourceVersion": "1298710",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-676d7ccd9b.16ad4cf56a201f7d",
+        "uid": "6cdaff6b-59e8-412d-aaa6-5b8b7a147af7"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228207",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Successfully assigned ci/app10-88f945469-fd2sd to node-pool--19cbb605-22h0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "app10-88f945469-fd2sd.16ad4cf6fe2f0da6",
+        "namespace": "ci",
+        "resourceVersion": "1298769",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cf6fe2f0da6",
+        "uid": "38ac7064-3822-4a06-aa9f-dfe53145780a"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:24Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:24Z",
+      "message": "Container image \"docker/database-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:24Z",
+        "name": "app10-88f945469-fd2sd.16ad4cf734c99951",
+        "namespace": "ci",
+        "resourceVersion": "1298773",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cf734c99951",
+        "uid": "ec5867b6-1fa4-4d18-8018-e1b2fa156109"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:24Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:24Z",
+      "message": "Created container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:24Z",
+        "name": "app10-88f945469-fd2sd.16ad4cf73740b942",
+        "namespace": "ci",
+        "resourceVersion": "1298774",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cf73740b942",
+        "uid": "166af95c-1495-4df1-8eaa-f39e2afbb2fa"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:24Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:24Z",
+      "message": "Started container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:24Z",
+        "name": "app10-88f945469-fd2sd.16ad4cf73cd7b692",
+        "namespace": "ci",
+        "resourceVersion": "1298775",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cf73cd7b692",
+        "uid": "b1b8cfc8-ee72-44a8-b208-1f4951290a29"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:25Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:25Z",
+      "message": "Container image \"docker/migration-barrier:ebd6c1e\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:25Z",
+        "name": "app10-88f945469-fd2sd.16ad4cf76a8172ee",
+        "namespace": "ci",
+        "resourceVersion": "1298776",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cf76a8172ee",
+        "uid": "266622c1-07f3-4d43-9e9a-234314d5d55e"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:25Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:25Z",
+      "message": "Created container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:25Z",
+        "name": "app10-88f945469-fd2sd.16ad4cf76d7e5fa7",
+        "namespace": "ci",
+        "resourceVersion": "1298777",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cf76d7e5fa7",
+        "uid": "d4259351-1164-40cb-a022-af2cfe25e946"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:25Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:25Z",
+      "message": "Started container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:25Z",
+        "name": "app10-88f945469-fd2sd.16ad4cf773735df6",
+        "namespace": "ci",
+        "resourceVersion": "1298778",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cf773735df6",
+        "uid": "dcd2325d-9e2d-4471-a4c0-d44699feaa8c"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Container image \"docker/queue-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfb63dab3d2",
+        "namespace": "ci",
+        "resourceVersion": "1298808",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfb63dab3d2",
+        "uid": "79174b36-2073-49cb-9af2-abb029d6f2fb"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Created container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfb6a845f1f",
+        "namespace": "ci",
+        "resourceVersion": "1298810",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfb6a845f1f",
+        "uid": "a1bbbffb-b73b-40a6-80c9-d8631d8a882e"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Started container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfb712833da",
+        "namespace": "ci",
+        "resourceVersion": "1298812",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfb712833da",
+        "uid": "c0fbac57-d2ec-4581-8fa3-2d6e9bac73f1"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:43Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app10}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:43Z",
+      "message": "Pulling image \"docker/app10:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:43Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfba0a99371",
+        "namespace": "ci",
+        "resourceVersion": "1298814",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfba0a99371",
+        "uid": "a0bb4b42-f645-4855-81b4-12508296fc41"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app10}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:44Z",
+      "message": "Successfully pulled image \"docker/app10:ebd6c1e\" in 1.0315991s",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:44Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfbde2718eb",
+        "namespace": "ci",
+        "resourceVersion": "1298820",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfbde2718eb",
+        "uid": "1035dcf5-c1c4-480f-96df-42d50bfbba51"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app10}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:44Z",
+      "message": "Created container app10",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:44Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfbe4f2afbe",
+        "namespace": "ci",
+        "resourceVersion": "1298821",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfbe4f2afbe",
+        "uid": "c8388761-072b-4c31-8bce-8e858f19da0e"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app10}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:44Z",
+      "message": "Started container app10",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:44Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfbeb9ef9c9",
+        "namespace": "ci",
+        "resourceVersion": "1298822",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfbeb9ef9c9",
+        "uid": "551bde61-beba-4344-9565-ea907b3a7836"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:44Z",
+      "message": "Container image \"docker/queue-consumer:1.30\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:44Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfbebaad196",
+        "namespace": "ci",
+        "resourceVersion": "1298823",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfbebaad196",
+        "uid": "ff86304c-751d-4c46-8f91-2f460ad76354"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:44Z",
+      "message": "Created container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:44Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfbee59400e",
+        "namespace": "ci",
+        "resourceVersion": "1298824",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfbee59400e",
+        "uid": "a5629566-03be-4725-b501-1b4bac46f6c0"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app10-88f945469-fd2sd",
+        "namespace": "ci",
+        "resourceVersion": "94228210",
+        "uid": "04c35b70-c2a2-4310-932d-3fd749250f7f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:44Z",
+      "message": "Started container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:44Z",
+        "name": "app10-88f945469-fd2sd.16ad4cfbf3cfb7a4",
+        "namespace": "ci",
+        "resourceVersion": "1298825",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469-fd2sd.16ad4cfbf3cfb7a4",
+        "uid": "d879002d-3ecb-4465-b9db-f8ad5f9b351c"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app10-88f945469",
+        "namespace": "ci",
+        "resourceVersion": "94228204",
+        "uid": "701f88f1-bb23-4d26-8788-f3f9b90719f5"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Created pod: app10-88f945469-fd2sd",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "app10-88f945469.16ad4cf6fcd32d7b",
+        "namespace": "ci",
+        "resourceVersion": "1298768",
+        "selfLink": "/api/v1/namespaces/ci/events/app10-88f945469.16ad4cf6fcd32d7b",
+        "uid": "9e51bdeb-a49a-42f5-94cc-4ba5783b5d3b"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:16Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app10",
+        "namespace": "ci",
+        "resourceVersion": "94228029",
+        "uid": "8fd585b1-0968-43cd-9281-7eaa8577278f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:16Z",
+      "message": "Scaled down replica set app10-676d7ccd9b to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:16Z",
+        "name": "app10.16ad4cf56904ddce",
+        "namespace": "ci",
+        "resourceVersion": "1298709",
+        "selfLink": "/api/v1/namespaces/ci/events/app10.16ad4cf56904ddce",
+        "uid": "25cdae3f-1374-4908-8c1b-2a55bf5fc940"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app10",
+        "namespace": "ci",
+        "resourceVersion": "94228047",
+        "uid": "8fd585b1-0968-43cd-9281-7eaa8577278f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Scaled up replica set app10-88f945469 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "app10.16ad4cf6fbac7ef5",
+        "namespace": "ci",
+        "resourceVersion": "1298767",
+        "selfLink": "/api/v1/namespaces/ci/events/app10.16ad4cf6fbac7ef5",
+        "uid": "eb56a0cf-521c-4b60-8e87-e10b0e085c76"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6}",
+        "kind": "Pod",
+        "name": "app6-6c875fd7cf-5thwd",
+        "namespace": "ci",
+        "resourceVersion": "94155309",
+        "uid": "63eef220-1e1d-4eb4-8f04-0418aa9c1853"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Stopping container app6",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-6c875fd7cf-5thwd.16ad4cf59dac6d92",
+        "namespace": "ci",
+        "resourceVersion": "1298728",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-6c875fd7cf-5thwd.16ad4cf59dac6d92",
+        "uid": "5b96c0cc-d71b-492d-a0c1-edea327e0fa7"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-6c875fd7cf-5thwd",
+        "namespace": "ci",
+        "resourceVersion": "94155309",
+        "uid": "63eef220-1e1d-4eb4-8f04-0418aa9c1853"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-6c875fd7cf-5thwd.16ad4cf59dad095e",
+        "namespace": "ci",
+        "resourceVersion": "1298727",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-6c875fd7cf-5thwd.16ad4cf59dad095e",
+        "uid": "721574e6-1aff-4949-8c52-eba093f51fe0"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-6c875fd7cf",
+        "namespace": "ci",
+        "resourceVersion": "94228120",
+        "uid": "1e711651-c02e-45a5-bc17-5f640f3d671f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Deleted pod: app6-6c875fd7cf-5thwd",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-6c875fd7cf.16ad4cf59d904bec",
+        "namespace": "ci",
+        "resourceVersion": "1298726",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-6c875fd7cf.16ad4cf59d904bec",
+        "uid": "e1347de1-b852-42bb-9503-e49d7e8df8ad"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228223",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Successfully assigned ci/app6-75cb4696db-24wpn to node-pool--19cbb605-xyfl",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cf7045bd156",
+        "namespace": "ci",
+        "resourceVersion": "1298771",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cf7045bd156",
+        "uid": "d456de27-66c0-4171-b1e4-048191903373"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:27Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:27Z",
+      "message": "Container image \"docker/database-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:27Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cf7f81b91bf",
+        "namespace": "ci",
+        "resourceVersion": "1298779",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cf7f81b91bf",
+        "uid": "5f92943b-3600-4107-842c-63304999ce04"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:27Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:27Z",
+      "message": "Created container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:27Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cf7f9e8f8e6",
+        "namespace": "ci",
+        "resourceVersion": "1298780",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cf7f9e8f8e6",
+        "uid": "e1594b63-b248-4980-9057-8267a2eb7478"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:27Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:27Z",
+      "message": "Started container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:27Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cf7ff4eac99",
+        "namespace": "ci",
+        "resourceVersion": "1298781",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cf7ff4eac99",
+        "uid": "580ec2d7-b9c0-4cf5-a59e-8cf472071787"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:29Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:29Z",
+      "message": "Container image \"docker/migration-barrier:ebd6c1e\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:29Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cf855745008",
+        "namespace": "ci",
+        "resourceVersion": "1298782",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cf855745008",
+        "uid": "8b6be615-e40c-445b-94f3-0a2324bc153c"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:29Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:29Z",
+      "message": "Created container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:29Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cf8572a366e",
+        "namespace": "ci",
+        "resourceVersion": "1298783",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cf8572a366e",
+        "uid": "e382aae9-06f1-40bc-8240-ba6fc60d0a0e"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:29Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:29Z",
+      "message": "Started container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:29Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cf85c1e6a8c",
+        "namespace": "ci",
+        "resourceVersion": "1298784",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cf85c1e6a8c",
+        "uid": "abfaf2d8-656f-4b7f-a1f4-030e960a6b5d"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:41Z",
+      "message": "Container image \"docker/queue-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:41Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfb22a28468",
+        "namespace": "ci",
+        "resourceVersion": "1298800",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfb22a28468",
+        "uid": "44e02d26-627d-4c74-a580-9c47e53720c5"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:41Z",
+      "message": "Created container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:41Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfb2533228e",
+        "namespace": "ci",
+        "resourceVersion": "1298801",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfb2533228e",
+        "uid": "63916c3b-9589-490a-8dea-899d1c921340"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:41Z",
+      "message": "Started container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:41Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfb2aaac314",
+        "namespace": "ci",
+        "resourceVersion": "1298802",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfb2aaac314",
+        "uid": "02f9e607-e2e9-4513-b3ba-a5c8bbf9e84d"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:42Z",
+      "message": "Pulling image \"docker/app6:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:42Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfb5e810fa6",
+        "namespace": "ci",
+        "resourceVersion": "1298805",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfb5e810fa6",
+        "uid": "a3c7d622-6580-4f36-8772-5a70a8f0e6dc"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:43Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:43Z",
+      "message": "Successfully pulled image \"docker/app6:ebd6c1e\" in 987.169695ms",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:43Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfb9958628a",
+        "namespace": "ci",
+        "resourceVersion": "1298813",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfb9958628a",
+        "uid": "dc629f9c-cf08-4aeb-aa59-f6e2958e0d87"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:43Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:43Z",
+      "message": "Created container app6",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:43Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfba2c32848",
+        "namespace": "ci",
+        "resourceVersion": "1298815",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfba2c32848",
+        "uid": "d73e8bba-72e0-4f9f-9524-57e1061862c1"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:43Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:43Z",
+      "message": "Started container app6",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:43Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfba8a23e2a",
+        "namespace": "ci",
+        "resourceVersion": "1298816",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfba8a23e2a",
+        "uid": "42a29b36-6ed3-41ea-9b7e-4fe7481f8b4f"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:43Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:43Z",
+      "message": "Container image \"docker/queue-consumer:1.30\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:43Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfba8ae3844",
+        "namespace": "ci",
+        "resourceVersion": "1298817",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfba8ae3844",
+        "uid": "424d5f53-0842-4ea2-ac91-d1994ec003ad"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:43Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:43Z",
+      "message": "Created container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:43Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfbaa5ed4ef",
+        "namespace": "ci",
+        "resourceVersion": "1298818",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfbaa5ed4ef",
+        "uid": "198fda2d-c143-479d-932c-95f41cd9e6f1"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:43Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-75cb4696db-24wpn",
+        "namespace": "ci",
+        "resourceVersion": "94228224",
+        "uid": "3aea6d97-a33a-4926-9ae7-b31b32dcae37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:43Z",
+      "message": "Started container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:43Z",
+        "name": "app6-75cb4696db-24wpn.16ad4cfbafe7ca6e",
+        "namespace": "ci",
+        "resourceVersion": "1298819",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db-24wpn.16ad4cfbafe7ca6e",
+        "uid": "0eec2d33-f05b-41a5-aa6a-873aab1785eb"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-75cb4696db",
+        "namespace": "ci",
+        "resourceVersion": "94228219",
+        "uid": "e0b7ebac-7929-4969-a7a8-9f2f9738ba06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Created pod: app6-75cb4696db-24wpn",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "app6-75cb4696db.16ad4cf7036af086",
+        "namespace": "ci",
+        "resourceVersion": "1298772",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-75cb4696db.16ad4cf7036af086",
+        "uid": "4dddfb99-7c7d-4ed3-b868-a0668916a64d"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "app6-go-68b65b8894-cl4dq",
+        "namespace": "ci",
+        "resourceVersion": "94228106",
+        "uid": "1cf07298-1b7b-438b-91bd-07a501b56153"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Successfully assigned ci/app6-go-68b65b8894-cl4dq to node-pool--19cbb605-xyfl",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-go-68b65b8894-cl4dq.16ad4cf598432e38",
+        "namespace": "ci",
+        "resourceVersion": "1298723",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go-68b65b8894-cl4dq.16ad4cf598432e38",
+        "uid": "41a2c72a-8728-4bd7-8b62-86ebe1f30f57"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:21Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-go-68b65b8894-cl4dq",
+        "namespace": "ci",
+        "resourceVersion": "94228107",
+        "uid": "1cf07298-1b7b-438b-91bd-07a501b56153"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:21Z",
+      "message": "Pulling image \"docker/migration-barrier:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:21Z",
+        "name": "app6-go-68b65b8894-cl4dq.16ad4cf68d413e70",
+        "namespace": "ci",
+        "resourceVersion": "1298746",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go-68b65b8894-cl4dq.16ad4cf68d413e70",
+        "uid": "2f766049-8d33-4da3-987d-9b2eaee3657a"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-go-68b65b8894-cl4dq",
+        "namespace": "ci",
+        "resourceVersion": "94228107",
+        "uid": "1cf07298-1b7b-438b-91bd-07a501b56153"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Successfully pulled image \"docker/migration-barrier:ebd6c1e\" in 804.692752ms",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "app6-go-68b65b8894-cl4dq.16ad4cf6bd38adf3",
+        "namespace": "ci",
+        "resourceVersion": "1298759",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go-68b65b8894-cl4dq.16ad4cf6bd38adf3",
+        "uid": "95a81262-d309-4559-bfb7-a0b839a57d46"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-go-68b65b8894-cl4dq",
+        "namespace": "ci",
+        "resourceVersion": "94228107",
+        "uid": "1cf07298-1b7b-438b-91bd-07a501b56153"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Created container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "app6-go-68b65b8894-cl4dq.16ad4cf6c689aa49",
+        "namespace": "ci",
+        "resourceVersion": "1298761",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go-68b65b8894-cl4dq.16ad4cf6c689aa49",
+        "uid": "2a5ab936-fa27-42ff-ac6c-b557aa4c7668"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-go-68b65b8894-cl4dq",
+        "namespace": "ci",
+        "resourceVersion": "94228107",
+        "uid": "1cf07298-1b7b-438b-91bd-07a501b56153"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Started container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "app6-go-68b65b8894-cl4dq.16ad4cf6cbb166f9",
+        "namespace": "ci",
+        "resourceVersion": "1298762",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go-68b65b8894-cl4dq.16ad4cf6cbb166f9",
+        "uid": "e236887a-2d47-44b5-b2de-9d3b4c22f75f"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-go-68b65b8894",
+        "namespace": "ci",
+        "resourceVersion": "94228104",
+        "uid": "1818c754-8965-4e4a-b19b-1cd1ae3593f1"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Created pod: app6-go-68b65b8894-cl4dq",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-go-68b65b8894.16ad4cf5978ffea7",
+        "namespace": "ci",
+        "resourceVersion": "1298722",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go-68b65b8894.16ad4cf5978ffea7",
+        "uid": "b3bd0aa7-b86a-4229-808e-a27fb3675d2f"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:34Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-go-68b65b8894",
+        "namespace": "ci",
+        "resourceVersion": "94228320",
+        "uid": "1818c754-8965-4e4a-b19b-1cd1ae3593f1"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Deleted pod: app6-go-68b65b8894-cl4dq",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:34Z",
+        "name": "app6-go-68b65b8894.16ad4cf9833461d5",
+        "namespace": "ci",
+        "resourceVersion": "1298791",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go-68b65b8894.16ad4cf9833461d5",
+        "uid": "1d048a3a-9baa-44b4-8a5e-1d294405ffd4"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-go",
+        "namespace": "ci",
+        "resourceVersion": "94228073",
+        "uid": "2478fbdc-26b3-4017-baea-f89cea91a366"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Scaled up replica set app6-go-68b65b8894 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-go.16ad4cf596ceb009",
+        "namespace": "ci",
+        "resourceVersion": "1298732",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go.16ad4cf596ceb009",
+        "uid": "2f68abfe-3aa0-4733-b5df-bd08af40b4af"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:34Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-go",
+        "namespace": "ci",
+        "resourceVersion": "94228314",
+        "uid": "2478fbdc-26b3-4017-baea-f89cea91a366"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Scaled down replica set app6-go-68b65b8894 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:34Z",
+        "name": "app6-go.16ad4cf981089de7",
+        "namespace": "ci",
+        "resourceVersion": "1298789",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-go.16ad4cf981089de7",
+        "uid": "a7015638-5198-4bb4-98d1-05589755fd93"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "app6-kotlin-58bb757596-lpz6t",
+        "namespace": "ci",
+        "resourceVersion": "94228077",
+        "uid": "072ad6a7-3a63-4a20-9403-5b2c671e417c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Successfully assigned ci/app6-kotlin-58bb757596-lpz6t to node-pool--19cbb605-kdzc",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-kotlin-58bb757596-lpz6t.16ad4cf57c679973",
+        "namespace": "ci",
+        "resourceVersion": "1298717",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin-58bb757596-lpz6t.16ad4cf57c679973",
+        "uid": "a80f4af8-f337-4189-9125-83bc81b40a4b"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:21Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-kotlin-58bb757596-lpz6t",
+        "namespace": "ci",
+        "resourceVersion": "94228079",
+        "uid": "072ad6a7-3a63-4a20-9403-5b2c671e417c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:21Z",
+      "message": "Pulling image \"docker/migration-barrier:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:21Z",
+        "name": "app6-kotlin-58bb757596-lpz6t.16ad4cf66f9b641b",
+        "namespace": "ci",
+        "resourceVersion": "1298745",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin-58bb757596-lpz6t.16ad4cf66f9b641b",
+        "uid": "b3cee5f5-44e3-46aa-8194-e3d2c0e34fd9"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:21Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-kotlin-58bb757596-lpz6t",
+        "namespace": "ci",
+        "resourceVersion": "94228079",
+        "uid": "072ad6a7-3a63-4a20-9403-5b2c671e417c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:21Z",
+      "message": "Successfully pulled image \"docker/migration-barrier:ebd6c1e\" in 811.410879ms",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:21Z",
+        "name": "app6-kotlin-58bb757596-lpz6t.16ad4cf69ff8dade",
+        "namespace": "ci",
+        "resourceVersion": "1298750",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin-58bb757596-lpz6t.16ad4cf69ff8dade",
+        "uid": "be79ed35-75e4-499d-b21d-d9d44438e370"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-kotlin-58bb757596-lpz6t",
+        "namespace": "ci",
+        "resourceVersion": "94228079",
+        "uid": "072ad6a7-3a63-4a20-9403-5b2c671e417c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Created container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "app6-kotlin-58bb757596-lpz6t.16ad4cf6a9083666",
+        "namespace": "ci",
+        "resourceVersion": "1298752",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin-58bb757596-lpz6t.16ad4cf6a9083666",
+        "uid": "4ae5872b-c005-4908-9202-37bbb5584750"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-kotlin-58bb757596-lpz6t",
+        "namespace": "ci",
+        "resourceVersion": "94228079",
+        "uid": "072ad6a7-3a63-4a20-9403-5b2c671e417c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Started container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "app6-kotlin-58bb757596-lpz6t.16ad4cf6aea8e83e",
+        "namespace": "ci",
+        "resourceVersion": "1298755",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin-58bb757596-lpz6t.16ad4cf6aea8e83e",
+        "uid": "5a731bbe-addb-4466-be89-e0ceb9606772"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-kotlin-58bb757596",
+        "namespace": "ci",
+        "resourceVersion": "94228072",
+        "uid": "d7585a29-6ec2-4621-852e-66aa69e52b17"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Created pod: app6-kotlin-58bb757596-lpz6t",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-kotlin-58bb757596.16ad4cf57bafc0e2",
+        "namespace": "ci",
+        "resourceVersion": "1298716",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin-58bb757596.16ad4cf57bafc0e2",
+        "uid": "45a9b526-2ff6-4342-862d-eeb734413f5d"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:34Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-kotlin-58bb757596",
+        "namespace": "ci",
+        "resourceVersion": "94228312",
+        "uid": "d7585a29-6ec2-4621-852e-66aa69e52b17"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Deleted pod: app6-kotlin-58bb757596-lpz6t",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:34Z",
+        "name": "app6-kotlin-58bb757596.16ad4cf9810119b6",
+        "namespace": "ci",
+        "resourceVersion": "1298788",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin-58bb757596.16ad4cf9810119b6",
+        "uid": "70bdab6c-71b0-43d4-b57f-85588a8e4d0c"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-kotlin",
+        "namespace": "ci",
+        "resourceVersion": "94228071",
+        "uid": "99dce328-e093-4f69-b886-9b85dd8e96b7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Scaled up replica set app6-kotlin-58bb757596 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-kotlin.16ad4cf57a77fa80",
+        "namespace": "ci",
+        "resourceVersion": "1298720",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin.16ad4cf57a77fa80",
+        "uid": "a3e495ed-9511-47bd-94d4-2caa1bcd2fe4"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:34Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-kotlin",
+        "namespace": "ci",
+        "resourceVersion": "94228310",
+        "uid": "99dce328-e093-4f69-b886-9b85dd8e96b7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Scaled down replica set app6-kotlin-58bb757596 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:34Z",
+        "name": "app6-kotlin.16ad4cf97e674511",
+        "namespace": "ci",
+        "resourceVersion": "1298786",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-kotlin.16ad4cf97e674511",
+        "uid": "11a3cbd4-46b0-46af-b619-9d2c664fe7a3"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "app6-python-69bc4cdb78-4rcdt",
+        "namespace": "ci",
+        "resourceVersion": "94228086",
+        "uid": "9fc6ebc2-cda6-4505-980d-9002559c54df"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Successfully assigned ci/app6-python-69bc4cdb78-4rcdt to node-pool--19cbb605-22h0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-python-69bc4cdb78-4rcdt.16ad4cf57f864950",
+        "namespace": "ci",
+        "resourceVersion": "1298719",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python-69bc4cdb78-4rcdt.16ad4cf57f864950",
+        "uid": "21904edf-3d27-4fbf-8d68-90b0ccabf128"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:20Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-python-69bc4cdb78-4rcdt",
+        "namespace": "ci",
+        "resourceVersion": "94228087",
+        "uid": "9fc6ebc2-cda6-4505-980d-9002559c54df"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:20Z",
+      "message": "Pulling image \"docker/migration-barrier:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:20Z",
+        "name": "app6-python-69bc4cdb78-4rcdt.16ad4cf6627b2f79",
+        "namespace": "ci",
+        "resourceVersion": "1298741",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python-69bc4cdb78-4rcdt.16ad4cf6627b2f79",
+        "uid": "430d0a99-95ec-4bee-96fa-4b47be41b1dd"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:21Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-python-69bc4cdb78-4rcdt",
+        "namespace": "ci",
+        "resourceVersion": "94228087",
+        "uid": "9fc6ebc2-cda6-4505-980d-9002559c54df"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:21Z",
+      "message": "Successfully pulled image \"docker/migration-barrier:ebd6c1e\" in 938.431093ms",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:21Z",
+        "name": "app6-python-69bc4cdb78-4rcdt.16ad4cf69a6bc904",
+        "namespace": "ci",
+        "resourceVersion": "1298748",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python-69bc4cdb78-4rcdt.16ad4cf69a6bc904",
+        "uid": "811f21da-2589-48cf-b45a-f5f75e1fd69b"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:21Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-python-69bc4cdb78-4rcdt",
+        "namespace": "ci",
+        "resourceVersion": "94228087",
+        "uid": "9fc6ebc2-cda6-4505-980d-9002559c54df"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:21Z",
+      "message": "Created container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:21Z",
+        "name": "app6-python-69bc4cdb78-4rcdt.16ad4cf69c2a659e",
+        "namespace": "ci",
+        "resourceVersion": "1298749",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python-69bc4cdb78-4rcdt.16ad4cf69c2a659e",
+        "uid": "ea45b61a-c770-4246-8831-b4e20ff98acb"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:21Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-python-69bc4cdb78-4rcdt",
+        "namespace": "ci",
+        "resourceVersion": "94228087",
+        "uid": "9fc6ebc2-cda6-4505-980d-9002559c54df"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:21Z",
+      "message": "Started container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:21Z",
+        "name": "app6-python-69bc4cdb78-4rcdt.16ad4cf6a1499062",
+        "namespace": "ci",
+        "resourceVersion": "1298751",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python-69bc4cdb78-4rcdt.16ad4cf6a1499062",
+        "uid": "1e49d452-9fbd-43ff-bea5-4b869caf5dd4"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-python-69bc4cdb78",
+        "namespace": "ci",
+        "resourceVersion": "94228080",
+        "uid": "60ff5400-602e-4ad0-8150-0d07c09f344a"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Created pod: app6-python-69bc4cdb78-4rcdt",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-python-69bc4cdb78.16ad4cf57ea6667a",
+        "namespace": "ci",
+        "resourceVersion": "1298718",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python-69bc4cdb78.16ad4cf57ea6667a",
+        "uid": "21975fe3-3d89-4029-9842-06ff0d7138ae"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:34Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-python-69bc4cdb78",
+        "namespace": "ci",
+        "resourceVersion": "94228311",
+        "uid": "60ff5400-602e-4ad0-8150-0d07c09f344a"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Deleted pod: app6-python-69bc4cdb78-4rcdt",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:34Z",
+        "name": "app6-python-69bc4cdb78.16ad4cf97f301924",
+        "namespace": "ci",
+        "resourceVersion": "1298787",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python-69bc4cdb78.16ad4cf97f301924",
+        "uid": "55204df7-a8af-4110-92e3-485b686e4eb5"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-python",
+        "namespace": "ci",
+        "resourceVersion": "94228070",
+        "uid": "f76c30b3-91a9-44c0-b28e-118834c66796"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Scaled up replica set app6-python-69bc4cdb78 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-python.16ad4cf57c87bcbc",
+        "namespace": "ci",
+        "resourceVersion": "1298721",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python.16ad4cf57c87bcbc",
+        "uid": "11ec8173-13af-4ffe-b66b-9e0c49bad686"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:34Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-python",
+        "namespace": "ci",
+        "resourceVersion": "94228309",
+        "uid": "f76c30b3-91a9-44c0-b28e-118834c66796"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Scaled down replica set app6-python-69bc4cdb78 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:34Z",
+        "name": "app6-python.16ad4cf97d658d04",
+        "namespace": "ci",
+        "resourceVersion": "1298785",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-python.16ad4cf97d658d04",
+        "uid": "dcf9ef38-61a3-4cc0-ae6c-9767e7533b25"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "app6-scala-7fcc7d9d56-2mbpc",
+        "namespace": "ci",
+        "resourceVersion": "94228115",
+        "uid": "c60284c0-2864-4d01-bead-89b9827c68f7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Successfully assigned ci/app6-scala-7fcc7d9d56-2mbpc to node-pool--19cbb605-kdzc",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-scala-7fcc7d9d56-2mbpc.16ad4cf59b8ac94d",
+        "namespace": "ci",
+        "resourceVersion": "1298725",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala-7fcc7d9d56-2mbpc.16ad4cf59b8ac94d",
+        "uid": "6c60213f-d4db-4918-8373-7d4234ba50ad"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:21Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-scala-7fcc7d9d56-2mbpc",
+        "namespace": "ci",
+        "resourceVersion": "94228116",
+        "uid": "c60284c0-2864-4d01-bead-89b9827c68f7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:21Z",
+      "message": "Pulling image \"docker/migration-barrier:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:21Z",
+        "name": "app6-scala-7fcc7d9d56-2mbpc.16ad4cf68e95adfb",
+        "namespace": "ci",
+        "resourceVersion": "1298747",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala-7fcc7d9d56-2mbpc.16ad4cf68e95adfb",
+        "uid": "57b9278b-5a1d-470f-a08b-41be4ee4dafc"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-scala-7fcc7d9d56-2mbpc",
+        "namespace": "ci",
+        "resourceVersion": "94228116",
+        "uid": "c60284c0-2864-4d01-bead-89b9827c68f7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Successfully pulled image \"docker/migration-barrier:ebd6c1e\" in 465.649271ms",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "app6-scala-7fcc7d9d56-2mbpc.16ad4cf6aa573992",
+        "namespace": "ci",
+        "resourceVersion": "1298753",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala-7fcc7d9d56-2mbpc.16ad4cf6aa573992",
+        "uid": "440f0482-a35e-4d9d-8d3e-a7c4a7a403a5"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-scala-7fcc7d9d56-2mbpc",
+        "namespace": "ci",
+        "resourceVersion": "94228116",
+        "uid": "c60284c0-2864-4d01-bead-89b9827c68f7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Created container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "app6-scala-7fcc7d9d56-2mbpc.16ad4cf6ac419db4",
+        "namespace": "ci",
+        "resourceVersion": "1298754",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala-7fcc7d9d56-2mbpc.16ad4cf6ac419db4",
+        "uid": "be9ce6f9-a7e2-4674-afc9-a13e6ebb3103"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app6-scala-7fcc7d9d56-2mbpc",
+        "namespace": "ci",
+        "resourceVersion": "94228116",
+        "uid": "c60284c0-2864-4d01-bead-89b9827c68f7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:22Z",
+      "message": "Started container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:22Z",
+        "name": "app6-scala-7fcc7d9d56-2mbpc.16ad4cf6b1e5eb68",
+        "namespace": "ci",
+        "resourceVersion": "1298756",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala-7fcc7d9d56-2mbpc.16ad4cf6b1e5eb68",
+        "uid": "d809b74b-6e9b-4abc-ae89-a44631159a09"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-scala-7fcc7d9d56",
+        "namespace": "ci",
+        "resourceVersion": "94228112",
+        "uid": "e2ff83d5-3b68-4bdc-a9f1-a12fc881f6da"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Created pod: app6-scala-7fcc7d9d56-2mbpc",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app6-scala-7fcc7d9d56.16ad4cf59b1204a8",
+        "namespace": "ci",
+        "resourceVersion": "1298724",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala-7fcc7d9d56.16ad4cf59b1204a8",
+        "uid": "be541972-1b09-4fea-845f-57c98bd9bfc3"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:34Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-scala-7fcc7d9d56",
+        "namespace": "ci",
+        "resourceVersion": "94228327",
+        "uid": "e2ff83d5-3b68-4bdc-a9f1-a12fc881f6da"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Deleted pod: app6-scala-7fcc7d9d56-2mbpc",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:34Z",
+        "name": "app6-scala-7fcc7d9d56.16ad4cf986b6f016",
+        "namespace": "ci",
+        "resourceVersion": "1298792",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala-7fcc7d9d56.16ad4cf986b6f016",
+        "uid": "cdcaf092-0c0e-4729-9a77-48683457ec14"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-scala",
+        "namespace": "ci",
+        "resourceVersion": "94228078",
+        "uid": "ea9f1c4b-62b3-4a3b-9e24-6c7adebb140b"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Scaled up replica set app6-scala-7fcc7d9d56 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:18Z",
+        "name": "app6-scala.16ad4cf599f21be7",
+        "namespace": "ci",
+        "resourceVersion": "1298733",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala.16ad4cf599f21be7",
+        "uid": "49cc6d53-151c-436d-938d-c7eabd675bd8"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:34Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-scala",
+        "namespace": "ci",
+        "resourceVersion": "94228319",
+        "uid": "ea9f1c4b-62b3-4a3b-9e24-6c7adebb140b"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Scaled down replica set app6-scala-7fcc7d9d56 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:34Z",
+        "name": "app6-scala.16ad4cf9833b6b3a",
+        "namespace": "ci",
+        "resourceVersion": "1298790",
+        "selfLink": "/api/v1/namespaces/ci/events/app6-scala.16ad4cf9833b6b3a",
+        "uid": "6f763b09-cc90-427f-a8c1-f5746d6cc916"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6",
+        "namespace": "ci",
+        "resourceVersion": "94228083",
+        "uid": "0d49ffc9-c15c-418c-b661-c9a672b33437"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Scaled down replica set app6-6c875fd7cf to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:18Z",
+        "name": "app6.16ad4cf59d32e114",
+        "namespace": "ci",
+        "resourceVersion": "1298737",
+        "selfLink": "/api/v1/namespaces/ci/events/app6.16ad4cf59d32e114",
+        "uid": "6b032bc3-4a10-489c-8881-584573e5a76f"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:23Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6",
+        "namespace": "ci",
+        "resourceVersion": "94228150",
+        "uid": "0d49ffc9-c15c-418c-b661-c9a672b33437"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:23Z",
+      "message": "Scaled up replica set app6-75cb4696db to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:23Z",
+        "name": "app6.16ad4cf7025d8bd6",
+        "namespace": "ci",
+        "resourceVersion": "1298770",
+        "selfLink": "/api/v1/namespaces/ci/events/app6.16ad4cf7025d8bd6",
+        "uid": "48927804-76a2-4b4b-a5ac-3053b9989df7"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app7}",
+        "kind": "Pod",
+        "name": "app7-5bfc758699-p2fvs",
+        "namespace": "ci",
+        "resourceVersion": "94155670",
+        "uid": "674ea989-57ca-4f28-ad2b-edc13aaf3cce"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Stopping container app7",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app7-5bfc758699-p2fvs.16ad4cf5a3fcddc6",
+        "namespace": "ci",
+        "resourceVersion": "1298730",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-5bfc758699-p2fvs.16ad4cf5a3fcddc6",
+        "uid": "a2239280-f230-4a76-a5e2-13f675429906"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app7-5bfc758699-p2fvs",
+        "namespace": "ci",
+        "resourceVersion": "94155670",
+        "uid": "674ea989-57ca-4f28-ad2b-edc13aaf3cce"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app7-5bfc758699-p2fvs.16ad4cf5a3fdbca8",
+        "namespace": "ci",
+        "resourceVersion": "1298731",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-5bfc758699-p2fvs.16ad4cf5a3fdbca8",
+        "uid": "a62fd691-47f9-45d9-aa86-181c4fbdeeeb"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app7-5bfc758699",
+        "namespace": "ci",
+        "resourceVersion": "94228128",
+        "uid": "5eb5d7ae-92d3-46ba-a986-23dfd1e118ea"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Deleted pod: app7-5bfc758699-p2fvs",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:17Z",
+        "name": "app7-5bfc758699.16ad4cf5a3c1a7bf",
+        "namespace": "ci",
+        "resourceVersion": "1298729",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-5bfc758699.16ad4cf5a3c1a7bf",
+        "uid": "ae47f315-0858-40cd-8596-751b41c9d532"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228546",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:56Z",
+      "message": "Successfully assigned ci/app7-6777c6ff96-kq6h8 to node-pool--19cbb605-kdzc",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:56Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4cfeacc016b5",
+        "namespace": "ci",
+        "resourceVersion": "1298832",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4cfeacc016b5",
+        "uid": "f70f686e-7d2e-443f-9a78-64d84c0b6639"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Container image \"docker/database-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4cffa08d3c8b",
+        "namespace": "ci",
+        "resourceVersion": "1298845",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4cffa08d3c8b",
+        "uid": "771c911e-7908-423f-94a6-87357300e9d9"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Created container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4cffa237dc86",
+        "namespace": "ci",
+        "resourceVersion": "1298847",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4cffa237dc86",
+        "uid": "7fae968f-ed56-41c7-91bc-013de51475c0"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Started container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4cffa703bc29",
+        "namespace": "ci",
+        "resourceVersion": "1298848",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4cffa703bc29",
+        "uid": "8d45f2e4-9165-415a-b2a4-01a3fa771c39"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:01Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:01Z",
+      "message": "Container image \"docker/migration-barrier:ebd6c1e\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:01Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4cffd6844a87",
+        "namespace": "ci",
+        "resourceVersion": "1298850",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4cffd6844a87",
+        "uid": "ff757cb6-fddc-49a1-8ba9-3e15fd42c923"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:01Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:01Z",
+      "message": "Created container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:01Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4cffd82623d1",
+        "namespace": "ci",
+        "resourceVersion": "1298851",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4cffd82623d1",
+        "uid": "3325804a-21b7-431a-a668-852ce8f70535"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:01Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:01Z",
+      "message": "Started container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:01Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4cffdcde7c62",
+        "namespace": "ci",
+        "resourceVersion": "1298852",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4cffdcde7c62",
+        "uid": "78f278e6-0e49-4341-ae0c-20f1abfa62b2"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:03Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:03Z",
+      "message": "Container image \"docker/queue-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:03Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d004e2ada73",
+        "namespace": "ci",
+        "resourceVersion": "1298859",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d004e2ada73",
+        "uid": "607bd1e0-0a7d-4bf1-bb33-461d7e2da756"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:03Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:03Z",
+      "message": "Created container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:03Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d004fac9268",
+        "namespace": "ci",
+        "resourceVersion": "1298860",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d004fac9268",
+        "uid": "0ea97a9d-0c76-441f-8e48-d3606aeb2aa4"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:03Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:03Z",
+      "message": "Started container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:03Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d0054b84e87",
+        "namespace": "ci",
+        "resourceVersion": "1298861",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d0054b84e87",
+        "uid": "21319f3f-9405-49cb-92f8-3f69fee3745d"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:04Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app7}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:04Z",
+      "message": "Pulling image \"docker/app7:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:04Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d008a6cef57",
+        "namespace": "ci",
+        "resourceVersion": "1298862",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d008a6cef57",
+        "uid": "758dd72a-b8e6-486f-b556-ff8100763e2a"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:05Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app7}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:05Z",
+      "message": "Successfully pulled image \"docker/app7:ebd6c1e\" in 1.338161255s",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:05Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d00da3026ac",
+        "namespace": "ci",
+        "resourceVersion": "1298863",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d00da3026ac",
+        "uid": "b6864c52-6c06-430a-aea1-87e90ade6f00"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:06Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app7}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:06Z",
+      "message": "Created container app7",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:06Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d00f4b5e706",
+        "namespace": "ci",
+        "resourceVersion": "1298864",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d00f4b5e706",
+        "uid": "6c75aee2-eb2a-402f-9cc6-de35670f7296"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:06Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app7}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:06Z",
+      "message": "Started container app7",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:06Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d00f940b82c",
+        "namespace": "ci",
+        "resourceVersion": "1298865",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d00f940b82c",
+        "uid": "c8631fcc-5774-4e60-94e6-e18463c835bc"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:06Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:06Z",
+      "message": "Container image \"docker/queue-consumer:1.30\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:06Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d00f94a82a8",
+        "namespace": "ci",
+        "resourceVersion": "1298866",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d00f94a82a8",
+        "uid": "75c402f5-342e-4ffe-af24-d62996681dc6"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:06Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:06Z",
+      "message": "Created container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:06Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d00fae6fbff",
+        "namespace": "ci",
+        "resourceVersion": "1298867",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d00fae6fbff",
+        "uid": "224ee969-79c8-4ca1-9bd4-bea6dcf089d0"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:06Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app7-6777c6ff96-kq6h8",
+        "namespace": "ci",
+        "resourceVersion": "94228548",
+        "uid": "a80dda5c-7dfa-4bc9-904f-36bbdce86eb3"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:06Z",
+      "message": "Started container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:06Z",
+        "name": "app7-6777c6ff96-kq6h8.16ad4d00ffacb429",
+        "namespace": "ci",
+        "resourceVersion": "1298868",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96-kq6h8.16ad4d00ffacb429",
+        "uid": "cf34f112-f056-48a4-8ffe-8504da870558"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:56Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app7-6777c6ff96",
+        "namespace": "ci",
+        "resourceVersion": "94228543",
+        "uid": "3bd731a5-10f1-4ecb-8188-fe001c09ae8e"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:56Z",
+      "message": "Created pod: app7-6777c6ff96-kq6h8",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:56Z",
+        "name": "app7-6777c6ff96.16ad4cfeabbe4f01",
+        "namespace": "ci",
+        "resourceVersion": "1298831",
+        "selfLink": "/api/v1/namespaces/ci/events/app7-6777c6ff96.16ad4cfeabbe4f01",
+        "uid": "94798477-5042-49fc-be4e-dcbc4154ffce"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:17Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app7",
+        "namespace": "ci",
+        "resourceVersion": "94228091",
+        "uid": "83c4b4c2-0a44-4e73-bceb-47240bf29d05"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:17Z",
+      "message": "Scaled down replica set app7-5bfc758699 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:18Z",
+        "name": "app7.16ad4cf5a368185f",
+        "namespace": "ci",
+        "resourceVersion": "1298738",
+        "selfLink": "/api/v1/namespaces/ci/events/app7.16ad4cf5a368185f",
+        "uid": "95c4d129-410f-43a7-9d08-f7004eab2f71"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:56Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app7",
+        "namespace": "ci",
+        "resourceVersion": "94228152",
+        "uid": "83c4b4c2-0a44-4e73-bceb-47240bf29d05"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:56Z",
+      "message": "Scaled up replica set app7-6777c6ff96 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:56Z",
+        "name": "app7.16ad4cfeab05acb4",
+        "namespace": "ci",
+        "resourceVersion": "1298830",
+        "selfLink": "/api/v1/namespaces/ci/events/app7.16ad4cfeab05acb4",
+        "uid": "ee366c09-250d-4243-be9f-c2a36df9424b"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 188,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-06T02:36:51Z",
+      "involvedObject": {
+        "apiVersion": "networking.k8s.io/v1beta1",
+        "kind": "Ingress",
+        "name": "ingress",
+        "namespace": "ci",
+        "resourceVersion": "29243290",
+        "uid": "3b317112-5331-4038-ada6-5cb3aa027afe"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T14:26:51Z",
+      "message": "Scheduled for sync",
+      "metadata": {
+        "creationTimestamp": "2021-10-06T02:36:51Z",
+        "name": "ingress.16ab508298f03d4d",
+        "namespace": "ci",
+        "resourceVersion": "1298902",
+        "selfLink": "/api/v1/namespaces/ci/events/ingress.16ab508298f03d4d",
+        "uid": "7d1ce336-1df1-4265-b1b4-bbaee5804eef"
+      },
+      "reason": "Sync",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "loadbalancer-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app9}",
+        "kind": "Pod",
+        "name": "app9-5965b85fc7-nchvk",
+        "namespace": "ci",
+        "resourceVersion": "94155342",
+        "uid": "72bde7ca-2984-4f98-9f36-3a6f83530351"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:18Z",
+      "message": "Stopping container app9",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:18Z",
+        "name": "app9-5965b85fc7-nchvk.16ad4cf5c10caea0",
+        "namespace": "ci",
+        "resourceVersion": "1298735",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-5965b85fc7-nchvk.16ad4cf5c10caea0",
+        "uid": "71d6d3b4-96c5-421e-b9cf-637b17a720e6"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app9-5965b85fc7-nchvk",
+        "namespace": "ci",
+        "resourceVersion": "94155342",
+        "uid": "72bde7ca-2984-4f98-9f36-3a6f83530351"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:18Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:18Z",
+        "name": "app9-5965b85fc7-nchvk.16ad4cf5c10d38d0",
+        "namespace": "ci",
+        "resourceVersion": "1298736",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-5965b85fc7-nchvk.16ad4cf5c10d38d0",
+        "uid": "cf46e8da-a84a-4f96-b012-44240b04960c"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 2,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:19Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app9}",
+        "kind": "Pod",
+        "name": "app9-5965b85fc7-nchvk",
+        "namespace": "ci",
+        "resourceVersion": "94155342",
+        "uid": "72bde7ca-2984-4f98-9f36-3a6f83530351"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:34Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) Failed to connect to localhost port 8095: Connection refused\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:19Z",
+        "name": "app9-5965b85fc7-nchvk.16ad4cf62b1f3b25",
+        "namespace": "ci",
+        "resourceVersion": "1298793",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-5965b85fc7-nchvk.16ad4cf62b1f3b25",
+        "uid": "c07999af-d20e-46ad-bec8-e15c350e65ba"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app9-5965b85fc7",
+        "namespace": "ci",
+        "resourceVersion": "94228138",
+        "uid": "3ef66ceb-6c19-425c-93ea-74bc117f7402"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:18Z",
+      "message": "Deleted pod: app9-5965b85fc7-nchvk",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:18Z",
+        "name": "app9-5965b85fc7.16ad4cf5c0f649f5",
+        "namespace": "ci",
+        "resourceVersion": "1298734",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-5965b85fc7.16ad4cf5c0f649f5",
+        "uid": "cd5d0d68-c55d-4dbf-9623-434417afdf48"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:53Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228514",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:53Z",
+      "message": "Successfully assigned ci/app9-686954f8d6-ntsw2 to node-pool--19cbb605-kdzc",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:53Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cfdf9868488",
+        "namespace": "ci",
+        "resourceVersion": "1298828",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cfdf9868488",
+        "uid": "b9e9eba8-084b-447f-bce9-9d86f5f53032"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:57Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:57Z",
+      "message": "Container image \"docker/database-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:57Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cfedaec5c05",
+        "namespace": "ci",
+        "resourceVersion": "1298833",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cfedaec5c05",
+        "uid": "1b7a7322-58d9-4f82-97ab-4ec3b12bc317"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:57Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:57Z",
+      "message": "Created container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:57Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cfede4ffb6c",
+        "namespace": "ci",
+        "resourceVersion": "1298834",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cfede4ffb6c",
+        "uid": "0df2e1a1-6a56-4755-ba2b-e918d6ee3666"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:57Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-database}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:57Z",
+      "message": "Started container wait-for-database",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:57Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cfee2f28d26",
+        "namespace": "ci",
+        "resourceVersion": "1298835",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cfee2f28d26",
+        "uid": "2b00be9e-6148-47cb-8d86-9d84299039b6"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:58Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:58Z",
+      "message": "Container image \"docker/migration-barrier:ebd6c1e\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:58Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cff22fb79f0",
+        "namespace": "ci",
+        "resourceVersion": "1298836",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cff22fb79f0",
+        "uid": "27dfda5c-573c-4201-a3de-653c284a762c"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:58Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:58Z",
+      "message": "Created container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:58Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cff24c2f87e",
+        "namespace": "ci",
+        "resourceVersion": "1298837",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cff24c2f87e",
+        "uid": "f8d43517-be69-45a6-85dd-1cd6f7b58353"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:58Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-migrations}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:58Z",
+      "message": "Started container wait-for-migrations",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:58Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cff2987bed0",
+        "namespace": "ci",
+        "resourceVersion": "1298838",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cff2987bed0",
+        "uid": "074cda38-99a1-490c-8243-020154485f1d"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Container image \"docker/queue-ping:1.1\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cff9a9b107e",
+        "namespace": "ci",
+        "resourceVersion": "1298843",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cff9a9b107e",
+        "uid": "a3dbb8e6-a8dc-4f3c-a5f8-770683e61578"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Created container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cff9c6cd69a",
+        "namespace": "ci",
+        "resourceVersion": "1298844",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cff9c6cd69a",
+        "uid": "18bb9d95-9103-43d1-b6cd-ace65bac5b90"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.initContainers{wait-for-queue}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:00Z",
+      "message": "Started container wait-for-queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:00Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cffa1d0eb33",
+        "namespace": "ci",
+        "resourceVersion": "1298846",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cffa1d0eb33",
+        "uid": "f6d385a1-b246-4211-a8e9-cb5562f7f8a3"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:01Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app9}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:01Z",
+      "message": "Pulling image \"docker/app9:ebd6c1e\"",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:01Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4cffd671bbd2",
+        "namespace": "ci",
+        "resourceVersion": "1298849",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4cffd671bbd2",
+        "uid": "3d70a680-3564-42a9-b9fd-d4ffa07caab8"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:02Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app9}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:02Z",
+      "message": "Successfully pulled image \"docker/app9:ebd6c1e\" in 1.023665845s",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:02Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4d001375ec1d",
+        "namespace": "ci",
+        "resourceVersion": "1298853",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4d001375ec1d",
+        "uid": "8da1e3c1-b22c-441b-ab96-fd6072b92840"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:02Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app9}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:02Z",
+      "message": "Created container app9",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:02Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4d002269fbc8",
+        "namespace": "ci",
+        "resourceVersion": "1298854",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4d002269fbc8",
+        "uid": "c59369e4-3868-45b1-9728-575a18a78c59"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:02Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app9}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:02Z",
+      "message": "Started container app9",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:02Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4d0027216ed0",
+        "namespace": "ci",
+        "resourceVersion": "1298855",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4d0027216ed0",
+        "uid": "bafd5714-299e-414a-99eb-6f653985687d"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:02Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:02Z",
+      "message": "Container image \"docker/queue-consumer:1.30\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:02Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4d00272cf76e",
+        "namespace": "ci",
+        "resourceVersion": "1298856",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4d00272cf76e",
+        "uid": "9c60301c-a1a1-402f-ba70-755c38e91bdb"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:02Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:02Z",
+      "message": "Created container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:02Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4d0028ee4d35",
+        "namespace": "ci",
+        "resourceVersion": "1298857",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4d0028ee4d35",
+        "uid": "84e75892-436a-49a0-93cb-4c371b16b130"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:55:02Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app9-686954f8d6-ntsw2",
+        "namespace": "ci",
+        "resourceVersion": "94228515",
+        "uid": "3e009a1d-a711-4daa-9c78-ca6c7bffaaa8"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:55:02Z",
+      "message": "Started container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:55:02Z",
+        "name": "app9-686954f8d6-ntsw2.16ad4d002ec38eeb",
+        "namespace": "ci",
+        "resourceVersion": "1298858",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6-ntsw2.16ad4d002ec38eeb",
+        "uid": "d63dea73-41fc-4262-87ac-47f5bd1e0dd4"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "node-pool--19cbb605-kdzc"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:53Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app9-686954f8d6",
+        "namespace": "ci",
+        "resourceVersion": "94228511",
+        "uid": "729532b9-866c-4287-8f45-bb37489d18ce"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:53Z",
+      "message": "Created pod: app9-686954f8d6-ntsw2",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:53Z",
+        "name": "app9-686954f8d6.16ad4cfdf8fcbb3c",
+        "namespace": "ci",
+        "resourceVersion": "1298827",
+        "selfLink": "/api/v1/namespaces/ci/events/app9-686954f8d6.16ad4cfdf8fcbb3c",
+        "uid": "1a9f385b-e352-4a0f-931e-fce134928304"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app9",
+        "namespace": "ci",
+        "resourceVersion": "94228096",
+        "uid": "7c7b3b54-8e6e-4bf4-bdbd-b6c3f0917e37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:18Z",
+      "message": "Scaled down replica set app9-5965b85fc7 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:18Z",
+        "name": "app9.16ad4cf5c0a8ab2c",
+        "namespace": "ci",
+        "resourceVersion": "1298739",
+        "selfLink": "/api/v1/namespaces/ci/events/app9.16ad4cf5c0a8ab2c",
+        "uid": "905d588d-5d65-4945-a149-f7d5a6cf6614"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T13:54:53Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app9",
+        "namespace": "ci",
+        "resourceVersion": "94228157",
+        "uid": "7c7b3b54-8e6e-4bf4-bdbd-b6c3f0917e37"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-12T13:54:53Z",
+      "message": "Scaled up replica set app9-686954f8d6 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-12T13:54:53Z",
+        "name": "app9.16ad4cfdf7d4c2f5",
+        "namespace": "ci",
+        "resourceVersion": "1298826",
+        "selfLink": "/api/v1/namespaces/ci/events/app9.16ad4cfdf7d4c2f5",
+        "uid": "c1c37050-9bb9-4026-bf48-a64d213c0469"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

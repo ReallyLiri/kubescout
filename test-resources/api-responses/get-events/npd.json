@@ -1,0 +1,128 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "count": 29,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-07T05:24:18Z",
+      "involvedObject": {
+        "kind": "Node",
+        "name": "node-pool--19cbb605-22h0",
+        "uid": "node-pool--19cbb605-22h0"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-14T05:24:18Z",
+      "metadata": {
+        "creationTimestamp": "2021-10-14T05:24:18Z",
+        "name": "node-pool--19cbb605-22h0.16aba83a48466a13",
+        "namespace": "default",
+        "resourceVersion": "1302507",
+        "selfLink": "/api/v1/namespaces/default/events/node-pool--19cbb605-22h0.16aba83a48466a13",
+        "uid": "32583633-5b3f-4433-9e6c-d57f2825b322"
+      },
+      "reason": "NodeSysctlChange",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "sysctl-monitor",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-14T06:10:48Z",
+      "involvedObject": {
+        "kind": "Node",
+        "name": "node-pool--19cbb605-22h0",
+        "uid": "node-pool--19cbb605-22h0"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-14T06:10:48Z",
+      "message": "kernel: BUG: unable to handle kernel NULL pointer dereference at TESTING",
+      "metadata": {
+        "creationTimestamp": "2021-10-14T06:10:48Z",
+        "name": "node-pool--19cbb605-22h0.16add0d3ee20926f",
+        "namespace": "default",
+        "resourceVersion": "1302531",
+        "selfLink": "/api/v1/namespaces/default/events/node-pool--19cbb605-22h0.16add0d3ee20926f",
+        "uid": "e0bc9322-324f-45ea-9b97-57a02b876871"
+      },
+      "reason": "KernelOops",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kernel-monitor",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-14T06:10:48Z",
+      "involvedObject": {
+        "kind": "Node",
+        "name": "node-pool--19cbb605-22h0",
+        "uid": "node-pool--19cbb605-22h0"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-14T06:10:48Z",
+      "message": "kernel: BUG: unable to handle kernel NULL pointer dereference at TESTING",
+      "metadata": {
+        "creationTimestamp": "2021-10-14T06:10:48Z",
+        "name": "node-pool--19cbb605-22h0.16add0d3ee215876",
+        "namespace": "default",
+        "resourceVersion": "1302530",
+        "selfLink": "/api/v1/namespaces/default/events/node-pool--19cbb605-22h0.16add0d3ee215876",
+        "uid": "b7ab7257-a79e-44d6-b506-21169d8c26ef"
+      },
+      "reason": "KernelOops",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kernel-monitor",
+        "host": "node-pool--19cbb605-22h0"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 29,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-07T05:24:25Z",
+      "involvedObject": {
+        "kind": "Node",
+        "name": "node-pool--19cbb605-xyfl",
+        "uid": "node-pool--19cbb605-xyfl"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-14T05:24:25Z",
+      "metadata": {
+        "creationTimestamp": "2021-10-14T05:24:25Z",
+        "name": "node-pool--19cbb605-xyfl.16aba83bf7a41e66",
+        "namespace": "default",
+        "resourceVersion": "1302508",
+        "selfLink": "/api/v1/namespaces/default/events/node-pool--19cbb605-xyfl.16aba83bf7a41e66",
+        "uid": "11385289-1471-4968-88a5-ea4af443dad4"
+      },
+      "reason": "NodeSysctlChange",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "sysctl-monitor",
+        "host": "node-pool--19cbb605-xyfl"
+      },
+      "type": "Warning"
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

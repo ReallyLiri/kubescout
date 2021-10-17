@@ -1,0 +1,174 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "creationTimestamp": "2021-07-18T08:56:08Z",
+        "labels": {
+          "fullname": "IdanE_test"
+        },
+        "name": "268133375b594469a557ecb5da",
+        "resourceVersion": "29747228",
+        "selfLink": "/api/v1/namespaces/268133375b594469a557ecb5da",
+        "uid": "2ce3173f-ea16-463b-b13c-a30f8c73462f"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "creationTimestamp": "2021-06-10T12:36:12Z",
+        "labels": {
+          "fullname": "test_env"
+        },
+        "name": "4c8711cad2a644ffbf28bbb0b1",
+        "resourceVersion": "5448854",
+        "selfLink": "/api/v1/namespaces/4c8711cad2a644ffbf28bbb0b1",
+        "uid": "44c56c7b-dac9-4548-9f15-03ecb191c85e"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "creationTimestamp": "2021-10-07T12:55:38Z",
+        "labels": {
+          "fullname": "twitch"
+        },
+        "name": "7fd0ebe5431642bb9b3e7f0577",
+        "resourceVersion": "82460114",
+        "selfLink": "/api/v1/namespaces/7fd0ebe5431642bb9b3e7f0577",
+        "uid": "973def56-3c5f-475a-9317-ea7bb60fd2d0"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "creationTimestamp": "2021-06-02T09:35:23Z",
+        "name": "default",
+        "resourceVersion": "149",
+        "selfLink": "/api/v1/namespaces/default",
+        "uid": "f2e2cc53-c1bf-4f2c-a020-4251b8be0d3c"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "creationTimestamp": "2021-07-15T08:09:18Z",
+        "labels": {
+          "fullname": "board-test"
+        },
+        "name": "e850ef3fa3c74d28a4480ec975",
+        "resourceVersion": "27776303",
+        "selfLink": "/api/v1/namespaces/e850ef3fa3c74d28a4480ec975",
+        "uid": "8c0e7aef-afed-421e-b0fd-650a501c982c"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "creationTimestamp": "2021-06-02T09:35:21Z",
+        "name": "kube-node-lease",
+        "resourceVersion": "37",
+        "selfLink": "/api/v1/namespaces/kube-node-lease",
+        "uid": "c4e08456-1110-4340-816f-5c530459638d"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "creationTimestamp": "2021-06-02T09:35:21Z",
+        "name": "kube-public",
+        "resourceVersion": "33",
+        "selfLink": "/api/v1/namespaces/kube-public",
+        "uid": "01f4273a-5594-48cc-9362-9dbe611da597"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "creationTimestamp": "2021-06-02T09:35:21Z",
+        "name": "kube-system",
+        "resourceVersion": "7",
+        "selfLink": "/api/v1/namespaces/kube-system",
+        "uid": "020e99af-3ec8-42f4-bb60-6cf2739bd8dd"
+      },
+      "spec": {
+        "finalizers": [
+          "kubernetes"
+        ]
+      },
+      "status": {
+        "phase": "Active"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

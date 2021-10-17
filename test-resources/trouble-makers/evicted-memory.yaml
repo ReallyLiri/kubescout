@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-bomb
+spec:
+  initContainers:
+    - name: wait-for-database
+      image: "docker/database-ping:1.1"
+  containers:
+  - name: memory-bomb-container
+    image: debian
+    command: ["/bin/sh"]
+    args: ["-c", "</dev/zero head -c 32G | tail"] ## replace 4 GB with the available RAM on a node
+  restartPolicy: OnFailure
