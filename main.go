@@ -81,7 +81,7 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 	}
 
 	alert := sink.Alert{
-		CustomerName: configuration.ClusterName,
+		ClusterName: configuration.ClusterName,
 		Content:      relevantMessages,
 	}
 	return alertSink.Report(alert)

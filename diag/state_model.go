@@ -6,35 +6,32 @@ import (
 	"strings"
 )
 
-type EntityState struct {
-	FullName           string
-	Kind               string
+type entityState struct {
+	fullName           string
+	kind               string
 	normalizedMessages map[string]bool
-	Messages           []string
+	messages           []string
 	logsCollections    map[string]string
-	ActionTaken        bool
 	client             kubeclient.KubernetesClient
 }
 
-func (state EntityState) IsHealthy() bool {
-	return len(state.Messages) == 0
+func (state entityState) isHealthy() bool {
+	return len(state.messages) == 0
 }
 
-func (state *EntityState) String() string {
-	var builder strings.Builder
-	if state.IsHealthy() {
-		builder.WriteString(fmt.Sprintf("%v is healthy\n", state.FullName))
-	} else {
-		builder.WriteString(fmt.Sprintf("%v %v is un-healthy\n", state.Kind, state.FullName))
-		for _, message := range state.Messages {
-			builder.WriteString(fmt.Sprintf("\t%v\n", message))
-		}
-
+func (state *entityState) String() string {
+	if state.isHealthy() {
+		return fmt.Sprintf("%v is healthy\n", state.fullName)
 	}
-	return builder.String()
+
+	messages := state.messages
+	if state.kind != "Event" {
+		messages = append([]string{fmt.Sprintf("%v %v is un-healthy", state.kind, state.fullName)}, state.messages...)
+	}
+	return strings.Join(messages, "\n\t")
 }
 
-func (state *EntityState) appendMessage(format string, a ...interface{}) {
+func (state *entityState) appendMessage(format string, a ...interface{}) {
 	var message string
 	if len(a) > 0 {
 		message = strings.TrimSpace(fmt.Sprintf(format, a...))
@@ -49,5 +46,5 @@ func (state *EntityState) appendMessage(format string, a ...interface{}) {
 		return
 	}
 	state.normalizedMessages[normalizedMessage] = true
-	state.Messages = append(state.Messages, cleanMessage(message))
+	state.messages = append(state.messages, cleanMessage(message))
 }

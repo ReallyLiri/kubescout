@@ -9,11 +9,11 @@ import (
 	"testing"
 )
 
-var exampleJsonsDirectoryPath string
+var apiResponsesDirectoryPath string
 
 func init() {
 	_, filePath, _, _ := runtime.Caller(0)
-	exampleJsonsDirectoryPath = path.Join(filePath, "../../test-resources/api-responses")
+	apiResponsesDirectoryPath = path.Join(filePath, "../../test-resources/api-responses")
 }
 
 func GetEvents(t *testing.T, fileName string) ([]v1.Event, error) {
@@ -22,7 +22,7 @@ func GetEvents(t *testing.T, fileName string) ([]v1.Event, error) {
 		"",
 		"",
 		"",
-		path.Join(exampleJsonsDirectoryPath, "get-events", fileName),
+		path.Join(apiResponsesDirectoryPath, "get-events", fileName),
 	)
 	require.Nil(t, err)
 	require.NotNil(t, client)
@@ -33,7 +33,7 @@ func GetEvents(t *testing.T, fileName string) ([]v1.Event, error) {
 
 func GetNodes(t *testing.T, fileName string) ([]v1.Node, error) {
 	client, err := CreateMockClient(
-		path.Join(exampleJsonsDirectoryPath, "get-nodes", fileName),
+		path.Join(apiResponsesDirectoryPath, "get-nodes", fileName),
 		"",
 		"",
 		"",
@@ -49,7 +49,7 @@ func GetNodes(t *testing.T, fileName string) ([]v1.Node, error) {
 func GetNamespaces(t *testing.T, fileName string) ([]v1.Namespace, error) {
 	client, err := CreateMockClient(
 		"",
-		path.Join(exampleJsonsDirectoryPath, "get-ns", fileName),
+		path.Join(apiResponsesDirectoryPath, "get-ns", fileName),
 		"",
 		"",
 		"",
@@ -65,7 +65,7 @@ func GetPods(t *testing.T, fileName string) ([]v1.Pod, error) {
 	client, err := CreateMockClient(
 		"",
 		"",
-		path.Join(exampleJsonsDirectoryPath, "get-pods", fileName),
+		path.Join(apiResponsesDirectoryPath, "get-pods", fileName),
 		"",
 		"",
 	)
@@ -81,7 +81,7 @@ func GetReplicaSets(t *testing.T, fileName string) ([]v12.ReplicaSet, error) {
 		"",
 		"",
 		"",
-		path.Join(exampleJsonsDirectoryPath, "get-rs", fileName),
+		path.Join(apiResponsesDirectoryPath, "get-rs", fileName),
 		"",
 	)
 	require.Nil(t, err)

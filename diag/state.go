@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func (state *EntityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStatus, initContainers bool, config *config.Config) bool {
+func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStatus, initContainers bool, config *config.Config) bool {
 	subTitle := ""
 	if initContainers {
 		subTitle = " (init)"
@@ -60,13 +60,12 @@ func (state *EntityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 	return anyMessage
 }
 
-func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclient.KubernetesClient) (state *EntityState, err error) {
-	state = &EntityState{
-		FullName:           fmt.Sprintf("%v/%v", pod.Namespace, pod.Name),
-		Kind:               "Pod",
+func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclient.KubernetesClient) (state *entityState, err error) {
+	state = &entityState{
+		fullName:           fmt.Sprintf("%v/%v", pod.Namespace, pod.Name),
+		kind:               "Pod",
 		normalizedMessages: map[string]bool{},
-		Messages:           []string{},
-		ActionTaken:        false,
+		messages:           []string{},
 		client:             client,
 		logsCollections:    map[string]string{},
 	}
@@ -119,13 +118,12 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclie
 	return
 }
 
-func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *EntityState, err error) {
-	state = &EntityState{
-		FullName:           fmt.Sprintf("%v/%v", event.Namespace, event.Name),
-		Kind:               "Event",
+func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *entityState, err error) {
+	state = &entityState{
+		fullName:           fmt.Sprintf("%v/%v", event.Namespace, event.Name),
+		kind:               "Event",
 		normalizedMessages: map[string]bool{},
-		Messages:           []string{},
-		ActionTaken:        false,
+		messages:           []string{},
 		logsCollections:    map[string]string{},
 	}
 
@@ -162,13 +160,12 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *E
 	return state, nil
 }
 
-func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckResources bool) (state *EntityState, err error) {
-	state = &EntityState{
-		FullName:           node.Name,
-		Kind:               "Node",
+func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckResources bool) (state *entityState, err error) {
+	state = &entityState{
+		fullName:           node.Name,
+		kind:               "Node",
 		normalizedMessages: map[string]bool{},
-		Messages:           []string{},
-		ActionTaken:        false,
+		messages:           []string{},
 		logsCollections:    map[string]string{},
 	}
 
@@ -186,7 +183,7 @@ func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckRe
 		state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), formatUnitsSize(condition.Message), wrapTemporal(formatDuration(condition.LastTransitionTime.Time, now)))
 	}
 
-	if !state.IsHealthy() && !forceCheckResources {
+	if !state.isHealthy() && !forceCheckResources {
 		return
 	}
 
@@ -211,13 +208,12 @@ func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckRe
 	return
 }
 
-func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time.Time) (state *EntityState, err error) {
-	state = &EntityState{
-		FullName:           fmt.Sprintf("%v/%v", replicaSet.Namespace, replicaSet.Name),
-		Kind:               "ReplicaSet",
+func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time.Time) (state *entityState, err error) {
+	state = &entityState{
+		fullName:           fmt.Sprintf("%v/%v", replicaSet.Namespace, replicaSet.Name),
+		kind:               "ReplicaSet",
 		normalizedMessages: map[string]bool{},
-		Messages:           []string{},
-		ActionTaken:        false,
+		messages:           []string{},
 		logsCollections:    map[string]string{},
 	}
 

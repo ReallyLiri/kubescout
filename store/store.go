@@ -31,6 +31,7 @@ func LoadOrCreate(config *config.Config) (*Store, error) {
 	if err != nil {
 		return nil, err
 	}
+	store.currentCluster = config.ClusterName
 	_, exists := store.ClusterStoresByName[store.currentCluster]
 	if !exists {
 		store.ClusterStoresByName[store.currentCluster] = &ClusterStore{

@@ -65,9 +65,9 @@ func TestPodState_PodPendingTooLong(t *testing.T) {
 	state, err := testContext().podState(&pendingPod, asTime("2021-07-18T07:15:00Z"), nil)
 	require.Nil(t, err)
 	fmt.Print(state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 2, len(messages))
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -99,9 +99,9 @@ func TestPodState_StuckInitializing(t *testing.T) {
 		state, err := testContext().podState(&podStuckInitializing, now, nil)
 		require.Nil(t, err)
 		fmt.Print(state)
-		require.False(t, state.IsHealthy())
-		require.NotEmpty(t, state.FullName)
-		messages := state.Messages
+		require.False(t, state.isHealthy())
+		require.NotEmpty(t, state.fullName)
+		messages := state.messages
 		require.NotEmpty(t, messages)
 		require.Equal(t, 3, len(messages))
 		require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -125,9 +125,9 @@ func TestPodState_EvictedOnInodes(t *testing.T) {
 	state, err := testContext().podState(&evictedPod, now, nil)
 	require.Nil(t, err)
 	fmt.Print(state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Pod is in Failed phase due to Evicted: The node was low on resource: inodes.", messages[0])
@@ -148,9 +148,9 @@ func TestPodState_EvictedOnMemory(t *testing.T) {
 	state, err := testContext().podState(&evictedPod, now, nil)
 	require.Nil(t, err)
 	fmt.Print(state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Pod is in Failed phase due to Evicted: The node was low on resource: memory. Container memory-bomb-container was using 24GB, which exceeds its request of 0.", messages[0])
@@ -172,9 +172,9 @@ func TestPodState_EvictedOnDiskPressure(t *testing.T) {
 	state, err := testContext().podState(&evictedPod, now, nil)
 	require.Nil(t, err)
 	fmt.Print(state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Pod is in Failed phase due to Evicted: The node was low on resource: ephemeral-storage. Container queue-consumer was using 811kB, which exceeds its request of 0. Container app6 was using 103GB, which exceeds its request of 0.", messages[0])
@@ -213,9 +213,9 @@ func TestPodState_CreateFailed(t *testing.T) {
 	state, err := testContext().podState(&failingPod, now, mockClient)
 	require.Nil(t, err)
 	fmt.Print(state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "queue-consumer still waiting due to CreateContainerError: context deadline exceeded", messages[0])
@@ -266,9 +266,9 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		state, err := testContext().podState(&crashingPod, now, mockClient)
 		require.Nil(t, err)
 		log.Printf("%v) %v", index, state)
-		require.False(t, state.IsHealthy())
-		require.NotEmpty(t, state.FullName)
-		messages := state.Messages
+		require.False(t, state.isHealthy())
+		require.NotEmpty(t, state.fullName)
+		messages := state.messages
 		require.NotEmpty(t, messages)
 		require.Equal(t, 3, len(messages))
 		require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -284,9 +284,9 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		state, err := testContext().podState(&initializingPods, now, mockClient)
 		require.Nil(t, err)
 		log.Printf("%v) %v", index, state)
-		require.False(t, state.IsHealthy())
-		require.NotEmpty(t, state.FullName)
-		messages := state.Messages
+		require.False(t, state.isHealthy())
+		require.NotEmpty(t, state.fullName)
+		messages := state.messages
 		require.NotEmpty(t, messages)
 		if len(messages) == 2 {
 			require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -320,9 +320,9 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	state, err := testContext().podState(&restartingPod, now, nil)
 	require.Nil(t, err)
 	fmt.Print(state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "queue had restarted 5 times, last exit due to Error (exit code 137)", messages[0])
@@ -331,9 +331,9 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	state, err = testContext().podState(&restartingPod, now, nil)
 	require.Nil(t, err)
 	fmt.Print(state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages = state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages = state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "app9 had restarted 7 times, last exit due to OOMKilled (exit code 137)", messages[0])
@@ -361,9 +361,9 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	state, err := testContext().podState(&restartingPod, now, nil)
 	require.Nil(t, err)
 	log.Printf("%v) %v", 0, state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 2, len(messages))
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -373,9 +373,9 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	state, err = testContext().podState(&pendingPod, now, nil)
 	require.Nil(t, err)
 	log.Printf("%v) %v", 1, state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages = state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages = state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 2, len(messages))
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -394,9 +394,9 @@ func TestPodState_PodUnschedulableDueToInsufficientMemory(t *testing.T) {
 	state, err := testContext().podState(&unschedulablePod, now, nil)
 	require.Nil(t, err)
 	fmt.Print(state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 2, len(messages))
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -420,9 +420,9 @@ func TestPodState_JobFailed(t *testing.T) {
 		state, err := testContext().podState(&failedPod, now, nil)
 		require.Nil(t, err)
 		log.Printf("%v) %v", i, state)
-		require.False(t, state.IsHealthy())
-		require.NotEmpty(t, state.FullName)
-		messages := state.Messages
+		require.False(t, state.isHealthy())
+		require.NotEmpty(t, state.fullName)
+		messages := state.messages
 		require.NotEmpty(t, messages)
 		require.Equal(t, 2, len(messages))
 		require.Equal(t, "Pod is in Failed phase", messages[0])
@@ -442,9 +442,9 @@ func TestPodState_PodsStuckTerminating(t *testing.T) {
 		state, err := testContext().podState(&terminatingPod, now, nil)
 		require.Nil(t, err)
 		log.Printf("%v) %v", i, state)
-		require.False(t, state.IsHealthy())
-		require.NotEmpty(t, state.FullName)
-		messages := state.Messages
+		require.False(t, state.isHealthy())
+		require.NotEmpty(t, state.fullName)
+		messages := state.messages
 		require.NotEmpty(t, messages)
 		require.GreaterOrEqual(t, len(messages), 1)
 		require.Equal(t, "Pod is Terminating since 9 minutes ago (deletion grace is 30 sec)", messages[0])
@@ -462,9 +462,9 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	state, err := testContext().podState(&pods[0], now, nil)
 	require.Nil(t, err)
 	log.Printf("%v) %v", 0, state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages := state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.GreaterOrEqual(t, len(messages), 2)
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -473,9 +473,9 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	state, err = testContext().podState(&pods[1], now, nil)
 	require.Nil(t, err)
 	log.Printf("%v) %v", 1, state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages = state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages = state.messages
 	require.NotEmpty(t, messages)
 	require.GreaterOrEqual(t, len(messages), 2)
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -484,9 +484,9 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	state, err = testContext().podState(&pods[2], now, nil)
 	require.Nil(t, err)
 	log.Printf("%v) %v", 2, state)
-	require.False(t, state.IsHealthy())
-	require.NotEmpty(t, state.FullName)
-	messages = state.Messages
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages = state.messages
 	require.NotEmpty(t, messages)
 	require.GreaterOrEqual(t, len(messages), 2)
 	require.Equal(t, "Pod is in Pending phase", messages[0])

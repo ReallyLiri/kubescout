@@ -80,17 +80,20 @@ func TestLoadAfterFlush(t *testing.T) {
 	require.True(t, store.TryAdd("hash2", "message2", now))
 	require.True(t, store.TryAdd("hash3", "message3", now))
 	require.Equal(t, 3, len(store.RelevantMessages()))
+	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
 
 	storeReloaded, err := LoadOrCreate(configuration)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(storeReloaded.RelevantMessages()))
+	require.Equal(t, 0, len(storeReloaded.ClusterStoresByName["test"].HashWithTimestamp))
 
 	err = store.Flush()
 	require.Nil(t, err)
 
 	storeReloaded, err = LoadOrCreate(configuration)
 	require.Nil(t, err)
-	require.Equal(t, 3, len(storeReloaded.RelevantMessages()))
+	require.Equal(t, 0, len(storeReloaded.RelevantMessages()))
+	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
 }
 
 func TestStoreForMultipleClusters(t *testing.T) {
@@ -110,6 +113,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	require.True(t, store1.TryAdd("hash2", "message2", now))
 	require.True(t, store1.TryAdd("hash3", "message3", now))
 	require.Equal(t, 3, len(store1.RelevantMessages()))
+	require.Equal(t, 3, len(store1.ClusterStoresByName["test-1"].HashWithTimestamp))
 	err = store1.Flush()
 	require.Nil(t, err)
 
@@ -117,6 +121,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	store2, err := LoadOrCreate(configuration)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(store2.RelevantMessages()))
+	require.Equal(t, 0, len(store2.ClusterStoresByName["test-2"].HashWithTimestamp))
 	err = store2.Flush()
 
 	require.Equal(t, 2, len(store2.ClusterStoresByName))
@@ -125,6 +130,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	store3, err := LoadOrCreate(configuration)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(store3.RelevantMessages()))
+	require.Equal(t, 0, len(store3.ClusterStoresByName["test-3"].HashWithTimestamp))
 	err = store2.Flush()
 
 	require.Equal(t, 3, len(store3.ClusterStoresByName))
@@ -156,8 +162,8 @@ func TestJsonContent(t *testing.T) {
 	require.Nil(t, err)
 	expectedContent := `{
  "cluster_stores_by_name": {
-  "": {
-   "cluster": "",
+  "test-json": {
+   "cluster": "test-json",
    "hash_with_timestamp": {
     "hash1": "2021-10-17T13:00:00+03:00",
     "hash2": "2021-10-17T13:00:00+03:00",

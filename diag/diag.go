@@ -29,8 +29,8 @@ func testContext() *diagContext {
 	return &diagContext{config: cfg}
 }
 
-func (context *diagContext) handleState(state *EntityState, printOnlyIfUnhealthy bool) {
-	isHealthy := state.IsHealthy()
+func (context *diagContext) handleState(state *entityState, printOnlyIfUnhealthy bool) {
+	isHealthy := state.isHealthy()
 	if !printOnlyIfUnhealthy || !isHealthy {
 		fmt.Print(state)
 	}
@@ -39,13 +39,15 @@ func (context *diagContext) handleState(state *EntityState, printOnlyIfUnhealthy
 		messageHash := hash(message)
 		if len(state.logsCollections) > 0 {
 			builder := strings.Builder{}
+			builder.WriteString(message)
+			builder.WriteString("\n")
 			for container, logs := range state.logsCollections {
 				builder.WriteString(fmt.Sprintf("logs of container %v:\n", container))
 				builder.WriteString("<<<<<<<<<<\n")
 				builder.WriteString(logs)
-				builder.WriteString(">>>>>>>>>>")
+				builder.WriteString("\n>>>>>>>>>>")
 			}
-			message = message + builder.String()
+			message = builder.String()
 		}
 		context.store.TryAdd(messageHash, message, context.now)
 	}
@@ -100,7 +102,30 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 			continue
 		}
 
-		unhealthyEntities := map[string]bool{}
+		eventsByEntityName := make(map[string][]*entityState)
+
+		events, err := client.GetEvents(namespaceName)
+		if err != nil {
+			aggregatedError = multierr.Append(aggregatedError, err)
+		} else {
+			cfg.Logger.Printf("Discovered %v events in namespace %v\n%v\n", len(events), namespaceName, SUB_SEPERATOR)
+			for _, event := range events {
+				eventState, err := ctx.eventState(&event, now)
+				if err != nil {
+					aggregatedError = multierr.Append(aggregatedError, err)
+				} else {
+					if event.InvolvedObject.Kind == "Node" {
+						ctx.handleState(eventState, true)
+					} else if !eventState.isHealthy() {
+						eventsOfEntity, exists := eventsByEntityName[event.InvolvedObject.Name]
+						if !exists {
+							eventsOfEntity = []*entityState{}
+						}
+						eventsByEntityName[event.InvolvedObject.Name] = append(eventsOfEntity, eventState)
+					}
+				}
+			}
+		}
 
 		pods, err := client.GetPods(namespaceName)
 		if err != nil {
@@ -113,7 +138,12 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 					aggregatedError = multierr.Append(aggregatedError, err)
 				} else {
 					ctx.handleState(podState, false)
-					unhealthyEntities[pod.Name] = true
+					if eventStates, found := eventsByEntityName[pod.Name]; found {
+						for _, eventState := range eventStates {
+							ctx.handleState(eventState, true)
+						}
+						delete(eventsByEntityName, pod.Name)
+					}
 				}
 			}
 		}
@@ -129,25 +159,19 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 					aggregatedError = multierr.Append(aggregatedError, err)
 				} else {
 					ctx.handleState(replicaSetState, true)
-					unhealthyEntities[replicaSet.Name] = true
+					if eventStates, found := eventsByEntityName[replicaSet.Name]; found {
+						for _, eventState := range eventStates {
+							ctx.handleState(eventState, true)
+						}
+						delete(eventsByEntityName, replicaSet.Name)
+					}
 				}
 			}
 		}
 
-		events, err := client.GetEvents(namespaceName)
-		if err != nil {
-			aggregatedError = multierr.Append(aggregatedError, err)
-		} else {
-			cfg.Logger.Printf("Discovered %v events in namespace %v\n%v\n", len(events), namespaceName, SUB_SEPERATOR)
-			for _, event := range events {
-				eventState, err := ctx.eventState(&event, now)
-				if err != nil {
-					aggregatedError = multierr.Append(aggregatedError, err)
-				} else {
-					if event.InvolvedObject.Kind == "Node" || unhealthyEntities[event.InvolvedObject.Name] {
-						ctx.handleState(eventState, true)
-					}
-				}
+		for _, eventStates := range eventsByEntityName {
+			for _, entityState := range eventStates {
+				ctx.handleState(entityState, true)
 			}
 		}
 	}
