@@ -20,7 +20,7 @@ type Store struct {
 type ClusterStore struct {
 	Cluster           string               `json:"cluster"`
 	HashWithTimestamp map[string]time.Time `json:"hash_with_timestamp"`
-	relevantMessages  []string
+	messages          []string
 }
 
 func LoadOrCreate(config *config.Config) (*Store, error) {
@@ -67,18 +67,24 @@ func loadOrCreate(filePath string, dedupDuration time.Duration) (*Store, error) 
 }
 
 func (store *Store) RelevantMessages() []string {
-	return store.ClusterStoresByName[store.currentCluster].relevantMessages
+	return store.ClusterStoresByName[store.currentCluster].messages
 }
 
-func (store *Store) TryAdd(hash string, message string, now time.Time) bool {
+func (store *Store) ShouldAdd(hash string, now time.Time) bool {
 	clusterStore := store.ClusterStoresByName[store.currentCluster]
 	timestamp, found := clusterStore.HashWithTimestamp[hash]
 	if !found || store.dedupDuration == 0 || now.Sub(timestamp) > store.dedupDuration {
-		clusterStore.HashWithTimestamp[hash] = now
-		clusterStore.relevantMessages = append(clusterStore.relevantMessages, message)
 		return true
 	}
 	return false
+}
+
+func (store *Store) Add(message string, hashes []string, now time.Time) {
+	clusterStore := store.ClusterStoresByName[store.currentCluster]
+	for _, hash := range hashes {
+		clusterStore.HashWithTimestamp[hash] = now
+	}
+	clusterStore.messages = append(clusterStore.messages, message)
 }
 
 func (store *Store) Flush() error {

@@ -61,14 +61,12 @@ func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 }
 
 func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclient.KubernetesClient) (state *entityState, err error) {
-	state = &entityState{
-		fullName:           fmt.Sprintf("%v/%v", pod.Namespace, pod.Name),
-		kind:               "Pod",
-		normalizedMessages: map[string]bool{},
-		messages:           []string{},
-		client:             client,
-		logsCollections:    map[string]string{},
-	}
+	state = newState(
+		fmt.Sprintf("%v/%v", pod.Namespace, pod.Name),
+		pod.Name,
+		"Pod",
+		client,
+	)
 
 	podPhase := pod.Status.Phase
 	if podPhase == v1.PodSucceeded {
@@ -119,19 +117,19 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclie
 }
 
 func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *entityState, err error) {
-	state = &entityState{
-		fullName:           fmt.Sprintf("%v/%v", event.Namespace, event.Name),
-		kind:               "Event",
-		normalizedMessages: map[string]bool{},
-		messages:           []string{},
-		logsCollections:    map[string]string{},
-	}
+	involvedObject := event.InvolvedObject
+
+	state = newState(
+		fmt.Sprintf("%v/%v", event.Namespace, event.Name),
+		involvedObject.Name,
+		"Event",
+		nil,
+	)
 
 	if event.Type == "Normal" {
 		return state, nil
 	}
 
-	involvedObject := event.InvolvedObject
 	var suffix string
 	var eventMessageLines []string
 	if event.Message != "" {
@@ -153,7 +151,7 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *e
 		if messageLine == "" {
 			continue
 		}
-		message = fmt.Sprintf("%v\n\t%v", message, wrapTemporal(messageLine))
+		message = fmt.Sprintf("%v\n\t%v", message, messageLine)
 	}
 
 	state.appendMessage(message)
@@ -161,13 +159,12 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *e
 }
 
 func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckResources bool) (state *entityState, err error) {
-	state = &entityState{
-		fullName:           node.Name,
-		kind:               "Node",
-		normalizedMessages: map[string]bool{},
-		messages:           []string{},
-		logsCollections:    map[string]string{},
-	}
+	state = newState(
+		node.Name,
+		node.Name,
+		"Node",
+		nil,
+	)
 
 	for _, condition := range node.Status.Conditions {
 		switch condition.Type {
@@ -209,13 +206,12 @@ func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckRe
 }
 
 func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time.Time) (state *entityState, err error) {
-	state = &entityState{
-		fullName:           fmt.Sprintf("%v/%v", replicaSet.Namespace, replicaSet.Name),
-		kind:               "ReplicaSet",
-		normalizedMessages: map[string]bool{},
-		messages:           []string{},
-		logsCollections:    map[string]string{},
-	}
+	state = newState(
+		fmt.Sprintf("%v/%v", replicaSet.Namespace, replicaSet.Name),
+		replicaSet.Name,
+		"ReplicaSet",
+		nil,
+	)
 
 	specDesiredReplicas := replicaSet.Spec.Replicas
 	var desiredReplicas int

@@ -173,17 +173,10 @@ func toBoolMap(values []string) (boolMap map[string]bool) {
 	return
 }
 
-func removeAfterSubstring(message string, lookup string) string {
-	index := strings.Index(message, lookup)
-	if index >= 0 {
-		return message[0:(index + len(lookup))]
-	}
-	return message
-}
-
-func hash(message string) string {
+func hash(entityName string, message string) string {
 	sha := sha1.New()
-	sha.Write([]byte(normalizeMessage(message)))
+	sha.Write([]byte(entityName))
+	sha.Write([]byte(message))
 	asBytes := sha.Sum(nil)
 	return fmt.Sprintf("%x", asBytes)
 }

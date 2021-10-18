@@ -3,16 +3,30 @@ package diag
 import (
 	"KubeScout/kubeclient"
 	"fmt"
+	"github.com/goombaio/orderedset"
 	"strings"
 )
 
 type entityState struct {
-	fullName           string
-	kind               string
-	normalizedMessages map[string]bool
-	messages           []string
-	logsCollections    map[string]string
-	client             kubeclient.KubernetesClient
+	fullName        string
+	correlationName string
+	kind            string
+	hashes          *orderedset.OrderedSet
+	messages        []string
+	logsCollections map[string]string
+	client          kubeclient.KubernetesClient
+}
+
+func newState(fullName string, correlationName, kind string, client kubeclient.KubernetesClient) *entityState {
+	return &entityState{
+		fullName:        fullName,
+		correlationName: correlationName,
+		kind:            kind,
+		hashes:          orderedset.NewOrderedSet(),
+		messages:        []string{},
+		client:          client,
+		logsCollections: map[string]string{},
+	}
 }
 
 func (state entityState) isHealthy() bool {
@@ -23,10 +37,9 @@ func (state *entityState) String() string {
 	if state.isHealthy() {
 		return fmt.Sprintf("%v is healthy\n", state.fullName)
 	}
-
 	messages := state.messages
 	if state.kind != "Event" {
-		messages = append([]string{fmt.Sprintf("%v %v is un-healthy", state.kind, state.fullName)}, state.messages...)
+		messages = append([]string{fmt.Sprintf("%v %v is un-healthy", state.kind, state.fullName)}, messages...)
 	}
 	return strings.Join(messages, "\n\t")
 }
@@ -41,10 +54,10 @@ func (state *entityState) appendMessage(format string, a ...interface{}) {
 	if message == "" {
 		return
 	}
-	normalizedMessage := normalizeMessage(message)
-	if _, found := state.normalizedMessages[normalizedMessage]; found {
+	messageHash := hash(state.correlationName, normalizeMessage(message))
+	if state.hashes.Contains(messageHash) {
 		return
 	}
-	state.normalizedMessages[normalizedMessage] = true
+	state.hashes.Add(messageHash)
 	state.messages = append(state.messages, cleanMessage(message))
 }

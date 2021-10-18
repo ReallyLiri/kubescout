@@ -29,17 +29,33 @@ func testContext() *diagContext {
 	return &diagContext{config: cfg}
 }
 
-func (context *diagContext) handleState(state *entityState, printOnlyIfUnhealthy bool) {
+func (context *diagContext) handleState(state *entityState, printOnlyIfUnhealthy bool) (stored bool) {
 	isHealthy := state.isHealthy()
 	if !printOnlyIfUnhealthy || !isHealthy {
 		fmt.Print(state)
 	}
 	if !isHealthy {
-		message := state.String()
-		messageHash := hash(message)
+		builder := strings.Builder{}
+		if state.kind != "Event" {
+			builder.WriteString(fmt.Sprintf("%v %v is un-healthy", state.kind, state.fullName))
+		}
+
+		hashes := state.hashes.Values()
+		var addedHashes []string
+		for i, message := range state.messages {
+			messageHash := hashes[i].(string)
+			if context.store.ShouldAdd(messageHash, context.now) {
+				addedHashes = append(addedHashes, messageHash)
+				if builder.Len() > 0 {
+					builder.WriteString("\n\t")
+				}
+				builder.WriteString(message)
+			}
+		}
+		if len(addedHashes) == 0 {
+			return false
+		}
 		if len(state.logsCollections) > 0 {
-			builder := strings.Builder{}
-			builder.WriteString(message)
 			builder.WriteString("\n")
 			for container, logs := range state.logsCollections {
 				builder.WriteString(fmt.Sprintf("logs of container %v:\n", container))
@@ -47,10 +63,11 @@ func (context *diagContext) handleState(state *entityState, printOnlyIfUnhealthy
 				builder.WriteString(logs)
 				builder.WriteString("\n>>>>>>>>>>")
 			}
-			message = builder.String()
 		}
-		context.store.TryAdd(messageHash, message, context.now)
+		context.store.Add(builder.String(), addedHashes, context.now)
+		return true
 	}
+	return false
 }
 
 func (context *diagContext) isNamespaceRelevant(namespaceName string) bool {
@@ -137,10 +154,12 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 				if err != nil {
 					aggregatedError = multierr.Append(aggregatedError, err)
 				} else {
-					ctx.handleState(podState, false)
+					stored := ctx.handleState(podState, false)
 					if eventStates, found := eventsByEntityName[pod.Name]; found {
-						for _, eventState := range eventStates {
-							ctx.handleState(eventState, true)
+						if stored {
+							for _, eventState := range eventStates {
+								ctx.handleState(eventState, true)
+							}
 						}
 						delete(eventsByEntityName, pod.Name)
 					}
@@ -158,10 +177,12 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 				if err != nil {
 					aggregatedError = multierr.Append(aggregatedError, err)
 				} else {
-					ctx.handleState(replicaSetState, true)
+					stored := ctx.handleState(replicaSetState, true)
 					if eventStates, found := eventsByEntityName[replicaSet.Name]; found {
-						for _, eventState := range eventStates {
-							ctx.handleState(eventState, true)
+						if stored {
+							for _, eventState := range eventStates {
+								ctx.handleState(eventState, true)
+							}
 						}
 						delete(eventsByEntityName, replicaSet.Name)
 					}

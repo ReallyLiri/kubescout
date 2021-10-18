@@ -11,6 +11,7 @@ import (
 	"path"
 	"runtime"
 	"testing"
+	"time"
 )
 
 var apiResponsesDirectoryPath string
@@ -20,7 +21,7 @@ func init() {
 	apiResponsesDirectoryPath = path.Join(filePath, "../../test-resources/api-responses")
 }
 
-func TestDiagnoseIntegration(t *testing.T) {
+func setUp(t *testing.T) (*config.Config, kubeclient.KubernetesClient) {
 	cfg, err := config.DefaultConfig()
 	require.Nil(t, err)
 
@@ -28,9 +29,7 @@ func TestDiagnoseIntegration(t *testing.T) {
 	require.Nil(t, err)
 	cfg.ClusterName = "diag-integration"
 	cfg.StoreFilePath = storeFile.Name()
-
-	sto, err := store.LoadOrCreate(cfg)
-	require.Nil(t, err)
+	cfg.MessagesDeduplicationDuration = time.Hour
 
 	client, err := kubeclient.CreateMockClient(
 		path.Join(apiResponsesDirectoryPath, "integration-test-outputs", "nodes.json"),
@@ -41,8 +40,17 @@ func TestDiagnoseIntegration(t *testing.T) {
 	)
 	require.Nil(t, err)
 	require.NotNil(t, client)
+	return cfg, client
+}
+
+func TestDiagnose(t *testing.T) {
+	cfg, client := setUp(t)
 
 	now := asTime("2021-10-17T14:20:00Z")
+
+	sto, err := store.LoadOrCreate(cfg)
+	require.Nil(t, err)
+	assert.Equal(t, 0, len(sto.RelevantMessages()))
 	err = DiagnoseCluster(client, cfg, sto, now)
 	require.Nil(t, err)
 
@@ -50,8 +58,49 @@ func TestDiagnoseIntegration(t *testing.T) {
 	assert.Equal(t, 12, len(messages))
 	for i, message := range messages {
 		fmt.Printf("checking message #%v ...\n", i)
+		fmt.Printf(message + "\n")
 		assert.Equal(t, expectedMessages[i], message)
 	}
+}
+
+func TestDiagnoseRepeatingCallAfterShortTime(t *testing.T) {
+	cfg, client := setUp(t)
+
+	now := asTime("2021-10-17T14:20:00Z")
+
+	store1, err := store.LoadOrCreate(cfg)
+	require.Nil(t, err)
+	assert.Equal(t, 0, len(store1.RelevantMessages()))
+	err = DiagnoseCluster(client, cfg, store1, now)
+	require.Nil(t, err)
+	assert.Equal(t, 12, len(store1.RelevantMessages()))
+
+	store2, err := store.LoadOrCreate(cfg)
+
+	nearFuture := now.Add(time.Minute)
+	err = DiagnoseCluster(client, cfg, store2, nearFuture)
+	require.Nil(t, err)
+	assert.Equal(t, 0, len(store2.RelevantMessages()))
+}
+
+func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
+	cfg, client := setUp(t)
+
+	now := asTime("2021-10-17T14:20:00Z")
+
+	store1, err := store.LoadOrCreate(cfg)
+	require.Nil(t, err)
+	assert.Equal(t, 0, len(store1.RelevantMessages()))
+	err = DiagnoseCluster(client, cfg, store1, now)
+	require.Nil(t, err)
+	assert.Equal(t, 12, len(store1.RelevantMessages()))
+
+	store2, err := store.LoadOrCreate(cfg)
+
+	farFuture := now.Add(time.Hour + time.Minute)
+	err = DiagnoseCluster(client, cfg, store2, farFuture)
+	require.Nil(t, err)
+	assert.Equal(t, 12, len(store2.RelevantMessages()))
 }
 
 var expectedMessages = []string{

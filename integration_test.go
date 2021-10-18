@@ -14,6 +14,7 @@ import (
 	"log"
 	"os/exec"
 	"path"
+	"regexp"
 	"runtime"
 	"strings"
 	"testing"
@@ -115,8 +116,10 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 
 	log.Printf("using store file at '%v'\n", storeFile.Name())
+	configuration.ClusterName = "integration-test"
 	configuration.StoreFilePath = storeFile.Name()
 	configuration.MessagesDeduplicationDuration = time.Minute
+	configuration.Logger = log.New(ioutil.Discard, "", 0)
 
 	err = verifyMinikubeRunning()
 	require.Nil(t, err)
@@ -184,18 +187,44 @@ func TestIntegration(t *testing.T) {
 	verifyMessages(t, relevantMessagesThirdRun)
 }
 
-var expectedMessages = []string{
-	`Pod default/test-2-broken-image-XXX is un-healthy
-	Pod is in Pending phase
-	test-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image "nginx:l4t3st"`,
+func assertMessage(t *testing.T, expectedFormat string, actualMessage string) {
+	expectedFormatRegex := strings.ReplaceAll(regexp.QuoteMeta(expectedFormat), "\\*", ".*")
+	matched, err := regexp.MatchString(expectedFormatRegex, actualMessage)
+	require.Nil(t, err)
+	assert.True(t, matched, "did not match\nExpected:\n%v\nActual:\n%v", expectedFormat, actualMessage)
+}
 
-	`Pod default/test-3-excessive-resources-XXX is un-healthy
+func verifyMessages(t *testing.T, messages []string) {
+	assert.Equal(t, 12, len(messages))
+	for i, message := range messages {
+		assertMessage(t, expectedFormats[i], message)
+	}
+}
+
+var expectedFormats = []string{
+	`Pod default/test-2-broken-image-* is un-healthy
+	Pod is in Pending phase
+	test-2-broken-image still waiting due to *`,
+
+	`Event on Pod test-2-broken-image-* due to Failed (at *, * seconds ago):
+	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`,
+
+	`Event on Pod test-2-broken-image-* due to Failed (at *, * seconds ago):
+	Error: ErrImagePull`,
+
+	`Event on Pod test-2-broken-image-* due to Failed (at *, *):
+	Error: ImagePullBackOff`,
+
+	`Pod default/test-3-excessive-resources-* is un-healthy
 	Pod is in Pending phase
 	Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 2 minutes ago)`,
 
-	`Pod default/test-4-crashlooping-XXX is un-healthy
-	test-4-crashlooping still waiting due to CrashLoopBackOff: back-off ZZs restarting failed container
-	test-4-crashlooping had restarted 4 times last exit due to Error (exit code 1)
+	`Event on Pod test-3-excessive-resources-* due to FailedScheduling (at unavailable time, unknown time ago):
+	0/1 nodes are available: 1 Insufficient memory.`,
+
+	`Pod default/test-4-crashlooping-* is un-healthy
+	test-4-crashlooping *
+	test-4-crashlooping had restarted * times, last exit due to Error (exit code 1)
 logs of container test-4-crashlooping:
 <<<<<<<<<<
 1
@@ -203,11 +232,14 @@ logs of container test-4-crashlooping:
 3
 4
 5
+
 >>>>>>>>>>`,
 
-	`Pod default/test-5-completed-XXX is un-healthy
-	test-5-completed still waiting due to CrashLoopBackOff: back-off ZZs restarting failed container
-	test-5-completed had restarted 4 times last exit due to Completed (exit code 0)
+	`Event on Pod test-4-crashlooping-* due to BackOff (at *, * seconds ago):
+	Back-off restarting failed container`,
+
+	`Pod default/test-5-* is un-healthy
+	test-5-completed had restarted * times, last exit due to Completed (exit code 0)
 logs of container test-5-completed:
 <<<<<<<<<<
 1
@@ -215,11 +247,15 @@ logs of container test-5-completed:
 3
 4
 5
+
 >>>>>>>>>>`,
 
-	`Pod default/test-6-crashlooping-init-XXX is un-healthy
+	`Event on Pod test-5-completed-* due to BackOff (at *, * seconds ago):
+	Back-off restarting failed container`,
+
+	`Pod default/test-6-crashlooping-init-* is un-healthy
 	Pod is in Pending phase
-	test-6-crashlooping-init-container (init) still waiting due to CrashLoopBackOff: back-off ZZs restarting failed container
+	test-6-crashlooping-init-container (init) *
 logs of container test-6-crashlooping-init-container:
 <<<<<<<<<<
 1
@@ -227,41 +263,11 @@ logs of container test-6-crashlooping-init-container:
 3
 4
 5
+
 >>>>>>>>>>`,
 
-	`Event default/test-2-broken-image-XXX.YYY is un-healthy
-	Event on Pod test-2-broken-image-XXX due to Failed (at some time ago):
-	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`,
-
-	`Event default/test-2-broken-image-XXX.YYY is un-healthy
-	Event on Pod test-2-broken-image-XXX due to Failed (at some time ago):
-	Error: ErrImagePull`,
-
-	`Event default/test-2-broken-image-XXX.YYY is un-healthy
-	Event on Pod test-2-broken-image-XXX due to Failed (at some time ago):
-	Error: ImagePullBackOff`,
-
-	`Event default/test-3-excessive-resources-XXX.YYY is un-healthy
-	Event on Pod test-3-excessive-resources-XXX due to FailedScheduling (at some time ago):
-	0/1 nodes are available: 1 Insufficient memory.`,
-
-	`Event default/test-3-excessive-resources-XXX.YYY ZZs un-healthy
-	Event on Pod test-3-excessive-resources-XXX to FailedScheduling (at unavailable time, unknown time ago):
-	0/1 nodes are available: 1 Insufficient memory.`,
-
-	`Event default/test-4-crashlooping-XXX.YYY is un-healthy
-	Event on Pod test-4-crashlooping-XXX due to BackOff (at some time ago):
+	`Event on Pod test-6-crashlooping-init-* due to BackOff (at *, * seconds ago):
 	Back-off restarting failed container`,
 
-	`Event default/test-5-completed-XXX.YYY is un-healthy
-	Event on Pod test-5-completed-XXX due to BackOff (at some time ago):
-	Back-off restarting failed container`,
-
-	`Event default/test-6-crashlooping-init-XXX.YYY is un-healthy
-	Event on Pod test-6-crashlooping-init-XXX due to BackOff (at some time ago):
-	Back-off restarting failed container`,
-}
-
-func verifyMessages(t *testing.T, messages []string) {
-	assert.Equal(t, 13, len(messages))
+	``,
 }
