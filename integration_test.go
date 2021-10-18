@@ -1,3 +1,5 @@
+// +build integration
+
 package main
 
 import (
@@ -8,12 +10,10 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/urfave/cli/v2"
 	"io/ioutil"
 	"log"
 	"os/exec"
 	"path"
-	"regexp"
 	"runtime"
 	"strings"
 	"testing"
@@ -93,10 +93,6 @@ func verifyClusterInitialState(t *testing.T, client kubeclient.KubernetesClient)
 	require.Equal(t, 0, len(pods))
 }
 
-func createStore() {
-
-}
-
 func verifyClusterReadyForTest(t *testing.T, client kubeclient.KubernetesClient) {
 	namespaces, err := client.GetNamespaces()
 	require.Nil(t, err)
@@ -112,18 +108,15 @@ func verifyClusterReadyForTest(t *testing.T, client kubeclient.KubernetesClient)
 }
 
 func TestIntegration(t *testing.T) {
-	flagsSet, err := config.FlagSet("integration-test")
-	require.Nil(t, err)
-
-	cfg, err := config.ParseConfig(cli.NewContext(nil, flagsSet, nil))
+	configuration, err := config.DefaultConfig()
 	require.Nil(t, err)
 
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
 
 	log.Printf("using store file at '%v'\n", storeFile.Name())
-	cfg.StoreFilePath = storeFile.Name()
-	cfg.MessagesDeduplicationDuration = time.Minute
+	configuration.StoreFilePath = storeFile.Name()
+	configuration.MessagesDeduplicationDuration = time.Minute
 
 	err = verifyMinikubeRunning()
 	require.Nil(t, err)
@@ -131,7 +124,7 @@ func TestIntegration(t *testing.T) {
 	err = verifyKubeconfigSetToMinikube()
 	require.Nil(t, err)
 
-	client, err := kubeclient.CreateClient(cfg)
+	client, err := kubeclient.CreateClient(configuration)
 	require.Nil(t, err)
 
 	verifyClusterInitialState(t, client)
@@ -153,25 +146,25 @@ func TestIntegration(t *testing.T) {
 
 	verifyClusterReadyForTest(t, client)
 
-	storeForFirstRun, err := store.LoadOrCreate(cfg)
+	storeForFirstRun, err := store.LoadOrCreate(configuration)
 	require.Nil(t, err)
 
 	log.Printf("running 1/3 diagnose call ...\n")
-	err = diag.DiagnoseCluster(client, cfg, storeForFirstRun, time.Now().UTC())
+	err = diag.DiagnoseCluster(client, configuration, storeForFirstRun, time.Now().UTC())
 	require.Nil(t, err)
 
 	relevantMessagesFirstRun := storeForFirstRun.RelevantMessages()
 	verifyMessages(t, relevantMessagesFirstRun)
 
-	storeContent, err := ioutil.ReadFile(cfg.StoreFilePath)
+	storeContent, err := ioutil.ReadFile(configuration.StoreFilePath)
 	require.Nil(t, err)
 	require.NotEmpty(t, storeContent)
 
-	storeForSecondRun, err := store.LoadOrCreate(cfg)
+	storeForSecondRun, err := store.LoadOrCreate(configuration)
 	require.Nil(t, err)
 
 	log.Printf("running 2/3 diagnose call ...\n")
-	err = diag.DiagnoseCluster(client, cfg, storeForSecondRun, time.Now().UTC())
+	err = diag.DiagnoseCluster(client, configuration, storeForSecondRun, time.Now().UTC())
 	require.Nil(t, err)
 
 	relevantMessagesSecondRun := storeForFirstRun.RelevantMessages()
@@ -180,11 +173,11 @@ func TestIntegration(t *testing.T) {
 	log.Printf("sleeping to get de-dup grace time to pass")
 	time.Sleep(time.Minute)
 
-	storeForThirdRun, err := store.LoadOrCreate(cfg)
+	storeForThirdRun, err := store.LoadOrCreate(configuration)
 	require.Nil(t, err)
 
 	log.Printf("running 3/3 diagnose call ...\n")
-	err = diag.DiagnoseCluster(client, cfg, storeForThirdRun, time.Now().UTC())
+	err = diag.DiagnoseCluster(client, configuration, storeForThirdRun, time.Now().UTC())
 	require.Nil(t, err)
 
 	relevantMessagesThirdRun := storeForFirstRun.RelevantMessages()
@@ -271,22 +264,4 @@ logs of container test-6-crashlooping-init-container:
 
 func verifyMessages(t *testing.T, messages []string) {
 	assert.Equal(t, 13, len(messages))
-
-	podNameSuffixRegex, err := regexp.Compile(`-(?:.{9}|.{10})-.{5} `)
-	require.Nil(t, err)
-	eventNameSuffixRegex, err := regexp.Compile(`-(?:.{9}|.{10})-.{5}\..{16}`)
-	require.Nil(t, err)
-	atBlockRegex, err := regexp.Compile(`\(at (?:\d{4}|\d{2}) .* (?:\d{4}|\d{2}) (?:\d{4}|\d{2}):(?:\d{4}|\d{2}) .*, .* ago\)`)
-	require.Nil(t, err)
-	secRegex, err := regexp.Compile(` .{2}s `)
-	require.Nil(t, err)
-
-	for i, message := range messages {
-		message = strings.TrimSpace(message)
-		message = podNameSuffixRegex.ReplaceAllString(message, "-XXX ")
-		message = eventNameSuffixRegex.ReplaceAllString(message, "-XXX.YYY ")
-		message = atBlockRegex.ReplaceAllString(message, "(at some time ago)")
-		message = secRegex.ReplaceAllString(message, " ZZs ")
-		assert.Equal(t, expectedMessages[i], message)
-	}
 }

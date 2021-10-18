@@ -56,8 +56,8 @@ then run: `kubescout -h`
 ```bash
 # run tests:
 make test
-# run benchmark
-make benchmark
+# run integration tests:
+make integration
 # build binaries and run whole ci flow
 make
 ```

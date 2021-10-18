@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"github.com/dustin/go-humanize"
 	"github.com/fatih/camelcase"
-	"github.com/goombaio/orderedset"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
 )
+
+const TEMPORTAL_START = "<t>"
+const TEMPORTAL_END = "</t>"
 
 var kiRegex *regexp.Regexp
 var miRegex *regexp.Regexp
@@ -37,21 +40,36 @@ func init() {
 	}
 }
 
+func normalizeMessage(message string) string {
+	for {
+		temporalStartIndex := strings.Index(message, TEMPORTAL_START)
+		if temporalStartIndex == -1 {
+			break
+		}
+		temporalEndIndex := strings.Index(message, TEMPORTAL_END)
+		if temporalEndIndex == -1 || temporalEndIndex < temporalStartIndex {
+			log.Printf("invalid temporal format for %v", message)
+			break
+		}
+		message = message[:temporalStartIndex] + message[(temporalEndIndex+len(TEMPORTAL_END)):]
+	}
+	return message
+}
+
+func cleanMessage(message string) string {
+	return strings.ReplaceAll(strings.ReplaceAll(message, TEMPORTAL_START, ""), TEMPORTAL_END, "")
+}
+
+func wrapTemporal(item interface{}) string {
+	return fmt.Sprintf("%v%v%v", TEMPORTAL_START, item, TEMPORTAL_END)
+}
+
 func splitToWords(value string) string {
 	var words []string
 	for _, word := range strings.Split(value, " ") {
 		words = append(words, camelcase.Split(word)...)
 	}
 	return strings.Join(words, " ")
-}
-
-func toStrings(set *orderedset.OrderedSet) []string {
-	values := set.Values()
-	messages := make([]string, len(values))
-	for i, message := range values {
-		messages[i] = message.(string)
-	}
-	return messages
 }
 
 func valueOrDefault(optional *int64, defaultValue int64) int64 {
@@ -158,20 +176,14 @@ func toBoolMap(values []string) (boolMap map[string]bool) {
 func removeAfterSubstring(message string, lookup string) string {
 	index := strings.Index(message, lookup)
 	if index >= 0 {
-		return message[0:index]
+		return message[0:(index + len(lookup))]
 	}
 	return message
 }
 
 func hash(message string) string {
 	sha := sha1.New()
-	for _, line := range strings.Split(message, "\n") {
-		line = removeAfterSubstring(line, "(last transition:")
-		line = removeAfterSubstring(line, " since ")
-		line = removeAfterSubstring(line, " back-off ")
-		line = removeAfterSubstring(line, " (at ")
-		sha.Write([]byte(line))
-	}
+	sha.Write([]byte(normalizeMessage(message)))
 	asBytes := sha.Sum(nil)
 	return fmt.Sprintf("%x", asBytes)
 }

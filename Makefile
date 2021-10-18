@@ -40,5 +40,5 @@ verify-binaries:
 compress-bin:
 	find bin -type f -print -exec zip -j '{}'.zip '{}' \;
 
-benchmark:
-	go test -tags bench ./...
+integration:
+	go test -tags integration ./...

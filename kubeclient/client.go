@@ -147,7 +147,7 @@ func (client *remoteKubernetesClient) GetReplicaSets(namespace string) ([]v12.Re
 
 func (client *remoteKubernetesClient) GetPodLogs(namespace string, podName string, containerName string) (logs string, err error) {
 	logsRequest := client.kubeClientSet.CoreV1().Pods(namespace).GetLogs(podName, &v1.PodLogOptions{
-		TailLines: &client.config.LogsTail,
+		TailLines: &client.config.PodLogsTail,
 		Container: containerName,
 	})
 	stream, err := logsRequest.Stream(context.Background())

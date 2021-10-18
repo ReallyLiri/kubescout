@@ -7,13 +7,15 @@ import (
 	"github.com/urfave/cli/v2"
 	"io/fs"
 	"k8s.io/client-go/util/homedir"
+	"log"
 	"os"
 	"path/filepath"
 	"time"
 )
 
 type Config struct {
-	LogsTail                         int64
+	Logger                           *log.Logger
+	PodLogsTail                      int64
 	EventsLimit                      int64
 	KubeconfigFilePath               string
 	TimeFormat                       string
@@ -26,7 +28,6 @@ type Config struct {
 	ClusterName                      string
 	MessagesDeduplicationDuration    time.Duration
 	StoreFilePath                    string
-	ApiiroLicenseFilePath            string
 }
 
 var Flags = []cli.Flag{
@@ -113,15 +114,22 @@ var Flags = []cli.Flag{
 		Usage:    "path to store file where duplicated message information will be persisted or empty string if this feature should not be applied",
 		Required: false,
 	},
-	&cli.StringFlag{
-		Name:     "license",
-		Aliases:  []string{"l"},
-		Usage:    "path to Apiiro license file for custom Apiiro web sink",
-		Required: false,
-	},
 }
 
-func FlagSet(name string) (*flag.FlagSet, error) {
+func DefaultConfig() (*Config, error) {
+	flagsSet, err := flagSet("default")
+	if err != nil {
+		return nil, err
+	}
+	config, err := ParseConfig(cli.NewContext(nil, flagsSet, nil))
+	if err != nil {
+		return nil, err
+	}
+	config.setDefaultLogger()
+	return config, nil
+}
+
+func flagSet(name string) (*flag.FlagSet, error) {
 	set := flag.NewFlagSet(name, flag.ContinueOnError)
 	for _, f := range Flags {
 		if err := f.Apply(set); err != nil {
@@ -130,9 +138,14 @@ func FlagSet(name string) (*flag.FlagSet, error) {
 	}
 	return set, nil
 }
+
+func (config *Config) setDefaultLogger()  {
+	config.Logger = log.New(os.Stdout, "kubescout", log.Ldate | log.Ltime | log.Lshortfile)
+}
+
 func ParseConfig(c *cli.Context) (*Config, error) {
-	opts := &Config{
-		LogsTail:                         c.Int64("logs-tail"),
+	config := &Config{
+		PodLogsTail:                      c.Int64("logs-tail"),
 		EventsLimit:                      c.Int64("events-limit"),
 		KubeconfigFilePath:               c.String("kubeconfig"),
 		TimeFormat:                       c.String("time-format"),
@@ -145,33 +158,27 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		ClusterName:                      c.String("name"),
 		MessagesDeduplicationDuration:    time.Minute * time.Duration(c.Int("dedup-minutes")),
 		StoreFilePath:                    c.String("store-filepath"),
-		ApiiroLicenseFilePath:            c.String("license"),
 	}
 
-	if opts.KubeconfigFilePath == "" {
+	if config.KubeconfigFilePath == "" {
 		homedirPath := homedir.HomeDir()
 		if homedirPath == "" {
 			return nil, fmt.Errorf("failed to determine homedir path")
 		}
-		opts.KubeconfigFilePath = filepath.Join(homedirPath, ".kube/config")
+		config.KubeconfigFilePath = filepath.Join(homedirPath, ".kube/config")
 	}
-	if _, err := os.Stat(opts.KubeconfigFilePath); errors.Is(err, fs.ErrNotExist) {
-		return nil, fmt.Errorf("kubeconfig does not exist at provided path '%v'", opts.KubeconfigFilePath)
+	if _, err := os.Stat(config.KubeconfigFilePath); errors.Is(err, fs.ErrNotExist) {
+		return nil, fmt.Errorf("kubeconfig does not exist at provided path '%v'", config.KubeconfigFilePath)
 	}
 
-	if opts.StoreFilePath != "" {
-		dirPath := filepath.Dir(opts.StoreFilePath)
+	if config.StoreFilePath != "" {
+		dirPath := filepath.Dir(config.StoreFilePath)
 		err := validateDirectory(dirPath, true)
 		if err != nil {
 			return nil, fmt.Errorf("failed to create parent directories of store file at '%v': %v", dirPath, err)
 		}
 	}
 
-	if opts.ApiiroLicenseFilePath != "" {
-		if _, err := os.Stat(opts.ApiiroLicenseFilePath); errors.Is(err, fs.ErrNotExist) {
-			return nil, fmt.Errorf("license file does not exist at provided path '%v'", opts.ApiiroLicenseFilePath)
-		}
-	}
-
-	return opts, nil
+	config.setDefaultLogger()
+	return config, nil
 }

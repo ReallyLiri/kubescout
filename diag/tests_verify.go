@@ -24,7 +24,7 @@ func verifyEventHealthy(t *testing.T, event *v1.Event, now time.Time, index int)
 	log.Printf("%v) %v", index, state)
 	assert.True(t, state.IsHealthy())
 	assert.NotEmpty(t, state.FullName)
-	assert.Empty(t, state.Messages())
+	assert.Empty(t, state.Messages)
 }
 
 func verifyAllNodesHealthy(t *testing.T, nodes []v1.Node, now time.Time) {
@@ -46,7 +46,7 @@ func verifyNodeHealthy(t *testing.T, node v1.Node, now time.Time, index int) {
 	log.Printf("%v) %v", index, state)
 	assert.True(t, state.IsHealthy())
 	assert.NotEmpty(t, state.FullName)
-	assert.Empty(t, state.Messages())
+	assert.Empty(t, state.Messages)
 }
 
 func verifyAllPodsHealthy(t *testing.T, pods []v1.Pod, now time.Time) {
@@ -68,7 +68,7 @@ func verifyPodHealthy(t *testing.T, pod *v1.Pod, now time.Time, index int) {
 	log.Printf("%v) %v", index, state)
 	assert.True(t, state.IsHealthy())
 	assert.NotEmpty(t, state.FullName)
-	assert.Empty(t, state.Messages())
+	assert.Empty(t, state.Messages)
 }
 
 func verifyAllReplicaSetsHealthy(t *testing.T, replicaSets []v12.ReplicaSet, now time.Time) {
@@ -90,5 +90,5 @@ func verifyReplicaSetHealthy(t *testing.T, replicaSet v12.ReplicaSet, now time.T
 	log.Printf("%v) %v", index, state)
 	assert.True(t, state.IsHealthy())
 	assert.NotEmpty(t, state.FullName)
-	assert.Empty(t, state.Messages())
+	assert.Empty(t, state.Messages)
 }

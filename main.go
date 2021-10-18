@@ -37,55 +37,52 @@ OPTIONS:
 		Flags:   config.Flags,
 		Version: VERSION,
 		Action: func(ctx *cli.Context) error {
-			cfg, err := config.ParseConfig(ctx)
+			configuration, err := config.ParseConfig(ctx)
 			if err != nil {
 				return err
 			}
-
-			sto, err := store.LoadOrCreate(cfg)
-			if err != nil {
-				return err
-			}
-
-			var outputSink sink.Sink = sink.LogSink{}
-			if cfg.ApiiroLicenseFilePath != "" {
-				apiiroSink, err := sink.NewApiiroWebSink(cfg)
-				if err != nil {
-					log.Printf("failed to initialize Apiiro web sink: %v", err)
-				} else {
-					outputSink = apiiroSink
-				}
-			}
-
-			client, err := kubeclient.CreateClient(cfg)
-
-			if err != nil {
-				return fmt.Errorf("failed to build kuberentes client: %v", err)
-			}
-
-			err = diag.DiagnoseCluster(client, cfg, sto, time.Now().UTC())
-
-			if err != nil {
-				return fmt.Errorf("failed to diagnose cluster: %v", err)
-			}
-
-			relevantMessages := sto.RelevantMessages()
-
-			if len(relevantMessages) == 0 {
-				return nil
-			}
-
-			alert := sink.Alert{
-				CustomerName: cfg.ClusterName,
-				Content:      relevantMessages,
-			}
-			return outputSink.Report(alert)
+			return Scout(configuration, nil)
 		},
 	}
 
 	err := app.Run(os.Args)
 	if err != nil {
-		log.Printf("failed: %v", err)
+		fmt.Printf("failed: %v", err)
 		os.Exit(1)
 	}
+}
+
+func Scout(configuration *config.Config, alertSink sink.Sink) error {
+	if alertSink == nil {
+		alertSink = &sink.LogSink{}
+	}
+
+	sto, err := store.LoadOrCreate(configuration)
+	if err != nil {
+		return err
+	}
+
+	client, err := kubeclient.CreateClient(configuration)
+
+	if err != nil {
+		return fmt.Errorf("failed to build kuberentes client: %v", err)
+	}
+
+	err = diag.DiagnoseCluster(client, configuration, sto, time.Now().UTC())
+
+	if err != nil {
+		return fmt.Errorf("failed to diagnose cluster: %v", err)
+	}
+
+	relevantMessages := sto.RelevantMessages()
+
+	if len(relevantMessages) == 0 {
+		return nil
+	}
+
+	alert := sink.Alert{
+		CustomerName: configuration.ClusterName,
+		Content:      relevantMessages,
+	}
+	return alertSink.Report(alert)
 }

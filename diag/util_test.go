@@ -45,9 +45,39 @@ func Test_asTime(t *testing.T) {
 	assert.Equal(t, int64(1633440463), asTime.Unix())
 }
 
-func Test_FormatResourceUsage(t *testing.T) {
+func Test_formatResourceUsage(t *testing.T) {
 	assert.Equal(t, "", formatResourceUsage(19, 20, "CPU", 0.9))
 	assert.Equal(t, "Excessive usage of CPU: 19/20 (95.0% usage)", formatResourceUsage(1, 20, "CPU", 0.9))
 	assert.Equal(t, "", formatResourceUsage(48433408, 53485824, "Memory", 0.75))
 	assert.Equal(t, "Excessive usage of Memory: 48MB/54MB (90.6% usage)", formatResourceUsage(5052416, 53485824, "Memory", 0.75))
+}
+
+func Test_normalizeMessage(t *testing.T)  {
+	assert.Equal(t, "", normalizeMessage(""))
+	assert.Equal(t, "abc", normalizeMessage("abc"))
+	assert.Equal(t, "hello world", normalizeMessage("hello world"))
+	assert.Equal(t, "", normalizeMessage("<t>hello world</t>"))
+	assert.Equal(t, "", normalizeMessage("<t></t>"))
+	assert.Equal(t, "The  is here", normalizeMessage("The <t>hello world</t> is here"))
+	assert.Equal(t, "The  brown  jumps  the  dog", normalizeMessage("The <t>quick</t> brown <t>fox</t> jumps <t>over</t> the <t>lazy</t> dog"))
+	assert.Equal(t, "t<t>t", normalizeMessage("t<t>t"))
+	assert.Equal(t, "t</t>a<t>t", normalizeMessage("t</t>a<t>t"))
+	assert.Equal(t, "tt", normalizeMessage("t<t>t<t></t>t"))
+	assert.Equal(t, "tt", normalizeMessage("t<t>t<t/></t>t"))
+	assert.Equal(t, "t</t>t", normalizeMessage("t<t>t</t></t>t"))
+}
+
+func Test_cleanMessage(t *testing.T)  {
+	assert.Equal(t, "", cleanMessage(""))
+	assert.Equal(t, "abc", cleanMessage("abc"))
+	assert.Equal(t, "hello world", cleanMessage("hello world"))
+	assert.Equal(t, "hello world", cleanMessage("<t>hello world</t>"))
+	assert.Equal(t, "", cleanMessage("<t></t>"))
+	assert.Equal(t, "The hello world is here", cleanMessage("The <t>hello world</t> is here"))
+	assert.Equal(t, "The quick brown fox jumps over the lazy dog", cleanMessage("The <t>quick</t> brown <t>fox</t> jumps <t>over</t> the <t>lazy</t> dog"))
+	assert.Equal(t, "tt", cleanMessage("t<t>t"))
+	assert.Equal(t, "tat", cleanMessage("t</t>a<t>t"))
+	assert.Equal(t, "ttt", cleanMessage("t<t>t<t></t>t"))
+	assert.Equal(t, "tt<t/>t", cleanMessage("t<t>t<t/></t>t"))
+	assert.Equal(t, "ttt", cleanMessage("t<t>t</t></t>t"))
 }

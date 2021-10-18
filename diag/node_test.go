@@ -29,7 +29,7 @@ func TestNodeState_NodeInUnknownState(t *testing.T) {
 	fmt.Print(state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
-	messages := state.Messages()
+	messages := state.Messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Node Status Unknown: Kubelet stopped posting node status. (last transition: 55 minutes ago)", messages[0])
@@ -48,7 +48,7 @@ func TestNodeState_ExcessiveCpu(t *testing.T) {
 	fmt.Print(state)
 	require.False(t, state.IsHealthy())
 	require.NotEmpty(t, state.FullName)
-	messages := state.Messages()
+	messages := state.Messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Excessive usage of Memory: 54GB/55GB (99.2% usage)", messages[0])

@@ -4,11 +4,9 @@ import (
 	"KubeScout/config"
 	"KubeScout/kubeclient"
 	"fmt"
-	"github.com/goombaio/orderedset"
 	v12 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
-	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -37,22 +35,22 @@ func (state *EntityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 			if detailsIndex >= 0 {
 				message = message[:(detailsIndex + 27)]
 			}
-			state.appendMessage("%v%v still waiting due to %v: %v", containerStatus.Name, subTitle, stateWaiting.Reason, message)
+			state.appendMessage("%v%v still waiting due to %v: %v", containerStatus.Name, subTitle, stateWaiting.Reason, wrapTemporal(message))
 			anyMessageForContainer = true
 		}
 		if containerStatus.RestartCount > config.PodRestartGraceCount {
 			stateTerminated = containerStatus.LastTerminationState.Terminated
 			if stateTerminated != nil {
-				state.appendMessage("%v%v had restarted %v times last exit due to %v (exit code %v)", containerStatus.Name, subTitle, containerStatus.RestartCount, stateTerminated.Reason, stateTerminated.ExitCode)
+				state.appendMessage("%v%v had restarted %v times, last exit due to %v (exit code %v)", containerStatus.Name, subTitle, wrapTemporal(containerStatus.RestartCount), stateTerminated.Reason, stateTerminated.ExitCode)
 			} else {
-				state.appendMessage("%v%v had restarted %v times", containerStatus.Name, subTitle, containerStatus.RestartCount)
+				state.appendMessage("%v%v had restarted %v times", containerStatus.Name, subTitle, wrapTemporal(containerStatus.RestartCount))
 			}
 			anyMessageForContainer = true
 		}
 		if anyMessageForContainer && state.client != nil {
 			logs, err := state.client.GetPodLogs(pod.Namespace, pod.Name, containerStatus.Name)
 			if err != nil {
-				log.Printf("failed to get logs of %v/%v/%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
+				config.Logger.Printf("failed to get logs of %v/%v/%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
 			} else if logs != "" {
 				state.logsCollections[containerStatus.Name] = logs
 			}
@@ -64,12 +62,13 @@ func (state *EntityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 
 func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclient.KubernetesClient) (state *EntityState, err error) {
 	state = &EntityState{
-		FullName:        fmt.Sprintf("%v/%v", pod.Namespace, pod.Name),
-		Kind:            "Pod",
-		messages:        orderedset.NewOrderedSet(),
-		ActionTaken:     false,
-		client:          client,
-		logsCollections: map[string]string{},
+		FullName:           fmt.Sprintf("%v/%v", pod.Namespace, pod.Name),
+		Kind:               "Pod",
+		normalizedMessages: map[string]bool{},
+		Messages:           []string{},
+		ActionTaken:        false,
+		client:             client,
+		logsCollections:    map[string]string{},
 	}
 
 	podPhase := pod.Status.Phase
@@ -88,9 +87,9 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclie
 
 	statusReason := pod.Status.Reason
 	if statusReason != "" {
-		statusMessage := pod.Status.Message
+		statusMessage := strings.TrimSpace(pod.Status.Message)
 		if statusReason == "Evicted" {
-			statusMessage = formatUnitsSize(statusMessage)
+			statusMessage = wrapTemporal(formatUnitsSize(statusMessage))
 		}
 		state.appendMessage("Pod is in %v phase due to %v: %v", podPhase, statusReason, statusMessage)
 	} else if pod.DeletionTimestamp != nil {
@@ -100,7 +99,7 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclie
 			if pod.DeletionGracePeriodSeconds != nil && *pod.DeletionGracePeriodSeconds != 0 {
 				suffix = fmt.Sprintf(" (deletion grace is %v sec)", *pod.DeletionGracePeriodSeconds)
 			}
-			state.appendMessage("Pod is Terminating since %v%v", formatDuration(deletionTime, now), suffix)
+			state.appendMessage("Pod is Terminating since %v%v", wrapTemporal(formatDuration(deletionTime, now)), suffix)
 		}
 	} else if podPhase != v1.PodRunning {
 		state.appendMessage("Pod is in %v phase", podPhase)
@@ -112,7 +111,7 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclie
 	if !anyStatusMessage && pod.DeletionTimestamp == nil {
 		for _, condition := range pod.Status.Conditions {
 			if condition.Status != "True" {
-				state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), condition.Message, formatDuration(condition.LastTransitionTime.Time, now))
+				state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), condition.Message, wrapTemporal(formatDuration(condition.LastTransitionTime.Time, now)))
 			}
 		}
 	}
@@ -122,11 +121,12 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclie
 
 func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *EntityState, err error) {
 	state = &EntityState{
-		FullName:        fmt.Sprintf("%v/%v", event.Namespace, event.Name),
-		Kind:            "Event",
-		messages:        orderedset.NewOrderedSet(),
-		ActionTaken:     false,
-		logsCollections: map[string]string{},
+		FullName:           fmt.Sprintf("%v/%v", event.Namespace, event.Name),
+		Kind:               "Event",
+		normalizedMessages: map[string]bool{},
+		Messages:           []string{},
+		ActionTaken:        false,
+		logsCollections:    map[string]string{},
 	}
 
 	if event.Type == "Normal" {
@@ -141,28 +141,35 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *E
 		suffix = ":"
 	}
 
-	state.appendMessage(
-		"Event on %v %v due to %v (at %v %v)%v",
+	message := fmt.Sprintf("Event on %v %v due to %v (at %v, %v)%v",
 		involvedObject.Kind,
 		involvedObject.Name,
 		event.Reason,
 		formatTime(event.LastTimestamp.Time, context.config.TimeFormat),
-		formatDuration(event.LastTimestamp.Time, now),
+		wrapTemporal(formatDuration(event.LastTimestamp.Time, now)),
 		suffix,
 	)
+
 	for _, messageLine := range eventMessageLines {
-		state.appendMessage("\t%v", messageLine)
+		messageLine = strings.TrimSpace(messageLine)
+		if messageLine == "" {
+			continue
+		}
+		message = fmt.Sprintf("%v\n\t%v", message, wrapTemporal(messageLine))
 	}
+
+	state.appendMessage(message)
 	return state, nil
 }
 
 func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckResources bool) (state *EntityState, err error) {
 	state = &EntityState{
-		FullName:        node.Name,
-		Kind:            "Node",
-		messages:        orderedset.NewOrderedSet(),
-		ActionTaken:     false,
-		logsCollections: map[string]string{},
+		FullName:           node.Name,
+		Kind:               "Node",
+		normalizedMessages: map[string]bool{},
+		Messages:           []string{},
+		ActionTaken:        false,
+		logsCollections:    map[string]string{},
 	}
 
 	for _, condition := range node.Status.Conditions {
@@ -176,7 +183,7 @@ func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckRe
 				continue
 			}
 		}
-		state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), formatUnitsSize(condition.Message), formatDuration(condition.LastTransitionTime.Time, now))
+		state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), formatUnitsSize(condition.Message), wrapTemporal(formatDuration(condition.LastTransitionTime.Time, now)))
 	}
 
 	if !state.IsHealthy() && !forceCheckResources {
@@ -206,11 +213,12 @@ func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckRe
 
 func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time.Time) (state *EntityState, err error) {
 	state = &EntityState{
-		FullName:        fmt.Sprintf("%v/%v", replicaSet.Namespace, replicaSet.Name),
-		Kind:            "ReplicaSet",
-		messages:        orderedset.NewOrderedSet(),
-		ActionTaken:     false,
-		logsCollections: map[string]string{},
+		FullName:           fmt.Sprintf("%v/%v", replicaSet.Namespace, replicaSet.Name),
+		Kind:               "ReplicaSet",
+		normalizedMessages: map[string]bool{},
+		Messages:           []string{},
+		ActionTaken:        false,
+		logsCollections:    map[string]string{},
 	}
 
 	specDesiredReplicas := replicaSet.Spec.Replicas
@@ -220,7 +228,7 @@ func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time
 		if found {
 			desiredReplicas, err = strconv.Atoi(desiredReplicasAnnotation)
 			if err != nil {
-				log.Printf("Failed to parse desired replicas annotation value '%v': %v", desiredReplicasAnnotation, err)
+				context.config.Logger.Printf("Failed to parse desired replicas annotation value '%v': %v", desiredReplicasAnnotation, err)
 				err = nil
 				desiredReplicas = 1
 			}
@@ -240,7 +248,7 @@ func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time
 	}
 
 	for _, condition := range replicaSet.Status.Conditions {
-		state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), formatUnitsSize(condition.Message), formatDuration(condition.LastTransitionTime.Time, now))
+		state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), formatUnitsSize(condition.Message), wrapTemporal(formatDuration(condition.LastTransitionTime.Time, now)))
 	}
 	return
 }

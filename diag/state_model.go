@@ -3,25 +3,21 @@ package diag
 import (
 	"KubeScout/kubeclient"
 	"fmt"
-	"github.com/goombaio/orderedset"
 	"strings"
 )
 
 type EntityState struct {
-	FullName        string
-	Kind            string
-	messages        *orderedset.OrderedSet
-	logsCollections map[string]string
-	ActionTaken     bool
-	client          kubeclient.KubernetesClient
-}
-
-func (state EntityState) Messages() []string {
-	return toStrings(state.messages)
+	FullName           string
+	Kind               string
+	normalizedMessages map[string]bool
+	Messages           []string
+	logsCollections    map[string]string
+	ActionTaken        bool
+	client             kubeclient.KubernetesClient
 }
 
 func (state EntityState) IsHealthy() bool {
-	return state.messages.Empty()
+	return len(state.Messages) == 0
 }
 
 func (state *EntityState) String() string {
@@ -30,7 +26,7 @@ func (state *EntityState) String() string {
 		builder.WriteString(fmt.Sprintf("%v is healthy\n", state.FullName))
 	} else {
 		builder.WriteString(fmt.Sprintf("%v %v is un-healthy\n", state.Kind, state.FullName))
-		for _, message := range state.Messages() {
+		for _, message := range state.Messages {
 			builder.WriteString(fmt.Sprintf("\t%v\n", message))
 		}
 
@@ -48,5 +44,10 @@ func (state *EntityState) appendMessage(format string, a ...interface{}) {
 	if message == "" {
 		return
 	}
-	state.messages.Add(message)
+	normalizedMessage := normalizeMessage(message)
+	if _, found := state.normalizedMessages[normalizedMessage]; found {
+		return
+	}
+	state.normalizedMessages[normalizedMessage] = true
+	state.Messages = append(state.Messages, cleanMessage(message))
 }
