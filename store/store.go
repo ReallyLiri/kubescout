@@ -31,10 +31,10 @@ func LoadOrCreate(config *config.Config) (*Store, error) {
 	if err != nil {
 		return nil, err
 	}
-	_, exists := store.ClusterStoresByName[config.ClusterName]
+	_, exists := store.ClusterStoresByName[store.currentCluster]
 	if !exists {
-		store.ClusterStoresByName[config.ClusterName] = &ClusterStore{
-			Cluster:           config.ClusterName,
+		store.ClusterStoresByName[store.currentCluster] = &ClusterStore{
+			Cluster:           store.currentCluster,
 			HashWithTimestamp: make(map[string]time.Time),
 		}
 	}

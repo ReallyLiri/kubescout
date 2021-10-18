@@ -7,7 +7,7 @@ import (
 )
 
 type Alert struct {
-	CustomerName string   `json:"customerName"`
+	ClusterName string `json:"cluster_name"`
 	Content      []string `json:"content"`
 }
 
