@@ -142,7 +142,7 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *E
 	}
 
 	state.appendMessage(
-		"Event on %v %v due to %v (at %v, %v)%v",
+		"Event on %v %v due to %v (at %v %v)%v",
 		involvedObject.Kind,
 		involvedObject.Name,
 		event.Reason,

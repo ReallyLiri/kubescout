@@ -68,11 +68,11 @@ func applyManifests() error {
 }
 
 func cleanupDefaultNamespace() error {
-	_, err := runCommand("kubectl", "-n", "default", "delete", "deploy", "--all")
+	_, err := runCommand("kubectl", "-n", "default", "delete", "deploy", "--all", "--timeout=30s")
 	if err != nil {
 		return fmt.Errorf("failed to clear deployments from %v: %v", integrationTestResourcesFilePath, err)
 	}
-	_, err = runCommand("kubectl", "-n", "default", "delete", "event", "--all")
+	_, err = runCommand("kubectl", "-n", "default", "delete", "event", "--all", "--timeout=30s")
 	if err != nil {
 		return fmt.Errorf("failed to clear events from %v: %v", integrationTestResourcesFilePath, err)
 	}
@@ -144,7 +144,9 @@ func TestIntegration(t *testing.T) {
 	defer func() {
 		log.Printf("cleaning up namespace ...\n")
 		err := cleanupDefaultNamespace()
-		require.Nil(t, err)
+		if err != nil {
+			log.Printf(err.Error())
+		}
 	}()
 
 	time.Sleep(time.Minute * time.Duration(2))
@@ -173,7 +175,7 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 
 	relevantMessagesSecondRun := storeForFirstRun.RelevantMessages()
-	require.Equal(t, 0, len(relevantMessagesSecondRun))
+	assert.Equal(t, 0, len(relevantMessagesSecondRun))
 
 	log.Printf("sleeping to get de-dup grace time to pass")
 	time.Sleep(time.Minute)
@@ -192,14 +194,15 @@ func TestIntegration(t *testing.T) {
 var expectedMessages = []string{
 	`Pod default/test-2-broken-image-XXX is un-healthy
 	Pod is in Pending phase
-	test-2-broken-image still waiting due to ErrImagePull: rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`,
+	test-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image "nginx:l4t3st"`,
 
 	`Pod default/test-3-excessive-resources-XXX is un-healthy
 	Pod is in Pending phase
-	Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 1 minute ago)`,
+	Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 2 minutes ago)`,
 
 	`Pod default/test-4-crashlooping-XXX is un-healthy
-	test-4-crashlooping still waiting due to CrashLoopBackOff: back-off 40s restarting failed container
+	test-4-crashlooping still waiting due to CrashLoopBackOff: back-off ZZs restarting failed container
+	test-4-crashlooping had restarted 4 times last exit due to Error (exit code 1)
 logs of container test-4-crashlooping:
 <<<<<<<<<<
 1
@@ -210,7 +213,8 @@ logs of container test-4-crashlooping:
 >>>>>>>>>>`,
 
 	`Pod default/test-5-completed-XXX is un-healthy
-	test-5-completed still waiting due to CrashLoopBackOff: back-off 20s restarting failed container
+	test-5-completed still waiting due to CrashLoopBackOff: back-off ZZs restarting failed container
+	test-5-completed had restarted 4 times last exit due to Completed (exit code 0)
 logs of container test-5-completed:
 <<<<<<<<<<
 1
@@ -222,7 +226,7 @@ logs of container test-5-completed:
 
 	`Pod default/test-6-crashlooping-init-XXX is un-healthy
 	Pod is in Pending phase
-	test-6-crashlooping-init-container (init) still waiting due to CrashLoopBackOff: back-off 20s restarting failed container
+	test-6-crashlooping-init-container (init) still waiting due to CrashLoopBackOff: back-off ZZs restarting failed container
 logs of container test-6-crashlooping-init-container:
 <<<<<<<<<<
 1
@@ -248,6 +252,10 @@ logs of container test-6-crashlooping-init-container:
 	Event on Pod test-3-excessive-resources-XXX due to FailedScheduling (at some time ago):
 	0/1 nodes are available: 1 Insufficient memory.`,
 
+	`Event default/test-3-excessive-resources-XXX.YYY ZZs un-healthy
+	Event on Pod test-3-excessive-resources-XXX to FailedScheduling (at unavailable time, unknown time ago):
+	0/1 nodes are available: 1 Insufficient memory.`,
+
 	`Event default/test-4-crashlooping-XXX.YYY is un-healthy
 	Event on Pod test-4-crashlooping-XXX due to BackOff (at some time ago):
 	Back-off restarting failed container`,
@@ -262,19 +270,23 @@ logs of container test-6-crashlooping-init-container:
 }
 
 func verifyMessages(t *testing.T, messages []string) {
-	require.Equal(t, 12, len(messages))
+	assert.Equal(t, 13, len(messages))
 
-	podNameSuffixRegex, err := regexp.Compile(`-.{10}-.{5} `)
+	podNameSuffixRegex, err := regexp.Compile(`-(?:.{9}|.{10})-.{5} `)
 	require.Nil(t, err)
-	eventNameSuffixRegex, err := regexp.Compile(`-.{10}-.{5}\..{16}`)
+	eventNameSuffixRegex, err := regexp.Compile(`-(?:.{9}|.{10})-.{5}\..{16}`)
 	require.Nil(t, err)
 	atBlockRegex, err := regexp.Compile(`\(at (?:\d{4}|\d{2}) .* (?:\d{4}|\d{2}) (?:\d{4}|\d{2}):(?:\d{4}|\d{2}) .*, .* ago\)`)
 	require.Nil(t, err)
+	secRegex, err := regexp.Compile(` .{2}s `)
+	require.Nil(t, err)
 
 	for i, message := range messages {
+		message = strings.TrimSpace(message)
 		message = podNameSuffixRegex.ReplaceAllString(message, "-XXX ")
 		message = eventNameSuffixRegex.ReplaceAllString(message, "-XXX.YYY ")
 		message = atBlockRegex.ReplaceAllString(message, "(at some time ago)")
+		message = secRegex.ReplaceAllString(message, " ZZs ")
 		assert.Equal(t, expectedMessages[i], message)
 	}
 }

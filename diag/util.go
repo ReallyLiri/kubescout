@@ -96,7 +96,7 @@ func formatUnitsSize(message string) string {
 
 func formatDuration(olderDate time.Time, newerDate time.Time) string {
 	if olderDate.IsZero() {
-		return ""
+		return "unknown time ago"
 	}
 	return humanize.RelTime(olderDate, newerDate, "ago", "")
 }
@@ -164,10 +164,14 @@ func removeAfterSubstring(message string, lookup string) string {
 }
 
 func hash(message string) string {
-	message = removeAfterSubstring(message, "(last transition:")
-	message = removeAfterSubstring(message, " since ")
 	sha := sha1.New()
-	sha.Write([]byte(message))
+	for _, line := range strings.Split(message, "\n") {
+		line = removeAfterSubstring(line, "(last transition:")
+		line = removeAfterSubstring(line, " since ")
+		line = removeAfterSubstring(line, " back-off ")
+		line = removeAfterSubstring(line, " (at ")
+		sha.Write([]byte(line))
+	}
 	asBytes := sha.Sum(nil)
 	return fmt.Sprintf("%x", asBytes)
 }
