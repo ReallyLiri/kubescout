@@ -170,8 +170,8 @@ func TestIntegration(t *testing.T) {
 	err = diag.DiagnoseCluster(client, configuration, storeForSecondRun, time.Now().UTC())
 	require.Nil(t, err)
 
-	relevantMessagesSecondRun := storeForFirstRun.RelevantMessages()
-	assert.Equal(t, 0, len(relevantMessagesSecondRun))
+	relevantMessagesSecondRun := storeForSecondRun.RelevantMessages()
+	assert.Equal(t, 0, len(relevantMessagesSecondRun), relevantMessagesSecondRun)
 
 	log.Printf("sleeping to get de-dup grace time to pass")
 	time.Sleep(time.Minute)
@@ -183,7 +183,7 @@ func TestIntegration(t *testing.T) {
 	err = diag.DiagnoseCluster(client, configuration, storeForThirdRun, time.Now().UTC())
 	require.Nil(t, err)
 
-	relevantMessagesThirdRun := storeForFirstRun.RelevantMessages()
+	relevantMessagesThirdRun := storeForThirdRun.RelevantMessages()
 	verifyMessages(t, relevantMessagesThirdRun)
 }
 
@@ -269,5 +269,5 @@ logs of container test-6-crashlooping-init-container:
 	`Event on Pod test-6-crashlooping-init-* due to BackOff (at *, * seconds ago):
 	Back-off restarting failed container`,
 
-	``,
+	`a`,
 }
