@@ -125,6 +125,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	require.Equal(t, 0, len(store2.RelevantMessages()))
 	require.Equal(t, 0, len(store2.ClusterStoresByName["test-2"].HashWithTimestamp))
 	err = store2.Flush()
+	require.Nil(t, err)
 
 	require.Equal(t, 2, len(store2.ClusterStoresByName))
 
@@ -134,6 +135,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	require.Equal(t, 0, len(store3.RelevantMessages()))
 	require.Equal(t, 0, len(store3.ClusterStoresByName["test-3"].HashWithTimestamp))
 	err = store2.Flush()
+	require.Nil(t, err)
 
 	require.Equal(t, 3, len(store3.ClusterStoresByName))
 }

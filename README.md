@@ -21,7 +21,8 @@ OPTIONS:
    --exclude-ns value, -e value           namespaces to skip
    --include-ns value, -i value           namespaces to include (will skip any not listed if this option is used)
    --name value, -n value                 name of the scouted cluster
-   --license value, -l value              path to Apiiro license file for custom Apiiro web sink
+   --dedup-minutes value, -d value        number of minutes to silence duplicated or already observed alerts or 0 if this feature should not be applied (default: 60)
+   --store-filepath value, -s value       path to store file where duplicated message information will be persisted or empty string if this feature should not be applied (default: "kube-scout.store.json")
    --help, -h                             show help (default: false)
    --version, -v                          print the version (default: false)
 ```
@@ -37,43 +38,48 @@ kubescout --include-ns default,test,prod
 ## Install
 
 ```bash
-curl -s https://raw.githubusercontent.com/apiiro/kubescout/main/install.sh | sudo bash
+curl -s https://raw.githubusercontent.com/reallyliri/kubescout/main/install.sh | sudo bash
 # or for a specific version:
-curl -s https://raw.githubusercontent.com/apiiro/kubescout/main/install.sh | sudo bash -s 1.4
+curl -s https://raw.githubusercontent.com/reallyliri/kubescout/main/install.sh | sudo bash -s 0.1.0
 ```
 
 If that doesn't work, try:
 
 ```bash
-curl -s https://raw.githubusercontent.com/apiiro/kubescout/main/install.sh -o install.sh
+curl -s https://raw.githubusercontent.com/reallyliri/kubescout/main/install.sh -o install.sh
 sudo bash install.sh
 ```
 
 then run: `kubescout -h`
 
+## Roadmap
+
+* Dockerfile, kube manifests, helm, job, cronjob
+* Node resource alerts
+* Node native service problems (kubelet, docker, containerd)
+* Automatic fix actions
+* Node defragmentation
+
 ## Test and Build
 
 ```bash
-# run tests:
-make test
-# run integration tests:
-make integration
-# build binaries and run whole ci flow
-make
+# vet and lint
+go vet
+docker run --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint run --deadline=65s
+# tests
+go test -v ./...
+# integration tests (requires minikube)
+go test -v --tags=integration ./integration_test.go
+# build
+GO111MODULE=on CGO_ENABLED=0 $(GOCMD) build -o bin/$kubescout-$(shell $(GOCMD) run . --version | cut -d" " -f 3) .
 ```
 
-## Crontab Installation
+## Crontab Setup
 
-Add kubescout activation to the crontab to inspect the environment's pods daily
-
-```bash
-(crontab -l ; echo "0 0 * * * <path to kubescout binary> -n <name> -l <path to license file>") | crontab -
-```
-
-i.e
+Add kubescout activation to the crontab to inspect the environment's pods on a schedule
 
 ```bash
-(crontab -l ; echo "0 0 * * * <path to kubescout binary> -n staging -l /opt/lim/apiiro.license") | crontab -
+(crontab -l ; echo "0 0 * * * <path to kubescout binary> -n <name>") | crontab -
 ```
 
 Make sure it is done with the right permissions. If `kubectl` requires sudo then apply `sudo -s` before running the

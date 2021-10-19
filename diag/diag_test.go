@@ -76,6 +76,7 @@ func TestDiagnoseRepeatingCallAfterShortTime(t *testing.T) {
 	assert.Equal(t, 12, len(store1.RelevantMessages()))
 
 	store2, err := store.LoadOrCreate(cfg)
+	require.Nil(t, err)
 
 	nearFuture := now.Add(time.Minute)
 	err = DiagnoseCluster(client, cfg, store2, nearFuture)
@@ -96,6 +97,7 @@ func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
 	assert.Equal(t, 12, len(store1.RelevantMessages()))
 
 	store2, err := store.LoadOrCreate(cfg)
+	require.Nil(t, err)
 
 	farFuture := now.Add(time.Hour + time.Minute)
 	err = DiagnoseCluster(client, cfg, store2, farFuture)
