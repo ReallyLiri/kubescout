@@ -141,6 +141,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 }
 
 func TestJsonContent(t *testing.T) {
+	time.Local = time.UTC
 	now, err := time.Parse(time.RFC822, "17 Oct 21 13:00 IDT")
 	require.Nil(t, err)
 
@@ -167,9 +168,9 @@ func TestJsonContent(t *testing.T) {
   "test-json": {
    "cluster": "test-json",
    "hash_with_timestamp": {
-    "hash1": "2021-10-17T13:00:00+03:00",
-    "hash2": "2021-10-17T13:00:00+03:00",
-    "hash3": "2021-10-17T13:00:00+03:00"
+    "hash1": "2021-10-17T13:00:00Z",
+    "hash2": "2021-10-17T13:00:00Z",
+    "hash3": "2021-10-17T13:00:00Z"
    }
   }
  }
