@@ -61,28 +61,27 @@ jobs:
           echo "::set-output name=version::$(go run . --version | cut -d" " -f 3)"
 
       - name: Verify binary on Alpine
-        if: ${{ matrix.platform }} == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest'
         uses: docker://alpine:latest
         with:
-          entrypoint: bash
-          args: bin/kubescout --help
+          entrypoint: bin/kubescout
+          args: --help
 
       - name: Verify binary on Debian
-        if: ${{ matrix.platform }} == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest'
         uses: docker://debian:buster
         with:
-          entrypoint: bash
-          args: bin/kubescout --help
+          entrypoint: bin/kubescout
+          args: --help
 
       - name: Verify binary on CentOS
-        if: ${{ matrix.platform }} == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest'
         uses: docker://centos:8
         with:
-          entrypoint: bash
-          args: bin/kubescout --help
+          entrypoint: bin/kubescout
+          args: --help
 
       - name: Start minikube
-        if: ${{ matrix.platform }} == 'ubuntu-latest'
         uses: medyagh/setup-minikube@master
 
       - name: Integration Test
