@@ -31,6 +31,9 @@ jobs:
         with:
           skip-go-installation: true
 
+      - name: Create dummy kubeconfig
+        run: mkdir -p ~/.kube && echo "dummy" > ~/.kube/config
+
       - name: Test
         run: go test -v ./...
 
