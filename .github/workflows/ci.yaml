@@ -56,17 +56,23 @@ jobs:
       - name: Verify binary on Alpine
         if: ${{ matrix.platform }} == 'ubuntu-latest'
         uses: docker://alpine:latest
-        run: bin/kubescout --help
+        with:
+          entrypoint: bash
+          args: bin/kubescout --help
 
       - name: Verify binary on Debian
         if: ${{ matrix.platform }} == 'ubuntu-latest'
         uses: docker://debian:buster
-        run: bin/kubescout --help
+        with:
+          entrypoint: bash
+          args: bin/kubescout --help
 
       - name: Verify binary on CentOS
         if: ${{ matrix.platform }} == 'ubuntu-latest'
         uses: docker://centos:8
-        run: bin/kubescout --help
+        with:
+          entrypoint: bash
+          args: bin/kubescout --help
 
       - name: Start minikube
         if: ${{ matrix.platform }} == 'ubuntu-latest'
