@@ -38,7 +38,7 @@ jobs:
         run: go test -v ./...
 
       - name: Build
-        run: GO111MODULE=on CGO_ENABLED=0 go build -v ./... -o bin/kubescout
+        run: GO111MODULE=on CGO_ENABLED=0 go build -v -o bin/kubescout .
 
       - name: CLI Sanity
         run: bin/kubescout --help
