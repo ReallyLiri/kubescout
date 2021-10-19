@@ -114,13 +114,13 @@ logs of container test-2-broken-image:
 default/test-2-broken-image-7cbf974df9-4jv8f/test-2-broken-image/logs
 >>>>>>>>>>`,
 
-	`Event on Pod test-2-broken-image-7cbf974df9-4jv8f due to Failed (at 17 Oct 21 17:17 IDT, 2 minutes ago):
+	`Event on Pod test-2-broken-image-7cbf974df9-4jv8f due to Failed (at 17 Oct 21 14:17 UTC, 2 minutes ago):
 	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`,
 
-	`Event on Pod test-2-broken-image-7cbf974df9-4jv8f due to Failed (at 17 Oct 21 17:17 IDT, 2 minutes ago):
+	`Event on Pod test-2-broken-image-7cbf974df9-4jv8f due to Failed (at 17 Oct 21 14:17 UTC, 2 minutes ago):
 	Error: ErrImagePull`,
 
-	`Event on Pod test-2-broken-image-7cbf974df9-4jv8f due to Failed (at 17 Oct 21 17:17 IDT, 2 minutes ago):
+	`Event on Pod test-2-broken-image-7cbf974df9-4jv8f due to Failed (at 17 Oct 21 14:17 UTC, 2 minutes ago):
 	Error: ImagePullBackOff`,
 
 	`Pod default/test-3-excessive-resources-699d58f55f-q9z65 is un-healthy
@@ -138,7 +138,7 @@ logs of container test-4-crashlooping:
 default/test-4-crashlooping-dbdd84589-8m7kj/test-4-crashlooping/logs
 >>>>>>>>>>`,
 
-	`Event on Pod test-4-crashlooping-dbdd84589-8m7kj due to BackOff (at 17 Oct 21 17:16 IDT, 3 minutes ago):
+	`Event on Pod test-4-crashlooping-dbdd84589-8m7kj due to BackOff (at 17 Oct 21 14:16 UTC, 3 minutes ago):
 	Back-off restarting failed container`,
 
 	`Pod default/test-5-completed-757685986-qxbqp is un-healthy
@@ -149,7 +149,7 @@ logs of container test-5-completed:
 default/test-5-completed-757685986-qxbqp/test-5-completed/logs
 >>>>>>>>>>`,
 
-	`Event on Pod test-5-completed-757685986-qxbqp due to BackOff (at 17 Oct 21 17:17 IDT, 2 minutes ago):
+	`Event on Pod test-5-completed-757685986-qxbqp due to BackOff (at 17 Oct 21 14:17 UTC, 2 minutes ago):
 	Back-off restarting failed container`,
 
 	`Pod default/test-6-crashlooping-init-644545f5b7-l468n is un-healthy
@@ -161,6 +161,6 @@ logs of container test-6-crashlooping-init-container:
 default/test-6-crashlooping-init-644545f5b7-l468n/test-6-crashlooping-init-container/logs
 >>>>>>>>>>`,
 
-	`Event on Pod test-6-crashlooping-init-644545f5b7-l468n due to BackOff (at 17 Oct 21 17:16 IDT, 3 minutes ago):
+	`Event on Pod test-6-crashlooping-init-644545f5b7-l468n due to BackOff (at 17 Oct 21 14:16 UTC, 3 minutes ago):
 	Back-off restarting failed container`,
 }

@@ -32,7 +32,7 @@ func TestEventState_StandardEvents(t *testing.T) {
 	require.Equal(t, 1, len(messages))
 	messages = strings.Split(messages[0], "\n")
 	require.Equal(t, 4, len(messages))
-	require.Equal(t, "Event on Pod app9-5965b85fc7-nchvk due to Unhealthy (at 12 Oct 21 16:54 IDT, 26 seconds ago):", messages[0])
+	require.Equal(t, "Event on Pod app9-5965b85fc7-nchvk due to Unhealthy (at 12 Oct 21 13:54 UTC, 26 seconds ago):", messages[0])
 	require.Equal(t, "\tLiveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current", messages[1])
 	require.Equal(t, "\tDload  Upload   Total   Spent    Left  Speed", messages[2])
 	require.Equal(t, "\t0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) Failed to connect to localhost port 8095: Connection refused", messages[3])
@@ -67,7 +67,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	require.Equal(t, 1, len(messages))
 	messages = strings.Split(messages[0], "\n")
 	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event on Pod nginx-1-7dfc456b4f-78mtz due to Failed (at 12 Oct 21 16:20 IDT, 9 minutes ago):", messages[0])
+	require.Equal(t, "Event on Pod nginx-1-7dfc456b4f-78mtz due to Failed (at 12 Oct 21 13:20 UTC, 9 minutes ago):", messages[0])
 	require.Equal(t, "\tError: ImagePullBackOff", messages[1])
 
 	state, err = testContext().eventState(&events[10], now)
@@ -80,7 +80,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	require.Equal(t, 1, len(messages))
 	messages = strings.Split(messages[0], "\n")
 	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event on Pod nginx-2-6f8f94f55c-fmcjs due to FailedScheduling (at 12 Oct 21 16:25 IDT, 4 minutes ago):", messages[0])
+	require.Equal(t, "Event on Pod nginx-2-6f8f94f55c-fmcjs due to FailedScheduling (at 12 Oct 21 13:25 UTC, 4 minutes ago):", messages[0])
 	require.Equal(t, "\t0/7 nodes are available: 7 Insufficient memory.", messages[1])
 
 	state, err = testContext().eventState(&events[11], now)
@@ -93,7 +93,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	require.Equal(t, 1, len(messages))
 	messages = strings.Split(messages[0], "\n")
 	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event on Pod nginx-3-d75464d75-llslq due to FailedMount (at 12 Oct 21 16:26 IDT, 3 minutes ago):", messages[0])
+	require.Equal(t, "Event on Pod nginx-3-d75464d75-llslq due to FailedMount (at 12 Oct 21 13:26 UTC, 3 minutes ago):", messages[0])
 	require.Equal(t, "\tUnable to attach or mount volumes: unmounted volumes=[nginx-pvc], unattached volumes=[default-token-6xwwv nginx-pvc]: timed out waiting for the condition", messages[1])
 
 	state, err = testContext().eventState(&events[12], now)
@@ -106,7 +106,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	require.Equal(t, 1, len(messages))
 	messages = strings.Split(messages[0], "\n")
 	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event on Pod nginx-3-d75464d75-llslq due to FailedMount (at 12 Oct 21 16:24 IDT, 5 minutes ago):", messages[0])
+	require.Equal(t, "Event on Pod nginx-3-d75464d75-llslq due to FailedMount (at 12 Oct 21 13:24 UTC, 5 minutes ago):", messages[0])
 	require.Equal(t, "\tUnable to attach or mount volumes: unmounted volumes=[nginx-pvc], unattached volumes=[nginx-pvc default-token-6xwwv]: timed out waiting for the condition", messages[1])
 }
 
@@ -127,7 +127,7 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
-	require.Equal(t, "Event on Node node-pool--19cbb605-22h0 due to NodeSysctlChange (at 14 Oct 21 08:24 IDT, 5 minutes ago)", messages[0])
+	require.Equal(t, "Event on Node node-pool--19cbb605-22h0 due to NodeSysctlChange (at 14 Oct 21 05:24 UTC, 5 minutes ago)", messages[0])
 
 	state, err = testContext().eventState(&events[1], now)
 	require.Nil(t, err)
@@ -139,6 +139,6 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 	require.Equal(t, 1, len(messages))
 	messages = strings.Split(messages[0], "\n")
 	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event on Node node-pool--19cbb605-22h0 due to KernelOops (at 14 Oct 21 09:10 IDT, 40 minutes ):", messages[0])
+	require.Equal(t, "Event on Node node-pool--19cbb605-22h0 due to KernelOops (at 14 Oct 21 06:10 UTC, 40 minutes ):", messages[0])
 	require.Equal(t, "\tkernel: BUG: unable to handle kernel NULL pointer dereference at TESTING", messages[1])
 }

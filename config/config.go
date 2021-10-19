@@ -19,6 +19,7 @@ type Config struct {
 	EventsLimit                      int64
 	KubeconfigFilePath               string
 	TimeFormat                       string
+	Locale                           *time.Location
 	PodCreationGracePeriodSeconds    float64
 	PodTerminationGracePeriodSeconds int64
 	PodRestartGraceCount             int32
@@ -54,6 +55,13 @@ var Flags = []cli.Flag{
 		Aliases:  []string{"f"},
 		Value:    time.RFC822,
 		Usage:    "format for printing timestamps",
+		Required: false,
+	},
+	&cli.StringFlag{
+		Name:     "locale",
+		Aliases:  []string{"l"},
+		Value:    "UTC",
+		Usage:    "localization to use when printing timestamps",
 		Required: false,
 	},
 	&cli.Float64Flag{
@@ -139,8 +147,8 @@ func flagSet(name string) (*flag.FlagSet, error) {
 	return set, nil
 }
 
-func (config *Config) setDefaultLogger()  {
-	config.Logger = log.New(os.Stdout, "kubescout", log.Ldate | log.Ltime | log.Lshortfile)
+func (config *Config) setDefaultLogger() {
+	config.Logger = log.New(os.Stdout, "kubescout", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
 func ParseConfig(c *cli.Context) (*Config, error) {
@@ -178,6 +186,14 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 			return nil, fmt.Errorf("failed to create parent directories of store file at '%v': %v", dirPath, err)
 		}
 	}
+
+	locationString := c.String("time-locale")
+	location, err := time.LoadLocation(locationString)
+	if err != nil {
+		log.Printf("failed to parse locale '%v', using default - UTC", locationString)
+		location = time.UTC
+	}
+	config.Locale = location
 
 	config.setDefaultLogger()
 	return config, nil

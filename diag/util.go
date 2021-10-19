@@ -127,11 +127,14 @@ func asTime(dateString string) time.Time {
 	return parsed
 }
 
-func formatTime(tm time.Time, format string) string {
+func formatTime(tm time.Time, format string, location *time.Location) string {
 	if tm.IsZero() {
 		return "unavailable time"
 	}
-	return tm.Format(format)
+	if location == nil {
+		location = time.UTC
+	}
+	return tm.In(location).Format(format)
 }
 
 func formatResource(value int, name string) string {

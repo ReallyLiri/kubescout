@@ -141,7 +141,7 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *e
 		involvedObject.Kind,
 		involvedObject.Name,
 		event.Reason,
-		formatTime(event.LastTimestamp.Time, context.config.TimeFormat),
+		formatTime(event.LastTimestamp.Time, context.config.TimeFormat, context.config.Locale),
 		wrapTemporal(formatDuration(event.LastTimestamp.Time, now)),
 		suffix,
 	)
