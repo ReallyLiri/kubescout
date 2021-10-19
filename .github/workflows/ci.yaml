@@ -81,10 +81,15 @@ jobs:
           entrypoint: bin/kubescout
           args: --help
 
+      - name: Clear dummy kubeconfig
+        run: rm ~/.kube/config
+
       - name: Start minikube
+        if: matrix.platform == 'ubuntu-latest'
         uses: medyagh/setup-minikube@master
 
       - name: Integration Test
+        if: matrix.platform == 'ubuntu-latest'
         run: go test -v --tags=integration ./integration_test.go
 
       - name: Upload binary artifact
