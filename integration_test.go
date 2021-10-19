@@ -120,6 +120,7 @@ func TestIntegration(t *testing.T) {
 	configuration.StoreFilePath = storeFile.Name()
 	configuration.MessagesDeduplicationDuration = time.Minute
 	configuration.Logger = log.New(ioutil.Discard, "", 0)
+	configuration.ExcludeNamespaces = []string{"kube-system"}
 
 	err = verifyMinikubeRunning()
 	require.Nil(t, err)
@@ -157,7 +158,7 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 
 	relevantMessagesFirstRun := storeForFirstRun.RelevantMessages()
-	verifyMessages(t, relevantMessagesFirstRun)
+	verifyMessagesForFullDiagRun(t, relevantMessagesFirstRun)
 
 	storeContent, err := ioutil.ReadFile(configuration.StoreFilePath)
 	require.Nil(t, err)
@@ -171,7 +172,7 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 
 	relevantMessagesSecondRun := storeForSecondRun.RelevantMessages()
-	assert.Equal(t, 0, len(relevantMessagesSecondRun), relevantMessagesSecondRun)
+	verifyMessagesForSilencedRun(t, relevantMessagesSecondRun)
 
 	log.Printf("sleeping to get de-dup grace time to pass")
 	time.Sleep(time.Minute)
@@ -184,32 +185,53 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 
 	relevantMessagesThirdRun := storeForThirdRun.RelevantMessages()
-	verifyMessages(t, relevantMessagesThirdRun)
+	verifyMessagesForFullDiagRun(t, relevantMessagesThirdRun)
 }
 
 func assertMessage(t *testing.T, expectedFormat string, actualMessage string) {
-	expectedFormatRegex := strings.ReplaceAll(regexp.QuoteMeta(expectedFormat), "\\*", ".*")
+	expectedFormatRegex := "(?s)" + strings.ReplaceAll(regexp.QuoteMeta(expectedFormat), "\\*", ".*")
 	matched, err := regexp.MatchString(expectedFormatRegex, actualMessage)
 	require.Nil(t, err)
 	assert.True(t, matched, "did not match\nExpected:\n%v\nActual:\n%v", expectedFormat, actualMessage)
 }
 
-func verifyMessages(t *testing.T, messages []string) {
+func verifyMessagesForFullDiagRun(t *testing.T, messages []string) {
 	assert.Equal(t, 12, len(messages))
 	for i, message := range messages {
-		assertMessage(t, expectedFormats[i], message)
+		assertMessage(t, expectedFormatsFirstRun[i], message)
 	}
 }
 
-var expectedFormats = []string{
+func verifyMessagesForSilencedRun(t *testing.T, messages []string) {
+	// ideally we'd have 0 messages, but sometimes we get some first run messages on delay and they shouldn't be silenced
+	if len(messages) > 3 {
+		assert.Fail(t, "too many messages on second run: %v", len(messages))
+	}
+	expectedFormat := `Pod default/test-* is un-healthy
+	test-*
+logs of container test-*:
+<<<<<<<<<<
+1
+2
+3
+4
+5
+
+>>>>>>>>>>`
+	for _, message := range messages {
+		assertMessage(t, expectedFormat, message)
+	}
+}
+
+var expectedFormatsFirstRun = []string{
 	`Pod default/test-2-broken-image-* is un-healthy
 	Pod is in Pending phase
 	test-2-broken-image still waiting due to *`,
 
-	`Event on Pod test-2-broken-image-* due to Failed (at *, * seconds ago):
+	`Event on Pod test-2-broken-image-* due to Failed (at *, * ago):
 	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`,
 
-	`Event on Pod test-2-broken-image-* due to Failed (at *, * seconds ago):
+	`Event on Pod test-2-broken-image-* due to Failed (at *, * ago):
 	Error: ErrImagePull`,
 
 	`Event on Pod test-2-broken-image-* due to Failed (at *, *):
@@ -217,14 +239,13 @@ var expectedFormats = []string{
 
 	`Pod default/test-3-excessive-resources-* is un-healthy
 	Pod is in Pending phase
-	Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 2 minutes ago)`,
+	Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: * ago)`,
 
 	`Event on Pod test-3-excessive-resources-* due to FailedScheduling (at unavailable time, unknown time ago):
 	0/1 nodes are available: 1 Insufficient memory.`,
 
 	`Pod default/test-4-crashlooping-* is un-healthy
-	test-4-crashlooping *
-	test-4-crashlooping had restarted * times, last exit due to Error (exit code 1)
+*	test-4-crashlooping had restarted * times, last exit due to Error (exit code 1)*
 logs of container test-4-crashlooping:
 <<<<<<<<<<
 1
@@ -235,11 +256,11 @@ logs of container test-4-crashlooping:
 
 >>>>>>>>>>`,
 
-	`Event on Pod test-4-crashlooping-* due to BackOff (at *, * seconds ago):
+	`Event on Pod test-4-crashlooping-* due to BackOff (at *, * ago):
 	Back-off restarting failed container`,
 
 	`Pod default/test-5-* is un-healthy
-	test-5-completed had restarted * times, last exit due to Completed (exit code 0)
+*	test-5-completed had restarted * times, last exit due to Completed (exit code 0)*
 logs of container test-5-completed:
 <<<<<<<<<<
 1
@@ -250,12 +271,12 @@ logs of container test-5-completed:
 
 >>>>>>>>>>`,
 
-	`Event on Pod test-5-completed-* due to BackOff (at *, * seconds ago):
+	`Event on Pod test-5-completed-* due to BackOff (at *, * ago):
 	Back-off restarting failed container`,
 
 	`Pod default/test-6-crashlooping-init-* is un-healthy
 	Pod is in Pending phase
-	test-6-crashlooping-init-container (init) *
+*	test-6-crashlooping-init-container (init) *
 logs of container test-6-crashlooping-init-container:
 <<<<<<<<<<
 1
@@ -266,8 +287,6 @@ logs of container test-6-crashlooping-init-container:
 
 >>>>>>>>>>`,
 
-	`Event on Pod test-6-crashlooping-init-* due to BackOff (at *, * seconds ago):
+	`Event on Pod test-6-crashlooping-init-* due to BackOff (at *, * ago):
 	Back-off restarting failed container`,
-
-	`a`,
 }

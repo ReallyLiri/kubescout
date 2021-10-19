@@ -19,11 +19,11 @@ type LogSink struct {
 }
 
 func (s LogSink) Report(message Alert) error {
-	asJson, err := json.Marshal(message)
+	asJson, err := json.MarshalIndent(message, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to serialize message to json: %v", err)
 	}
-	log.Println(asJson)
+	log.Println(string(asJson))
 	return nil
 }
 

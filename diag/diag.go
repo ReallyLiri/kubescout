@@ -6,6 +6,7 @@ import (
 	"KubeScout/store"
 	"fmt"
 	"go.uber.org/multierr"
+	"log"
 	"strings"
 	"time"
 )
@@ -32,7 +33,7 @@ func testContext() *diagContext {
 func (context *diagContext) handleState(state *entityState, printOnlyIfUnhealthy bool) (stored bool) {
 	isHealthy := state.isHealthy()
 	if !printOnlyIfUnhealthy || !isHealthy {
-		fmt.Print(state)
+		log.Print(state.String() + "\n")
 	}
 	if !isHealthy {
 		builder := strings.Builder{}

@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Vet
+        run: go vet
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v2
+
+      - name: Test
+        run: go test -v ./...
+
+      - name: Build
+        run: GO111MODULE=on CGO_ENABLED=0 go build -v ./... -o bin/kubescout
+
+      - name: CLI Sanity
+        run: bin/kubescout --help
+
+      - name: Extract platform
+        id: platform
+        run: |
+          if [ "${{ matrix.platform }}" == "ubuntu-latest" ]; then
+            echo '::set-output name=platform::linux'
+          elif [ "${{ matrix.platform }}" == "macos-latest" ]; then
+            echo '::set-output name=platform::osx'
+          else
+            echo "Unsupported platform ${{ matrix.platform }}"
+            exit 1
+          fi
+
+      - name: Extract version
+        id: version
+        run: |
+          echo "::set-output name=version::$(go run . --version | cut -d" " -f 3)"
+
+      - name: Verify binary on Alpine
+        if: ${{ matrix.platform }} == 'ubuntu-latest'
+        uses: docker://alpine:latest
+        run: bin/kubescout --help
+
+      - name: Verify binary on Debian
+        if: ${{ matrix.platform }} == 'ubuntu-latest'
+        uses: docker://debian:buster
+        run: bin/kubescout --help
+
+      - name: Verify binary on CentOS
+        if: ${{ matrix.platform }} == 'ubuntu-latest'
+        uses: docker://centos:8
+        run: bin/kubescout --help
+
+      - name: Start minikube
+        if: ${{ matrix.platform }} == 'ubuntu-latest'
+        uses: medyagh/setup-minikube@master
+
+      - name: Integration Test
+        run: go test -v --tags=integration ./integration_test.go
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubescout-${{ steps.version.outputs.version }}-${{ steps.platform.outputs.platform }}
+          path: bin/kubescout

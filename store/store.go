@@ -24,9 +24,6 @@ type ClusterStore struct {
 }
 
 func LoadOrCreate(config *config.Config) (*Store, error) {
-	if config.StoreFilePath == "" {
-		return nil, nil
-	}
 	store, err := loadOrCreate(config.StoreFilePath, config.MessagesDeduplicationDuration)
 	if err != nil {
 		return nil, err
@@ -48,6 +45,10 @@ func loadOrCreate(filePath string, dedupDuration time.Duration) (*Store, error) 
 		dedupDuration:       dedupDuration,
 		filePath:            filePath,
 	}
+	if filePath == "" {
+		return store, nil
+	}
+
 	content, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		if errors.Is(err, fs.ErrNotExist) {
@@ -88,6 +89,10 @@ func (store *Store) Add(message string, hashes []string, now time.Time) {
 }
 
 func (store *Store) Flush() error {
+	if store.filePath == "" {
+		return nil
+	}
+
 	content, err := json.MarshalIndent(store, "", " ")
 	if err != nil {
 		return fmt.Errorf("failed to serialize store to json: %v", err)

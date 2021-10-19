@@ -1,0 +1,12 @@
+{
+ "cluster_stores_by_name": {
+  "mini": {
+   "cluster": "mini",
+   "hash_with_timestamp": {
+    "0f51d9f919e82223fb881214d7f4e2c7c68d6e18": "2021-10-19T13:21:59.105691Z",
+    "b4e0127e5eb869d6a71d2dee9c0c8f412547e5af": "2021-10-19T13:21:59.105691Z",
+    "e1d825555d7f06089b0302a2089d5e9767d603f9": "2021-10-19T13:21:59.105691Z"
+   }
+  }
+ }
+}
