@@ -11,16 +11,19 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Verify latest ci completed successfully
+      - name: Get latest ci status
         uses: docker://dwdraju/alpine-curl-jq
         with:
           entrypoint: bash
-          args: |
-            STATUS=$(curl https://_:${{ secrets.GITHUB_TOKEN }}@api.github.com/repos/ReallyLiri/kubescout/actions/workflows/ci.yaml/runs |  jq -r '.workflow_runs[0].status')
-            if [ "$STATUS" != "completed" ]; then
-              echo "latest ci run is in status $STATUS, cannot create a release yet"
-              exit 1
-            fi
+          args: -c "curl https://_:${{ secrets.GITHUB_TOKEN }}@api.github.com/repos/ReallyLiri/kubescout/actions/workflows/ci.yaml/runs |  jq -r '.workflow_runs[0].status' > ci-status.txt"
+
+      - name: Verify latest ci completed successfully
+        run: |
+          STATUS=$(cat ci-status.txt)
+          if [ "$STATUS" != "completed" ]; then
+            echo "latest ci run is in status $STATUS, cannot create a release yet"
+            exit 1
+          fi
 
       - name: Extract tag name
         id: tag
