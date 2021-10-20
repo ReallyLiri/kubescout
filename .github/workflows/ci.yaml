@@ -94,11 +94,12 @@ jobs:
           fi
           VERSION=$(go run . --version | cut -d" " -f 3)
           BINNAME="kubescout-$VERSION-$PLATFORM"
-          echo "::set-output name=platform::$BINNAME"
+          echo BINNAME=$BINNAME
+          echo "::set-output name=binname::$BINNAME"
 
       - name: Upload binary artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.version.outputs.binname }}.zip
+          name: ${{ steps.binname.outputs.binname }}.zip
           path: bin/kubescout.zip
