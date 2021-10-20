@@ -75,10 +75,6 @@ jobs:
         if: matrix.platform == 'ubuntu-latest'
         run: go test -v --tags=integration ./integration_test.go
 
-      - name: Archive binary
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: zip -j bin/kubescout.zip bin/kubescout
-
       - name: Set binary name
         id: binname
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -101,5 +97,5 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.binname.outputs.binname }}.zip
-          path: bin/kubescout.zip
+          name: ${{ steps.binname.outputs.binname }}
+          path: bin/kubescout
