@@ -19,24 +19,17 @@ jobs:
 
       - name: Verify latest ci completed successfully
         run: |
+          set -x
           STATUS=$(cat ci-status.txt)
           if [ "$STATUS" != "completed" ]; then
             echo "latest ci run is in status $STATUS, cannot create a release yet"
             exit 1
           fi
 
-      - name: Extract tag name
-        id: tag
-        uses: actions/github-script@0.2.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            return context.payload.ref.replace(/\/refs\/tags\/v/, '');
-
       - name: Download latest atrifacts
         run: |
-          curl --fail https://nightly.link/ReallyLiri/kubescout/workflows/ci.yaml/main/kubescout-${{ steps.tag.outputs.result }}-linux.zip
-          curl --fail https://nightly.link/ReallyLiri/kubescout/workflows/ci.yaml/main/kubescout-${{ steps.tag.outputs.result }}-osx.zip
+          curl --fail https://nightly.link/ReallyLiri/kubescout/workflows/ci.yaml/main/kubescout-linux.zip
+          curl --fail https://nightly.link/ReallyLiri/kubescout/workflows/ci.yaml/main/kubescout-osx.zip
 
       - name: Release
         uses: softprops/action-gh-release@v1

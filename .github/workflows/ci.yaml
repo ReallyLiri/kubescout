@@ -1,8 +1,8 @@
 name: CI
 
 on:
-  #push:
-  #  branches: [ main ]
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -88,8 +88,7 @@ jobs:
             echo "Unsupported platform ${{ matrix.platform }}"
             exit 1
           fi
-          VERSION=$(go run . --version | cut -d" " -f 3)
-          BINNAME="kubescout-$VERSION-$PLATFORM"
+          BINNAME="kubescout-$PLATFORM"
           echo BINNAME=$BINNAME
           echo "::set-output name=binname::$BINNAME"
 
