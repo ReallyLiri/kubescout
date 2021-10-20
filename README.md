@@ -2,6 +2,8 @@
 
 ![icon](kubescout.png)
 
+[![CI](https://github.com/ReallyLiri/kubescout/actions/workflows/ci.yaml/badge.svg)](https://github.com/ReallyLiri/kubescout/actions/workflows/ci.yaml)
+
 ```
 NAME:
    kubescout - 0.1.0 - Scout for alarming issues in your Kubernetes cluster
