@@ -28,8 +28,8 @@ jobs:
 
       - name: Download latest atrifacts
         run: |
-          curl --fail https://nightly.link/ReallyLiri/kubescout/workflows/ci.yaml/main/kubescout-linux.zip
-          curl --fail https://nightly.link/ReallyLiri/kubescout/workflows/ci.yaml/main/kubescout-osx.zip
+          curl --fail -L -o kubescout-linux.zip https://nightly.link/ReallyLiri/kubescout/workflows/ci.yaml/main/kubescout-linux.zip
+          curl --fail -L -o kubescout-osx.zip https://nightly.link/ReallyLiri/kubescout/workflows/ci.yaml/main/kubescout-osx.zip
 
       - name: Release
         uses: softprops/action-gh-release@v1
