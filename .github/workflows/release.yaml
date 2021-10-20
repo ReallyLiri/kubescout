@@ -35,4 +35,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            kubescout-*.zip
+            kubescout-linux.zip
+            kubescout-osx.zip
