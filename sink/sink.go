@@ -3,12 +3,11 @@ package sink
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 )
 
 type Alert struct {
-	ClusterName string `json:"cluster_name"`
-	Content      []string `json:"content"`
+	ClusterName string   `json:"cluster_name"`
+	Content     []string `json:"content"`
 }
 
 type Sink interface {
@@ -23,7 +22,7 @@ func (s LogSink) Report(message Alert) error {
 	if err != nil {
 		return fmt.Errorf("failed to serialize message to json: %v", err)
 	}
-	log.Println(string(asJson))
+	fmt.Printf(string(asJson) + "\n")
 	return nil
 }
 

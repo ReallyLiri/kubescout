@@ -8,10 +8,10 @@ import (
 	"KubeScout/kubeclient"
 	"KubeScout/store"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"io/ioutil"
-	"log"
 	"os/exec"
 	"path"
 	"regexp"
@@ -115,11 +115,10 @@ func TestIntegration(t *testing.T) {
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
 
-	log.Printf("using store file at '%v'\n", storeFile.Name())
+	log.Infof("using store file at '%v'\n", storeFile.Name())
 	configuration.ClusterName = "integration-test"
 	configuration.StoreFilePath = storeFile.Name()
 	configuration.MessagesDeduplicationDuration = time.Minute
-	configuration.Logger = log.New(ioutil.Discard, "", 0)
 	configuration.ExcludeNamespaces = []string{"kube-system"}
 
 	err = verifyMinikubeRunning()
@@ -136,13 +135,13 @@ func TestIntegration(t *testing.T) {
 	err = applyManifests()
 	require.Nil(t, err)
 
-	log.Printf("applied manifests, sleeping to give namespace time to stabilize ...\n")
+	log.Infof("applied manifests, sleeping to give namespace time to stabilize ...\n")
 
 	defer func() {
-		log.Printf("cleaning up namespace ...\n")
+		log.Infof("cleaning up namespace ...\n")
 		err := cleanupDefaultNamespace()
 		if err != nil {
-			log.Printf(err.Error())
+			log.Infof(err.Error())
 		}
 	}()
 
@@ -153,7 +152,7 @@ func TestIntegration(t *testing.T) {
 	storeForFirstRun, err := store.LoadOrCreate(configuration)
 	require.Nil(t, err)
 
-	log.Printf("running 1/3 diagnose call ...\n")
+	log.Infof("running 1/3 diagnose call ...\n")
 	err = diag.DiagnoseCluster(client, configuration, storeForFirstRun, time.Now().UTC())
 	require.Nil(t, err)
 
@@ -167,20 +166,20 @@ func TestIntegration(t *testing.T) {
 	storeForSecondRun, err := store.LoadOrCreate(configuration)
 	require.Nil(t, err)
 
-	log.Printf("running 2/3 diagnose call ...\n")
+	log.Infof("running 2/3 diagnose call ...\n")
 	err = diag.DiagnoseCluster(client, configuration, storeForSecondRun, time.Now().UTC())
 	require.Nil(t, err)
 
 	relevantMessagesSecondRun := storeForSecondRun.RelevantMessages()
 	verifyMessagesForSilencedRun(t, relevantMessagesSecondRun)
 
-	log.Printf("sleeping to get de-dup grace time to pass")
+	log.Infof("sleeping to get de-dup grace time to pass")
 	time.Sleep(time.Minute)
 
 	storeForThirdRun, err := store.LoadOrCreate(configuration)
 	require.Nil(t, err)
 
-	log.Printf("running 3/3 diagnose call ...\n")
+	log.Infof("running 3/3 diagnose call ...\n")
 	err = diag.DiagnoseCluster(client, configuration, storeForThirdRun, time.Now().UTC())
 	require.Nil(t, err)
 

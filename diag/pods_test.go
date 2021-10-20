@@ -2,9 +2,8 @@ package diag
 
 import (
 	"KubeScout/kubeclient"
-	"fmt"
 	"github.com/stretchr/testify/require"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"strings"
 	"testing"
 )
@@ -64,7 +63,7 @@ func TestPodState_PodPendingTooLong(t *testing.T) {
 	pendingPod := pods[0]
 	state, err := testContext().podState(&pendingPod, asTime("2021-07-18T07:15:00Z"), nil)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -98,7 +97,7 @@ func TestPodState_StuckInitializing(t *testing.T) {
 		podStuckInitializing := pods[index]
 		state, err := testContext().podState(&podStuckInitializing, now, nil)
 		require.Nil(t, err)
-		fmt.Print(state)
+		log.Debug(state.String())
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.fullName)
 		messages := state.messages
@@ -124,7 +123,7 @@ func TestPodState_EvictedOnInodes(t *testing.T) {
 	evictedPod := pods[6]
 	state, err := testContext().podState(&evictedPod, now, nil)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -147,7 +146,7 @@ func TestPodState_EvictedOnMemory(t *testing.T) {
 	evictedPod := pods[0]
 	state, err := testContext().podState(&evictedPod, now, nil)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -171,7 +170,7 @@ func TestPodState_EvictedOnDiskPressure(t *testing.T) {
 	evictedPod := pods[13]
 	state, err := testContext().podState(&evictedPod, now, nil)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -212,7 +211,7 @@ func TestPodState_CreateFailed(t *testing.T) {
 	failingPod := pods[6]
 	state, err := testContext().podState(&failingPod, now, mockClient)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -265,7 +264,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		crashingPod := pods[index]
 		state, err := testContext().podState(&crashingPod, now, mockClient)
 		require.Nil(t, err)
-		log.Printf("%v) %v", index, state)
+		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.fullName)
 		messages := state.messages
@@ -283,7 +282,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		initializingPods := pods[index]
 		state, err := testContext().podState(&initializingPods, now, mockClient)
 		require.Nil(t, err)
-		log.Printf("%v) %v", index, state)
+		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.fullName)
 		messages := state.messages
@@ -319,7 +318,7 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	restartingPod := pods[11]
 	state, err := testContext().podState(&restartingPod, now, nil)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -330,7 +329,7 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	restartingPod = pods[13]
 	state, err = testContext().podState(&restartingPod, now, nil)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages = state.messages
@@ -360,7 +359,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	restartingPod := pods[0]
 	state, err := testContext().podState(&restartingPod, now, nil)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 0, state)
+	log.Debugf("%v) %v", 0, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -372,7 +371,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	pendingPod := pods[1]
 	state, err = testContext().podState(&pendingPod, now, nil)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 1, state)
+	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages = state.messages
@@ -393,7 +392,7 @@ func TestPodState_PodUnschedulableDueToInsufficientMemory(t *testing.T) {
 	unschedulablePod := pods[0]
 	state, err := testContext().podState(&unschedulablePod, now, nil)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -419,7 +418,7 @@ func TestPodState_JobFailed(t *testing.T) {
 		}
 		state, err := testContext().podState(&failedPod, now, nil)
 		require.Nil(t, err)
-		log.Printf("%v) %v", i, state)
+		log.Debugf("%v) %v", i, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.fullName)
 		messages := state.messages
@@ -441,7 +440,7 @@ func TestPodState_PodsStuckTerminating(t *testing.T) {
 	for i, terminatingPod := range pods {
 		state, err := testContext().podState(&terminatingPod, now, nil)
 		require.Nil(t, err)
-		log.Printf("%v) %v", i, state)
+		log.Debugf("%v) %v", i, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.fullName)
 		messages := state.messages
@@ -461,7 +460,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 
 	state, err := testContext().podState(&pods[0], now, nil)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 0, state)
+	log.Debugf("%v) %v", 0, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -472,7 +471,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 
 	state, err = testContext().podState(&pods[1], now, nil)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 1, state)
+	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages = state.messages
@@ -483,7 +482,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 
 	state, err = testContext().podState(&pods[2], now, nil)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 2, state)
+	log.Debugf("%v) %v", 2, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages = state.messages

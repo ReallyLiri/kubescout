@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/dustin/go-humanize"
 	"github.com/fatih/camelcase"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"regexp"
 	"strconv"
 	"strings"
@@ -48,7 +48,7 @@ func normalizeMessage(message string) string {
 		}
 		temporalEndIndex := strings.Index(message, TEMPORTAL_END)
 		if temporalEndIndex == -1 || temporalEndIndex < temporalStartIndex {
-			log.Printf("invalid temporal format for %v", message)
+			log.Errorf("invalid temporal format for %v", message)
 			break
 		}
 		message = message[:temporalStartIndex] + message[(temporalEndIndex+len(TEMPORTAL_END)):]

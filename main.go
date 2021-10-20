@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"github.com/urfave/cli/v2"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"os"
 	"time"
 )
@@ -28,9 +28,6 @@ OPTIONS:
    {{range .Flags}}{{.}}
    {{end}}
 `
-
-	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
-	log.SetOutput(os.Stdout)
 	app := &cli.App{
 		Name:    "kubescout",
 		Usage:   "Scout for alarming issues in your Kubernetes cluster",
@@ -47,7 +44,7 @@ OPTIONS:
 
 	err := app.Run(os.Args)
 	if err != nil {
-		fmt.Printf("failed: %v", err)
+		log.Errorf("failed: %v", err)
 		os.Exit(1)
 	}
 }

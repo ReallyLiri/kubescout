@@ -11,7 +11,7 @@ import (
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"strings"
 )
 
@@ -36,7 +36,7 @@ var _ KubernetesClient = &remoteKubernetesClient{}
 func CreateClient(config *config.Config) (KubernetesClient, error) {
 
 	kubeconfigFilePath := config.KubeconfigFilePath
-	log.Printf("Building kuberenetes client from kubeconfig '%v'\n", kubeconfigFilePath)
+	log.Debugf("Building kubernetes client from kubeconfig '%v'\n", kubeconfigFilePath)
 	kubeconfig, err := clientcmd.BuildConfigFromFlags("", kubeconfigFilePath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to build kubeconfig from '%v': %v", kubeconfigFilePath, err)
@@ -160,7 +160,7 @@ func (client *remoteKubernetesClient) GetPodLogs(namespace string, podName strin
 	defer func() {
 		err := stream.Close()
 		if err != nil {
-			log.Printf("failed to close stream for log request of %v/%v/%v: %v", namespace, podName, containerName, err)
+			log.Errorf("failed to close stream for log request of %v/%v/%v: %v", namespace, podName, containerName, err)
 		}
 	}()
 

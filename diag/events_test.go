@@ -2,9 +2,8 @@ package diag
 
 import (
 	"KubeScout/kubeclient"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
-	"log"
 	"strings"
 	"testing"
 )
@@ -24,7 +23,7 @@ func TestEventState_StandardEvents(t *testing.T) {
 
 	state, err := testContext().eventState(&events[139], now)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -59,7 +58,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 
 	state, err := testContext().eventState(&events[1], now)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 1, state)
+	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -72,7 +71,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 
 	state, err = testContext().eventState(&events[10], now)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 10, state)
+	log.Debugf("%v) %v", 10, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages = state.messages
@@ -85,7 +84,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 
 	state, err = testContext().eventState(&events[11], now)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 11, state)
+	log.Debugf("%v) %v", 11, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages = state.messages
@@ -98,7 +97,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 
 	state, err = testContext().eventState(&events[12], now)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 12, state)
+	log.Debugf("%v) %v", 12, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages = state.messages
@@ -121,7 +120,7 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 
 	state, err := testContext().eventState(&events[0], now)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 0, state)
+	log.Debugf("%v) %v", 0, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -131,7 +130,7 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 
 	state, err = testContext().eventState(&events[1], now)
 	require.Nil(t, err)
-	log.Printf("%v) %v", 1, state)
+	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages = state.messages

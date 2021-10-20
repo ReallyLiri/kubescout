@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"crypto/tls"
 	"fmt"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -31,7 +31,7 @@ func postHttp(url string, body []byte, customizeRequest CustomizeRequest, tlsSki
 		client.Transport = skipVerifyTransport
 	}
 
-	log.Printf("posting to %v ...", url)
+	log.Debugf("posting to %v ...", url)
 	response, err := client.Do(request)
 	if err != nil {
 		return "", fmt.Errorf("failed to http post to %v: %v", url, err)
@@ -40,7 +40,7 @@ func postHttp(url string, body []byte, customizeRequest CustomizeRequest, tlsSki
 	responseBody := new(bytes.Buffer)
 	_, err = responseBody.ReadFrom(response.Body)
 	if err != nil {
-		log.Printf("failed to read response body: %v", err)
+		log.Errorf("failed to read response body: %v", err)
 	}
 
 	responseBodyString := responseBody.String()

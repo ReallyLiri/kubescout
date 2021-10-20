@@ -4,7 +4,6 @@ import (
 	"KubeScout/config"
 	"KubeScout/kubeclient"
 	"KubeScout/store"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"io/ioutil"
@@ -57,8 +56,6 @@ func TestDiagnose(t *testing.T) {
 	messages := sto.RelevantMessages()
 	assert.Equal(t, 12, len(messages))
 	for i, message := range messages {
-		fmt.Printf("checking message #%v ...\n", i)
-		fmt.Printf(message + "\n")
 		assert.Equal(t, expectedMessages[i], message)
 	}
 }

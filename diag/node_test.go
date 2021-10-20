@@ -2,8 +2,8 @@ package diag
 
 import (
 	"KubeScout/kubeclient"
-	"fmt"
 	"github.com/stretchr/testify/require"
+	log "github.com/sirupsen/logrus"
 	"testing"
 )
 
@@ -26,7 +26,7 @@ func TestNodeState_NodeInUnknownState(t *testing.T) {
 	now := asTime("2021-10-13T15:00:00Z")
 	state, err := testContext().nodeState(&nodes[0], now, true)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages
@@ -45,7 +45,7 @@ func TestNodeState_ExcessiveCpu(t *testing.T) {
 
 	state, err := testContext().nodeState(&nodes[0], now, true)
 	require.Nil(t, err)
-	fmt.Print(state)
+	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.fullName)
 	messages := state.messages

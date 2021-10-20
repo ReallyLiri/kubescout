@@ -4,17 +4,16 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 	"io/fs"
 	"k8s.io/client-go/util/homedir"
-	"log"
 	"os"
 	"path/filepath"
 	"time"
 )
 
 type Config struct {
-	Logger                           *log.Logger
 	PodLogsTail                      int64
 	EventsLimit                      int64
 	KubeconfigFilePath               string
@@ -32,6 +31,13 @@ type Config struct {
 }
 
 var Flags = []cli.Flag{
+	&cli.BoolFlag{
+		Name:     "verbose",
+		Aliases:  []string{"vv"},
+		Usage:    "Log verbose",
+		Required: false,
+		Value:    false,
+	},
 	&cli.Int64Flag{
 		Name:     "logs-tail",
 		Usage:    "Length of logs tail when reporting of a problematic pod's logs",
@@ -133,7 +139,6 @@ func DefaultConfig() (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	config.setDefaultLogger()
 	return config, nil
 }
 
@@ -145,10 +150,6 @@ func flagSet(name string) (*flag.FlagSet, error) {
 		}
 	}
 	return set, nil
-}
-
-func (config *Config) setDefaultLogger() {
-	config.Logger = log.New(os.Stdout, "kubescout", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
 func ParseConfig(c *cli.Context) (*Config, error) {
@@ -195,6 +196,20 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 	}
 	config.Locale = location
 
-	config.setDefaultLogger()
+	log.SetFormatter(&log.TextFormatter{
+		ForceColors:            true,
+		FullTimestamp:          true,
+		TimestampFormat:        config.TimeFormat,
+		DisableLevelTruncation: true,
+		PadLevelText:           true,
+		QuoteEmptyFields:       true,
+	})
+	log.SetOutput(os.Stdout)
+	if c.Bool("verbose") {
+		log.SetLevel(log.DebugLevel)
+	} else {
+		log.SetLevel(log.DebugLevel)
+	}
+
 	return config, nil
 }
