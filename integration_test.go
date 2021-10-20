@@ -241,7 +241,7 @@ var expectedFormatsFirstRun = []string{
 	Pod is in Pending phase
 	Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: * ago)`,
 
-	`Event on Pod test-3-excessive-resources-* due to FailedScheduling (at unavailable time, unknown time ago):
+	`Event on Pod test-3-excessive-resources-* due to FailedScheduling (at *, * ago):
 	0/1 nodes are available: 1 Insufficient memory.`,
 
 	`Pod default/test-4-crashlooping-* is un-healthy
