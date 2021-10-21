@@ -24,6 +24,7 @@ func testContext() *diagContext {
 	if err != nil {
 		panic(err)
 	}
+	log.SetLevel(log.DebugLevel)
 	return &diagContext{config: cfg}
 }
 

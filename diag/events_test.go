@@ -141,3 +141,96 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 	require.Equal(t, "Event on Node node-pool--19cbb605-22h0 due to KernelOops (at 14 Oct 21 06:10 UTC, 40 minutes ):", messages[0])
 	require.Equal(t, "\tkernel: BUG: unable to handle kernel NULL pointer dereference at TESTING", messages[1])
 }
+
+func TestEventState_FailedJobs(t *testing.T) {
+	events, err := kubeclient.GetEvents(t, "failed_jobs.json")
+	require.Nil(t, err)
+	require.NotNil(t, events)
+	require.NotEmpty(t, events)
+	require.Equal(t, 75, len(events))
+
+	now := asTime("2021-10-21T11:00:00Z")
+
+	verifyEventsHealthyExcept(t, events, now, map[int]bool{
+		71: true,
+	})
+
+	state, err := testContext().eventState(&events[71], now)
+	require.Nil(t, err)
+	log.Debug(state.String())
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.fullName)
+	messages := state.messages
+	require.NotEmpty(t, messages)
+	require.Equal(t, 1, len(messages))
+	messages = strings.Split(messages[0], "\n")
+	require.Equal(t, 2, len(messages))
+	require.Equal(t, "Event on Job tester-1634810400 due to BackoffLimitExceeded (at 21 Oct 21 10:06 UTC, 53 minutes ago):", messages[0])
+	require.Equal(t, "\tJob has reached the specified backoff limit", messages[1])
+}
+
+
+func TestEventState_RpcError(t *testing.T) {
+	events, err := kubeclient.GetEvents(t, "liveness_failed.json")
+	require.Nil(t, err)
+	require.NotNil(t, events)
+	require.NotEmpty(t, events)
+	require.Equal(t, 134, len(events))
+
+	now := asTime("2021-10-19T09:00:00Z")
+
+	warningIndexes := []int {
+
+		8,
+		18,
+		29,
+		30,
+		31,
+		32,
+		33,
+		36,
+		47,
+		48,
+		49,
+		52,
+		59,
+		67,
+		68,
+		69,
+		82,
+		109,
+		112,
+		113,
+		114,
+		124,
+		131,
+		132,
+		133,
+	}
+
+	skipIndexes := make(map[int]bool, len(warningIndexes))
+	for _, index := range warningIndexes {
+		skipIndexes[index] = true
+	}
+
+	verifyEventsHealthyExcept(t, events, now, skipIndexes)
+
+	for _, i := range warningIndexes {
+		state, err := testContext().eventState(&events[i], now)
+		require.Nil(t, err)
+		log.Debug(state.String())
+		require.False(t, state.isHealthy())
+		require.NotEmpty(t, state.fullName)
+		messages := state.messages
+		require.NotEmpty(t, messages)
+		require.Equal(t, 1, len(messages))
+		messages = strings.Split(messages[0], "\n")
+		require.True(t, len(messages) >= 2)
+		require.True(t, len(messages) <= 5)
+		require.True(t, strings.HasPrefix(messages[0], "Event on Pod"))
+		require.True(t, strings.Index(messages[0], "due to Unhealthy") > 0)
+		require.True(t,
+			strings.HasPrefix(messages[1], "\tLiveness probe errored: ") || strings.HasPrefix(messages[1], "\tLiveness probe failed: "),
+		)
+	}
+}

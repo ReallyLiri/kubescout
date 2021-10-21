@@ -1,0 +1,4420 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-64bbbd7645-qxx2x",
+        "namespace": "default",
+        "resourceVersion": "39087530",
+        "uid": "b4923369-3ebb-46fc-aa67-9aad51c51c67"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container api",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "api-64bbbd7645-qxx2x.16af603092b8ec61",
+        "namespace": "default",
+        "resourceVersion": "40394474",
+        "selfLink": "/api/v1/namespaces/default/events/api-64bbbd7645-qxx2x.16af603092b8ec61",
+        "uid": "ac3b1e64-9f94-45ee-80e2-7ea0cabbcf48"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "api-64bbbd7645-qxx2x",
+        "namespace": "default",
+        "resourceVersion": "39087530",
+        "uid": "b4923369-3ebb-46fc-aa67-9aad51c51c67"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "api-64bbbd7645-qxx2x.16af603092ba8273",
+        "namespace": "default",
+        "resourceVersion": "40394473",
+        "selfLink": "/api/v1/namespaces/default/events/api-64bbbd7645-qxx2x.16af603092ba8273",
+        "uid": "c112208b-ad2a-468d-8ed4-13b6b67fd7d6"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "api-64bbbd7645",
+        "namespace": "default",
+        "resourceVersion": "39088897",
+        "uid": "39a09398-9b86-4dd7-9572-5623706ba728"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: api-64bbbd7645-45jmn",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "api-64bbbd7645.16af60308f6f4b5c",
+        "namespace": "default",
+        "resourceVersion": "40394438",
+        "selfLink": "/api/v1/namespaces/default/events/api-64bbbd7645.16af60308f6f4b5c",
+        "uid": "a8a6ef4e-33ef-4787-9405-4803ca15e734"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "api-6fd4947df7",
+        "namespace": "default",
+        "resourceVersion": "40393930",
+        "uid": "fd3fce14-1cc5-4bb3-842f-b76b4b8d4e0c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: api-6fd4947df7-pj8tb",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "api-6fd4947df7.16af5ffa606f931b",
+        "namespace": "default",
+        "resourceVersion": "40394002",
+        "selfLink": "/api/v1/namespaces/default/events/api-6fd4947df7.16af5ffa606f931b",
+        "uid": "c44b3f20-212e-4609-8c99-c0b32b9bc8cd"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "api-6fd4947df7",
+        "namespace": "default",
+        "resourceVersion": "40394016",
+        "uid": "fd3fce14-1cc5-4bb3-842f-b76b4b8d4e0c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: api-6fd4947df7-9rb4v",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "api-6fd4947df7.16af603090280494",
+        "namespace": "default",
+        "resourceVersion": "40394447",
+        "selfLink": "/api/v1/namespaces/default/events/api-6fd4947df7.16af603090280494",
+        "uid": "5d3af1cd-e804-47b3-a3ee-de1f7e80db13"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "api",
+        "namespace": "default",
+        "resourceVersion": "40393907",
+        "uid": "66d1f9eb-90e5-4ffc-8c0c-55f70360966b"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set api-6fd4947df7 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "api.16af5ffa54721acb",
+        "namespace": "default",
+        "resourceVersion": "40393942",
+        "selfLink": "/api/v1/namespaces/default/events/api.16af5ffa54721acb",
+        "uid": "35d652cb-a370-4650-b8a0-8bb5eeeb56a1"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app10}",
+        "kind": "Pod",
+        "name": "app10-6c6dcff574-67ppm",
+        "namespace": "default",
+        "resourceVersion": "39088004",
+        "uid": "1569eb77-67ea-4c4e-9e1d-1c3b94f2cc77"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Stopping container app10",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app10-6c6dcff574-67ppm.16af5ffa584ab007",
+        "namespace": "default",
+        "resourceVersion": "40393953",
+        "selfLink": "/api/v1/namespaces/default/events/app10-6c6dcff574-67ppm.16af5ffa584ab007",
+        "uid": "8529330c-a228-4fdd-8751-eeb8c30e83c3"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app10-6c6dcff574-67ppm",
+        "namespace": "default",
+        "resourceVersion": "39088004",
+        "uid": "1569eb77-67ea-4c4e-9e1d-1c3b94f2cc77"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app10-6c6dcff574-67ppm.16af5ffa584b01f1",
+        "namespace": "default",
+        "resourceVersion": "40393952",
+        "selfLink": "/api/v1/namespaces/default/events/app10-6c6dcff574-67ppm.16af5ffa584b01f1",
+        "uid": "acf35cc1-5246-42fa-8d42-07dcd5bfe908"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app10}",
+        "kind": "Pod",
+        "name": "app10-6c6dcff574-67ppm",
+        "namespace": "default",
+        "resourceVersion": "39088004",
+        "uid": "1569eb77-67ea-4c4e-9e1d-1c3b94f2cc77"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: failed to create exec \"d8047a48e546aca981f09659cf47befdc7df569c63f9bc0488115d90a5a088e1\": cannot exec in a stopped state: unknown",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app10-6c6dcff574-67ppm.16af5ffaaa0b4907",
+        "namespace": "default",
+        "resourceVersion": "40394054",
+        "selfLink": "/api/v1/namespaces/default/events/app10-6c6dcff574-67ppm.16af5ffaaa0b4907",
+        "uid": "9065214f-c66e-4510-82d7-8aa5a1c5abb1"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app10-6c6dcff574",
+        "namespace": "default",
+        "resourceVersion": "40393911",
+        "uid": "4d8a66f3-5ec7-4edb-9907-ff715d418c05"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Deleted pod: app10-6c6dcff574-67ppm",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app10-6c6dcff574.16af5ffa5f426d5b",
+        "namespace": "default",
+        "resourceVersion": "40393978",
+        "selfLink": "/api/v1/namespaces/default/events/app10-6c6dcff574.16af5ffa5f426d5b",
+        "uid": "425b98f1-1b83-45d6-b8e3-dd2a4fc31ef9"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app10-b574cb4cd",
+        "namespace": "default",
+        "resourceVersion": "40394110",
+        "uid": "c2688c4b-f900-44fc-a0c4-9dd70531cd77"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:37Z",
+      "message": "Created pod: app10-b574cb4cd-bfjvw",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:37Z",
+        "name": "app10-b574cb4cd.16af5ffeb18e48ee",
+        "namespace": "default",
+        "resourceVersion": "40394115",
+        "selfLink": "/api/v1/namespaces/default/events/app10-b574cb4cd.16af5ffeb18e48ee",
+        "uid": "171803f9-452b-4fa4-9bf6-994e5ddf516c"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app10-b574cb4cd",
+        "namespace": "default",
+        "resourceVersion": "40394118",
+        "uid": "c2688c4b-f900-44fc-a0c4-9dd70531cd77"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app10-b574cb4cd-w2glz",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app10-b574cb4cd.16af6030910f1dc1",
+        "namespace": "default",
+        "resourceVersion": "40394459",
+        "selfLink": "/api/v1/namespaces/default/events/app10-b574cb4cd.16af6030910f1dc1",
+        "uid": "be88c786-236c-4fbe-ab15-7f7decc0de3b"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app10",
+        "namespace": "default",
+        "resourceVersion": "40393908",
+        "uid": "8f1ef18c-a6f2-4c93-a294-7c4ed4caa86d"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled down replica set app10-6c6dcff574 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app10.16af5ffa4c356419",
+        "namespace": "default",
+        "resourceVersion": "40393917",
+        "selfLink": "/api/v1/namespaces/default/events/app10.16af5ffa4c356419",
+        "uid": "7c4aa428-371d-4c80-8ac6-3c66737cf419"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app10",
+        "namespace": "default",
+        "resourceVersion": "40394017",
+        "uid": "8f1ef18c-a6f2-4c93-a294-7c4ed4caa86d"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:37Z",
+      "message": "Scaled up replica set app10-b574cb4cd to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:37Z",
+        "name": "app10.16af5ffeae7c6c9d",
+        "namespace": "default",
+        "resourceVersion": "40394111",
+        "selfLink": "/api/v1/namespaces/default/events/app10.16af5ffeae7c6c9d",
+        "uid": "d48cb8a8-280a-47d8-97a6-6e6acc3c838d"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app1-58878cf8f5",
+        "namespace": "default",
+        "resourceVersion": "40394130",
+        "uid": "035da264-dde6-4d6c-852f-946034d4dc71"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:37Z",
+      "message": "Created pod: app1-58878cf8f5-fj2qc",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:37Z",
+        "name": "app1-58878cf8f5.16af5ffebe3032ab",
+        "namespace": "default",
+        "resourceVersion": "40394135",
+        "selfLink": "/api/v1/namespaces/default/events/app1-58878cf8f5.16af5ffebe3032ab",
+        "uid": "6063957f-03a9-43ae-8a1c-3c7fc7bd6766"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app1-58878cf8f5",
+        "namespace": "default",
+        "resourceVersion": "40394138",
+        "uid": "035da264-dde6-4d6c-852f-946034d4dc71"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app1-58878cf8f5-rn76z",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app1-58878cf8f5.16af6030917a84e6",
+        "namespace": "default",
+        "resourceVersion": "40394462",
+        "selfLink": "/api/v1/namespaces/default/events/app1-58878cf8f5.16af6030917a84e6",
+        "uid": "e02d66e5-ce65-4ca4-b995-116b12cd0752"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app1}",
+        "kind": "Pod",
+        "name": "app1-59d8b6b88c-zrpf2",
+        "namespace": "default",
+        "resourceVersion": "39087858",
+        "uid": "e4f132c7-e80e-4571-8b5c-3e075c07afa0"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Stopping container app1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app1-59d8b6b88c-zrpf2.16af5ffa58116d1d",
+        "namespace": "default",
+        "resourceVersion": "40393948",
+        "selfLink": "/api/v1/namespaces/default/events/app1-59d8b6b88c-zrpf2.16af5ffa58116d1d",
+        "uid": "38f2902f-60b9-42e5-ac90-a87952bbdaad"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app1-59d8b6b88c-zrpf2",
+        "namespace": "default",
+        "resourceVersion": "39087858",
+        "uid": "e4f132c7-e80e-4571-8b5c-3e075c07afa0"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app1-59d8b6b88c-zrpf2.16af5ffa5811a384",
+        "namespace": "default",
+        "resourceVersion": "40393945",
+        "selfLink": "/api/v1/namespaces/default/events/app1-59d8b6b88c-zrpf2.16af5ffa5811a384",
+        "uid": "16218b5e-9df3-4268-b0b4-60193ab11b81"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app1}",
+        "kind": "Pod",
+        "name": "app1-59d8b6b88c-zrpf2",
+        "namespace": "default",
+        "resourceVersion": "39087858",
+        "uid": "e4f132c7-e80e-4571-8b5c-3e075c07afa0"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:22Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: failed to create exec \"774b999ccf44a3f88e87059f78ced692fa4b79bf88975987d1fdc4df8c37a53c\": cannot exec in a stopped state: unknown",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:22Z",
+        "name": "app1-59d8b6b88c-zrpf2.16af5ffb506852bf",
+        "namespace": "default",
+        "resourceVersion": "40394073",
+        "selfLink": "/api/v1/namespaces/default/events/app1-59d8b6b88c-zrpf2.16af5ffb506852bf",
+        "uid": "fbccd2e1-9a2e-436a-aeb0-81c52c41ddfb"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app1-59d8b6b88c",
+        "namespace": "default",
+        "resourceVersion": "40393912",
+        "uid": "372603f8-f1a1-4c26-b691-4fe0f63d7a0f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Deleted pod: app1-59d8b6b88c-zrpf2",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app1-59d8b6b88c.16af5ffa5f433338",
+        "namespace": "default",
+        "resourceVersion": "40393962",
+        "selfLink": "/api/v1/namespaces/default/events/app1-59d8b6b88c.16af5ffa5f433338",
+        "uid": "bdc137e6-0659-4757-b1e2-c5332c57f87d"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app1",
+        "namespace": "default",
+        "resourceVersion": "40393909",
+        "uid": "5304ec48-d144-4b39-9a60-ffca2015f873"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled down replica set app1-59d8b6b88c to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app1.16af5ffa4c354eac",
+        "namespace": "default",
+        "resourceVersion": "40393918",
+        "selfLink": "/api/v1/namespaces/default/events/app1.16af5ffa4c354eac",
+        "uid": "4018bd90-e01e-440e-ae94-0ecec457e001"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app1",
+        "namespace": "default",
+        "resourceVersion": "40394055",
+        "uid": "5304ec48-d144-4b39-9a60-ffca2015f873"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:37Z",
+      "message": "Scaled up replica set app1-58878cf8f5 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:37Z",
+        "name": "app1.16af5ffebd3d55ca",
+        "namespace": "default",
+        "resourceVersion": "40394131",
+        "selfLink": "/api/v1/namespaces/default/events/app1.16af5ffebd3d55ca",
+        "uid": "bba9af86-a5ff-4962-8692-d903334255b1"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6}",
+        "kind": "Pod",
+        "name": "app6-7675c88f7b-fl57g",
+        "namespace": "default",
+        "resourceVersion": "39087880",
+        "uid": "552b0e71-d5d3-44cd-922b-d2ec919c71ae"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Stopping container app6",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app6-7675c88f7b-fl57g.16af5ffa6170a388",
+        "namespace": "default",
+        "resourceVersion": "40394000",
+        "selfLink": "/api/v1/namespaces/default/events/app6-7675c88f7b-fl57g.16af5ffa6170a388",
+        "uid": "f8ad574c-ddca-40b6-b4df-ef426805bc8a"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-7675c88f7b-fl57g",
+        "namespace": "default",
+        "resourceVersion": "39087880",
+        "uid": "552b0e71-d5d3-44cd-922b-d2ec919c71ae"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app6-7675c88f7b-fl57g.16af5ffa6171cbe1",
+        "namespace": "default",
+        "resourceVersion": "40394001",
+        "selfLink": "/api/v1/namespaces/default/events/app6-7675c88f7b-fl57g.16af5ffa6171cbe1",
+        "uid": "1bb47f42-a2dc-4030-bd0a-1cb626f2b828"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-7675c88f7b",
+        "namespace": "default",
+        "resourceVersion": "40393958",
+        "uid": "3f624719-888d-4021-896b-01c6f014af60"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Deleted pod: app6-7675c88f7b-fl57g",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app6-7675c88f7b.16af5ffa612647f9",
+        "namespace": "default",
+        "resourceVersion": "40394011",
+        "selfLink": "/api/v1/namespaces/default/events/app6-7675c88f7b.16af5ffa612647f9",
+        "uid": "e625580c-d436-4e85-9f2c-ecf184f84d8f"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-8f978c94d",
+        "namespace": "default",
+        "resourceVersion": "40394140",
+        "uid": "bfb033ee-9801-4ec0-8ff0-650985eb398e"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:37Z",
+      "message": "Created pod: app6-8f978c94d-wjwg6",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:37Z",
+        "name": "app6-8f978c94d.16af5ffec0689d31",
+        "namespace": "default",
+        "resourceVersion": "40394145",
+        "selfLink": "/api/v1/namespaces/default/events/app6-8f978c94d.16af5ffec0689d31",
+        "uid": "6b0df6b5-9166-4813-85cb-ef9196cb8feb"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-8f978c94d",
+        "namespace": "default",
+        "resourceVersion": "40394148",
+        "uid": "bfb033ee-9801-4ec0-8ff0-650985eb398e"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app6-8f978c94d-4499k",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app6-8f978c94d.16af603096ccfcb6",
+        "namespace": "default",
+        "resourceVersion": "40394508",
+        "selfLink": "/api/v1/namespaces/default/events/app6-8f978c94d.16af603096ccfcb6",
+        "uid": "46c3a8e9-a064-4cb6-8c06-ee1cd4410d02"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app2-54fc4c9dd7",
+        "namespace": "default",
+        "resourceVersion": "40393928",
+        "uid": "9656d765-e74a-45fa-b2ef-72cde5a7cee6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: app2-54fc4c9dd7-z44lj",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app2-54fc4c9dd7.16af5ffa5f456da8",
+        "namespace": "default",
+        "resourceVersion": "40393976",
+        "selfLink": "/api/v1/namespaces/default/events/app2-54fc4c9dd7.16af5ffa5f456da8",
+        "uid": "6f630165-79fc-4258-a74f-fc684fe9b327"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app2-54fc4c9dd7",
+        "namespace": "default",
+        "resourceVersion": "40394005",
+        "uid": "9656d765-e74a-45fa-b2ef-72cde5a7cee6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app2-54fc4c9dd7-vhsck",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app2-54fc4c9dd7.16af603096f583c7",
+        "namespace": "default",
+        "resourceVersion": "40394522",
+        "selfLink": "/api/v1/namespaces/default/events/app2-54fc4c9dd7.16af603096f583c7",
+        "uid": "a30c774c-a4ff-41ff-aa22-07b01feba190"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 31,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T19:19:33Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app2}",
+        "kind": "Pod",
+        "name": "app2-59db667d75-f9xkw",
+        "namespace": "default",
+        "resourceVersion": "39087534",
+        "uid": "7d32bfa6-b8ea-4aac-a6cc-93b70dbd8dd7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T07:55:03Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\ncurl: (28) Operation timed out after 3002 milliseconds with 0 bytes received\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T07:55:03Z",
+        "name": "app2-59db667d75-f9xkw.16acc18c54ddceef",
+        "namespace": "default",
+        "resourceVersion": "40393131",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75-f9xkw.16acc18c54ddceef",
+        "uid": "d87c2a7e-a915-4e5c-89db-56ce0632468d"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 279,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T19:20:03Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app2}",
+        "kind": "Pod",
+        "name": "app2-59db667d75-f9xkw",
+        "namespace": "default",
+        "resourceVersion": "39087534",
+        "uid": "7d32bfa6-b8ea-4aac-a6cc-93b70dbd8dd7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:02:48Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\ncurl: (28) Operation timed out after 3000 milliseconds with 0 bytes received\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-18T20:38:48Z",
+        "name": "app2-59db667d75-f9xkw.16acc19350117e9e",
+        "namespace": "default",
+        "resourceVersion": "40393703",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75-f9xkw.16acc19350117e9e",
+        "uid": "0d0cad91-9763-464b-9573-a10069897361"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 28,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-11T00:00:48Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app2}",
+        "kind": "Pod",
+        "name": "app2-59db667d75-f9xkw",
+        "namespace": "default",
+        "resourceVersion": "39087534",
+        "uid": "7d32bfa6-b8ea-4aac-a6cc-93b70dbd8dd7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T07:21:18Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\ncurl: (28) Operation timed out after 3000 milliseconds with 0 bytes received\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T03:50:18Z",
+        "name": "app2-59db667d75-f9xkw.16acd0e55dd3b95c",
+        "namespace": "default",
+        "resourceVersion": "40390656",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75-f9xkw.16acd0e55dd3b95c",
+        "uid": "31472e07-2914-4fa3-bdcf-80f73a07c50a"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 23,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-12T12:58:18Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app2}",
+        "kind": "Pod",
+        "name": "app2-59db667d75-f9xkw",
+        "namespace": "default",
+        "resourceVersion": "39087534",
+        "uid": "7d32bfa6-b8ea-4aac-a6cc-93b70dbd8dd7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T07:26:03Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\ncurl: (28) Operation timed out after 3000 milliseconds with 0 bytes received\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T07:22:03Z",
+        "name": "app2-59db667d75-f9xkw.16ad49e786d70d77",
+        "namespace": "default",
+        "resourceVersion": "40390988",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75-f9xkw.16ad49e786d70d77",
+        "uid": "d94c7908-06fc-47c9-9dfb-c5afa87d0d39"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 2,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-14T21:04:30Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app2}",
+        "kind": "Pod",
+        "name": "app2-59db667d75-f9xkw",
+        "namespace": "default",
+        "resourceVersion": "39087534",
+        "uid": "7d32bfa6-b8ea-4aac-a6cc-93b70dbd8dd7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:30Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: container is in CONTAINER_EXITED state",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:30Z",
+        "name": "app2-59db667d75-f9xkw.16ae0198b20add52",
+        "namespace": "default",
+        "resourceVersion": "40394802",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75-f9xkw.16ae0198b20add52",
+        "uid": "32db4312-5548-4e9a-9311-17b43cfc2ee6"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app2-59db667d75-f9xkw",
+        "namespace": "default",
+        "resourceVersion": "39087534",
+        "uid": "7d32bfa6-b8ea-4aac-a6cc-93b70dbd8dd7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app2-59db667d75-f9xkw.16af603092da4b04",
+        "namespace": "default",
+        "resourceVersion": "40394476",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75-f9xkw.16af603092da4b04",
+        "uid": "50a7dc31-1a0a-4785-a2ad-68078ba1248c"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app2}",
+        "kind": "Pod",
+        "name": "app2-59db667d75-f9xkw",
+        "namespace": "default",
+        "resourceVersion": "39087534",
+        "uid": "7d32bfa6-b8ea-4aac-a6cc-93b70dbd8dd7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container app2",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app2-59db667d75-f9xkw.16af603092da6f69",
+        "namespace": "default",
+        "resourceVersion": "40394477",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75-f9xkw.16af603092da6f69",
+        "uid": "b0ec5da3-b31f-44b6-bad7-1f0be98d41e4"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:15Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app2}",
+        "kind": "Pod",
+        "name": "app2-59db667d75-f9xkw",
+        "namespace": "default",
+        "resourceVersion": "39087534",
+        "uid": "7d32bfa6-b8ea-4aac-a6cc-93b70dbd8dd7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:15Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) Failed to connect to localhost port 8101: Connection refused\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "app2-59db667d75-f9xkw.16af60317212bd61",
+        "namespace": "default",
+        "resourceVersion": "40394724",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75-f9xkw.16af60317212bd61",
+        "uid": "b861e3aa-da81-43d0-a198-694f8103a765"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app2-59db667d75",
+        "namespace": "default",
+        "resourceVersion": "40207621",
+        "uid": "359372ea-ef82-47b3-b144-e6f8e0742583"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app2-59db667d75-g2c5w",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "app2-59db667d75.16af60309713ca87",
+        "namespace": "default",
+        "resourceVersion": "40394594",
+        "selfLink": "/api/v1/namespaces/default/events/app2-59db667d75.16af60309713ca87",
+        "uid": "7d332002-9af5-4847-b400-99e22777b0fd"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app2",
+        "namespace": "default",
+        "resourceVersion": "40393910",
+        "uid": "bb625073-8bcc-40fd-ae57-b622e539f84a"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set app2-54fc4c9dd7 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app2.16af5ffa5455a890",
+        "namespace": "default",
+        "resourceVersion": "40393940",
+        "selfLink": "/api/v1/namespaces/default/events/app2.16af5ffa5455a890",
+        "uid": "f391ee03-ece0-4e4b-82ed-951e1218c609"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-go-56869b6cb",
+        "namespace": "default",
+        "resourceVersion": "40393956",
+        "uid": "2cc10e6c-07f3-4e44-87fb-7a55b9b9c6f2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: app6-go-56869b6cb-4dsnl",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app6-go-56869b6cb.16af5ffa60672e7b",
+        "namespace": "default",
+        "resourceVersion": "40393987",
+        "selfLink": "/api/v1/namespaces/default/events/app6-go-56869b6cb.16af5ffa60672e7b",
+        "uid": "a62787e7-dfb0-4d16-9612-07197517511f"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-go-56869b6cb",
+        "namespace": "default",
+        "resourceVersion": "40394013",
+        "uid": "2cc10e6c-07f3-4e44-87fb-7a55b9b9c6f2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app6-go-56869b6cb-mqtlb",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "app6-go-56869b6cb.16af6030971f1dde",
+        "namespace": "default",
+        "resourceVersion": "40394604",
+        "selfLink": "/api/v1/namespaces/default/events/app6-go-56869b6cb.16af6030971f1dde",
+        "uid": "2b417d54-f94f-4036-b44a-935b32e209e3"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6-go}",
+        "kind": "Pod",
+        "name": "app6-go-5c5bd5f956-r2wbc",
+        "namespace": "default",
+        "resourceVersion": "39087616",
+        "uid": "86cf14a8-1dc3-4f28-8907-cca0f8128f2f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container app6-go",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app6-go-5c5bd5f956-r2wbc.16af6030933e240a",
+        "namespace": "default",
+        "resourceVersion": "40394481",
+        "selfLink": "/api/v1/namespaces/default/events/app6-go-5c5bd5f956-r2wbc.16af6030933e240a",
+        "uid": "7bbdd1f4-9044-405d-98b4-18a7674b778b"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-go-5c5bd5f956-r2wbc",
+        "namespace": "default",
+        "resourceVersion": "39087616",
+        "uid": "86cf14a8-1dc3-4f28-8907-cca0f8128f2f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app6-go-5c5bd5f956-r2wbc.16af6030933e901e",
+        "namespace": "default",
+        "resourceVersion": "40394479",
+        "selfLink": "/api/v1/namespaces/default/events/app6-go-5c5bd5f956-r2wbc.16af6030933e901e",
+        "uid": "64b4a6c1-aef2-4c23-aed2-fec331695f84"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-go-5c5bd5f956",
+        "namespace": "default",
+        "resourceVersion": "39088928",
+        "uid": "a19cd512-5f98-4b32-9889-7e2c0ac4b56b"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app6-go-5c5bd5f956-fbchz",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app6-go-5c5bd5f956.16af603096f7fdf6",
+        "namespace": "default",
+        "resourceVersion": "40394581",
+        "selfLink": "/api/v1/namespaces/default/events/app6-go-5c5bd5f956.16af603096f7fdf6",
+        "uid": "722db495-a01b-44f6-ad7c-5f6de76d8633"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-go",
+        "namespace": "default",
+        "resourceVersion": "40393922",
+        "uid": "051f705c-446b-4b94-8ced-a613697c645c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set app6-go-56869b6cb to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app6-go.16af5ffa5f4a5fe5",
+        "namespace": "default",
+        "resourceVersion": "40394009",
+        "selfLink": "/api/v1/namespaces/default/events/app6-go.16af5ffa5f4a5fe5",
+        "uid": "7292cb74-5ead-48da-b30d-8063ab6db91a"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app3-75c69868b7",
+        "namespace": "default",
+        "resourceVersion": "40393929",
+        "uid": "f477a9b1-1103-494a-952b-be2dfd3a4026"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: app3-75c69868b7-7qf9p",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app3-75c69868b7.16af5ffa60183f03",
+        "namespace": "default",
+        "resourceVersion": "40393980",
+        "selfLink": "/api/v1/namespaces/default/events/app3-75c69868b7.16af5ffa60183f03",
+        "uid": "77891971-a0c5-41d4-9ee3-eec05abd1041"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app3-75c69868b7",
+        "namespace": "default",
+        "resourceVersion": "40394008",
+        "uid": "f477a9b1-1103-494a-952b-be2dfd3a4026"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app3-75c69868b7-r9q6n",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "app3-75c69868b7.16af60309ae19d74",
+        "namespace": "default",
+        "resourceVersion": "40394616",
+        "selfLink": "/api/v1/namespaces/default/events/app3-75c69868b7.16af60309ae19d74",
+        "uid": "7bcc9fca-eb4f-41da-9afd-218f3611f94e"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 931,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T15:12:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app3}",
+        "kind": "Pod",
+        "name": "app3-79dd855cf8-6hwxd",
+        "namespace": "default",
+        "resourceVersion": "39087553",
+        "uid": "6b670bb7-4614-4c2f-b042-e21d969bc9ef"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:32Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\ncurl: (28) Operation timed out after 3000 milliseconds with 0 bytes received\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-18T20:47:17Z",
+        "name": "app3-79dd855cf8-6hwxd.16acb40e24c9d49e",
+        "namespace": "default",
+        "resourceVersion": "40394094",
+        "selfLink": "/api/v1/namespaces/default/events/app3-79dd855cf8-6hwxd.16acb40e24c9d49e",
+        "uid": "70755037-393b-475e-b1c1-63e6c2efc81e"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1387,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T15:23:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app3}",
+        "kind": "Pod",
+        "name": "app3-79dd855cf8-6hwxd",
+        "namespace": "default",
+        "resourceVersion": "39087553",
+        "uid": "6b670bb7-4614-4c2f-b042-e21d969bc9ef"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:03:17Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\ncurl: (28) Operation timed out after 3001 milliseconds with 0 bytes received\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-15T17:05:32Z",
+        "name": "app3-79dd855cf8-6hwxd.16acb4a7cc751e3e",
+        "namespace": "default",
+        "resourceVersion": "40393749",
+        "selfLink": "/api/v1/namespaces/default/events/app3-79dd855cf8-6hwxd.16acb4a7cc751e3e",
+        "uid": "055eb180-3a7f-4f67-bd74-7683d232cd16"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 120,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T15:27:47Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app3}",
+        "kind": "Pod",
+        "name": "app3-79dd855cf8-6hwxd",
+        "namespace": "default",
+        "resourceVersion": "39087553",
+        "uid": "6b670bb7-4614-4c2f-b042-e21d969bc9ef"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T07:20:47Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\ncurl: (28) Operation timed out after 3002 milliseconds with 0 bytes received\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T07:09:47Z",
+        "name": "app3-79dd855cf8-6hwxd.16acb4e6aa501f8b",
+        "namespace": "default",
+        "resourceVersion": "40390620",
+        "selfLink": "/api/v1/namespaces/default/events/app3-79dd855cf8-6hwxd.16acb4e6aa501f8b",
+        "uid": "aa500517-7372-40a5-8d10-b971fc1187da"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app3-79dd855cf8-6hwxd",
+        "namespace": "default",
+        "resourceVersion": "39087553",
+        "uid": "6b670bb7-4614-4c2f-b042-e21d969bc9ef"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app3-79dd855cf8-6hwxd.16af603094072281",
+        "namespace": "default",
+        "resourceVersion": "40394485",
+        "selfLink": "/api/v1/namespaces/default/events/app3-79dd855cf8-6hwxd.16af603094072281",
+        "uid": "74bc253e-7369-446f-a9bf-241923ecfc72"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app3}",
+        "kind": "Pod",
+        "name": "app3-79dd855cf8-6hwxd",
+        "namespace": "default",
+        "resourceVersion": "39087553",
+        "uid": "6b670bb7-4614-4c2f-b042-e21d969bc9ef"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container app3",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app3-79dd855cf8-6hwxd.16af60309408577b",
+        "namespace": "default",
+        "resourceVersion": "40394486",
+        "selfLink": "/api/v1/namespaces/default/events/app3-79dd855cf8-6hwxd.16af60309408577b",
+        "uid": "fba266ee-2302-4140-8338-86fb4fbc8c0f"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:45Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app3}",
+        "kind": "Pod",
+        "name": "app3-79dd855cf8-6hwxd",
+        "namespace": "default",
+        "resourceVersion": "39087553",
+        "uid": "6b670bb7-4614-4c2f-b042-e21d969bc9ef"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:45Z",
+      "message": "Liveness probe errored: rpc error: code = NotFound desc = failed to exec in container: failed to create exec \"ed7655a7d8b68131b2ebb652debcef811230adb5be2535d4c1399964934ab7bd\": task 87b8536a2a0688675e08c9b22a5745dbddc927c2c558e594a590fd8a4f4cb32d not found: not found",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:45Z",
+        "name": "app3-79dd855cf8-6hwxd.16af60387627492c",
+        "namespace": "default",
+        "resourceVersion": "40394825",
+        "selfLink": "/api/v1/namespaces/default/events/app3-79dd855cf8-6hwxd.16af60387627492c",
+        "uid": "1010b8ff-c79d-4315-baf1-e2d54f02bc5d"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app3-79dd855cf8",
+        "namespace": "default",
+        "resourceVersion": "39088795",
+        "uid": "224e0494-c4b2-4536-b21c-b47f520ac5c6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app3-79dd855cf8-7m7gj",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "app3-79dd855cf8.16af60309fc23300",
+        "namespace": "default",
+        "resourceVersion": "40394629",
+        "selfLink": "/api/v1/namespaces/default/events/app3-79dd855cf8.16af60309fc23300",
+        "uid": "5cdad176-92e1-497b-8cc0-dd2e981ae53c"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app3",
+        "namespace": "default",
+        "resourceVersion": "40393913",
+        "uid": "0db93769-5a34-4986-8f64-f965325b8e22"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set app3-75c69868b7 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app3.16af5ffa545152f0",
+        "namespace": "default",
+        "resourceVersion": "40393933",
+        "selfLink": "/api/v1/namespaces/default/events/app3.16af5ffa545152f0",
+        "uid": "7ef44e6b-fddb-4469-9112-116b68fb1d2f"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-kotlin-769f4b6dc8",
+        "namespace": "default",
+        "resourceVersion": "40393955",
+        "uid": "92095cc2-28a9-42ef-985e-6d0728b975b6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: app6-kotlin-769f4b6dc8-jqdm8",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app6-kotlin-769f4b6dc8.16af5ffa6072a23a",
+        "namespace": "default",
+        "resourceVersion": "40393994",
+        "selfLink": "/api/v1/namespaces/default/events/app6-kotlin-769f4b6dc8.16af5ffa6072a23a",
+        "uid": "e999554e-136f-4cb0-ad62-cfc547f090d1"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-kotlin-769f4b6dc8",
+        "namespace": "default",
+        "resourceVersion": "40394018",
+        "uid": "92095cc2-28a9-42ef-985e-6d0728b975b6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app6-kotlin-769f4b6dc8-lv7pk",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:13Z",
+        "name": "app6-kotlin-769f4b6dc8.16af6030a374ede7",
+        "namespace": "default",
+        "resourceVersion": "40394641",
+        "selfLink": "/api/v1/namespaces/default/events/app6-kotlin-769f4b6dc8.16af6030a374ede7",
+        "uid": "4df13233-0c3c-4cb6-9307-1b2cc02259a5"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6-kotlin}",
+        "kind": "Pod",
+        "name": "app6-kotlin-794cf996cd-j4jc2",
+        "namespace": "default",
+        "resourceVersion": "39087608",
+        "uid": "9c9f7633-5829-4a82-81b6-45f42e774e6c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container app6-kotlin",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app6-kotlin-794cf996cd-j4jc2.16af603094b6781c",
+        "namespace": "default",
+        "resourceVersion": "40394490",
+        "selfLink": "/api/v1/namespaces/default/events/app6-kotlin-794cf996cd-j4jc2.16af603094b6781c",
+        "uid": "7cb6e976-7dd0-4988-b8a9-656698ff923d"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-kotlin-794cf996cd-j4jc2",
+        "namespace": "default",
+        "resourceVersion": "39087608",
+        "uid": "9c9f7633-5829-4a82-81b6-45f42e774e6c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app6-kotlin-794cf996cd-j4jc2.16af603094b6ecb1",
+        "namespace": "default",
+        "resourceVersion": "40394496",
+        "selfLink": "/api/v1/namespaces/default/events/app6-kotlin-794cf996cd-j4jc2.16af603094b6ecb1",
+        "uid": "09e3244d-d648-4f68-9230-4121e3b99465"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6-kotlin}",
+        "kind": "Pod",
+        "name": "app6-kotlin-794cf996cd-j4jc2",
+        "namespace": "default",
+        "resourceVersion": "39087608",
+        "uid": "9c9f7633-5829-4a82-81b6-45f42e774e6c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: failed to create exec \"b43192e04f3e6a848915223bbcfceac95f6334ea5e6d3e230890b05210f44809\": cannot exec in a stopped state: unknown",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:14Z",
+        "name": "app6-kotlin-794cf996cd-j4jc2.16af6030fde3a9cf",
+        "namespace": "default",
+        "resourceVersion": "40394686",
+        "selfLink": "/api/v1/namespaces/default/events/app6-kotlin-794cf996cd-j4jc2.16af6030fde3a9cf",
+        "uid": "54e0ac3f-4c4c-4a61-b234-9871a34c7ad2"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-kotlin-794cf996cd",
+        "namespace": "default",
+        "resourceVersion": "39088814",
+        "uid": "6c70d41e-51eb-49f8-ab00-c55aa6974d8e"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app6-kotlin-794cf996cd-9z2gf",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:13Z",
+        "name": "app6-kotlin-794cf996cd.16af6030a3dcbb50",
+        "namespace": "default",
+        "resourceVersion": "40394654",
+        "selfLink": "/api/v1/namespaces/default/events/app6-kotlin-794cf996cd.16af6030a3dcbb50",
+        "uid": "75be0cb9-8486-4b64-b3c2-bc24ffbe7f13"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-kotlin",
+        "namespace": "default",
+        "resourceVersion": "40393921",
+        "uid": "7b1a615a-a4ca-4d77-844d-842ab7459b60"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set app6-kotlin-769f4b6dc8 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app6-kotlin.16af5ffa5f479a40",
+        "namespace": "default",
+        "resourceVersion": "40393986",
+        "selfLink": "/api/v1/namespaces/default/events/app6-kotlin.16af5ffa5f479a40",
+        "uid": "8bb4c7b8-5370-4f0d-bdcf-20289aa33474"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app4-6c77c88947",
+        "namespace": "default",
+        "resourceVersion": "40393926",
+        "uid": "921d7a18-b61e-4098-9406-cf977340ad0a"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: app4-6c77c88947-dqdlx",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app4-6c77c88947.16af5ffa5f453f5f",
+        "namespace": "default",
+        "resourceVersion": "40393974",
+        "selfLink": "/api/v1/namespaces/default/events/app4-6c77c88947.16af5ffa5f453f5f",
+        "uid": "af81b589-4bdc-40f0-885e-4236bd9d4590"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app4-6c77c88947",
+        "namespace": "default",
+        "resourceVersion": "40393999",
+        "uid": "921d7a18-b61e-4098-9406-cf977340ad0a"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: app4-6c77c88947-5tcph",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:13Z",
+        "name": "app4-6c77c88947.16af6030a6d91ce7",
+        "namespace": "default",
+        "resourceVersion": "40394666",
+        "selfLink": "/api/v1/namespaces/default/events/app4-6c77c88947.16af6030a6d91ce7",
+        "uid": "c54895e9-ce79-4cbe-ae35-8662c17fc01b"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1451,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T14:59:57Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app4}",
+        "kind": "Pod",
+        "name": "app4-76b9674db4-dnrv9",
+        "namespace": "default",
+        "resourceVersion": "39087564",
+        "uid": "5c092b89-6400-4084-be3c-b543ef571b54"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T07:15:03Z",
+      "message": "Created container app4",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T04:25:33Z",
+        "name": "app4-76b9674db4-dnrv9.16acb361c492517e",
+        "namespace": "default",
+        "resourceVersion": "40390194",
+        "selfLink": "/api/v1/namespaces/default/events/app4-76b9674db4-dnrv9.16acb361c492517e",
+        "uid": "e95c7994-6563-4a4f-b149-f5db80439d34"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1451,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T14:59:57Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app4}",
+        "kind": "Pod",
+        "name": "app4-76b9674db4-dnrv9",
+        "namespace": "default",
+        "resourceVersion": "39087564",
+        "uid": "5c092b89-6400-4084-be3c-b543ef571b54"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T07:15:03Z",
+      "message": "Started container app4",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T04:25:33Z",
+        "name": "app4-76b9674db4-dnrv9.16acb361d62c4c93",
+        "namespace": "default",
+        "resourceVersion": "40390195",
+        "selfLink": "/api/v1/namespaces/default/events/app4-76b9674db4-dnrv9.16acb361d62c4c93",
+        "uid": "9cd8b5ec-8486-4474-88bc-49f15f0202bc"
+      },
+      "reason": "Started",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1452,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T16:05:36Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app4}",
+        "kind": "Pod",
+        "name": "app4-76b9674db4-dnrv9",
+        "namespace": "default",
+        "resourceVersion": "39087564",
+        "uid": "5c092b89-6400-4084-be3c-b543ef571b54"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T07:15:03Z",
+      "message": "Container image \"docker/app4:1078c4f\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T02:20:03Z",
+        "name": "app4-76b9674db4-dnrv9.16acb6f6d5f78a9b",
+        "namespace": "default",
+        "resourceVersion": "40390193",
+        "selfLink": "/api/v1/namespaces/default/events/app4-76b9674db4-dnrv9.16acb6f6d5f78a9b",
+        "uid": "8a9558c0-e294-4271-a2ff-9f7b88104be9"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 30646,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T16:20:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app4}",
+        "kind": "Pod",
+        "name": "app4-76b9674db4-dnrv9",
+        "namespace": "default",
+        "resourceVersion": "39087564",
+        "uid": "5c092b89-6400-4084-be3c-b543ef571b54"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:06:07Z",
+      "message": "Back-off restarting failed container",
+      "metadata": {
+        "creationTimestamp": "2021-10-10T19:58:31Z",
+        "name": "app4-76b9674db4-dnrv9.16acb7ca670e143b",
+        "namespace": "default",
+        "resourceVersion": "40394202",
+        "selfLink": "/api/v1/namespaces/default/events/app4-76b9674db4-dnrv9.16acb7ca670e143b",
+        "uid": "704e1e7d-955f-467c-9a22-6f5dae059237"
+      },
+      "reason": "BackOff",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 92,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T16:41:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app4}",
+        "kind": "Pod",
+        "name": "app4-76b9674db4-dnrv9",
+        "namespace": "default",
+        "resourceVersion": "39087564",
+        "uid": "5c092b89-6400-4084-be3c-b543ef571b54"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:03:52Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (56) Recv failure: Connection reset by peer\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:03:52Z",
+        "name": "app4-76b9674db4-dnrv9.16acb8ea934de3e4",
+        "namespace": "default",
+        "resourceVersion": "40393793",
+        "selfLink": "/api/v1/namespaces/default/events/app4-76b9674db4-dnrv9.16acb8ea934de3e4",
+        "uid": "f67a0339-085c-486f-ba1c-7ac1b9f7f32f"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 146,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-10T19:04:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app4}",
+        "kind": "Pod",
+        "name": "app4-76b9674db4-dnrv9",
+        "namespace": "default",
+        "resourceVersion": "39087564",
+        "uid": "5c092b89-6400-4084-be3c-b543ef571b54"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T07:32:21Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: container is in CONTAINER_EXITED state",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T07:32:21Z",
+        "name": "app4-76b9674db4-dnrv9.16acc0b5a51303a1",
+        "namespace": "default",
+        "resourceVersion": "40391452",
+        "selfLink": "/api/v1/namespaces/default/events/app4-76b9674db4-dnrv9.16acc0b5a51303a1",
+        "uid": "2242af27-34b1-4840-8415-623c7964dc9e"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:12Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app4-76b9674db4",
+        "namespace": "default",
+        "resourceVersion": "40394423",
+        "uid": "59607c5e-9487-430d-b3b1-5e7548efc9dc"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:12Z",
+      "message": "Created pod: app4-76b9674db4-gmb9p",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:14Z",
+        "name": "app4-76b9674db4.16af6030c032ab7c",
+        "namespace": "default",
+        "resourceVersion": "40394681",
+        "selfLink": "/api/v1/namespaces/default/events/app4-76b9674db4.16af6030c032ab7c",
+        "uid": "94b1822f-0734-4447-9361-65893f67e9ff"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app4",
+        "namespace": "default",
+        "resourceVersion": "40393914",
+        "uid": "6d6bc228-c515-468f-b322-d91457681361"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set app4-6c77c88947 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app4.16af5ffa545175c3",
+        "namespace": "default",
+        "resourceVersion": "40393937",
+        "selfLink": "/api/v1/namespaces/default/events/app4.16af5ffa545175c3",
+        "uid": "13390473-4388-401f-9c73-2dbf11cabd85"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-python-79c6b988bd",
+        "namespace": "default",
+        "resourceVersion": "40393957",
+        "uid": "fbdf26f7-7d5a-41fd-9702-be10bb94a928"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: app6-python-79c6b988bd-6md25",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app6-python-79c6b988bd.16af5ffa61444703",
+        "namespace": "default",
+        "resourceVersion": "40394024",
+        "selfLink": "/api/v1/namespaces/default/events/app6-python-79c6b988bd.16af5ffa61444703",
+        "uid": "243bc57d-478f-4c06-b530-2ecf523ceb05"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:12Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-python-79c6b988bd",
+        "namespace": "default",
+        "resourceVersion": "40394030",
+        "uid": "fbdf26f7-7d5a-41fd-9702-be10bb94a928"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:12Z",
+      "message": "Created pod: app6-python-79c6b988bd-psj5j",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:14Z",
+        "name": "app6-python-79c6b988bd.16af6030c2065af4",
+        "namespace": "default",
+        "resourceVersion": "40394693",
+        "selfLink": "/api/v1/namespaces/default/events/app6-python-79c6b988bd.16af6030c2065af4",
+        "uid": "d07e6f05-0226-491c-9c82-22a315218f95"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6-python}",
+        "kind": "Pod",
+        "name": "app6-python-7ff684ff88-z2ncz",
+        "namespace": "default",
+        "resourceVersion": "39087597",
+        "uid": "b83c4886-d11d-41e4-ba14-5eb31ca45214"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container app6-python",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app6-python-7ff684ff88-z2ncz.16af603097519cdb",
+        "namespace": "default",
+        "resourceVersion": "40394582",
+        "selfLink": "/api/v1/namespaces/default/events/app6-python-7ff684ff88-z2ncz.16af603097519cdb",
+        "uid": "f93bf9af-d61a-4b44-b248-4cdd19b57200"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-python-7ff684ff88-z2ncz",
+        "namespace": "default",
+        "resourceVersion": "39087597",
+        "uid": "b83c4886-d11d-41e4-ba14-5eb31ca45214"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "app6-python-7ff684ff88-z2ncz.16af6030975527f1",
+        "namespace": "default",
+        "resourceVersion": "40394560",
+        "selfLink": "/api/v1/namespaces/default/events/app6-python-7ff684ff88-z2ncz.16af6030975527f1",
+        "uid": "619f6f4e-7767-4ae8-8b7a-f5bcc4c3d6ba"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:12Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-python-7ff684ff88",
+        "namespace": "default",
+        "resourceVersion": "39088752",
+        "uid": "a75990aa-4755-4b26-8c7f-a7e80a1aa101"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:12Z",
+      "message": "Created pod: app6-python-7ff684ff88-7kqsm",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:14Z",
+        "name": "app6-python-7ff684ff88.16af6030caa18514",
+        "namespace": "default",
+        "resourceVersion": "40394706",
+        "selfLink": "/api/v1/namespaces/default/events/app6-python-7ff684ff88.16af6030caa18514",
+        "uid": "b574b745-fa55-42dd-8cd9-c6cc6a09586e"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-python",
+        "namespace": "default",
+        "resourceVersion": "40393920",
+        "uid": "a5e7e606-2093-4b4c-90e9-6addf6cf52e0"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set app6-python-79c6b988bd to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app6-python.16af5ffa5f480b7f",
+        "namespace": "default",
+        "resourceVersion": "40393961",
+        "selfLink": "/api/v1/namespaces/default/events/app6-python.16af5ffa5f480b7f",
+        "uid": "1fcf6ed6-bebc-47d1-a3b2-b720adf3dadd"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-scala-6d5d6788f8",
+        "namespace": "default",
+        "resourceVersion": "40393954",
+        "uid": "7e242665-b02b-4634-8191-bd4cf78754ea"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: app6-scala-6d5d6788f8-k4zsv",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app6-scala-6d5d6788f8.16af5ffa606bc493",
+        "namespace": "default",
+        "resourceVersion": "40393992",
+        "selfLink": "/api/v1/namespaces/default/events/app6-scala-6d5d6788f8.16af5ffa606bc493",
+        "uid": "f6d1674d-65b8-43be-8d60-c114daef2c98"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:12Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-scala-6d5d6788f8",
+        "namespace": "default",
+        "resourceVersion": "40394020",
+        "uid": "7e242665-b02b-4634-8191-bd4cf78754ea"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:12Z",
+      "message": "Created pod: app6-scala-6d5d6788f8-6dkcj",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "app6-scala-6d5d6788f8.16af6030e58ad0bf",
+        "namespace": "default",
+        "resourceVersion": "40394717",
+        "selfLink": "/api/v1/namespaces/default/events/app6-scala-6d5d6788f8.16af6030e58ad0bf",
+        "uid": "2825661a-3c1f-4eff-a2e5-3818dbb284c6"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6-scala}",
+        "kind": "Pod",
+        "name": "app6-scala-7c8cbc598-b5ctg",
+        "namespace": "default",
+        "resourceVersion": "39087626",
+        "uid": "adab83ed-5b40-41c5-aa09-a16abc3dd4fd"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container app6-scala",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "app6-scala-7c8cbc598-b5ctg.16af60309aaf4d2a",
+        "namespace": "default",
+        "resourceVersion": "40394601",
+        "selfLink": "/api/v1/namespaces/default/events/app6-scala-7c8cbc598-b5ctg.16af60309aaf4d2a",
+        "uid": "1d244ddb-ac18-486d-9a5b-e50d6b95ad10"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app6-scala-7c8cbc598-b5ctg",
+        "namespace": "default",
+        "resourceVersion": "39087626",
+        "uid": "adab83ed-5b40-41c5-aa09-a16abc3dd4fd"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "app6-scala-7c8cbc598-b5ctg.16af60309aaf97e5",
+        "namespace": "default",
+        "resourceVersion": "40394592",
+        "selfLink": "/api/v1/namespaces/default/events/app6-scala-7c8cbc598-b5ctg.16af60309aaf97e5",
+        "uid": "c6943f87-cb51-4a0b-a019-0af0a46e7ff5"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:14Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app6-scala}",
+        "kind": "Pod",
+        "name": "app6-scala-7c8cbc598-b5ctg",
+        "namespace": "default",
+        "resourceVersion": "39087626",
+        "uid": "adab83ed-5b40-41c5-aa09-a16abc3dd4fd"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:14Z",
+      "message": "Liveness probe errored: rpc error: code = NotFound desc = failed to exec in container: failed to find container \"201c4694dd608e98f41a536a9773adcf8183a1d497089449f546542924df7759\" in store: not found",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:14Z",
+        "name": "app6-scala-7c8cbc598-b5ctg.16af60312e714bf1",
+        "namespace": "default",
+        "resourceVersion": "40394703",
+        "selfLink": "/api/v1/namespaces/default/events/app6-scala-7c8cbc598-b5ctg.16af60312e714bf1",
+        "uid": "5b8acfff-edf9-4fd7-b956-90d57a73bfc1"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:12Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app6-scala-7c8cbc598",
+        "namespace": "default",
+        "resourceVersion": "39088714",
+        "uid": "ee0a3b16-37b3-408d-a285-1fc15092e958"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:12Z",
+      "message": "Created pod: app6-scala-7c8cbc598-bfv8m",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "app6-scala-7c8cbc598.16af6030e953b6da",
+        "namespace": "default",
+        "resourceVersion": "40394730",
+        "selfLink": "/api/v1/namespaces/default/events/app6-scala-7c8cbc598.16af6030e953b6da",
+        "uid": "369aa249-ee6b-4bb0-b0d2-1e5e882783f8"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6-scala",
+        "namespace": "default",
+        "resourceVersion": "40393923",
+        "uid": "71e17d49-72d1-4135-b34e-699d8f7dd35e"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set app6-scala-6d5d6788f8 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app6-scala.16af5ffa5f4a6144",
+        "namespace": "default",
+        "resourceVersion": "40394040",
+        "selfLink": "/api/v1/namespaces/default/events/app6-scala.16af5ffa5f4a6144",
+        "uid": "04592437-b17a-470f-94eb-5ca3a3e661d4"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app5}",
+        "kind": "Pod",
+        "name": "app5-58b45f467d-xrnx5",
+        "namespace": "default",
+        "resourceVersion": "39087573",
+        "uid": "f2f1e058-af20-4fc5-a31e-5bf4655f02c9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container app5",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "app5-58b45f467d-xrnx5.16af60309ae6199a",
+        "namespace": "default",
+        "resourceVersion": "40394609",
+        "selfLink": "/api/v1/namespaces/default/events/app5-58b45f467d-xrnx5.16af60309ae6199a",
+        "uid": "536ea2ad-5352-4b66-b27a-982ed798bfbf"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app5-58b45f467d-xrnx5",
+        "namespace": "default",
+        "resourceVersion": "39087573",
+        "uid": "f2f1e058-af20-4fc5-a31e-5bf4655f02c9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "app5-58b45f467d-xrnx5.16af60309ae6e270",
+        "namespace": "default",
+        "resourceVersion": "40394617",
+        "selfLink": "/api/v1/namespaces/default/events/app5-58b45f467d-xrnx5.16af60309ae6e270",
+        "uid": "9ae777cb-4682-40a2-a5d2-a3bfe1bb53f7"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app5-58b45f467d",
+        "namespace": "default",
+        "resourceVersion": "39088811",
+        "uid": "80eb9bd4-1a8c-442e-bab7-fc439e2b84ee"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Created pod: app5-58b45f467d-9r9p7",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "app5-58b45f467d.16af6030ee9adfd9",
+        "namespace": "default",
+        "resourceVersion": "40394735",
+        "selfLink": "/api/v1/namespaces/default/events/app5-58b45f467d.16af6030ee9adfd9",
+        "uid": "225e0001-4b9c-4bf6-b6e5-e2b353d2a942"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app5-58f8fbfb6b",
+        "namespace": "default",
+        "resourceVersion": "40393927",
+        "uid": "56633a9c-b77c-422f-959d-a8a3dcc59cc1"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Created pod: app5-58f8fbfb6b-qnfxz",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app5-58f8fbfb6b.16af5ffa5f4501ba",
+        "namespace": "default",
+        "resourceVersion": "40393973",
+        "selfLink": "/api/v1/namespaces/default/events/app5-58f8fbfb6b.16af5ffa5f4501ba",
+        "uid": "12a38055-8568-4a40-a300-4a43180607d4"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app5-58f8fbfb6b",
+        "namespace": "default",
+        "resourceVersion": "40393998",
+        "uid": "56633a9c-b77c-422f-959d-a8a3dcc59cc1"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Created pod: app5-58f8fbfb6b-874d4",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "app5-58f8fbfb6b.16af6030f15e1ebd",
+        "namespace": "default",
+        "resourceVersion": "40394737",
+        "selfLink": "/api/v1/namespaces/default/events/app5-58f8fbfb6b.16af6030f15e1ebd",
+        "uid": "6c4f0e85-51f3-4bf3-bb9b-39db1a7d99ed"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app5",
+        "namespace": "default",
+        "resourceVersion": "40393919",
+        "uid": "8aa0bbea-db74-4a4f-a89b-5ce0ea8c410d"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled up replica set app5-58f8fbfb6b to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:18Z",
+        "name": "app5.16af5ffa545161b1",
+        "namespace": "default",
+        "resourceVersion": "40393931",
+        "selfLink": "/api/v1/namespaces/default/events/app5.16af5ffa545161b1",
+        "uid": "fb21ac78-4317-4042-a4cb-f76b2fb84579"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6",
+        "namespace": "default",
+        "resourceVersion": "40393924",
+        "uid": "98ed69c4-180d-4a6c-98e6-a719b4d78b31"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled down replica set app6-7675c88f7b to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app6.16af5ffa5f4a56dd",
+        "namespace": "default",
+        "resourceVersion": "40394021",
+        "selfLink": "/api/v1/namespaces/default/events/app6.16af5ffa5f4a56dd",
+        "uid": "ad0ef778-9d46-4a9f-8302-329f85ed0410"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app6",
+        "namespace": "default",
+        "resourceVersion": "40394046",
+        "uid": "98ed69c4-180d-4a6c-98e6-a719b4d78b31"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:37Z",
+      "message": "Scaled up replica set app6-8f978c94d to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:37Z",
+        "name": "app6.16af5ffebfd1113e",
+        "namespace": "default",
+        "resourceVersion": "40394141",
+        "selfLink": "/api/v1/namespaces/default/events/app6.16af5ffebfd1113e",
+        "uid": "f94686fc-1076-4066-abfe-cbcb6e2f3783"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:14:23Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app7-749bbfd68d",
+        "namespace": "default",
+        "resourceVersion": "40395196",
+        "uid": "ea79372f-7be5-440d-b6ca-85513cfb70ea"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:14:23Z",
+      "message": "Created pod: app7-749bbfd68d-2jdnm",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:14:23Z",
+        "name": "app7-749bbfd68d.16af607925382a91",
+        "namespace": "default",
+        "resourceVersion": "40395201",
+        "selfLink": "/api/v1/namespaces/default/events/app7-749bbfd68d.16af607925382a91",
+        "uid": "6cca3fcf-e8c7-4dce-a0e6-e33aa6f8688c"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app7-84f6c77c84-wnj9r",
+        "namespace": "default",
+        "resourceVersion": "39088065",
+        "uid": "a2f6a3d9-8669-41b7-8dda-14c585f68bec"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app7-84f6c77c84-wnj9r.16af5ffa88f9c18e",
+        "namespace": "default",
+        "resourceVersion": "40394027",
+        "selfLink": "/api/v1/namespaces/default/events/app7-84f6c77c84-wnj9r.16af5ffa88f9c18e",
+        "uid": "c557747a-b025-49f3-9b66-f796c3aaa69c"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app7}",
+        "kind": "Pod",
+        "name": "app7-84f6c77c84-wnj9r",
+        "namespace": "default",
+        "resourceVersion": "39088065",
+        "uid": "a2f6a3d9-8669-41b7-8dda-14c585f68bec"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Stopping container app7",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app7-84f6c77c84-wnj9r.16af5ffa88fb1859",
+        "namespace": "default",
+        "resourceVersion": "40394028",
+        "selfLink": "/api/v1/namespaces/default/events/app7-84f6c77c84-wnj9r.16af5ffa88fb1859",
+        "uid": "8ffb0ce2-b9a4-4ac0-bb6c-c163db2c7867"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app7-84f6c77c84",
+        "namespace": "default",
+        "resourceVersion": "40394007",
+        "uid": "c9e67acb-ee7d-4fc3-9681-d969506a03ce"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Deleted pod: app7-84f6c77c84-wnj9r",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app7-84f6c77c84.16af5ffa88ac99fb",
+        "namespace": "default",
+        "resourceVersion": "40394041",
+        "selfLink": "/api/v1/namespaces/default/events/app7-84f6c77c84.16af5ffa88ac99fb",
+        "uid": "658a71e0-4799-4d09-9f11-b8aef2173454"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:18Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app7",
+        "namespace": "default",
+        "resourceVersion": "40393925",
+        "uid": "bc3e569a-ecfd-43bd-9bce-15bef4002065"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:18Z",
+      "message": "Scaled down replica set app7-84f6c77c84 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app7.16af5ffa6c8fea28",
+        "namespace": "default",
+        "resourceVersion": "40394051",
+        "selfLink": "/api/v1/namespaces/default/events/app7.16af5ffa6c8fea28",
+        "uid": "41ec2c79-cb78-41fe-9021-ff8d426ebc1a"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:14:23Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app7",
+        "namespace": "default",
+        "resourceVersion": "40394066",
+        "uid": "bc3e569a-ecfd-43bd-9bce-15bef4002065"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:14:23Z",
+      "message": "Scaled up replica set app7-749bbfd68d to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:14:23Z",
+        "name": "app7.16af607924eac150",
+        "namespace": "default",
+        "resourceVersion": "40395197",
+        "selfLink": "/api/v1/namespaces/default/events/app7.16af607924eac150",
+        "uid": "612a7cba-f299-4dcb-8688-3887b8eee29b"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{license-parser}",
+        "kind": "Pod",
+        "name": "license-parser-548f75765-hvnmn",
+        "namespace": "default",
+        "resourceVersion": "39087658",
+        "uid": "54ab023a-cafa-450b-86e4-06bee059d004"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container license-parser",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:12Z",
+        "name": "license-parser-548f75765-hvnmn.16af60309b96fe64",
+        "namespace": "default",
+        "resourceVersion": "40394626",
+        "selfLink": "/api/v1/namespaces/default/events/license-parser-548f75765-hvnmn.16af60309b96fe64",
+        "uid": "cafe2cd7-545c-4585-af5e-8043889c3d50"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "license-parser-548f75765",
+        "namespace": "default",
+        "resourceVersion": "39087792",
+        "uid": "aa83f841-a723-4697-9c5f-339ff4257d47"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Created pod: license-parser-548f75765-sntqp",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "license-parser-548f75765.16af6030f44502d4",
+        "namespace": "default",
+        "resourceVersion": "40394740",
+        "selfLink": "/api/v1/namespaces/default/events/license-parser-548f75765.16af6030f44502d4",
+        "uid": "e056ff3e-7dcb-45e4-a0ff-a7e789c67f9f"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{logging-agent}",
+        "kind": "Pod",
+        "name": "logging-agent-n2qp5",
+        "namespace": "default",
+        "resourceVersion": "39087943",
+        "uid": "6e378503-cbdc-4cf4-9afb-1415e38d2a9a"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container logging-agent",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:13Z",
+        "name": "logging-agent-n2qp5.16af60309bda1684",
+        "namespace": "default",
+        "resourceVersion": "40394634",
+        "selfLink": "/api/v1/namespaces/default/events/logging-agent-n2qp5.16af60309bda1684",
+        "uid": "2473e970-7b1d-4c29-9e51-582b3a33f222"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:27Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "DaemonSet",
+        "name": "logging-agent",
+        "namespace": "default",
+        "resourceVersion": "40394762",
+        "uid": "1a02e24f-1eeb-4d52-940b-213ccf1c7793"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:27Z",
+      "message": "Created pod: logging-agent-wnp2f",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:27Z",
+        "name": "logging-agent.16af60343628322b",
+        "namespace": "default",
+        "resourceVersion": "40394783",
+        "selfLink": "/api/v1/namespaces/default/events/logging-agent.16af60343628322b",
+        "uid": "13363cc0-6146-4cdb-8d05-5d884c2780bb"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "daemonset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{database}",
+        "kind": "Pod",
+        "name": "database-778db64b49-92n4p",
+        "namespace": "default",
+        "resourceVersion": "39087868",
+        "uid": "98648523-f11e-4ca5-84e0-3c94ad77a377"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container database",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:13Z",
+        "name": "database-778db64b49-92n4p.16af60309bf48198",
+        "namespace": "default",
+        "resourceVersion": "40394642",
+        "selfLink": "/api/v1/namespaces/default/events/database-778db64b49-92n4p.16af60309bf48198",
+        "uid": "0d922e93-8a71-4c42-86c0-7614b346dd31"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "database-778db64b49",
+        "namespace": "default",
+        "resourceVersion": "39087914",
+        "uid": "5297c84a-87fa-4104-8e54-00b5cca0b679"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Created pod: database-778db64b49-scrbw",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "database-778db64b49.16af60310923c6de",
+        "namespace": "default",
+        "resourceVersion": "40394741",
+        "selfLink": "/api/v1/namespaces/default/events/database-778db64b49.16af60310923c6de",
+        "uid": "cb45eea1-c1dd-44cc-9534-b91987438fac"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "batch/v1",
+        "kind": "Job",
+        "name": "database-backup-1634601600",
+        "namespace": "default",
+        "resourceVersion": "40379475",
+        "uid": "08fba7df-60f5-4615-809a-af8008c51fa2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Created pod: database-backup-1634601600-j9pkm",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:11Z",
+        "name": "database-backup-1634601600.16af6030a389755a",
+        "namespace": "default",
+        "resourceVersion": "40394575",
+        "selfLink": "/api/v1/namespaces/default/events/database-backup-1634601600.16af6030a389755a",
+        "uid": "63e75749-76c9-4e31-8a60-c0499eb0707d"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "job-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app8}",
+        "kind": "Pod",
+        "name": "app8-6865b79bbc-ldr4v",
+        "namespace": "default",
+        "resourceVersion": "39087677",
+        "uid": "4a95013c-0a24-4c36-ad98-506508083fed"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container app8",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:13Z",
+        "name": "app8-6865b79bbc-ldr4v.16af60309d9fe01c",
+        "namespace": "default",
+        "resourceVersion": "40394651",
+        "selfLink": "/api/v1/namespaces/default/events/app8-6865b79bbc-ldr4v.16af60309d9fe01c",
+        "uid": "e1c3495f-de01-446a-81c0-f7948d152be3"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app8-6865b79bbc",
+        "namespace": "default",
+        "resourceVersion": "39088132",
+        "uid": "c46a1e64-2f32-41db-8ede-eff508f8ae59"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Created pod: app8-6865b79bbc-8tk64",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "app8-6865b79bbc.16af60310c69449a",
+        "namespace": "default",
+        "resourceVersion": "40394742",
+        "selfLink": "/api/v1/namespaces/default/events/app8-6865b79bbc.16af60310c69449a",
+        "uid": "df63c703-e467-47f5-95ad-7081ffb37bd9"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue}",
+        "kind": "Pod",
+        "name": "queue-b79778986-rqwxl",
+        "namespace": "default",
+        "resourceVersion": "39088053",
+        "uid": "abcd59a9-8f93-443f-9088-320bd98ae997"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container queue",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:13Z",
+        "name": "queue-b79778986-rqwxl.16af60309dd5c970",
+        "namespace": "default",
+        "resourceVersion": "40394659",
+        "selfLink": "/api/v1/namespaces/default/events/queue-b79778986-rqwxl.16af60309dd5c970",
+        "uid": "f721f293-689f-49b5-b494-89c41af15f64"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue}",
+        "kind": "Pod",
+        "name": "queue-b79778986-rqwxl",
+        "namespace": "default",
+        "resourceVersion": "39088053",
+        "uid": "abcd59a9-8f93-443f-9088-320bd98ae997"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:41Z",
+      "message": "Liveness probe failed: ",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:41Z",
+        "name": "queue-b79778986-rqwxl.16af60379bd55107",
+        "namespace": "default",
+        "resourceVersion": "40394816",
+        "selfLink": "/api/v1/namespaces/default/events/queue-b79778986-rqwxl.16af60379bd55107",
+        "uid": "fc89072c-649d-4840-9c6f-e3deaf3c4b36"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "queue-b79778986",
+        "namespace": "default",
+        "resourceVersion": "39088225",
+        "uid": "86992008-fbf5-4710-96cd-0212b6d8476c"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Created pod: queue-b79778986-wb49r",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "queue-b79778986.16af603112310e7f",
+        "namespace": "default",
+        "resourceVersion": "40394743",
+        "selfLink": "/api/v1/namespaces/default/events/queue-b79778986.16af603112310e7f",
+        "uid": "5762595a-45b2-4911-a37f-22bea52be678"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-publisher}",
+        "kind": "Pod",
+        "name": "queue-publisher-64fc467cb8-bvfc4",
+        "namespace": "default",
+        "resourceVersion": "39087847",
+        "uid": "8f360785-c837-4acd-a8e5-b57b8d42ab42"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Stopping container queue-publisher",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "queue-publisher-64fc467cb8-bvfc4.16af5ffa8eccd7a1",
+        "namespace": "default",
+        "resourceVersion": "40394035",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher-64fc467cb8-bvfc4.16af5ffa8eccd7a1",
+        "uid": "d60e1346-9640-4b66-a765-620cc07aa2b7"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:20Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-publisher}",
+        "kind": "Pod",
+        "name": "queue-publisher-64fc467cb8-bvfc4",
+        "namespace": "default",
+        "resourceVersion": "39087847",
+        "uid": "8f360785-c837-4acd-a8e5-b57b8d42ab42"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:20Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: failed to create exec \"a1fa80a1ded688e71c2d81a84183444218bd2b6e6152cb2a6b8d4f07e5865922\": cannot exec in a stopped state: unknown",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:20Z",
+        "name": "queue-publisher-64fc467cb8-bvfc4.16af5ffac63af64f",
+        "namespace": "default",
+        "resourceVersion": "40394068",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher-64fc467cb8-bvfc4.16af5ffac63af64f",
+        "uid": "4c9c29b8-e190-4bda-9338-d421983ecb09"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-publisher}",
+        "kind": "Pod",
+        "name": "queue-publisher-64fc467cb8-bvfc4",
+        "namespace": "default",
+        "resourceVersion": "39087847",
+        "uid": "8f360785-c837-4acd-a8e5-b57b8d42ab42"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:22Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: failed to create exec \"630f8b203c31b75512ff2022b83638f0eecb710ba39a3f766156b9ab78d41682\": cannot exec in a stopped state: unknown",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:22Z",
+        "name": "queue-publisher-64fc467cb8-bvfc4.16af5ffb3d2a1a11",
+        "namespace": "default",
+        "resourceVersion": "40394072",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher-64fc467cb8-bvfc4.16af5ffb3d2a1a11",
+        "uid": "d7de6ad5-9f5e-4e0a-bfb3-ee9db50804d5"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:24Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-publisher}",
+        "kind": "Pod",
+        "name": "queue-publisher-64fc467cb8-bvfc4",
+        "namespace": "default",
+        "resourceVersion": "39087847",
+        "uid": "8f360785-c837-4acd-a8e5-b57b8d42ab42"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:24Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: container is in CONTAINER_EXITED state",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:24Z",
+        "name": "queue-publisher-64fc467cb8-bvfc4.16af5ffbb433d8cd",
+        "namespace": "default",
+        "resourceVersion": "40394076",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher-64fc467cb8-bvfc4.16af5ffbb433d8cd",
+        "uid": "9378c895-858f-4682-bc26-6c962d9c7c5f"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "queue-publisher-64fc467cb8",
+        "namespace": "default",
+        "resourceVersion": "40394012",
+        "uid": "5766d75a-fd64-4f59-ba76-f697dac784ec"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Deleted pod: queue-publisher-64fc467cb8-bvfc4",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "queue-publisher-64fc467cb8.16af5ffa8e99eabb",
+        "namespace": "default",
+        "resourceVersion": "40394049",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher-64fc467cb8.16af5ffa8e99eabb",
+        "uid": "263f6299-0a98-4fdb-923b-13b95a7c2f49"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "queue-publisher-747ddb6556",
+        "namespace": "default",
+        "resourceVersion": "40394120",
+        "uid": "34596b6a-0b17-4ab9-a8aa-7009eb8faf58"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:37Z",
+      "message": "Created pod: queue-publisher-747ddb6556-chpq5",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:37Z",
+        "name": "queue-publisher-747ddb6556.16af5ffebacd0344",
+        "namespace": "default",
+        "resourceVersion": "40394125",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher-747ddb6556.16af5ffebacd0344",
+        "uid": "85221705-f854-403e-92c4-a67a9931127a"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "queue-publisher-747ddb6556",
+        "namespace": "default",
+        "resourceVersion": "40394128",
+        "uid": "34596b6a-0b17-4ab9-a8aa-7009eb8faf58"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Created pod: queue-publisher-747ddb6556-rfh5l",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "queue-publisher-747ddb6556.16af6031151536ca",
+        "namespace": "default",
+        "resourceVersion": "40394744",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher-747ddb6556.16af6031151536ca",
+        "uid": "01aec318-4918-421a-90b2-1dd905b5bc6c"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "queue-publisher",
+        "namespace": "default",
+        "resourceVersion": "40393938",
+        "uid": "ccad0b5f-efce-44fc-bc24-48ccb3e37e98"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Scaled down replica set queue-publisher-64fc467cb8 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:20Z",
+        "name": "queue-publisher.16af5ffa757748a4",
+        "namespace": "default",
+        "resourceVersion": "40394059",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher.16af5ffa757748a4",
+        "uid": "79d6616d-e1a3-446d-8410-034aca55bd55"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "queue-publisher",
+        "namespace": "default",
+        "resourceVersion": "40394061",
+        "uid": "ccad0b5f-efce-44fc-bc24-48ccb3e37e98"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:37Z",
+      "message": "Scaled up replica set queue-publisher-747ddb6556 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:37Z",
+        "name": "queue-publisher.16af5ffeba662299",
+        "namespace": "default",
+        "resourceVersion": "40394121",
+        "selfLink": "/api/v1/namespaces/default/events/queue-publisher.16af5ffeba662299",
+        "uid": "7a9abfc6-352a-44df-a893-e745ee089c2b"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:53Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app9-58d95b66f6",
+        "namespace": "default",
+        "resourceVersion": "40394174",
+        "uid": "850ea9f5-de04-413b-9507-4ffc45d05653"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:53Z",
+      "message": "Created pod: app9-58d95b66f6-pjtl4",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:53Z",
+        "name": "app9-58d95b66f6.16af60028e5d291a",
+        "namespace": "default",
+        "resourceVersion": "40394179",
+        "selfLink": "/api/v1/namespaces/default/events/app9-58d95b66f6.16af60028e5d291a",
+        "uid": "70c20fc2-e841-4a97-b94a-a489a43343db"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app9-58d95b66f6",
+        "namespace": "default",
+        "resourceVersion": "40394182",
+        "uid": "850ea9f5-de04-413b-9507-4ffc45d05653"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Created pod: app9-58d95b66f6-vmcwt",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "app9-58d95b66f6.16af60311868781d",
+        "namespace": "default",
+        "resourceVersion": "40394745",
+        "selfLink": "/api/v1/namespaces/default/events/app9-58d95b66f6.16af60311868781d",
+        "uid": "a4edd72c-27bd-4015-bf46-c42236f8b66b"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app9}",
+        "kind": "Pod",
+        "name": "app9-d67bc7d68-bfx5p",
+        "namespace": "default",
+        "resourceVersion": "39088076",
+        "uid": "e84b630d-50b5-4658-a97c-70a528fac5e6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Stopping container app9",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app9-d67bc7d68-bfx5p.16af5ffa91e34316",
+        "namespace": "default",
+        "resourceVersion": "40394038",
+        "selfLink": "/api/v1/namespaces/default/events/app9-d67bc7d68-bfx5p.16af5ffa91e34316",
+        "uid": "9645e97a-b017-4a7a-8ac0-6b647f2a6cfe"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{queue-consumer}",
+        "kind": "Pod",
+        "name": "app9-d67bc7d68-bfx5p",
+        "namespace": "default",
+        "resourceVersion": "39088076",
+        "uid": "e84b630d-50b5-4658-a97c-70a528fac5e6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Stopping container queue-consumer",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app9-d67bc7d68-bfx5p.16af5ffa91e3ac65",
+        "namespace": "default",
+        "resourceVersion": "40394039",
+        "selfLink": "/api/v1/namespaces/default/events/app9-d67bc7d68-bfx5p.16af5ffa91e3ac65",
+        "uid": "7d52651e-a101-40f6-b373-c5b6417bfdf2"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 2,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:28Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{app9}",
+        "kind": "Pod",
+        "name": "app9-d67bc7d68-bfx5p",
+        "namespace": "default",
+        "resourceVersion": "39088076",
+        "uid": "e84b630d-50b5-4658-a97c-70a528fac5e6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:43Z",
+      "message": "Liveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) Failed to connect to localhost port 8095: Connection refused\n",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:28Z",
+        "name": "app9-d67bc7d68-bfx5p.16af5ffcaa955a2c",
+        "namespace": "default",
+        "resourceVersion": "40394157",
+        "selfLink": "/api/v1/namespaces/default/events/app9-d67bc7d68-bfx5p.16af5ffcaa955a2c",
+        "uid": "41fc9ea8-9b9f-4b21-a3ae-b80fa7a0e947"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "app9-d67bc7d68",
+        "namespace": "default",
+        "resourceVersion": "40394015",
+        "uid": "e69e0495-b72a-45bc-aa6c-2b7b4033e2f1"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Deleted pod: app9-d67bc7d68-bfx5p",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:19Z",
+        "name": "app9-d67bc7d68.16af5ffa919c8e1b",
+        "namespace": "default",
+        "resourceVersion": "40394056",
+        "selfLink": "/api/v1/namespaces/default/events/app9-d67bc7d68.16af5ffa919c8e1b",
+        "uid": "73684c72-9bb4-4032-8943-a1e1793470d6"
+      },
+      "reason": "SuccessfulDelete",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:19Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app9",
+        "namespace": "default",
+        "resourceVersion": "40393941",
+        "uid": "45646fba-6f76-4e06-bcbb-bedc2ea2de21"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:19Z",
+      "message": "Scaled down replica set app9-d67bc7d68 to 0",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:20Z",
+        "name": "app9.16af5ffa799cb6cb",
+        "namespace": "default",
+        "resourceVersion": "40394065",
+        "selfLink": "/api/v1/namespaces/default/events/app9.16af5ffa799cb6cb",
+        "uid": "189b401f-0542-40f2-a963-c1d9ec381740"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:05:53Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "app9",
+        "namespace": "default",
+        "resourceVersion": "40394067",
+        "uid": "45646fba-6f76-4e06-bcbb-bedc2ea2de21"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:05:53Z",
+      "message": "Scaled up replica set app9-58d95b66f6 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:05:53Z",
+        "name": "app9.16af60028de40d88",
+        "namespace": "default",
+        "resourceVersion": "40394175",
+        "selfLink": "/api/v1/namespaces/default/events/app9.16af60028de40d88",
+        "uid": "4076c0f1-1d9e-4ab2-85f1-3f6ae6cbc5ea"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{telegraf}",
+        "kind": "Pod",
+        "name": "telegraf-7698c8bc5-w6nzq",
+        "namespace": "default",
+        "resourceVersion": "39087720",
+        "uid": "5a4b9d75-0710-4634-880f-822d4d4f394d"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container telegraf",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:13Z",
+        "name": "telegraf-7698c8bc5-w6nzq.16af60309ed2171e",
+        "namespace": "default",
+        "resourceVersion": "40394667",
+        "selfLink": "/api/v1/namespaces/default/events/telegraf-7698c8bc5-w6nzq.16af60309ed2171e",
+        "uid": "50692c7b-e405-4a15-81e2-b64c612b995d"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:14Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "telegraf-7698c8bc5",
+        "namespace": "default",
+        "resourceVersion": "40005943",
+        "uid": "c3eb9588-3a0d-4d60-b584-059b927b2a5f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:14Z",
+      "message": "Created pod: telegraf-7698c8bc5-8m59v",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "telegraf-7698c8bc5.16af60312d1b49ee",
+        "namespace": "default",
+        "resourceVersion": "40394746",
+        "selfLink": "/api/v1/namespaces/default/events/telegraf-7698c8bc5.16af60312d1b49ee",
+        "uid": "2955eec4-527a-47c1-a18b-8bca1c1d0927"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{registry-agent-container}",
+        "kind": "Pod",
+        "name": "registry-agent-7ddd44bbb-n8p6s",
+        "namespace": "default",
+        "resourceVersion": "39050740",
+        "uid": "41fe5791-d854-4f2d-a0d5-51a22305bb26"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:11Z",
+      "message": "Stopping container registry-agent-container",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:14Z",
+        "name": "registry-agent-7ddd44bbb-n8p6s.16af60309f04497d",
+        "namespace": "default",
+        "resourceVersion": "40394678",
+        "selfLink": "/api/v1/namespaces/default/events/registry-agent-7ddd44bbb-n8p6s.16af60309f04497d",
+        "uid": "472c47c4-8185-4538-9882-107109d5b28c"
+      },
+      "reason": "Killing",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:13Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{registry-agent-container}",
+        "kind": "Pod",
+        "name": "registry-agent-7ddd44bbb-n8p6s",
+        "namespace": "default",
+        "resourceVersion": "39050740",
+        "uid": "41fe5791-d854-4f2d-a0d5-51a22305bb26"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:13Z",
+      "message": "Liveness probe errored: rpc error: code = Unknown desc = failed to exec in container: failed to create exec \"65755bb29a0a680cb046388f0d3f0e7ef3515b20611f55bcaa2c07d569302ad3\": cannot exec in a stopped state: unknown",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:14Z",
+        "name": "registry-agent-7ddd44bbb-n8p6s.16af60310ea23b3d",
+        "namespace": "default",
+        "resourceVersion": "40394694",
+        "selfLink": "/api/v1/namespaces/default/events/registry-agent-7ddd44bbb-n8p6s.16af60310ea23b3d",
+        "uid": "e8d7fc7e-32ce-4a3d-906f-88107511cc53"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:15Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{registry-agent-container}",
+        "kind": "Pod",
+        "name": "registry-agent-7ddd44bbb-n8p6s",
+        "namespace": "default",
+        "resourceVersion": "39050740",
+        "uid": "41fe5791-d854-4f2d-a0d5-51a22305bb26"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:15Z",
+      "message": "Liveness probe errored: rpc error: code = NotFound desc = failed to exec in container: failed to find container \"5736ec8c8b13cff02472aa918691fb1962ac809c551320c49f124c4ae37d6338\" in store: not found",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "registry-agent-7ddd44bbb-n8p6s.16af603185aa43fd",
+        "namespace": "default",
+        "resourceVersion": "40394736",
+        "selfLink": "/api/v1/namespaces/default/events/registry-agent-7ddd44bbb-n8p6s.16af603185aa43fd",
+        "uid": "5b5bebd4-4c8d-40c5-ba5e-7f59691cf881"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "apiiro-01.corp"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-10-19T08:09:14Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "registry-agent-7ddd44bbb",
+        "namespace": "default",
+        "resourceVersion": "39050943",
+        "uid": "f6fd49b7-7832-493c-ab73-4f872544bc4f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-10-19T08:09:14Z",
+      "message": "Created pod: registry-agent-7ddd44bbb-ztmjw",
+      "metadata": {
+        "creationTimestamp": "2021-10-19T08:09:15Z",
+        "name": "registry-agent-7ddd44bbb.16af603131a20363",
+        "namespace": "default",
+        "resourceVersion": "40394748",
+        "selfLink": "/api/v1/namespaces/default/events/registry-agent-7ddd44bbb.16af603131a20363",
+        "uid": "6f8757c4-d304-4c38-ae41-de84f462fa0f"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

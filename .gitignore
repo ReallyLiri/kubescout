@@ -1,5 +1,5 @@
 .idea/
 bin
 .DS_STORE
-obfuscate.sh
+terminal
 *.store.json
