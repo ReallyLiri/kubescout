@@ -50,15 +50,6 @@ OPTIONS:
 	}
 }
 
-// Scout the cluster for alerts. Args values should match CLI documentation.
-func ScoutWithArgs(args []string, alertSink sink.Sink) error {
-	configuration, err := config.FromArgs(args)
-	if err != nil {
-		return err
-	}
-	return Scout(configuration, alertSink)
-}
-
 // Scout the cluster for alerts. All parameters are optional, default values will be assigned, see CLI documentation.
 func Scout(configuration *config.Config, alertSink sink.Sink) error {
 	if alertSink == nil {
