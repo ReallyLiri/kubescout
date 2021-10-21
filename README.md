@@ -1,8 +1,9 @@
 # Kube-Scout
 
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
-[![CI](https://github.com/ReallyLiri/kubescout/actions/workflows/ci.yaml/badge.svg)](https://github.com/ReallyLiri/kubescout/actions/workflows/ci.yaml)
-[![Go project version](https://badge.fury.io/go/github.com%2Freallyliri%2Fkubescout.svg)](https://badge.fury.io/go/github.com%2Freallyliri%2Fkubescout)
+[![CI](https://github.com/ReallyLiri/kubescout/actions/workflows/ci.yaml/badge.svg?)](https://github.com/ReallyLiri/kubescout/actions/workflows/ci.yaml)
+[![Go project version](https://badge.fury.io/go/github.com%2Freallyliri%2Fkubescout.svg?)](https://badge.fury.io/go/github.com%2Freallyliri%2Fkubescout)
+[![GoDoc](https://godoc.org/github.com/reallyliri/kubescout?status.svg)](https://pkg.go.dev/github.com/reallyliri/kubescout)
 
 ![icon](kubescout.png)
 
@@ -108,7 +109,7 @@ TBD
 
 ```
 NAME:
-   kubescout - 0.1.0 - Scout for alarming issues in your Kubernetes cluster
+   kubescout - 0.1.3 - Scout for alarming issues in your Kubernetes cluster
 
 USAGE:
    kubescout             --name value   [optional flags]
@@ -160,7 +161,35 @@ then run: `kubescout -h`
 
 ### Package
 
-TBD
+The tool can also be used as a package from your code.
+
+```
+go get github.com/reallyliri/kubescout
+```
+
+```go
+package example
+import kubescout "github.com/reallyliri/kubescout/pkg"
+import kubescoutconfig "github.com/reallyliri/kubescout/config"
+import kubescoutsink "github.com/reallyliri/kubescout/sink"
+
+func main1() {
+	_ = kubescout.Scout(nil, nil)
+}
+
+func main2() {
+	configuration, _ := kubescoutconfig.DefaultConfig()
+	sink, _ := kubescoutsink.CreateSlackSink("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX")
+	_ = kubescout.Scout(configuration, sink)
+}
+
+func main3() {
+	configuration, _ := kubescoutconfig.DefaultConfig()
+	configuration.KubeconfigFilePath = "/root/configs/staging-kubeconfig"
+	sink, _ := kubescoutsink.CreateWebSink("https://post.url", nil, false)
+	_ = kubescout.Scout(configuration, sink)
+}
+```
 
 ## Test and Build
 
