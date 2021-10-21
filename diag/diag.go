@@ -57,8 +57,8 @@ func (context *diagContext) handleState(state *entityState) (stored bool) {
 			return false
 		}
 		if len(state.logsCollections) > 0 {
-			builder.WriteString("\n")
 			for container, logs := range state.logsCollections {
+				builder.WriteString("\n")
 				builder.WriteString(fmt.Sprintf("logs of container %v:\n", container))
 				builder.WriteString("<<<<<<<<<<\n")
 				builder.WriteString(logs)

@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-const VERSION = "0.1.3"
+const VERSION = "0.1.4"
 
 func main() {
 
