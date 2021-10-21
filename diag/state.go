@@ -1,9 +1,9 @@
 package diag
 
 import (
-	"KubeScout/config"
-	"KubeScout/kubeclient"
 	"fmt"
+	"github.com/reallyliri/kubescout/config"
+	"github.com/reallyliri/kubescout/kubeclient"
 	log "github.com/sirupsen/logrus"
 	v12 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"

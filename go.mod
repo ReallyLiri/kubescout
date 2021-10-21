@@ -1,4 +1,4 @@
-module KubeScout
+module github.com/reallyliri/kubescout
 
 go 1.16
 
@@ -11,6 +11,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/cli/v2 v2.3.0
 	go.uber.org/multierr v1.7.0
+	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/api v0.20.4
 	k8s.io/apimachinery v0.21.0
 	k8s.io/client-go v0.20.4

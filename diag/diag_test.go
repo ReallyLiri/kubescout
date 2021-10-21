@@ -1,9 +1,9 @@
 package diag
 
 import (
-	"KubeScout/config"
-	"KubeScout/kubeclient"
-	"KubeScout/store"
+	"github.com/reallyliri/kubescout/config"
+	"github.com/reallyliri/kubescout/kubeclient"
+	"github.com/reallyliri/kubescout/store"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"io/ioutil"

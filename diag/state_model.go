@@ -1,9 +1,9 @@
 package diag
 
 import (
-	"KubeScout/kubeclient"
 	"fmt"
 	"github.com/goombaio/orderedset"
+	"github.com/reallyliri/kubescout/kubeclient"
 	"strings"
 )
 

@@ -52,7 +52,7 @@ func Test_formatResourceUsage(t *testing.T) {
 	assert.Equal(t, "Excessive usage of Memory: 48MB/54MB (90.6% usage)", formatResourceUsage(5052416, 53485824, "Memory", 0.75))
 }
 
-func Test_normalizeMessage(t *testing.T)  {
+func Test_normalizeMessage(t *testing.T) {
 	assert.Equal(t, "", normalizeMessage(""))
 	assert.Equal(t, "abc", normalizeMessage("abc"))
 	assert.Equal(t, "hello world", normalizeMessage("hello world"))
@@ -67,7 +67,7 @@ func Test_normalizeMessage(t *testing.T)  {
 	assert.Equal(t, "t</t>t", normalizeMessage("t<t>t</t></t>t"))
 }
 
-func Test_cleanMessage(t *testing.T)  {
+func Test_cleanMessage(t *testing.T) {
 	assert.Equal(t, "", cleanMessage(""))
 	assert.Equal(t, "abc", cleanMessage("abc"))
 	assert.Equal(t, "hello world", cleanMessage("hello world"))

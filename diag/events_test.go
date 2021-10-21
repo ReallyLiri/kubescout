@@ -1,7 +1,7 @@
 package diag
 
 import (
-	"KubeScout/kubeclient"
+	"github.com/reallyliri/kubescout/kubeclient"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 	"strings"

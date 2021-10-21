@@ -1,20 +1,20 @@
 package main
 
 import (
-	"KubeScout/config"
-	"KubeScout/diag"
-	"KubeScout/kubeclient"
-	"KubeScout/sink"
-	"KubeScout/store"
 	"fmt"
+	"github.com/reallyliri/kubescout/config"
+	"github.com/reallyliri/kubescout/diag"
+	"github.com/reallyliri/kubescout/kubeclient"
+	"github.com/reallyliri/kubescout/sink"
+	"github.com/reallyliri/kubescout/store"
+	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
-	log "github.com/sirupsen/logrus"
 	"os"
 	"time"
 )
 
-const VERSION = "0.1.0"
+const VERSION = "0.1.1"
 
 func main() {
 	cli.AppHelpTemplate =
@@ -51,7 +51,18 @@ OPTIONS:
 
 func Scout(configuration *config.Config, alertSink sink.Sink) error {
 	if alertSink == nil {
-		alertSink = &sink.LogSink{}
+		outputMode := configuration.OutputMode
+		switch outputMode {
+		case "json":
+			alertSink = &sink.JsonSink{}
+		case "yaml":
+			alertSink = &sink.YamlSink{}
+		case "pretty":
+			alertSink = &sink.PrettySink{}
+		default:
+			log.Errorf("output mode '%v' is not supported -- using pretty mode", outputMode)
+			alertSink = &sink.PrettySink{}
+		}
 	}
 
 	sto, err := store.LoadOrCreate(configuration)
@@ -79,7 +90,7 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 
 	alert := sink.Alert{
 		ClusterName: configuration.ClusterName,
-		Content:      relevantMessages,
+		Content:     relevantMessages,
 	}
 	return alertSink.Report(alert)
 }

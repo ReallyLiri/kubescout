@@ -1,10 +1,10 @@
 package diag
 
 import (
-	"KubeScout/config"
-	"KubeScout/kubeclient"
-	"KubeScout/store"
 	"fmt"
+	"github.com/reallyliri/kubescout/config"
+	"github.com/reallyliri/kubescout/kubeclient"
+	"github.com/reallyliri/kubescout/store"
 	log "github.com/sirupsen/logrus"
 	"go.uber.org/multierr"
 	"strings"

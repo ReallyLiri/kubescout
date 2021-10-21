@@ -1,7 +1,7 @@
 package diag
 
 import (
-	"KubeScout/kubeclient"
+	"github.com/reallyliri/kubescout/kubeclient"
 	"github.com/stretchr/testify/require"
 	"testing"
 )

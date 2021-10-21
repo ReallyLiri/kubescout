@@ -28,6 +28,7 @@ type Config struct {
 	ClusterName                      string
 	MessagesDeduplicationDuration    time.Duration
 	StoreFilePath                    string
+	OutputMode                       string
 }
 
 var Flags = []cli.Flag{
@@ -128,6 +129,13 @@ var Flags = []cli.Flag{
 		Usage:    "path to store file where duplicated message information will be persisted or empty string if this feature should not be applied",
 		Required: false,
 	},
+	&cli.StringFlag{
+		Name:     "output",
+		Aliases:  []string{"o"},
+		Value:    "pretty",
+		Usage:    "output mode, one of pretty/json/yaml",
+		Required: false,
+	},
 }
 
 func DefaultConfig() (*Config, error) {
@@ -167,6 +175,7 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		ClusterName:                      c.String("name"),
 		MessagesDeduplicationDuration:    time.Minute * time.Duration(c.Int("dedup-minutes")),
 		StoreFilePath:                    c.String("store-filepath"),
+		OutputMode:                       c.String("output"),
 	}
 
 	if config.KubeconfigFilePath == "" {

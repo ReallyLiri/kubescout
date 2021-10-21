@@ -1,10 +1,10 @@
 package store
 
 import (
-	"KubeScout/config"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/reallyliri/kubescout/config"
 	"io/fs"
 	"io/ioutil"
 	"time"

@@ -1,7 +1,7 @@
 package store
 
 import (
-	"KubeScout/config"
+	"github.com/reallyliri/kubescout/config"
 	"github.com/stretchr/testify/require"
 	"io/ioutil"
 	"testing"
@@ -51,10 +51,10 @@ func TestStoreAddFlow(t *testing.T) {
 	require.Equal(t, 1, len(store.RelevantMessages()))
 	require.False(t, store.ShouldAdd("hash1", now))
 	require.Equal(t, 1, len(store.RelevantMessages()))
-	nearFuture := now.Add(time.Second*time.Duration(50))
+	nearFuture := now.Add(time.Second * time.Duration(50))
 	require.False(t, store.ShouldAdd("hash1", nearFuture))
 	require.Equal(t, 1, len(store.RelevantMessages()))
-	farFuture := now.Add(time.Minute*time.Duration(2))
+	farFuture := now.Add(time.Minute * time.Duration(2))
 	require.True(t, store.ShouldAdd("hash1", farFuture))
 	store.Add("message1", []string{"hash1"}, farFuture)
 	require.Equal(t, 2, len(store.RelevantMessages()))
