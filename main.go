@@ -17,6 +17,7 @@ import (
 const VERSION = "0.1.1"
 
 func main() {
+
 	cli.AppHelpTemplate =
 		`NAME:
    {{.Name}} - {{.Version}} - {{.Usage}}
@@ -49,7 +50,16 @@ OPTIONS:
 	}
 }
 
-// 
+// Scout the cluster for alerts. Args values should match CLI documentation.
+func ScoutWithArgs(args []string, alertSink sink.Sink) error {
+	configuration, err := config.FromArgs(args)
+	if err != nil {
+		return err
+	}
+	return Scout(configuration, alertSink)
+}
+
+// Scout the cluster for alerts. All parameters are optional, default values will be assigned, see CLI documentation.
 func Scout(configuration *config.Config, alertSink sink.Sink) error {
 	if alertSink == nil {
 		outputMode := configuration.OutputMode

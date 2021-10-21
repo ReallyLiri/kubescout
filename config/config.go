@@ -150,6 +150,21 @@ func DefaultConfig() (*Config, error) {
 	return config, nil
 }
 
+func FromArgs(args []string) (config *Config, err error) {
+	app := &cli.App{
+		Flags: Flags,
+		Action: func(ctx *cli.Context) error {
+			config, err = ParseConfig(ctx)
+			return nil
+		},
+	}
+	runErr := app.Run(args)
+	if err == nil {
+		err = runErr
+	}
+	return
+}
+
 func flagSet(name string) (*flag.FlagSet, error) {
 	set := flag.NewFlagSet(name, flag.ContinueOnError)
 	for _, f := range Flags {
