@@ -33,7 +33,7 @@ func setUp(t *testing.T) (*config.Config, kubeclient.KubernetesClient) {
 	client, err := kubeclient.CreateMockClient(
 		path.Join(apiResponsesDirectoryPath, "integration-test-outputs", "nodes.json"),
 		path.Join(apiResponsesDirectoryPath, "integration-test-outputs", "ns.json"),
-		path.Join(apiResponsesDirectoryPath, "integration-test-outputs", "pods.json"),
+		path.Join(apiResponsesDirectoryPath, "integration-test-outputs", "pending_all.json"),
 		path.Join(apiResponsesDirectoryPath, "integration-test-outputs", "rs.json"),
 		path.Join(apiResponsesDirectoryPath, "integration-test-outputs", "events.json"),
 	)

@@ -491,3 +491,24 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	require.Equal(t, "Pod is in Pending phase", messages[0])
 	require.Equal(t, "Containers Not Ready: containers with unready status: [nginx-3] (last transition: 4 minutes ago)", messages[1])
 }
+
+func TestPodState_AllPodsPending(t *testing.T) {
+	pods, err := kubeclient.GetPods(t, "pending_all.json")
+	require.Nil(t, err)
+	require.NotNil(t, pods)
+	require.NotEmpty(t, pods)
+
+	now := asTime("2021-10-19T09:00:00Z")
+
+	for i, pod := range pods {
+		state, err := testContext().podState(&pod, now, nil)
+		require.Nil(t, err)
+		log.Debugf("%v) %v", i, state)
+		require.False(t, state.isHealthy())
+		require.NotEmpty(t, state.fullName)
+		messages := state.messages
+		require.NotEmpty(t, messages)
+		require.Equal(t, 1, len(messages))
+		require.Equal(t, "Pod is in Pending phase", messages[0])
+	}
+}
