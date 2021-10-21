@@ -52,6 +52,8 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 0, len(sto.RelevantMessages()))
 	err = DiagnoseCluster(client, cfg, sto, now)
 	require.Nil(t, err)
+	err = sto.Flush(now)
+	require.Nil(t, err)
 
 	messages := sto.RelevantMessages()
 	assert.Equal(t, 12, len(messages))
@@ -71,6 +73,8 @@ func TestDiagnoseRepeatingCallAfterShortTime(t *testing.T) {
 	err = DiagnoseCluster(client, cfg, store1, now)
 	require.Nil(t, err)
 	assert.Equal(t, 12, len(store1.RelevantMessages()))
+	err = store1.Flush(now)
+	require.Nil(t, err)
 
 	store2, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)
@@ -79,6 +83,8 @@ func TestDiagnoseRepeatingCallAfterShortTime(t *testing.T) {
 	err = DiagnoseCluster(client, cfg, store2, nearFuture)
 	require.Nil(t, err)
 	assert.Equal(t, 0, len(store2.RelevantMessages()))
+	err = store2.Flush(now)
+	require.Nil(t, err)
 }
 
 func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
@@ -92,6 +98,8 @@ func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
 	err = DiagnoseCluster(client, cfg, store1, now)
 	require.Nil(t, err)
 	assert.Equal(t, 12, len(store1.RelevantMessages()))
+	err = store1.Flush(now)
+	require.Nil(t, err)
 
 	store2, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)
@@ -100,6 +108,8 @@ func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
 	err = DiagnoseCluster(client, cfg, store2, farFuture)
 	require.Nil(t, err)
 	assert.Equal(t, 12, len(store2.RelevantMessages()))
+	err = store2.Flush(now)
+	require.Nil(t, err)
 }
 
 var expectedMessages = []string{

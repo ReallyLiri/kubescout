@@ -39,7 +39,8 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 		return fmt.Errorf("failed to build kuberentes client: %v", err)
 	}
 
-	err = diag.DiagnoseCluster(client, configuration, sto, time.Now().UTC())
+	now := time.Now().UTC()
+	err = diag.DiagnoseCluster(client, configuration, sto, now)
 
 	if err != nil {
 		return fmt.Errorf("failed to diagnose cluster: %v", err)
@@ -55,5 +56,12 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 		ClusterName: configuration.ClusterName,
 		Content:     relevantMessages,
 	}
-	return alertSink.Report(alert)
+	err = alertSink.Report(alert)
+	if err != nil {
+		flushErr := sto.Flush(now)
+		if flushErr != nil {
+			log.Errorf("failed to flush to store: %v", flushErr)
+		}
+	}
+	return err
 }

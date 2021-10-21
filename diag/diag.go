@@ -201,10 +201,5 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		}
 	}
 
-	err = store.Flush(now)
-	if err != nil {
-		aggregatedError = multierr.Append(aggregatedError, err)
-	}
-
 	return
 }
