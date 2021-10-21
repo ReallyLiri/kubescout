@@ -153,7 +153,10 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 
 	log.Infof("running 1/3 diagnose call ...\n")
-	err = diag.DiagnoseCluster(client, configuration, storeForFirstRun, time.Now().UTC())
+	now := time.Now().UTC()
+	err = diag.DiagnoseCluster(client, configuration, storeForFirstRun, now)
+	require.Nil(t, err)
+	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
 	relevantMessagesFirstRun := storeForFirstRun.RelevantMessages()
@@ -167,7 +170,10 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 
 	log.Infof("running 2/3 diagnose call ...\n")
-	err = diag.DiagnoseCluster(client, configuration, storeForSecondRun, time.Now().UTC())
+	now = time.Now().UTC()
+	err = diag.DiagnoseCluster(client, configuration, storeForSecondRun, now)
+	require.Nil(t, err)
+	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
 	relevantMessagesSecondRun := storeForSecondRun.RelevantMessages()
@@ -180,7 +186,10 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 
 	log.Infof("running 3/3 diagnose call ...\n")
-	err = diag.DiagnoseCluster(client, configuration, storeForThirdRun, time.Now().UTC())
+	now = time.Now().UTC()
+	err = diag.DiagnoseCluster(client, configuration, storeForThirdRun, now)
+	require.Nil(t, err)
+	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
 	relevantMessagesThirdRun := storeForThirdRun.RelevantMessages()
