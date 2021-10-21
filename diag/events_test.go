@@ -169,7 +169,6 @@ func TestEventState_FailedJobs(t *testing.T) {
 	require.Equal(t, "\tJob has reached the specified backoff limit", messages[1])
 }
 
-
 func TestEventState_RpcError(t *testing.T) {
 	events, err := kubeclient.GetEvents(t, "liveness_failed.json")
 	require.Nil(t, err)
@@ -180,7 +179,6 @@ func TestEventState_RpcError(t *testing.T) {
 	now := asTime("2021-10-19T09:00:00Z")
 
 	warningIndexes := []int {
-
 		8,
 		18,
 		29,
@@ -205,7 +203,6 @@ func TestEventState_RpcError(t *testing.T) {
 		124,
 		131,
 		132,
-		133,
 	}
 
 	skipIndexes := make(map[int]bool, len(warningIndexes))
@@ -228,9 +225,11 @@ func TestEventState_RpcError(t *testing.T) {
 		require.True(t, len(messages) >= 2)
 		require.True(t, len(messages) <= 5)
 		require.True(t, strings.HasPrefix(messages[0], "Event on Pod"))
-		require.True(t, strings.Index(messages[0], "due to Unhealthy") > 0)
+		require.True(t, strings.Index(messages[0], "due to Unhealthy") > 0 || strings.Index(messages[0], "due to BackOff") > 0)
 		require.True(t,
-			strings.HasPrefix(messages[1], "\tLiveness probe errored: ") || strings.HasPrefix(messages[1], "\tLiveness probe failed: "),
+			strings.HasPrefix(messages[1], "\tLiveness probe errored:") ||
+			strings.HasPrefix(messages[1], "\tLiveness probe failed:") ||
+			strings.HasPrefix(messages[1], "\tBack-off restarting failed container"),
 		)
 	}
 }
