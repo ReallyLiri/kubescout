@@ -232,7 +232,7 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 	if c.Bool("verbose") {
 		log.SetLevel(log.DebugLevel)
 	} else {
-		log.SetLevel(log.DebugLevel)
+		log.SetLevel(log.InfoLevel)
 	}
 
 	return config, nil
