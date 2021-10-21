@@ -192,12 +192,15 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 
 		for _, eventStates := range eventsByEntityName {
 			for _, entityState := range eventStates {
+				if !store.IsRelevant(entityState.timestamp) {
+					continue
+				}
 				ctx.handleState(entityState)
 			}
 		}
 	}
 
-	err = store.Flush()
+	err = store.Flush(now)
 	if err != nil {
 		aggregatedError = multierr.Append(aggregatedError, err)
 	}

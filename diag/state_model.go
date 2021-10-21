@@ -5,6 +5,7 @@ import (
 	"github.com/goombaio/orderedset"
 	"github.com/reallyliri/kubescout/kubeclient"
 	"strings"
+	"time"
 )
 
 type entityState struct {
@@ -15,6 +16,7 @@ type entityState struct {
 	messages        []string
 	logsCollections map[string]string
 	client          kubeclient.KubernetesClient
+	timestamp       time.Time
 }
 
 func newState(fullName string, correlationName, kind string, client kubeclient.KubernetesClient) *entityState {

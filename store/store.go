@@ -20,6 +20,7 @@ type Store struct {
 type ClusterStore struct {
 	Cluster           string               `json:"cluster"`
 	HashWithTimestamp map[string]time.Time `json:"hash_with_timestamp"`
+	LastRunAt         time.Time `json:"last_run_at"`
 	messages          []string
 }
 
@@ -88,7 +89,14 @@ func (store *Store) Add(message string, hashes []string, now time.Time) {
 	clusterStore.messages = append(clusterStore.messages, message)
 }
 
-func (store *Store) Flush() error {
+func (store *Store) IsRelevant(tm time.Time) bool {
+	return store.ClusterStoresByName[store.currentCluster].LastRunAt.Before(tm)
+}
+
+func (store *Store) Flush(now time.Time) error {
+
+	store.ClusterStoresByName[store.currentCluster].LastRunAt = now
+
 	if store.filePath == "" {
 		return nil
 	}

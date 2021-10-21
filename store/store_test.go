@@ -24,7 +24,7 @@ func TestStoreCreateAndFlush(t *testing.T) {
 	require.Nil(t, err)
 	require.True(t, len(content) == 0)
 
-	err = store.Flush()
+	err = store.Flush(time.Now())
 	require.Nil(t, err)
 
 	content, err = ioutil.ReadFile(storeFile.Name())
@@ -86,18 +86,24 @@ func TestLoadAfterFlush(t *testing.T) {
 	require.Equal(t, 1, len(store.RelevantMessages()))
 	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
 
+	require.True(t, store.IsRelevant(now.Add(time.Duration(-1) * time.Minute)))
+	require.True(t, store.IsRelevant(now.Add(time.Minute)))
+
 	storeReloaded, err := LoadOrCreate(configuration)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(storeReloaded.RelevantMessages()))
 	require.Equal(t, 0, len(storeReloaded.ClusterStoresByName["test"].HashWithTimestamp))
 
-	err = store.Flush()
+	err = store.Flush(now)
 	require.Nil(t, err)
 
 	storeReloaded, err = LoadOrCreate(configuration)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(storeReloaded.RelevantMessages()))
 	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
+
+	require.False(t, storeReloaded.IsRelevant(now.Add(time.Duration(-1) * time.Minute)))
+	require.True(t, storeReloaded.IsRelevant(now.Add(time.Minute)))
 }
 
 func TestStoreForMultipleClusters(t *testing.T) {
@@ -116,7 +122,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	store1.Add("message", []string{"hash1", "hash2", "hash3"}, now)
 	require.Equal(t, 1, len(store1.RelevantMessages()))
 	require.Equal(t, 3, len(store1.ClusterStoresByName["test-1"].HashWithTimestamp))
-	err = store1.Flush()
+	err = store1.Flush(now)
 	require.Nil(t, err)
 
 	configuration.ClusterName = "test-2"
@@ -124,7 +130,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	require.Nil(t, err)
 	require.Equal(t, 0, len(store2.RelevantMessages()))
 	require.Equal(t, 0, len(store2.ClusterStoresByName["test-2"].HashWithTimestamp))
-	err = store2.Flush()
+	err = store2.Flush(now)
 	require.Nil(t, err)
 
 	require.Equal(t, 2, len(store2.ClusterStoresByName))
@@ -134,7 +140,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	require.Nil(t, err)
 	require.Equal(t, 0, len(store3.RelevantMessages()))
 	require.Equal(t, 0, len(store3.ClusterStoresByName["test-3"].HashWithTimestamp))
-	err = store2.Flush()
+	err = store2.Flush(now)
 	require.Nil(t, err)
 
 	require.Equal(t, 3, len(store3.ClusterStoresByName))
@@ -158,11 +164,12 @@ func TestJsonContent(t *testing.T) {
 
 	store1.Add("message", []string{"hash1", "hash2", "hash3"}, now)
 	require.Equal(t, 1, len(store1.RelevantMessages()))
-	err = store1.Flush()
+	err = store1.Flush(now.Add(time.Minute))
 	require.Nil(t, err)
 
 	content, err := ioutil.ReadFile(storeFile.Name())
 	require.Nil(t, err)
+	// language=json
 	expectedContent := `{
  "cluster_stores_by_name": {
   "test-json": {
@@ -171,7 +178,8 @@ func TestJsonContent(t *testing.T) {
     "hash1": "2021-10-17T13:00:00Z",
     "hash2": "2021-10-17T13:00:00Z",
     "hash3": "2021-10-17T13:00:00Z"
-   }
+   },
+   "last_run_at": "2021-10-17T13:01:00Z"
   }
  }
 }`

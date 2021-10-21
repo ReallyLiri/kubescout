@@ -126,6 +126,7 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *e
 		"Event",
 		nil,
 	)
+	state.timestamp = event.CreationTimestamp.Time
 
 	if event.Type == "Normal" {
 		return state, nil
