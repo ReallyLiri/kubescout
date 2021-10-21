@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-const PAGE_SIZE = 32
+const pageSize = 32
 
 type KubernetesClient interface {
 	GetNodes() ([]v1.Node, error)
@@ -61,7 +61,7 @@ func (client *remoteKubernetesClient) GetNodes() ([]v1.Node, error) {
 	for {
 		nodesData, err := client.kubeClientSet.CoreV1().Nodes().List(context.Background(), metaV1.ListOptions{
 			Continue: continueToken,
-			Limit:    PAGE_SIZE,
+			Limit:    pageSize,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("failed to list nodes: %v", err)
@@ -84,7 +84,7 @@ func (client *remoteKubernetesClient) GetNamespaces() ([]v1.Namespace, error) {
 	for {
 		namespacesData, err := client.kubeClientSet.CoreV1().Namespaces().List(context.Background(), metaV1.ListOptions{
 			Continue: continueToken,
-			Limit:    PAGE_SIZE,
+			Limit:    pageSize,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("failed to list namespaces: %v", err)
@@ -107,7 +107,7 @@ func (client *remoteKubernetesClient) GetPods(namespace string) ([]v1.Pod, error
 	for {
 		podsData, err := client.kubeClientSet.CoreV1().Pods(namespace).List(context.Background(), metaV1.ListOptions{
 			Continue: continueToken,
-			Limit:    PAGE_SIZE,
+			Limit:    pageSize,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("failed to list pods in namespace '%v': %v", namespace, err)
@@ -130,7 +130,7 @@ func (client *remoteKubernetesClient) GetReplicaSets(namespace string) ([]v12.Re
 	for {
 		rsData, err := client.kubeClientSet.AppsV1().ReplicaSets(namespace).List(context.Background(), metaV1.ListOptions{
 			Continue: continueToken,
-			Limit:    PAGE_SIZE,
+			Limit:    pageSize,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("failed to list replicaSets for namespace '%v': %v", namespace, err)

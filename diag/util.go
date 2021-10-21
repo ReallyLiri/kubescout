@@ -12,8 +12,8 @@ import (
 	"time"
 )
 
-const TEMPORTAL_START = "<t>"
-const TEMPORTAL_END = "</t>"
+const temporalStart = "<t>"
+const temporalEnd = "</t>"
 
 var kiRegex *regexp.Regexp
 var miRegex *regexp.Regexp
@@ -42,26 +42,26 @@ func init() {
 
 func normalizeMessage(message string) string {
 	for {
-		temporalStartIndex := strings.Index(message, TEMPORTAL_START)
+		temporalStartIndex := strings.Index(message, temporalStart)
 		if temporalStartIndex == -1 {
 			break
 		}
-		temporalEndIndex := strings.Index(message, TEMPORTAL_END)
+		temporalEndIndex := strings.Index(message, temporalEnd)
 		if temporalEndIndex == -1 || temporalEndIndex < temporalStartIndex {
 			log.Errorf("invalid temporal format for %v", message)
 			break
 		}
-		message = message[:temporalStartIndex] + message[(temporalEndIndex+len(TEMPORTAL_END)):]
+		message = message[:temporalStartIndex] + message[(temporalEndIndex+len(temporalEnd)):]
 	}
 	return message
 }
 
 func cleanMessage(message string) string {
-	return strings.ReplaceAll(strings.ReplaceAll(message, TEMPORTAL_START, ""), TEMPORTAL_END, "")
+	return strings.ReplaceAll(strings.ReplaceAll(message, temporalStart, ""), temporalEnd, "")
 }
 
 func wrapTemporal(item interface{}) string {
-	return fmt.Sprintf("%v%v%v", TEMPORTAL_START, item, TEMPORTAL_END)
+	return fmt.Sprintf("%v%v%v", temporalStart, item, temporalEnd)
 }
 
 func splitToWords(value string) string {
@@ -140,9 +140,8 @@ func formatTime(tm time.Time, format string, location *time.Location) string {
 func formatResource(value int, name string) string {
 	if name == "CPU" {
 		return fmt.Sprintf("%v", value)
-	} else {
-		return formatBytes(value)
 	}
+	return formatBytes(value)
 }
 
 func formatResourceInt64(value int64, name string) string {

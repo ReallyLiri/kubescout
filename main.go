@@ -49,6 +49,7 @@ OPTIONS:
 	}
 }
 
+// 
 func Scout(configuration *config.Config, alertSink sink.Sink) error {
 	if alertSink == nil {
 		outputMode := configuration.OutputMode
