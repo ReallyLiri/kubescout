@@ -10,7 +10,9 @@ import (
 
 type CustomizeRequest func(request *http.Request) error
 
-func postHttp(url string, body []byte, customizeRequest CustomizeRequest, tlsSkipVerify bool) (string, error) {
+type ResponseVerify func(response *http.Response, responseBody string) error
+
+func postHttp(url string, body []byte, customizeRequest CustomizeRequest, responseVerify ResponseVerify, tlsSkipVerify bool) (string, error) {
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
 	if err != nil {
 		return "", fmt.Errorf("failed to construct http request to %v: %v", url, err)
@@ -46,6 +48,13 @@ func postHttp(url string, body []byte, customizeRequest CustomizeRequest, tlsSki
 	responseBodyString := responseBody.String()
 	if response.StatusCode >= 400 {
 		return "", fmt.Errorf("request to post alert failed with code %v: %v", response.StatusCode, responseBodyString)
+	}
+
+	if responseVerify != nil {
+		err = responseVerify(response, responseBodyString)
+		if err != nil {
+			return "", fmt.Errorf("response verification failed: %v", err)
+		}
 	}
 
 	return responseBodyString, nil

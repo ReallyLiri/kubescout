@@ -4,6 +4,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
 	"github.com/reallyliri/kubescout/diag"
 	"github.com/reallyliri/kubescout/kubeclient"
@@ -149,51 +150,51 @@ func TestIntegration(t *testing.T) {
 
 	verifyClusterReadyForTest(t, client)
 
-	storeForFirstRun, err := store.LoadOrCreate(configuration)
+	now := time.Now().UTC()
+	storeForFirstRun, err := store.LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 
 	log.Infof("running 1/3 diagnose call ...\n")
-	now := time.Now().UTC()
 	err = diag.DiagnoseCluster(client, configuration, storeForFirstRun, now)
 	require.Nil(t, err)
 	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
 	relevantMessagesFirstRun := storeForFirstRun.EntityAlerts()
-	verifyMessagesForFullDiagRun(t, relevantMessagesFirstRun)
+	verifyAlertsForFullDiagRun(t, relevantMessagesFirstRun)
 
 	storeContent, err := ioutil.ReadFile(configuration.StoreFilePath)
 	require.Nil(t, err)
 	require.NotEmpty(t, storeContent)
 
-	storeForSecondRun, err := store.LoadOrCreate(configuration)
+	now = time.Now().UTC()
+	storeForSecondRun, err := store.LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 
 	log.Infof("running 2/3 diagnose call ...\n")
-	now = time.Now().UTC()
 	err = diag.DiagnoseCluster(client, configuration, storeForSecondRun, now)
 	require.Nil(t, err)
 	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
 	relevantMessagesSecondRun := storeForSecondRun.EntityAlerts()
-	verifyMessagesForSilencedRun(t, relevantMessagesSecondRun)
+	verifyAlertsForSilencedRun(t, relevantMessagesSecondRun)
 
 	log.Infof("sleeping to get de-dup grace time to pass")
 	time.Sleep(time.Minute)
 
-	storeForThirdRun, err := store.LoadOrCreate(configuration)
+	now = time.Now().UTC()
+	storeForThirdRun, err := store.LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 
 	log.Infof("running 3/3 diagnose call ...\n")
-	now = time.Now().UTC()
 	err = diag.DiagnoseCluster(client, configuration, storeForThirdRun, now)
 	require.Nil(t, err)
 	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
 	relevantMessagesThirdRun := storeForThirdRun.EntityAlerts()
-	verifyMessagesForFullDiagRun(t, relevantMessagesThirdRun)
+	verifyAlertsForFullDiagRun(t, relevantMessagesThirdRun)
 }
 
 func assertMessage(t *testing.T, expectedFormat string, actualMessage string) {
@@ -203,17 +204,17 @@ func assertMessage(t *testing.T, expectedFormat string, actualMessage string) {
 	assert.True(t, matched, "did not match\nExpected:\n%v\nActual:\n%v", expectedFormat, actualMessage)
 }
 
-func verifyMessagesForFullDiagRun(t *testing.T, messages []string) {
-	assert.Equal(t, 12, len(messages))
-	for i, message := range messages {
-		assertMessage(t, expectedFormatsFirstRun[i], message)
+func verifyAlertsForFullDiagRun(t *testing.T, alerts alert.EntityAlerts) {
+	assert.Equal(t, 5, len(alerts))
+	for i, entityAlert := range alerts {
+		assertMessage(t, expectedFormatsFirstRun[i], entityAlert.String())
 	}
 }
 
-func verifyMessagesForSilencedRun(t *testing.T, messages []string) {
+func verifyAlertsForSilencedRun(t *testing.T, alerts alert.EntityAlerts) {
 	// ideally we'd have 0 messages, but sometimes we get some first run messages on delay and they shouldn't be silenced
-	if len(messages) > 3 {
-		assert.Fail(t, "too many messages on second run: %v", len(messages))
+	if len(alerts) > 3 {
+		assert.Fail(t, "too many messages on second run: %v", len(alerts))
 	}
 	expectedFormat := `Pod default/test-* is un-healthy
 	test-*
@@ -226,75 +227,70 @@ logs of container test-*:
 5
 
 >>>>>>>>>>`
-	for _, message := range messages {
-		assertMessage(t, expectedFormat, message)
+	for _, entityAlert := range alerts {
+		assertMessage(t, expectedFormat, entityAlert.String())
 	}
 }
 
 var expectedFormatsFirstRun = []string{
-	`Pod default/test-2-broken-image-* is un-healthy
-	Pod is in Pending phase
-	test-2-broken-image still waiting due to *`,
-
-	`Event on Pod test-2-broken-image-* due to Failed (at *, * ago):
-	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`,
-
-	`Event on Pod test-2-broken-image-* due to Failed (at *, * ago):
-	Error: ErrImagePull`,
-
-	`Event on Pod test-2-broken-image-* due to Failed (at *, *):
+	`Pod default/test-2-broken-image-* is un-healthy:
+Pod is in Pending phase
+test-2-broken-image still waiting due to *
+Event by kubelet: Failed x* since * (last seen * ago):
+	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown
+Event by kubelet: Failed x* since * (last seen * ago):
+	Error: ErrImagePull
+Event by kubelet: Failed x* since * (last seen * ago):
 	Error: ImagePullBackOff`,
 
-	`Pod default/test-3-excessive-resources-* is un-healthy
-	Pod is in Pending phase
-	Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: * ago)`,
-
-	`Event on Pod test-3-excessive-resources-* due to FailedScheduling (at *, * ago):
+	`Pod default/test-3-excessive-resources-* is un-healthy:
+Pod is in Pending phase
+Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: * ago)
+Event by default-scheduler: FailedScheduling since * (last seen * ago):
 	0/1 nodes are available: 1 Insufficient memory.`,
 
-	`Pod default/test-4-crashlooping-* is un-healthy
-*	test-4-crashlooping had restarted * times, last exit due to Error (exit code 1)*
-logs of container test-4-crashlooping:
-<<<<<<<<<<
+	`Pod default/test-4-crashlooping-* is un-healthy:
+*test-4-crashlooping still waiting due to *
+Event by kubelet: BackOff x* since * (last seen * ago):
+	Back-off restarting failed container
+Logs of container test-4-crashlooping:
+--------
 1
 2
 3
 4
 5
 
->>>>>>>>>>`,
+--------`,
 
-	`Event on Pod test-4-crashlooping-* due to BackOff (at *, * ago):
-	Back-off restarting failed container`,
-
-	`Pod default/test-5-* is un-healthy
-*	test-5-completed had restarted * times, last exit due to Completed (exit code 0)*
-logs of container test-5-completed:
-<<<<<<<<<<
+	`Pod default/test-5-completed-* is un-healthy:
+*test-5-completed still waiting due to *
+Event by kubelet: BackOff x* since * (last seen * ago):
+	Back-off restarting failed container
+Logs of container test-5-completed:
+--------
 1
 2
 3
 4
 5
 
->>>>>>>>>>`,
+--------`,
 
-	`Event on Pod test-5-completed-* due to BackOff (at *, * ago):
-	Back-off restarting failed container`,
-
-	`Pod default/test-6-crashlooping-init-* is un-healthy
-	Pod is in Pending phase
-*	test-6-crashlooping-init-container (init) *
-logs of container test-6-crashlooping-init-container:
-<<<<<<<<<<
+	`Pod default/test-6-crashlooping-init-* is un-healthy:
+Pod is in Pending phase
+*test-6-crashlooping-init-container (init) still waiting due to *
+Event by kubelet: BackOff x* since * (last seen * ago):
+	Back-off restarting failed container
+Logs of container test-6-crashlooping-init-container:
+--------
 1
 2
 3
 4
 5
 
->>>>>>>>>>`,
+--------`,
 
-	`Event on Pod test-6-crashlooping-init-* due to BackOff (at *, * ago):
-	Back-off restarting failed container`,
+	`unexpected`,
 }

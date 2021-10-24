@@ -9,7 +9,7 @@ import (
 )
 
 type Sink interface {
-	Report(alerts alert.Alerts) error
+	Report(alerts *alert.Alerts) error
 }
 
 type JsonSink struct {
@@ -17,7 +17,7 @@ type JsonSink struct {
 
 var _ Sink = &JsonSink{}
 
-func (s JsonSink) Report(alerts alert.Alerts) error {
+func (s JsonSink) Report(alerts *alert.Alerts) error {
 	asJson, err := json.MarshalIndent(alerts, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to serialize alerts to json: %v", err)
@@ -31,7 +31,7 @@ type YamlSink struct {
 
 var _ Sink = &YamlSink{}
 
-func (s YamlSink) Report(alerts alert.Alerts) error {
+func (s YamlSink) Report(alerts *alert.Alerts) error {
 	asYaml, err := yaml.Marshal(alerts)
 	if err != nil {
 		return fmt.Errorf("failed to serialize alerts to yaml: %v", err)
@@ -52,7 +52,7 @@ func CreateMultiSink(sinks ...Sink) *MultiSink {
 	}
 }
 
-func (s MultiSink) Report(alerts alert.Alerts) (aggregatedErr error) {
+func (s MultiSink) Report(alerts *alert.Alerts) (aggregatedErr error) {
 	for _, sink := range s.sinks {
 		err := sink.Report(alerts)
 		if err != nil {
@@ -60,4 +60,14 @@ func (s MultiSink) Report(alerts alert.Alerts) (aggregatedErr error) {
 		}
 	}
 	return
+}
+
+type PrettySink struct {
+}
+
+var _ Sink = &PrettySink{}
+
+func (s PrettySink) Report(alerts *alert.Alerts) error {
+	fmt.Print(alerts.String())
+	return nil
 }

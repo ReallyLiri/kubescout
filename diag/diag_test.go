@@ -47,7 +47,7 @@ func TestDiagnose(t *testing.T) {
 
 	now := asTime("2021-10-17T14:20:00Z")
 
-	sto, err := store.LoadOrCreate(cfg)
+	sto, err := store.LoadOrCreate(cfg, now)
 	require.Nil(t, err)
 	assert.Equal(t, 0, len(sto.EntityAlerts()))
 	err = DiagnoseCluster(client, cfg, sto, now)
@@ -148,7 +148,7 @@ func TestDiagnoseRepeatingCallAfterShortTime(t *testing.T) {
 
 	now := asTime("2021-10-17T14:20:00Z")
 
-	store1, err := store.LoadOrCreate(cfg)
+	store1, err := store.LoadOrCreate(cfg, now)
 	require.Nil(t, err)
 	assert.Equal(t, 0, len(store1.EntityAlerts()))
 	err = DiagnoseCluster(client, cfg, store1, now)
@@ -157,14 +157,15 @@ func TestDiagnoseRepeatingCallAfterShortTime(t *testing.T) {
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
-	store2, err := store.LoadOrCreate(cfg)
+	nearFuture := now.Add(time.Minute)
+
+	store2, err := store.LoadOrCreate(cfg, nearFuture)
 	require.Nil(t, err)
 
-	nearFuture := now.Add(time.Minute)
 	err = DiagnoseCluster(client, cfg, store2, nearFuture)
 	require.Nil(t, err)
 	assert.Equal(t, 0, len(store2.EntityAlerts()))
-	err = store2.Flush(now)
+	err = store2.Flush(nearFuture)
 	require.Nil(t, err)
 }
 
@@ -173,7 +174,7 @@ func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
 
 	now := asTime("2021-10-17T14:20:00Z")
 
-	store1, err := store.LoadOrCreate(cfg)
+	store1, err := store.LoadOrCreate(cfg, now)
 	require.Nil(t, err)
 	assert.Equal(t, 0, len(store1.EntityAlerts()))
 	err = DiagnoseCluster(client, cfg, store1, now)
@@ -182,13 +183,14 @@ func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
-	store2, err := store.LoadOrCreate(cfg)
+	farFuture := now.Add(time.Hour + time.Minute)
+
+	store2, err := store.LoadOrCreate(cfg, farFuture)
 	require.Nil(t, err)
 
-	farFuture := now.Add(time.Hour + time.Minute)
 	err = DiagnoseCluster(client, cfg, store2, farFuture)
 	require.Nil(t, err)
 	assert.Equal(t, 6, len(store2.EntityAlerts()))
-	err = store2.Flush(now)
+	err = store2.Flush(farFuture)
 	require.Nil(t, err)
 }

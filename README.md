@@ -169,24 +169,37 @@ go get github.com/reallyliri/kubescout
 
 ```go
 package example
-import kubescout "github.com/reallyliri/kubescout/pkg"
-import kubescoutconfig "github.com/reallyliri/kubescout/config"
-import kubescoutsink "github.com/reallyliri/kubescout/sink"
 
-func main1() {
+import (
+	"fmt"
+	kubescoutconfig "github.com/reallyliri/kubescout/config"
+	kubescout "github.com/reallyliri/kubescout/pkg"
+	kubescoutsink "github.com/reallyliri/kubescout/sink"
+	"net/http"
+)
+
+func main() {
+	
+	// simple default execution:
 	_ = kubescout.Scout(nil, nil)
-}
-
-func main2() {
-	configuration, _ := kubescoutconfig.DefaultConfig()
-	sink, _ := kubescoutsink.CreateSlackSink("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX")
-	_ = kubescout.Scout(configuration, sink)
-}
-
-func main3() {
+	
+	// example using Slack webhook as sink:
 	configuration, _ := kubescoutconfig.DefaultConfig()
 	configuration.KubeconfigFilePath = "/root/configs/staging-kubeconfig"
-	sink, _ := kubescoutsink.CreateWebSink("https://post.url", nil, false)
+	sink, _ := kubescoutsink.CreateWebSink(
+		"https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX",
+		func(request *http.Request) error {
+			request.Header.Add("Content-Type", "application/json")
+			return nil
+		},
+		func(response *http.Response, responseBody string) error {
+			if responseBody != "ok" {
+				return fmt.Errorf("non-ok response from Slack: '%v'", responseBody)
+			}
+			return nil
+		},
+		false,
+	)
 	_ = kubescout.Scout(configuration, sink)
 }
 ```

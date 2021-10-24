@@ -1,7 +1,9 @@
 package alert
 
 import (
+	"fmt"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -24,21 +26,30 @@ type EntityAlert struct {
 }
 
 type Alerts struct {
-	AlertsByClusterName map[string][]EntityAlert `json:"alerts_by_cluster_name"`
+	AlertsByClusterName map[string]EntityAlerts `json:"alerts_by_cluster_name"`
 }
 
-func NewAlert() *Alerts {
-	return &Alerts{AlertsByClusterName: map[string][]EntityAlert{}}
+func NewAlerts() *Alerts {
+	return &Alerts{AlertsByClusterName: map[string]EntityAlerts{}}
 }
 
-func (alerts *Alerts) AddEntityAlerts(entityAlerts ...EntityAlert) {
+func (alerts *Alerts) AddEntityAlerts(entityAlerts ...*EntityAlert) {
 	alertsMap := alerts.AlertsByClusterName
 	for _, alert := range entityAlerts {
 		if _, found := alertsMap[alert.ClusterName]; !found {
-			alertsMap[alert.ClusterName] = []EntityAlert{}
+			alertsMap[alert.ClusterName] = EntityAlerts{}
 		}
 		alertsMap[alert.ClusterName] = append(alertsMap[alert.ClusterName], alert)
 	}
+}
+
+func (alerts *Alerts) Empty() bool {
+	for _, entityAlerts := range alerts.AlertsByClusterName {
+		if len(entityAlerts) > 0 {
+			return true
+		}
+	}
+	return false
 }
 
 type EntityAlerts []*EntityAlert
@@ -65,4 +76,46 @@ func (alerts EntityAlerts) Swap(i, j int) {
 	tmp := alerts[i]
 	alerts[i] = alerts[j]
 	alerts[j] = tmp
+}
+
+func (alerts *Alerts) String() string {
+	builder := strings.Builder{}
+	for clusterName, clusterAlerts := range alerts.AlertsByClusterName {
+		builder.WriteString(fmt.Sprintf("Found %v alerts for cluster %v:\n", len(clusterAlerts), clusterName))
+		for _, entityAlert := range clusterAlerts {
+			builder.WriteString(entityAlert.String())
+			builder.WriteString("\n----------------\n")
+		}
+	}
+	return builder.String()
+}
+
+func (entityAlert *EntityAlert) String() string {
+	builder := strings.Builder{}
+	builder.WriteString(fmt.Sprintf("%v ", entityAlert.Kind))
+	if entityAlert.Namespace != "" {
+		builder.WriteString(fmt.Sprintf("%v/%v", entityAlert.Namespace, entityAlert.Name))
+	} else {
+		builder.WriteString(entityAlert.Name)
+	}
+	builder.WriteString(" is un-healthy:\n")
+	for _, message := range entityAlert.Messages {
+		builder.WriteString(message)
+	}
+	if len(entityAlert.Events) > 0 {
+		for _, event := range entityAlert.Events {
+			builder.WriteString("\n")
+			builder.WriteString(event)
+		}
+	}
+	if len(entityAlert.LogsByContainerName) > 0 {
+		for containerName, logs := range entityAlert.LogsByContainerName {
+			builder.WriteString("\n")
+			builder.WriteString(fmt.Sprintf("Logs of container %v:\n", containerName))
+			builder.WriteString("--------\n")
+			builder.WriteString(logs)
+			builder.WriteString("\n--------")
+		}
+	}
+	return builder.String()
 }

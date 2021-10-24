@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"fmt"
+	alert "github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
 	"github.com/reallyliri/kubescout/diag"
 	"github.com/reallyliri/kubescout/kubeclient"
@@ -28,7 +29,9 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 		}
 	}
 
-	sto, err := store.LoadOrCreate(configuration)
+	now := time.Now().UTC()
+
+	sto, err := store.LoadOrCreate(configuration, now)
 	if err != nil {
 		return err
 	}
@@ -39,24 +42,23 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 		return fmt.Errorf("failed to build kuberentes client: %v", err)
 	}
 
-	now := time.Now().UTC()
 	err = diag.DiagnoseCluster(client, configuration, sto, now)
 
 	if err != nil {
 		return fmt.Errorf("failed to diagnose cluster: %v", err)
 	}
 
-	relevantMessages := sto.EntityAlerts()
+	alerts := alert.NewAlerts()
 
-	if len(relevantMessages) == 0 {
+	entityAlerts := sto.EntityAlerts()
+
+	alerts.AddEntityAlerts(entityAlerts...)
+
+	if alerts.Empty() {
 		return nil
 	}
 
-	alert := sink.Alert{
-		ClusterName: configuration.ClusterName,
-		Content:     relevantMessages,
-	}
-	err = alertSink.Report(alert)
+	err = alertSink.Report(alerts)
 	if err != nil {
 		flushErr := sto.Flush(now)
 		if flushErr != nil {
