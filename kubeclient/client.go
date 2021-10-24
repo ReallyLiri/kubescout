@@ -10,12 +10,11 @@ import (
 	v12 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	"strings"
 )
-
-const pageSize = 32
 
 type KubernetesClient interface {
 	GetNodes() ([]v1.Node, error)
@@ -54,95 +53,86 @@ func CreateClient(config *config.Config) (KubernetesClient, error) {
 }
 
 func (client *remoteKubernetesClient) GetNodes() ([]v1.Node, error) {
-
-	var continueToken string
-	var nodes = make([]v1.Node, 0)
-
-	for {
-		nodesData, err := client.kubeClientSet.CoreV1().Nodes().List(context.Background(), metaV1.ListOptions{
-			Continue: continueToken,
-			Limit:    pageSize,
-		})
-		if err != nil {
-			return nil, fmt.Errorf("failed to list nodes: %v", err)
-		}
-		nodes = append(nodes, nodesData.Items...)
-		continueToken = nodesData.Continue
-		if len(continueToken) == 0 {
-			break
-		}
-	}
-
-	return nodes, nil
+	var nodes []v1.Node
+	err := pagedGet(
+		nil,
+		func(options metaV1.ListOptions) (runtime.Object, error) {
+			newNodes, err := client.kubeClientSet.CoreV1().Nodes().List(context.Background(), options)
+			if err != nil {
+				return nil, fmt.Errorf("failed to list nodes: %v", err)
+			}
+			nodes = append(nodes, newNodes.Items...)
+			return newNodes, nil
+		},
+	)
+	return nodes, err
 }
 
 func (client *remoteKubernetesClient) GetNamespaces() ([]v1.Namespace, error) {
-
-	var continueToken string
-	var namespaces = make([]v1.Namespace, 0)
-
-	for {
-		namespacesData, err := client.kubeClientSet.CoreV1().Namespaces().List(context.Background(), metaV1.ListOptions{
-			Continue: continueToken,
-			Limit:    pageSize,
-		})
-		if err != nil {
-			return nil, fmt.Errorf("failed to list namespaces: %v", err)
-		}
-		namespaces = append(namespaces, namespacesData.Items...)
-		continueToken = namespacesData.Continue
-		if len(continueToken) == 0 {
-			break
-		}
-	}
-
-	return namespaces, nil
+	var namespaces []v1.Namespace
+	err := pagedGet(
+		nil,
+		func(options metaV1.ListOptions) (runtime.Object, error) {
+			newNamespaces, err := client.kubeClientSet.CoreV1().Namespaces().List(context.Background(), options)
+			if err != nil {
+				return nil, fmt.Errorf("failed to list namespaces: %v", err)
+			}
+			namespaces = append(namespaces, newNamespaces.Items...)
+			return newNamespaces, nil
+		},
+	)
+	return namespaces, err
 }
 
 func (client *remoteKubernetesClient) GetPods(namespace string) ([]v1.Pod, error) {
-
-	var continueToken string
-	var pods = make([]v1.Pod, 0)
-
-	for {
-		podsData, err := client.kubeClientSet.CoreV1().Pods(namespace).List(context.Background(), metaV1.ListOptions{
-			Continue: continueToken,
-			Limit:    pageSize,
-		})
-		if err != nil {
-			return nil, fmt.Errorf("failed to list pods in namespace '%v': %v", namespace, err)
-		}
-		pods = append(pods, podsData.Items...)
-		continueToken = podsData.Continue
-		if len(continueToken) == 0 {
-			break
-		}
-	}
-
-	return pods, nil
+	var pods []v1.Pod
+	err := pagedGet(
+		nil,
+		func(options metaV1.ListOptions) (runtime.Object, error) {
+			newPods, err := client.kubeClientSet.CoreV1().Pods(namespace).List(context.Background(), options)
+			if err != nil {
+				return nil, fmt.Errorf("failed to list pods in namespace '%v': %v", namespace, err)
+			}
+			pods = append(pods, newPods.Items...)
+			return newPods, nil
+		},
+	)
+	return pods, err
 }
 
 func (client *remoteKubernetesClient) GetReplicaSets(namespace string) ([]v12.ReplicaSet, error) {
+	var replicaSets []v12.ReplicaSet
+	err := pagedGet(
+		nil,
+		func(options metaV1.ListOptions) (runtime.Object, error) {
+			newReplicaSets, err := client.kubeClientSet.AppsV1().ReplicaSets(namespace).List(context.Background(), options)
+			if err != nil {
+				return nil, fmt.Errorf("failed to list replicaSets for namespace '%v': %v", namespace, err)
+			}
+			replicaSets = append(replicaSets, newReplicaSets.Items...)
+			return newReplicaSets, nil
+		},
+	)
+	return replicaSets, err
+}
 
-	var continueToken string
-	var replicaSets = make([]v12.ReplicaSet, 0)
-
-	for {
-		rsData, err := client.kubeClientSet.AppsV1().ReplicaSets(namespace).List(context.Background(), metaV1.ListOptions{
-			Continue: continueToken,
-			Limit:    pageSize,
-		})
-		if err != nil {
-			return nil, fmt.Errorf("failed to list replicaSets for namespace '%v': %v", namespace, err)
-		}
-		replicaSets = append(replicaSets, rsData.Items...)
-		continueToken = rsData.Continue
-		if len(continueToken) == 0 {
-			break
-		}
+func (client *remoteKubernetesClient) GetEvents(namespace string) ([]v1.Event, error) {
+	listOptions := metaV1.ListOptions{
+		Limit: client.config.EventsLimit,
 	}
-
-	return replicaSets, nil
+	var eventList []v1.Event
+	err := pagedGet(
+		&listOptions,
+		func(options metaV1.ListOptions) (runtime.Object, error) {
+			newEvents, err := client.kubeClientSet.CoreV1().Events(namespace).List(context.Background(), options)
+			if err != nil {
+				return nil, fmt.Errorf("failed to get events for %v: %v", namespace, err)
+			}
+			eventList = append(eventList, newEvents.Items...)
+			return newEvents, nil
+		},
+	)
+	return eventList, err
 }
 
 func (client *remoteKubernetesClient) GetPodLogs(namespace string, podName string, containerName string) (logs string, err error) {
@@ -170,14 +160,4 @@ func (client *remoteKubernetesClient) GetPodLogs(namespace string, podName strin
 		return "", fmt.Errorf("error in stream copy for %v/%v/%v : %v", namespace, podName, containerName, err)
 	}
 	return buf.String(), nil
-}
-
-func (client *remoteKubernetesClient) GetEvents(namespace string) ([]v1.Event, error) {
-	eventsList, err := client.kubeClientSet.CoreV1().Events(namespace).List(context.Background(), metaV1.ListOptions{
-		Limit: client.config.EventsLimit,
-	})
-	if err != nil {
-		return nil, fmt.Errorf("failed to get events for %v: %v", namespace, err)
-	}
-	return eventsList.Items, nil
 }
