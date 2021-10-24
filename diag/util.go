@@ -182,3 +182,21 @@ func hash(entityName string, message string) string {
 	asBytes := sha.Sum(nil)
 	return fmt.Sprintf("%x", asBytes)
 }
+
+func keys(m map[string]bool) []string {
+	keys := make([]string, len(m))
+	i := 0
+	for key, _ := range m {
+		keys[i] = key
+		i++
+	}
+	return keys
+}
+
+func toMap(indexes []int) map[int]bool {
+	m := make(map[int]bool, len(indexes))
+	for _, index := range indexes {
+		m[index] = true
+	}
+	return m
+}

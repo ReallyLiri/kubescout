@@ -28,7 +28,7 @@ func TestNodeState_NodeInUnknownState(t *testing.T) {
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
-	require.NotEmpty(t, state.fullName)
+	require.NotEmpty(t, state.name)
 	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
@@ -47,7 +47,7 @@ func TestNodeState_ExcessiveCpu(t *testing.T) {
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
-	require.NotEmpty(t, state.fullName)
+	require.NotEmpty(t, state.name)
 	messages := state.messages
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
 	"io/fs"
 	"io/ioutil"
@@ -20,8 +21,8 @@ type Store struct {
 type ClusterStore struct {
 	Cluster           string               `json:"cluster"`
 	HashWithTimestamp map[string]time.Time `json:"hash_with_timestamp"`
-	LastRunAt         time.Time `json:"last_run_at"`
-	messages          []string
+	LastRunAt         time.Time            `json:"last_run_at"`
+	alerts            []*alert.EntityAlert
 }
 
 func LoadOrCreate(config *config.Config) (*Store, error) {
@@ -35,6 +36,7 @@ func LoadOrCreate(config *config.Config) (*Store, error) {
 		store.ClusterStoresByName[store.currentCluster] = &ClusterStore{
 			Cluster:           store.currentCluster,
 			HashWithTimestamp: make(map[string]time.Time),
+			alerts:            []*alert.EntityAlert{},
 		}
 	}
 	return store, nil
@@ -68,8 +70,8 @@ func loadOrCreate(filePath string, dedupDuration time.Duration) (*Store, error) 
 	return store, nil
 }
 
-func (store *Store) RelevantMessages() []string {
-	return store.ClusterStoresByName[store.currentCluster].messages
+func (store *Store) EntityAlerts() []*alert.EntityAlert {
+	return store.ClusterStoresByName[store.currentCluster].alerts
 }
 
 func (store *Store) ShouldAdd(hash string, now time.Time) bool {
@@ -81,12 +83,12 @@ func (store *Store) ShouldAdd(hash string, now time.Time) bool {
 	return false
 }
 
-func (store *Store) Add(message string, hashes []string, now time.Time) {
+func (store *Store) Add(entityAlert *alert.EntityAlert, hashes []string, now time.Time) {
 	clusterStore := store.ClusterStoresByName[store.currentCluster]
 	for _, hash := range hashes {
 		clusterStore.HashWithTimestamp[hash] = now
 	}
-	clusterStore.messages = append(clusterStore.messages, message)
+	clusterStore.alerts = append(clusterStore.alerts, entityAlert)
 }
 
 func (store *Store) IsRelevant(tm time.Time) bool {

@@ -3,46 +3,46 @@ package diag
 import (
 	"fmt"
 	"github.com/goombaio/orderedset"
-	"github.com/reallyliri/kubescout/kubeclient"
 	"strings"
 	"time"
 )
 
 type entityState struct {
-	fullName        string
-	correlationName string
+	name            string
 	kind            string
 	hashes          *orderedset.OrderedSet
 	messages        []string
 	logsCollections map[string]string
-	client          kubeclient.KubernetesClient
-	timestamp       time.Time
 }
 
-func newState(fullName string, correlationName, kind string, client kubeclient.KubernetesClient) *entityState {
+type eventState struct {
+	involvedObject     string
+	involvedObjectKind string
+	hash               string
+	message            string
+	timestamp          time.Time
+	namespace          string
+}
+
+func newState(name, kind string) *entityState {
 	return &entityState{
-		fullName:        fullName,
-		correlationName: correlationName,
+		name:            name,
 		kind:            kind,
 		hashes:          orderedset.NewOrderedSet(),
 		messages:        []string{},
-		client:          client,
 		logsCollections: map[string]string{},
 	}
 }
 
-func (state entityState) isHealthy() bool {
+func (state *entityState) isHealthy() bool {
 	return len(state.messages) == 0
 }
 
 func (state *entityState) String() string {
 	if state.isHealthy() {
-		return fmt.Sprintf("%v is healthy\n", state.fullName)
+		return fmt.Sprintf("%v is healthy\n", state.name)
 	}
-	messages := state.messages
-	if state.kind != "Event" {
-		messages = append([]string{fmt.Sprintf("%v %v is un-healthy", state.kind, state.fullName)}, messages...)
-	}
+	messages := append([]string{fmt.Sprintf("%v %v is un-healthy", state.kind, state.name)}, state.messages...)
 	return strings.Join(messages, "\n\t")
 }
 
@@ -56,10 +56,21 @@ func (state *entityState) appendMessage(format string, a ...interface{}) {
 	if message == "" {
 		return
 	}
-	messageHash := hash(state.correlationName, normalizeMessage(message))
+	messageHash := hash(state.name, normalizeMessage(message))
 	if state.hashes.Contains(messageHash) {
 		return
 	}
 	state.hashes.Add(messageHash)
 	state.messages = append(state.messages, cleanMessage(message))
+}
+
+func (state *eventState) isHealthy() bool {
+	return state.message == ""
+}
+
+func (state *eventState) String() string {
+	if state.isHealthy() {
+		return fmt.Sprintf("%v has a healthy event\n", state.involvedObject)
+	}
+	return fmt.Sprintf("Event on %v %v: %v", state.involvedObjectKind, state.involvedObject, state.message)
 }

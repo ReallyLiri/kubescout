@@ -23,8 +23,10 @@ func verifyEventHealthy(t *testing.T, event *v1.Event, now time.Time, index int)
 	assert.Nil(t, err)
 	log.Debugf("%v) %v", index, state)
 	assert.True(t, state.isHealthy())
-	assert.NotEmpty(t, state.fullName)
-	assert.Empty(t, state.messages)
+	assert.NotEmpty(t, state.involvedObject)
+	assert.NotEmpty(t, state.involvedObjectKind)
+	assert.NotEmpty(t, state.namespace)
+	assert.Empty(t, state.message)
 }
 
 func verifyAllNodesHealthy(t *testing.T, nodes []v1.Node, now time.Time) {
@@ -45,7 +47,7 @@ func verifyNodeHealthy(t *testing.T, node v1.Node, now time.Time, index int) {
 	assert.Nil(t, err)
 	log.Debugf("%v) %v", index, state)
 	assert.True(t, state.isHealthy())
-	assert.NotEmpty(t, state.fullName)
+	assert.NotEmpty(t, state.name)
 	assert.Empty(t, state.messages)
 }
 
@@ -63,11 +65,11 @@ func verifyPodsHealthyExcept(t *testing.T, pods []v1.Pod, now time.Time, unhealt
 }
 
 func verifyPodHealthy(t *testing.T, pod *v1.Pod, now time.Time, index int) {
-	state, err := testContext().podState(pod, now, nil)
+	state, err := testContext().podState(pod, now)
 	assert.Nil(t, err)
 	log.Debugf("%v) %v", index, state)
 	assert.True(t, state.isHealthy())
-	assert.NotEmpty(t, state.fullName)
+	assert.NotEmpty(t, state.name)
 	assert.Empty(t, state.messages)
 }
 
@@ -89,6 +91,6 @@ func verifyReplicaSetHealthy(t *testing.T, replicaSet v12.ReplicaSet, now time.T
 	assert.Nil(t, err)
 	log.Debugf("%v) %v", index, state)
 	assert.True(t, state.isHealthy())
-	assert.NotEmpty(t, state.fullName)
+	assert.NotEmpty(t, state.name)
 	assert.Empty(t, state.messages)
 }

@@ -29,10 +29,7 @@ func TestReplicaSetState_ExceededQuota(t *testing.T) {
 		0, 1, 2, 3, 5, 6, 10, 13,
 	}
 
-	skipIndexes := make(map[int]bool, len(errorSets))
-	for _, index := range errorSets {
-		skipIndexes[index] = true
-	}
+	skipIndexes := toMap(errorSets)
 
 	now := asTime("2021-07-27T11:35:00Z")
 
@@ -43,7 +40,7 @@ func TestReplicaSetState_ExceededQuota(t *testing.T) {
 		require.Nil(t, err)
 		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())
-		require.NotEmpty(t, state.fullName)
+		require.NotEmpty(t, state.name)
 		messages := state.messages
 		require.NotEmpty(t, messages)
 		require.Equal(t, 1, len(messages))

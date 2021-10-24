@@ -159,7 +159,7 @@ func TestIntegration(t *testing.T) {
 	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
-	relevantMessagesFirstRun := storeForFirstRun.RelevantMessages()
+	relevantMessagesFirstRun := storeForFirstRun.EntityAlerts()
 	verifyMessagesForFullDiagRun(t, relevantMessagesFirstRun)
 
 	storeContent, err := ioutil.ReadFile(configuration.StoreFilePath)
@@ -176,7 +176,7 @@ func TestIntegration(t *testing.T) {
 	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
-	relevantMessagesSecondRun := storeForSecondRun.RelevantMessages()
+	relevantMessagesSecondRun := storeForSecondRun.EntityAlerts()
 	verifyMessagesForSilencedRun(t, relevantMessagesSecondRun)
 
 	log.Infof("sleeping to get de-dup grace time to pass")
@@ -192,7 +192,7 @@ func TestIntegration(t *testing.T) {
 	err = storeForFirstRun.Flush(now)
 	require.Nil(t, err)
 
-	relevantMessagesThirdRun := storeForThirdRun.RelevantMessages()
+	relevantMessagesThirdRun := storeForThirdRun.EntityAlerts()
 	verifyMessagesForFullDiagRun(t, relevantMessagesThirdRun)
 }
 

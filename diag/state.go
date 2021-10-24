@@ -2,8 +2,6 @@ package diag
 
 import (
 	"fmt"
-	"github.com/reallyliri/kubescout/config"
-	"github.com/reallyliri/kubescout/kubeclient"
 	log "github.com/sirupsen/logrus"
 	v12 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
@@ -13,7 +11,7 @@ import (
 	"time"
 )
 
-func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStatus, initContainers bool, config *config.Config) bool {
+func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStatus, initContainers bool, context *diagContext) bool {
 	subTitle := ""
 	if initContainers {
 		subTitle = " (init)"
@@ -39,7 +37,7 @@ func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 			state.appendMessage("%v%v still waiting due to %v: %v", containerStatus.Name, subTitle, stateWaiting.Reason, wrapTemporal(message))
 			anyMessageForContainer = true
 		}
-		if containerStatus.RestartCount > config.PodRestartGraceCount {
+		if containerStatus.RestartCount > context.config.PodRestartGraceCount {
 			stateTerminated = containerStatus.LastTerminationState.Terminated
 			if stateTerminated != nil {
 				state.appendMessage("%v%v had restarted %v times, last exit due to %v (exit code %v)", containerStatus.Name, subTitle, wrapTemporal(containerStatus.RestartCount), stateTerminated.Reason, stateTerminated.ExitCode)
@@ -48,8 +46,8 @@ func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 			}
 			anyMessageForContainer = true
 		}
-		if anyMessageForContainer && state.client != nil {
-			logs, err := state.client.GetPodLogs(pod.Namespace, pod.Name, containerStatus.Name)
+		if anyMessageForContainer && context.client != nil {
+			logs, err := context.client.GetPodLogs(pod.Namespace, pod.Name, containerStatus.Name)
 			if err != nil {
 				log.Errorf("failed to get logs of %v/%v/%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
 			} else if logs != "" {
@@ -61,13 +59,8 @@ func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 	return anyMessage
 }
 
-func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclient.KubernetesClient) (state *entityState, err error) {
-	state = newState(
-		fmt.Sprintf("%v/%v", pod.Namespace, pod.Name),
-		pod.Name,
-		"Pod",
-		client,
-	)
+func (context *diagContext) podState(pod *v1.Pod, now time.Time) (state *entityState, err error) {
+	state = newState(pod.Name, "Pod")
 
 	podPhase := pod.Status.Phase
 	if podPhase == v1.PodSucceeded {
@@ -103,8 +96,8 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclie
 		state.appendMessage("Pod is in %v phase", podPhase)
 	}
 
-	anyStatusMessage := state.checkStatuses(pod, pod.Status.ContainerStatuses, false, context.config)
-	anyStatusMessage = anyStatusMessage || state.checkStatuses(pod, pod.Status.InitContainerStatuses, true, context.config)
+	anyStatusMessage := state.checkStatuses(pod, pod.Status.ContainerStatuses, false, context)
+	anyStatusMessage = anyStatusMessage || state.checkStatuses(pod, pod.Status.InitContainerStatuses, true, context)
 
 	if !anyStatusMessage && pod.DeletionTimestamp == nil {
 		for _, condition := range pod.Status.Conditions {
@@ -117,56 +110,76 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time, client kubeclie
 	return
 }
 
-func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *entityState, err error) {
+func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *eventState, err error) {
 	involvedObject := event.InvolvedObject
 
-	state = newState(
-		fmt.Sprintf("%v/%v", event.Namespace, event.Name),
-		involvedObject.Name,
-		"Event",
-		nil,
-	)
-	state.timestamp = event.CreationTimestamp.Time
+	state = &eventState{
+		involvedObject:     involvedObject.Name,
+		involvedObjectKind: involvedObject.Kind,
+		namespace:          event.Namespace,
+	}
+
+	state.timestamp = event.EventTime.Time
+	if state.timestamp.IsZero() {
+		state.timestamp = event.FirstTimestamp.Time
+	}
 
 	if event.Type == "Normal" {
 		return state, nil
 	}
 
-	var suffix string
-	var eventMessageLines []string
-	if event.Message != "" {
-		eventMessageLines = strings.Split(event.Message, "\n")
-		suffix = ":"
+	source := event.Source.Component
+	if source == "" {
+		source = event.ReportingController
 	}
 
-	message := fmt.Sprintf("Event on %v %v due to %v (at %v, %v)%v",
-		involvedObject.Kind,
-		involvedObject.Name,
+	lastTimestamp := state.timestamp
+	count := int32(1)
+	if event.Series != nil {
+		lastTimestamp = event.Series.LastObservedTime.Time
+		count = event.Series.Count
+	} else if event.Count > 1 {
+		lastTimestamp = event.LastTimestamp.Time
+		count = event.Count
+	}
+
+	builder := strings.Builder{}
+	builder.WriteString(fmt.Sprintf(
+		"Event by %v: %v ",
+		source,
 		event.Reason,
-		formatTime(event.LastTimestamp.Time, context.config.TimeFormat, context.config.Locale),
-		wrapTemporal(formatDuration(event.LastTimestamp.Time, now)),
-		suffix,
-	)
+	))
+	if count > 1 {
+		builder.WriteString(fmt.Sprintf("x%v ", wrapTemporal(count)))
+	}
+	builder.WriteString(fmt.Sprintf(
+		"since %v (last seen %v)",
+		wrapTemporal(formatTime(state.timestamp, context.config.TimeFormat, context.config.Locale)),
+		wrapTemporal(formatDuration(lastTimestamp, now)),
+	))
 
-	for _, messageLine := range eventMessageLines {
-		messageLine = strings.TrimSpace(messageLine)
-		if messageLine == "" {
-			continue
+	if event.Message != "" {
+		var lines []string
+		for _, line := range strings.Split(event.Message, "\n") {
+			line = strings.TrimSpace(line)
+			if line != "" {
+				lines = append(lines, line)
+			}
 		}
-		message = fmt.Sprintf("%v\n\t%v", message, messageLine)
+		if len(lines) > 0 {
+			builder.WriteString(":\n\t")
+		}
+		builder.WriteString(strings.Join(lines, "\n\t"))
 	}
 
-	state.appendMessage(message)
+	message := builder.String()
+	state.message = cleanMessage(message)
+	state.hash = hash(state.involvedObject, normalizeMessage(message))
 	return state, nil
 }
 
 func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckResources bool) (state *entityState, err error) {
-	state = newState(
-		node.Name,
-		node.Name,
-		"Node",
-		nil,
-	)
+	state = newState(node.Name, "Node")
 
 	for _, condition := range node.Status.Conditions {
 		switch condition.Type {
@@ -208,12 +221,7 @@ func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckRe
 }
 
 func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time.Time) (state *entityState, err error) {
-	state = newState(
-		fmt.Sprintf("%v/%v", replicaSet.Namespace, replicaSet.Name),
-		replicaSet.Name,
-		"ReplicaSet",
-		nil,
-	)
+	state = newState(replicaSet.Name, "ReplicaSet")
 
 	specDesiredReplicas := replicaSet.Spec.Replicas
 	var desiredReplicas int

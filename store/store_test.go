@@ -45,28 +45,28 @@ func TestStoreAddFlow(t *testing.T) {
 	require.Nil(t, err)
 
 	now := time.Now().UTC()
-	require.Equal(t, 0, len(store.RelevantMessages()))
+	require.Equal(t, 0, len(store.EntityAlerts()))
 	require.True(t, store.ShouldAdd("hash1", now))
 	store.Add("message1", []string{"hash1"}, now)
-	require.Equal(t, 1, len(store.RelevantMessages()))
+	require.Equal(t, 1, len(store.EntityAlerts()))
 	require.False(t, store.ShouldAdd("hash1", now))
-	require.Equal(t, 1, len(store.RelevantMessages()))
+	require.Equal(t, 1, len(store.EntityAlerts()))
 	nearFuture := now.Add(time.Second * time.Duration(50))
 	require.False(t, store.ShouldAdd("hash1", nearFuture))
-	require.Equal(t, 1, len(store.RelevantMessages()))
+	require.Equal(t, 1, len(store.EntityAlerts()))
 	farFuture := now.Add(time.Minute * time.Duration(2))
 	require.True(t, store.ShouldAdd("hash1", farFuture))
 	store.Add("message1", []string{"hash1"}, farFuture)
-	require.Equal(t, 2, len(store.RelevantMessages()))
+	require.Equal(t, 2, len(store.EntityAlerts()))
 
 	require.True(t, store.ShouldAdd("hash2", now))
 	store.Add("message2", []string{"hash2"}, now)
-	require.Equal(t, 3, len(store.RelevantMessages()))
+	require.Equal(t, 3, len(store.EntityAlerts()))
 	require.True(t, store.ShouldAdd("hash3", now))
 	store.Add("message2", []string{"hash3"}, now)
-	require.Equal(t, 4, len(store.RelevantMessages()))
+	require.Equal(t, 4, len(store.EntityAlerts()))
 	require.False(t, store.ShouldAdd("hash3", now))
-	require.Equal(t, 4, len(store.RelevantMessages()))
+	require.Equal(t, 4, len(store.EntityAlerts()))
 }
 
 func TestLoadAfterFlush(t *testing.T) {
@@ -83,7 +83,7 @@ func TestLoadAfterFlush(t *testing.T) {
 
 	now := time.Now().UTC()
 	store.Add("message", []string{"hash1", "hash2", "hash3"}, now)
-	require.Equal(t, 1, len(store.RelevantMessages()))
+	require.Equal(t, 1, len(store.EntityAlerts()))
 	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
 
 	require.True(t, store.IsRelevant(now.Add(time.Duration(-1) * time.Minute)))
@@ -91,7 +91,7 @@ func TestLoadAfterFlush(t *testing.T) {
 
 	storeReloaded, err := LoadOrCreate(configuration)
 	require.Nil(t, err)
-	require.Equal(t, 0, len(storeReloaded.RelevantMessages()))
+	require.Equal(t, 0, len(storeReloaded.EntityAlerts()))
 	require.Equal(t, 0, len(storeReloaded.ClusterStoresByName["test"].HashWithTimestamp))
 
 	err = store.Flush(now)
@@ -99,7 +99,7 @@ func TestLoadAfterFlush(t *testing.T) {
 
 	storeReloaded, err = LoadOrCreate(configuration)
 	require.Nil(t, err)
-	require.Equal(t, 0, len(storeReloaded.RelevantMessages()))
+	require.Equal(t, 0, len(storeReloaded.EntityAlerts()))
 	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
 
 	require.False(t, storeReloaded.IsRelevant(now.Add(time.Duration(-1) * time.Minute)))
@@ -120,7 +120,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	require.Nil(t, err)
 
 	store1.Add("message", []string{"hash1", "hash2", "hash3"}, now)
-	require.Equal(t, 1, len(store1.RelevantMessages()))
+	require.Equal(t, 1, len(store1.EntityAlerts()))
 	require.Equal(t, 3, len(store1.ClusterStoresByName["test-1"].HashWithTimestamp))
 	err = store1.Flush(now)
 	require.Nil(t, err)
@@ -128,7 +128,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	configuration.ClusterName = "test-2"
 	store2, err := LoadOrCreate(configuration)
 	require.Nil(t, err)
-	require.Equal(t, 0, len(store2.RelevantMessages()))
+	require.Equal(t, 0, len(store2.EntityAlerts()))
 	require.Equal(t, 0, len(store2.ClusterStoresByName["test-2"].HashWithTimestamp))
 	err = store2.Flush(now)
 	require.Nil(t, err)
@@ -138,7 +138,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	configuration.ClusterName = "test-3"
 	store3, err := LoadOrCreate(configuration)
 	require.Nil(t, err)
-	require.Equal(t, 0, len(store3.RelevantMessages()))
+	require.Equal(t, 0, len(store3.EntityAlerts()))
 	require.Equal(t, 0, len(store3.ClusterStoresByName["test-3"].HashWithTimestamp))
 	err = store2.Flush(now)
 	require.Nil(t, err)
@@ -163,7 +163,7 @@ func TestJsonContent(t *testing.T) {
 	require.Nil(t, err)
 
 	store1.Add("message", []string{"hash1", "hash2", "hash3"}, now)
-	require.Equal(t, 1, len(store1.RelevantMessages()))
+	require.Equal(t, 1, len(store1.EntityAlerts()))
 	err = store1.Flush(now.Add(time.Minute))
 	require.Nil(t, err)
 

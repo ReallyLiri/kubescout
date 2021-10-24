@@ -46,7 +46,7 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 		return fmt.Errorf("failed to diagnose cluster: %v", err)
 	}
 
-	relevantMessages := sto.RelevantMessages()
+	relevantMessages := sto.EntityAlerts()
 
 	if len(relevantMessages) == 0 {
 		return nil

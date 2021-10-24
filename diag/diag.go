@@ -1,13 +1,12 @@
 package diag
 
 import (
-	"fmt"
+	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
 	"github.com/reallyliri/kubescout/kubeclient"
 	"github.com/reallyliri/kubescout/store"
 	log "github.com/sirupsen/logrus"
 	"go.uber.org/multierr"
-	"strings"
 	"time"
 )
 
@@ -17,58 +16,91 @@ type diagContext struct {
 	now                   time.Time
 	includedNamespacesSet map[string]bool
 	excludedNamespacesSet map[string]bool
+	client                kubeclient.KubernetesClient
 }
 
 func testContext() *diagContext {
+	return testContextWithClient(nil)
+}
+
+func testContextWithClient(client kubeclient.KubernetesClient) *diagContext {
 	cfg, err := config.DefaultConfig()
 	if err != nil {
 		panic(err)
 	}
 	log.SetLevel(log.DebugLevel)
-	return &diagContext{config: cfg}
+	return &diagContext{config: cfg, client: client}
 }
 
-func (context *diagContext) handleState(state *entityState) (stored bool) {
+func (context *diagContext) handleEntityState(state *entityState, namespace string, events []*eventState) (stored bool) {
 	isHealthy := state.isHealthy()
 	if isHealthy {
 		log.Tracef(state.String())
-	} else {
-		log.Infof(state.String())
+		return false
 	}
-	if !isHealthy {
-		builder := strings.Builder{}
-		if state.kind != "Event" {
-			builder.WriteString(fmt.Sprintf("%v %v is un-healthy", state.kind, state.fullName))
-		}
 
-		hashes := state.hashes.Values()
-		var addedHashes []string
-		for i, message := range state.messages {
-			messageHash := hashes[i].(string)
-			if context.store.ShouldAdd(messageHash, context.now) {
-				addedHashes = append(addedHashes, messageHash)
-				if builder.Len() > 0 {
-					builder.WriteString("\n\t")
-				}
-				builder.WriteString(message)
-			}
-		}
-		if len(addedHashes) == 0 {
-			return false
-		}
-		if len(state.logsCollections) > 0 {
-			for container, logs := range state.logsCollections {
-				builder.WriteString("\n")
-				builder.WriteString(fmt.Sprintf("logs of container %v:\n", container))
-				builder.WriteString("<<<<<<<<<<\n")
-				builder.WriteString(logs)
-				builder.WriteString("\n>>>>>>>>>>")
-			}
-		}
-		context.store.Add(builder.String(), addedHashes, context.now)
-		return true
+	log.Infof(state.String())
+	entityAlert := &alert.EntityAlert{
+		ClusterName:         context.config.ClusterName,
+		Namespace:           namespace,
+		Name:                state.name,
+		Kind:                state.kind,
+		Messages:            []string{},
+		Events:              []string{},
+		LogsByContainerName: map[string]string{},
+		Timestamp:           context.now,
 	}
-	return false
+
+	hashes := state.hashes.Values()
+	addedHashes := make(map[string]bool)
+	for i, message := range state.messages {
+		messageHash := hashes[i].(string)
+		if !addedHashes[messageHash] && context.store.ShouldAdd(messageHash, context.now) {
+			addedHashes[messageHash] = true
+			entityAlert.Messages = append(entityAlert.Messages, message)
+		}
+	}
+	for _, event := range events {
+		if !addedHashes[event.hash] && context.store.ShouldAdd(event.hash, context.now) {
+			addedHashes[event.hash] = true
+			entityAlert.Events = append(entityAlert.Events, event.message)
+		}
+	}
+	if len(addedHashes) == 0 {
+		return false
+	}
+	entityAlert.LogsByContainerName = state.logsCollections
+
+	context.store.Add(entityAlert, keys(addedHashes), context.now)
+	return true
+}
+
+func (context *diagContext) handleStandaloneEvent(state *eventState) (stored bool) {
+	isHealthy := state.isHealthy()
+	if isHealthy {
+		log.Tracef(state.String())
+		return false
+	}
+
+	log.Infof(state.String())
+	entityAlert := &alert.EntityAlert{
+		ClusterName:         context.config.ClusterName,
+		Namespace:           state.namespace,
+		Name:                state.involvedObject,
+		Kind:                state.involvedObjectKind,
+		Messages:            []string{},
+		Events:              []string{},
+		LogsByContainerName: map[string]string{},
+		Timestamp:           context.now,
+	}
+
+	if !context.store.ShouldAdd(state.hash, context.now) {
+		return false
+	}
+	entityAlert.Events = append(entityAlert.Events, state.message)
+
+	context.store.Add(entityAlert, []string{state.hash}, context.now)
+	return true
 }
 
 func (context *diagContext) isNamespaceRelevant(namespaceName string) bool {
@@ -88,24 +120,12 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		now:                   now,
 		includedNamespacesSet: toBoolMap(cfg.IncludeNamespaces),
 		excludedNamespacesSet: toBoolMap(cfg.ExcludeNamespaces),
+		client:                client,
 	}
 
-	log.Debugf("Diagnosing cluster %v ...", cfg.ClusterName)
+	log.Infof("Diagnosing cluster %v ...", cfg.ClusterName)
 
-	nodes, err := client.GetNodes()
-	if err != nil {
-		aggregatedError = multierr.Append(aggregatedError, err)
-	} else {
-		log.Debugf("Discovered %v nodes", len(nodes))
-		for _, node := range nodes {
-			nodeState, err := ctx.nodeState(&node, now, false)
-			if err != nil {
-				aggregatedError = multierr.Append(aggregatedError, err)
-			} else {
-				ctx.handleState(nodeState)
-			}
-		}
-	}
+	eventsByEntityName := make(map[string][]*eventState)
 
 	namespaces, err := client.GetNamespaces()
 	if err != nil {
@@ -113,14 +133,12 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		return
 	}
 
-	log.Debugf("Discovered %v namespaces", len(namespaces))
+	log.Infof("Discovered %v namespaces", len(namespaces))
 	for _, namespace := range namespaces {
 		namespaceName := namespace.Name
 		if !ctx.isNamespaceRelevant(namespaceName) {
 			continue
 		}
-
-		eventsByEntityName := make(map[string][]*entityState)
 
 		events, err := client.GetEvents(namespaceName)
 		if err != nil {
@@ -128,19 +146,15 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		} else {
 			log.Debugf("Discovered %v events in namespace %v", len(events), namespaceName)
 			for _, event := range events {
-				eventState, err := ctx.eventState(&event, now)
+				evState, err := ctx.eventState(&event, now)
 				if err != nil {
 					aggregatedError = multierr.Append(aggregatedError, err)
-				} else {
-					if event.InvolvedObject.Kind == "Node" {
-						ctx.handleState(eventState)
-					} else if !eventState.isHealthy() {
-						eventsOfEntity, exists := eventsByEntityName[event.InvolvedObject.Name]
-						if !exists {
-							eventsOfEntity = []*entityState{}
-						}
-						eventsByEntityName[event.InvolvedObject.Name] = append(eventsOfEntity, eventState)
+				} else if !evState.isHealthy() {
+					eventsOfEntity, exists := eventsByEntityName[event.InvolvedObject.Name]
+					if !exists {
+						eventsOfEntity = []*eventState{}
 					}
+					eventsByEntityName[event.InvolvedObject.Name] = append(eventsOfEntity, evState)
 				}
 			}
 		}
@@ -151,19 +165,12 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		} else {
 			log.Debugf("Discovered %v pods in namespace %v", len(pods), namespaceName)
 			for _, pod := range pods {
-				podState, err := ctx.podState(&pod, now, client)
+				podState, err := ctx.podState(&pod, now)
 				if err != nil {
 					aggregatedError = multierr.Append(aggregatedError, err)
 				} else {
-					stored := ctx.handleState(podState)
-					if eventStates, found := eventsByEntityName[pod.Name]; found {
-						if stored {
-							for _, eventState := range eventStates {
-								ctx.handleState(eventState)
-							}
-						}
-						delete(eventsByEntityName, pod.Name)
-					}
+					ctx.handleEntityState(podState, namespaceName, eventsByEntityName[pod.Name])
+					delete(eventsByEntityName, pod.Name)
 				}
 			}
 		}
@@ -178,26 +185,35 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 				if err != nil {
 					aggregatedError = multierr.Append(aggregatedError, err)
 				} else {
-					stored := ctx.handleState(replicaSetState)
-					if eventStates, found := eventsByEntityName[replicaSet.Name]; found {
-						if stored {
-							for _, eventState := range eventStates {
-								ctx.handleState(eventState)
-							}
-						}
-						delete(eventsByEntityName, replicaSet.Name)
-					}
+					ctx.handleEntityState(replicaSetState, "", eventsByEntityName[replicaSet.Name])
+					delete(eventsByEntityName, replicaSet.Name)
 				}
 			}
 		}
+	}
 
-		for _, eventStates := range eventsByEntityName {
-			for _, entityState := range eventStates {
-				if !store.IsRelevant(entityState.timestamp) {
-					continue
-				}
-				ctx.handleState(entityState)
+	nodes, err := client.GetNodes()
+	if err != nil {
+		aggregatedError = multierr.Append(aggregatedError, err)
+	} else {
+		log.Debugf("Discovered %v nodes", len(nodes))
+		for _, node := range nodes {
+			nodeState, err := ctx.nodeState(&node, now, false)
+			if err != nil {
+				aggregatedError = multierr.Append(aggregatedError, err)
+			} else {
+				ctx.handleEntityState(nodeState, "", eventsByEntityName[node.Name])
+				delete(eventsByEntityName, node.Name)
 			}
+		}
+	}
+
+	for _, eventStates := range eventsByEntityName {
+		for _, evState := range eventStates {
+			if !store.IsRelevant(evState.timestamp) {
+				continue
+			}
+			ctx.handleStandaloneEvent(evState)
 		}
 	}
 
