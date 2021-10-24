@@ -1,8 +1,16 @@
 package alert
 
 import (
+	"sort"
 	"time"
 )
+
+var kindToOrder = map[string]int{
+	"Node":       1,
+	"Namespace":  2,
+	"ReplicaSet": 3,
+	"Pod":        4,
+}
 
 type EntityAlert struct {
 	ClusterName         string            `json:"cluster_name"`
@@ -31,4 +39,30 @@ func (alerts *Alerts) AddEntityAlerts(entityAlerts ...EntityAlert) {
 		}
 		alertsMap[alert.ClusterName] = append(alertsMap[alert.ClusterName], alert)
 	}
+}
+
+type EntityAlerts []*EntityAlert
+
+var _ sort.Interface = &EntityAlerts{}
+
+func (alerts EntityAlerts) Len() int {
+	return len(alerts)
+}
+
+func (alerts EntityAlerts) Less(i, j int) bool {
+	kind1, found1 := kindToOrder[alerts[i].Kind]
+	kind2, found2 := kindToOrder[alerts[j].Kind]
+	if found1 == found2 {
+		if kind1 == kind2 {
+			return alerts[i].Name < alerts[j].Name
+		}
+		return kind1 < kind2
+	}
+	return found1
+}
+
+func (alerts EntityAlerts) Swap(i, j int) {
+	tmp := alerts[i]
+	alerts[i] = alerts[j]
+	alerts[j] = tmp
 }

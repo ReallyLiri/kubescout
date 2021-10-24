@@ -8,6 +8,7 @@ import (
 	"github.com/reallyliri/kubescout/config"
 	"io/fs"
 	"io/ioutil"
+	"sort"
 	"time"
 )
 
@@ -22,17 +23,23 @@ type ClusterStore struct {
 	Cluster           string               `json:"cluster"`
 	HashWithTimestamp map[string]time.Time `json:"hash_with_timestamp"`
 	LastRunAt         time.Time            `json:"last_run_at"`
-	alerts            []*alert.EntityAlert
+	alerts            alert.EntityAlerts
 }
 
-func LoadOrCreate(config *config.Config) (*Store, error) {
+func LoadOrCreate(config *config.Config, now time.Time) (*Store, error) {
 	store, err := loadOrCreate(config.StoreFilePath, config.MessagesDeduplicationDuration)
 	if err != nil {
 		return nil, err
 	}
 	store.currentCluster = config.ClusterName
-	_, exists := store.ClusterStoresByName[store.currentCluster]
-	if !exists {
+	clusterStore, exists := store.ClusterStoresByName[store.currentCluster]
+	if exists {
+		for hash, timestamp := range clusterStore.HashWithTimestamp {
+			if store.dedupDuration > 0 && now.Sub(timestamp) > store.dedupDuration {
+				delete(clusterStore.HashWithTimestamp, hash)
+			}
+		}
+	} else {
 		store.ClusterStoresByName[store.currentCluster] = &ClusterStore{
 			Cluster:           store.currentCluster,
 			HashWithTimestamp: make(map[string]time.Time),
@@ -71,7 +78,9 @@ func loadOrCreate(filePath string, dedupDuration time.Duration) (*Store, error) 
 }
 
 func (store *Store) EntityAlerts() []*alert.EntityAlert {
-	return store.ClusterStoresByName[store.currentCluster].alerts
+	alerts := store.ClusterStoresByName[store.currentCluster].alerts
+	sort.Sort(alerts)
+	return alerts
 }
 
 func (store *Store) ShouldAdd(hash string, now time.Time) bool {
@@ -89,10 +98,6 @@ func (store *Store) Add(entityAlert *alert.EntityAlert, hashes []string, now tim
 		clusterStore.HashWithTimestamp[hash] = now
 	}
 	clusterStore.alerts = append(clusterStore.alerts, entityAlert)
-}
-
-func (store *Store) IsRelevant(tm time.Time) bool {
-	return store.ClusterStoresByName[store.currentCluster].LastRunAt.Before(tm)
 }
 
 func (store *Store) Flush(now time.Time) error {

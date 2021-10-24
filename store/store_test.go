@@ -1,6 +1,7 @@
 package store
 
 import (
+	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
 	"github.com/stretchr/testify/require"
 	"io/ioutil"
@@ -17,7 +18,7 @@ func TestStoreCreateAndFlush(t *testing.T) {
 		MessagesDeduplicationDuration: time.Minute,
 		ClusterName:                   "test",
 	}
-	store, err := LoadOrCreate(configuration)
+	store, err := LoadOrCreate(configuration, time.Now().UTC())
 	require.Nil(t, err)
 
 	content, err := ioutil.ReadFile(storeFile.Name())
@@ -35,19 +36,19 @@ func TestStoreCreateAndFlush(t *testing.T) {
 func TestStoreAddFlow(t *testing.T) {
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
+	now := time.Now().UTC()
 
 	configuration := &config.Config{
 		StoreFilePath:                 storeFile.Name(),
 		MessagesDeduplicationDuration: time.Minute,
 		ClusterName:                   "test",
 	}
-	store, err := LoadOrCreate(configuration)
+	store, err := LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 
-	now := time.Now().UTC()
 	require.Equal(t, 0, len(store.EntityAlerts()))
 	require.True(t, store.ShouldAdd("hash1", now))
-	store.Add("message1", []string{"hash1"}, now)
+	store.Add(&alert.EntityAlert{Messages: []string{"message1"}}, []string{"hash1"}, now)
 	require.Equal(t, 1, len(store.EntityAlerts()))
 	require.False(t, store.ShouldAdd("hash1", now))
 	require.Equal(t, 1, len(store.EntityAlerts()))
@@ -56,14 +57,14 @@ func TestStoreAddFlow(t *testing.T) {
 	require.Equal(t, 1, len(store.EntityAlerts()))
 	farFuture := now.Add(time.Minute * time.Duration(2))
 	require.True(t, store.ShouldAdd("hash1", farFuture))
-	store.Add("message1", []string{"hash1"}, farFuture)
+	store.Add(&alert.EntityAlert{Messages: []string{"message1"}}, []string{"hash1"}, farFuture)
 	require.Equal(t, 2, len(store.EntityAlerts()))
 
 	require.True(t, store.ShouldAdd("hash2", now))
-	store.Add("message2", []string{"hash2"}, now)
+	store.Add(&alert.EntityAlert{Messages: []string{"message2"}}, []string{"hash2"}, now)
 	require.Equal(t, 3, len(store.EntityAlerts()))
 	require.True(t, store.ShouldAdd("hash3", now))
-	store.Add("message2", []string{"hash3"}, now)
+	store.Add(&alert.EntityAlert{Messages: []string{"message2"}}, []string{"hash3"}, now)
 	require.Equal(t, 4, len(store.EntityAlerts()))
 	require.False(t, store.ShouldAdd("hash3", now))
 	require.Equal(t, 4, len(store.EntityAlerts()))
@@ -72,24 +73,21 @@ func TestStoreAddFlow(t *testing.T) {
 func TestLoadAfterFlush(t *testing.T) {
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
+	now := time.Now().UTC()
 
 	configuration := &config.Config{
 		StoreFilePath:                 storeFile.Name(),
 		MessagesDeduplicationDuration: time.Minute,
 		ClusterName:                   "test",
 	}
-	store, err := LoadOrCreate(configuration)
+	store, err := LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 
-	now := time.Now().UTC()
-	store.Add("message", []string{"hash1", "hash2", "hash3"}, now)
+	store.Add(&alert.EntityAlert{Messages: []string{"message"}}, []string{"hash1", "hash2", "hash3"}, now)
 	require.Equal(t, 1, len(store.EntityAlerts()))
 	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
 
-	require.True(t, store.IsRelevant(now.Add(time.Duration(-1) * time.Minute)))
-	require.True(t, store.IsRelevant(now.Add(time.Minute)))
-
-	storeReloaded, err := LoadOrCreate(configuration)
+	storeReloaded, err := LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(storeReloaded.EntityAlerts()))
 	require.Equal(t, 0, len(storeReloaded.ClusterStoresByName["test"].HashWithTimestamp))
@@ -97,13 +95,44 @@ func TestLoadAfterFlush(t *testing.T) {
 	err = store.Flush(now)
 	require.Nil(t, err)
 
-	storeReloaded, err = LoadOrCreate(configuration)
+	storeReloaded, err = LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(storeReloaded.EntityAlerts()))
 	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
+}
 
-	require.False(t, storeReloaded.IsRelevant(now.Add(time.Duration(-1) * time.Minute)))
-	require.True(t, storeReloaded.IsRelevant(now.Add(time.Minute)))
+func TestLoadAfterLongTime(t *testing.T) {
+	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
+	require.Nil(t, err)
+	now := time.Now().UTC()
+
+	configuration := &config.Config{
+		StoreFilePath:                 storeFile.Name(),
+		MessagesDeduplicationDuration: time.Minute,
+		ClusterName:                   "test",
+	}
+	store, err := LoadOrCreate(configuration, now)
+	require.Nil(t, err)
+
+	store.Add(&alert.EntityAlert{Messages: []string{"message"}}, []string{"hash1", "hash2", "hash3"}, now)
+	require.Equal(t, 1, len(store.EntityAlerts()))
+	require.Equal(t, 3, len(store.ClusterStoresByName["test"].HashWithTimestamp))
+	err = store.Flush(now)
+	require.Nil(t, err)
+
+	storeReloaded, err := LoadOrCreate(configuration, now.Add(time.Second * time.Duration(50)))
+	require.Nil(t, err)
+	require.Equal(t, 0, len(storeReloaded.EntityAlerts()))
+	require.Equal(t, 3, len(storeReloaded.ClusterStoresByName["test"].HashWithTimestamp))
+	err = storeReloaded.Flush(now)
+	require.Nil(t, err)
+
+	storeReloaded, err = LoadOrCreate(configuration, now.Add(time.Minute * time.Duration(3)))
+	require.Nil(t, err)
+	require.Equal(t, 0, len(storeReloaded.EntityAlerts()))
+	require.Equal(t, 0, len(storeReloaded.ClusterStoresByName["test"].HashWithTimestamp))
+	err = storeReloaded.Flush(now)
+	require.Nil(t, err)
 }
 
 func TestStoreForMultipleClusters(t *testing.T) {
@@ -116,17 +145,17 @@ func TestStoreForMultipleClusters(t *testing.T) {
 		MessagesDeduplicationDuration: time.Minute,
 		ClusterName:                   "test-1",
 	}
-	store1, err := LoadOrCreate(configuration)
+	store1, err := LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 
-	store1.Add("message", []string{"hash1", "hash2", "hash3"}, now)
+	store1.Add(&alert.EntityAlert{Messages: []string{"message"}}, []string{"hash1", "hash2", "hash3"}, now)
 	require.Equal(t, 1, len(store1.EntityAlerts()))
 	require.Equal(t, 3, len(store1.ClusterStoresByName["test-1"].HashWithTimestamp))
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
 	configuration.ClusterName = "test-2"
-	store2, err := LoadOrCreate(configuration)
+	store2, err := LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(store2.EntityAlerts()))
 	require.Equal(t, 0, len(store2.ClusterStoresByName["test-2"].HashWithTimestamp))
@@ -136,7 +165,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	require.Equal(t, 2, len(store2.ClusterStoresByName))
 
 	configuration.ClusterName = "test-3"
-	store3, err := LoadOrCreate(configuration)
+	store3, err := LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 	require.Equal(t, 0, len(store3.EntityAlerts()))
 	require.Equal(t, 0, len(store3.ClusterStoresByName["test-3"].HashWithTimestamp))
@@ -159,10 +188,10 @@ func TestJsonContent(t *testing.T) {
 		MessagesDeduplicationDuration: time.Minute,
 		ClusterName:                   "test-json",
 	}
-	store1, err := LoadOrCreate(configuration)
+	store1, err := LoadOrCreate(configuration, now)
 	require.Nil(t, err)
 
-	store1.Add("message", []string{"hash1", "hash2", "hash3"}, now)
+	store1.Add(&alert.EntityAlert{Messages: []string{"message"}}, []string{"hash1", "hash2", "hash3"}, now)
 	require.Equal(t, 1, len(store1.EntityAlerts()))
 	err = store1.Flush(now.Add(time.Minute))
 	require.Nil(t, err)

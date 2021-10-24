@@ -34,6 +34,9 @@ func testContextWithClient(client kubeclient.KubernetesClient) *diagContext {
 
 func (context *diagContext) handleEntityState(state *entityState, namespace string, events []*eventState) (stored bool) {
 	isHealthy := state.isHealthy()
+	if state.kind == "Node" && len(events) > 0 {
+		isHealthy = false
+	}
 	if isHealthy {
 		log.Tracef(state.String())
 		return false
@@ -210,9 +213,6 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 
 	for _, eventStates := range eventsByEntityName {
 		for _, evState := range eventStates {
-			if !store.IsRelevant(evState.timestamp) {
-				continue
-			}
 			ctx.handleStandaloneEvent(evState)
 		}
 	}
