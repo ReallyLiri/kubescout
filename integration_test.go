@@ -216,17 +216,17 @@ func verifyAlertsForSilencedRun(t *testing.T, alerts alert.EntityAlerts) {
 	if len(alerts) > 3 {
 		assert.Fail(t, "too many messages on second run: %v", len(alerts))
 	}
-	expectedFormat := `Pod default/test-* is un-healthy
-	test-*
-logs of container test-*:
-<<<<<<<<<<
+	expectedFormat := `Pod default/test-* is un-healthy:
+*test-*
+Logs of container test-*:
+--------
 1
 2
 3
 4
 5
 
->>>>>>>>>>`
+--------`
 	for _, entityAlert := range alerts {
 		assertMessage(t, expectedFormat, entityAlert.String())
 	}
@@ -250,7 +250,7 @@ Event by default-scheduler: FailedScheduling since * (last seen * ago):
 	0/1 nodes are available: 1 Insufficient memory.`,
 
 	`Pod default/test-4-crashlooping-* is un-healthy:
-*test-4-crashlooping still waiting due to *
+*test-4-crashlooping *
 Event by kubelet: BackOff x* since * (last seen * ago):
 	Back-off restarting failed container
 Logs of container test-4-crashlooping:
@@ -264,7 +264,7 @@ Logs of container test-4-crashlooping:
 --------`,
 
 	`Pod default/test-5-completed-* is un-healthy:
-*test-5-completed still waiting due to *
+*test-5-completed *
 Event by kubelet: BackOff x* since * (last seen * ago):
 	Back-off restarting failed container
 Logs of container test-5-completed:
@@ -279,7 +279,7 @@ Logs of container test-5-completed:
 
 	`Pod default/test-6-crashlooping-init-* is un-healthy:
 Pod is in Pending phase
-*test-6-crashlooping-init-container (init) still waiting due to *
+*test-6-crashlooping-init-container (init) *
 Event by kubelet: BackOff x* since * (last seen * ago):
 	Back-off restarting failed container
 Logs of container test-6-crashlooping-init-container:

@@ -98,8 +98,9 @@ func (entityAlert *EntityAlert) String() string {
 	} else {
 		builder.WriteString(entityAlert.Name)
 	}
-	builder.WriteString(" is un-healthy:\n")
+	builder.WriteString(" is un-healthy:")
 	for _, message := range entityAlert.Messages {
+		builder.WriteString("\n")
 		builder.WriteString(message)
 	}
 	if len(entityAlert.Events) > 0 {
