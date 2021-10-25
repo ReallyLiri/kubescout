@@ -7,7 +7,7 @@
 
 ![icon](kubescout.png)
 
-Tool to alert on Kubernetes cluster issues of all kinds, in real time, with smart redundancy and with simple extendable
+An alerting tool for Kubernetes clusters issues of all types, in real time, with intelligent redundancy, and easily extendable
 api.
 
 Output example:
@@ -186,20 +186,20 @@ USAGE:
    kubescout                   [optional flags]
 
 OPTIONS:
-   --verbose, --vv                        Log verbose (default: false)
-   --logs-tail value                      Length of logs tail when reporting of a problematic pod's logs (default: 250)
-   --events-limit value                   Limits of namespace events to fetch (default: 150)
-   --kubeconfig value, -k value           path to kubeconfig file, defaults to the value of env var KUBECONFIG or ~/.kube/config
-   --time-format value, -f value          format for printing timestamps (default: "02 Jan 06 15:04 MST")
-   --locale value, -l value               localization to use when printing timestamps (default: "UTC")
-   --pod-creation-grace-sec value         grace time in seconds since pod creation (default: 30)
-   --pod-termination-grace-sec value      grace time in seconds since pod termination (default: 30)
-   --pod-restart-grace-count value        grace time in seconds since pod termination (default: 3)
+   --verbose, --vv                        Verbose logging (default: false)
+   --logs-tail value                      Specifies the logs tail length when reporting logs from a problematic pod (default: 250)
+   --events-limit value                   Maximum number of namespace events to fetch (default: 150)
+   --kubeconfig value, -k value           kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config
+   --time-format value, -f value          timestamp print format (default: "02 Jan 06 15:04 MST")
+   --locale value, -l value               timestamp print localization (default: "UTC")
+   --pod-creation-grace-sec value         grace period in seconds since pod creation (default: 30)
+   --pod-termination-grace-sec value      grace period in seconds since pod termination (default: 30)
+   --pod-restart-grace-count value        grace count for pod restarts (default: 3)
    --node-resource-usage-threshold value  node resources usage threshold (default: 0.85)
    --exclude-ns value, -e value           namespaces to skip
    --include-ns value, -i value           namespaces to include (will skip any not listed if this option is used)
-   --dedup-minutes value, -d value        number of minutes to silence duplicated or already observed alerts or 0 if this feature should not be applied (default: 60)
-   --store-filepath value, -s value       path to store file where duplicated message information will be persisted or empty string if this feature should not be applied (default: "kube-scout.store.json")
+   --dedup-minutes value, -d value        time in minutes to silence duplicate or already observed alerts, or 0 to disable deduplication (default: 60)
+   --store-filepath value, -s value       path to store file where state will be persisted or empty string to disable persistency (default: "kube-scout.store.json")
    --output value, -o value               output mode, one of pretty/json/yaml/discard (default: "pretty")
    --context value, -c value              context name to use from kubeconfig, defaults to current context
    --all-contexts, -a                     iterate all kubeconfig contexts, 'context' flag will be ignored if this flag is set (default: false)
@@ -235,7 +235,7 @@ then run: `kubescout -h`
 
 ### Package
 
-The tool can also be used as a package from your code.
+You can also use the tool as a package from your code.
 
 ```
 go get github.com/reallyliri/kubescout
@@ -289,7 +289,7 @@ go test -v ./...
 # integration tests (requires minikube)
 go test -v --tags=integration ./integration_test.go
 # build
-GO111MODULE=on CGO_ENABLED=0 $(GOCMD) build -o bin/$kubescout-$(shell $(GOCMD) run . --version | cut -d" " -f 3) .
+CGO_ENABLED=0 go build -o bin/kubescout-$(go run . --version | cut -d" " -f 3) .
 ```
 
 ![meme](https://i.imgur.com/9nRSxD0.png)
