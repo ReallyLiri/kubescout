@@ -19,12 +19,6 @@ type diagContext struct {
 	client                kubeclient.KubernetesClient
 }
 
-var diagKinds = map[string]bool{
-	"Pod":        true,
-	"Node":       true,
-	"ReplicaSet": true,
-}
-
 func testContext() *diagContext {
 	return testContextWithClient(nil)
 }
@@ -179,6 +173,7 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 					aggregatedError = multierr.Append(aggregatedError, err)
 				} else {
 					ctx.handleEntityState(podState, namespaceName, eventsByEntityName[pod.Name])
+					log.Infof("delete %v", pod.Name)
 					delete(eventsByEntityName, pod.Name)
 				}
 			}
@@ -219,9 +214,7 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 
 	for _, eventStates := range eventsByEntityName {
 		for _, evState := range eventStates {
-			if !diagKinds[evState.involvedObjectKind] {
-				ctx.handleStandaloneEvent(evState)
-			}
+			ctx.handleStandaloneEvent(evState)
 		}
 	}
 

@@ -46,10 +46,10 @@ func (alerts *Alerts) AddEntityAlerts(entityAlerts ...*EntityAlert) {
 func (alerts *Alerts) Empty() bool {
 	for _, entityAlerts := range alerts.AlertsByClusterName {
 		if len(entityAlerts) > 0 {
-			return true
+			return false
 		}
 	}
-	return false
+	return true
 }
 
 type EntityAlerts []*EntityAlert
