@@ -3,6 +3,7 @@ package diag
 import (
 	"fmt"
 	"github.com/goombaio/orderedmap"
+	"github.com/reallyliri/kubescout/internal"
 	"strings"
 	"time"
 )
@@ -39,7 +40,7 @@ func (state *entityState) String() string {
 	if state.isHealthy() {
 		return fmt.Sprintf("%v is healthy\n", state.name)
 	}
-	messages := append([]string{fmt.Sprintf("%v %v is un-healthy", state.kind, state.name)}, state.messages...)
+	messages := append([]string{fmt.Sprintf("%v %v is un-healthy", state.kind, state.name)}, state.cleanMessages()...)
 	return strings.Join(messages, "\n\t")
 }
 
@@ -49,7 +50,7 @@ func (state *entityState) cleanMessages() []string {
 		a := cleanMessage(message)
 		cleanMessages.Put(a, true)
 	}
-	return castToString(cleanMessages.Keys())
+	return internal.CastToString(cleanMessages.Keys())
 }
 
 func (state *entityState) appendMessage(format string, a ...interface{}) {
@@ -73,7 +74,7 @@ func (state *eventState) String() string {
 	if state.isHealthy() {
 		return fmt.Sprintf("%v has a healthy event\n", state.involvedObject)
 	}
-	return fmt.Sprintf("Event on %v %v: %v", state.involvedObjectKind, state.involvedObject, state.message)
+	return fmt.Sprintf("Event on %v %v: %v", state.involvedObjectKind, state.involvedObject, cleanMessage(state.message))
 }
 
 func (state *eventState) cleanMessage() string {

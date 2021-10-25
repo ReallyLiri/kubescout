@@ -3,6 +3,7 @@ package diag
 import (
 	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
+	"github.com/reallyliri/kubescout/internal"
 	"github.com/reallyliri/kubescout/kubeclient"
 	"github.com/reallyliri/kubescout/store"
 	log "github.com/sirupsen/logrus"
@@ -12,7 +13,7 @@ import (
 
 type diagContext struct {
 	config                *config.Config
-	store                 *store.Store
+	store                 *store.ClusterStore
 	now                   time.Time
 	includedNamespacesSet map[string]bool
 	excludedNamespacesSet map[string]bool
@@ -44,7 +45,7 @@ func (context *diagContext) handleEntityState(state *entityState, namespace stri
 
 	log.Infof(state.String())
 	entityAlert := &alert.EntityAlert{
-		ClusterName:         context.config.ClusterName,
+		ClusterName:         context.store.Cluster,
 		Namespace:           namespace,
 		Name:                state.name,
 		Kind:                state.kind,
@@ -74,7 +75,7 @@ func (context *diagContext) handleEntityState(state *entityState, namespace stri
 	}
 	entityAlert.LogsByContainerName = state.logsCollections
 
-	context.store.Add(entityAlert, keys(addedHashes), context.now)
+	context.store.Add(entityAlert, internal.Keys(addedHashes), context.now)
 	return true
 }
 
@@ -87,7 +88,7 @@ func (context *diagContext) handleStandaloneEvent(state *eventState) (stored boo
 
 	log.Infof(state.String())
 	entityAlert := &alert.EntityAlert{
-		ClusterName:         context.config.ClusterName,
+		ClusterName:         context.store.Cluster,
 		Namespace:           state.namespace,
 		Name:                state.involvedObject,
 		Kind:                state.involvedObjectKind,
@@ -117,17 +118,17 @@ func (context *diagContext) isNamespaceRelevant(namespaceName string) bool {
 	return true
 }
 
-func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, store *store.Store, now time.Time) (aggregatedError error) {
+func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, store *store.ClusterStore, now time.Time) (aggregatedError error) {
 	ctx := diagContext{
 		config:                cfg,
 		store:                 store,
 		now:                   now,
-		includedNamespacesSet: toBoolMap(cfg.IncludeNamespaces),
-		excludedNamespacesSet: toBoolMap(cfg.ExcludeNamespaces),
+		includedNamespacesSet: internal.ToBoolMap(cfg.IncludeNamespaces),
+		excludedNamespacesSet: internal.ToBoolMap(cfg.ExcludeNamespaces),
 		client:                client,
 	}
 
-	log.Infof("Diagnosing cluster %v ...", cfg.ClusterName)
+	log.Infof("Diagnosing cluster %v ...", store.Cluster)
 
 	eventsByEntityName := make(map[string][]*eventState)
 
@@ -174,7 +175,6 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 					aggregatedError = multierr.Append(aggregatedError, err)
 				} else {
 					ctx.handleEntityState(podState, namespaceName, eventsByEntityName[pod.Name])
-					log.Infof("delete %v", pod.Name)
 					delete(eventsByEntityName, pod.Name)
 				}
 			}

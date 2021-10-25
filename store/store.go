@@ -8,7 +8,6 @@ import (
 	"github.com/reallyliri/kubescout/config"
 	"io/fs"
 	"io/ioutil"
-	"sort"
 	"time"
 )
 
@@ -16,55 +15,32 @@ type Store struct {
 	ClusterStoresByName map[string]*ClusterStore `json:"cluster_stores_by_name"`
 	dedupDuration       time.Duration
 	filePath            string
-	currentCluster      string
+	LastRunAt           time.Time `json:"last_run_at"`
 }
 
 type ClusterStore struct {
+	parent            *Store
 	Cluster           string               `json:"cluster"`
 	HashWithTimestamp map[string]time.Time `json:"hash_with_timestamp"`
-	LastRunAt         time.Time            `json:"last_run_at"`
-	alerts            alert.EntityAlerts
+	Alerts            alert.EntityAlerts   `json:"-"`
 }
 
-func LoadOrCreate(config *config.Config, now time.Time) (*Store, error) {
-	store, err := loadOrCreate(config.StoreFilePath, config.MessagesDeduplicationDuration)
-	if err != nil {
-		return nil, err
-	}
-	store.currentCluster = config.ClusterName
-	clusterStore, exists := store.ClusterStoresByName[store.currentCluster]
-	if exists {
-		for hash, timestamp := range clusterStore.HashWithTimestamp {
-			if store.dedupDuration > 0 && now.Sub(timestamp) > store.dedupDuration {
-				delete(clusterStore.HashWithTimestamp, hash)
-			}
-		}
-	} else {
-		store.ClusterStoresByName[store.currentCluster] = &ClusterStore{
-			Cluster:           store.currentCluster,
-			HashWithTimestamp: make(map[string]time.Time),
-			alerts:            []*alert.EntityAlert{},
-		}
-	}
-	return store, nil
-}
-
-func loadOrCreate(filePath string, dedupDuration time.Duration) (*Store, error) {
+func LoadOrCreate(config *config.Config) (*Store, error) {
 	store := &Store{
 		ClusterStoresByName: make(map[string]*ClusterStore),
-		dedupDuration:       dedupDuration,
-		filePath:            filePath,
+		dedupDuration:       config.MessagesDeduplicationDuration,
+		filePath:            config.StoreFilePath,
 	}
-	if filePath == "" {
+	if store.filePath == "" {
 		return store, nil
 	}
 
-	content, err := ioutil.ReadFile(filePath)
+	content, err := ioutil.ReadFile(store.filePath)
 	if err != nil {
 		if errors.Is(err, fs.ErrNotExist) {
 			return store, nil
 		}
-		return nil, fmt.Errorf("failed to read store file from '%v': %v", filePath, err)
+		return nil, fmt.Errorf("failed to read store file from '%v': %v", store.filePath, err)
 	}
 	if len(content) == 0 {
 		return store, nil
@@ -72,37 +48,48 @@ func loadOrCreate(filePath string, dedupDuration time.Duration) (*Store, error) 
 
 	err = json.Unmarshal(content, store)
 	if err != nil {
-		return nil, fmt.Errorf("failed to deserialize json from '%v': %v", filePath, err)
+		return nil, fmt.Errorf("failed to deserialize json from '%v': %v", store.filePath, err)
 	}
 	return store, nil
 }
 
-func (store *Store) EntityAlerts() []*alert.EntityAlert {
-	alerts := store.ClusterStoresByName[store.currentCluster].alerts
-	sort.Sort(alerts)
-	return alerts
+func (store *Store) GetClusterStore(name string, now time.Time) *ClusterStore {
+	clusterStore, exists := store.ClusterStoresByName[name]
+	if !exists {
+		clusterStore = &ClusterStore{
+			Cluster:           name,
+			HashWithTimestamp: make(map[string]time.Time),
+			Alerts:            []*alert.EntityAlert{},
+		}
+		store.ClusterStoresByName[name] = clusterStore
+	}
+	clusterStore.parent = store
+	for hash, timestamp := range clusterStore.HashWithTimestamp {
+		if store.dedupDuration > 0 && now.Sub(timestamp) > store.dedupDuration {
+			delete(clusterStore.HashWithTimestamp, hash)
+		}
+	}
+	return clusterStore
 }
 
-func (store *Store) ShouldAdd(hash string, now time.Time) bool {
-	clusterStore := store.ClusterStoresByName[store.currentCluster]
+func (clusterStore *ClusterStore) ShouldAdd(hash string, now time.Time) bool {
 	timestamp, found := clusterStore.HashWithTimestamp[hash]
-	if !found || store.dedupDuration == 0 || now.Sub(timestamp) > store.dedupDuration {
+	if !found || clusterStore.parent.dedupDuration == 0 || now.Sub(timestamp) > clusterStore.parent.dedupDuration {
 		return true
 	}
 	return false
 }
 
-func (store *Store) Add(entityAlert *alert.EntityAlert, hashes []string, now time.Time) {
-	clusterStore := store.ClusterStoresByName[store.currentCluster]
+func (clusterStore *ClusterStore) Add(entityAlert *alert.EntityAlert, hashes []string, now time.Time) {
 	for _, hash := range hashes {
 		clusterStore.HashWithTimestamp[hash] = now
 	}
-	clusterStore.alerts = append(clusterStore.alerts, entityAlert)
+	clusterStore.Alerts = append(clusterStore.Alerts, entityAlert)
 }
 
 func (store *Store) Flush(now time.Time) error {
 
-	store.ClusterStoresByName[store.currentCluster].LastRunAt = now
+	store.LastRunAt = now
 
 	if store.filePath == "" {
 		return nil

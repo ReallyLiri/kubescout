@@ -33,7 +33,7 @@ func NewAlerts() *Alerts {
 	return &Alerts{AlertsByClusterName: map[string]EntityAlerts{}}
 }
 
-func (alerts *Alerts) AddEntityAlerts(entityAlerts ...*EntityAlert) {
+func (alerts *Alerts) AddEntityAlerts(entityAlerts EntityAlerts) {
 	alertsMap := alerts.AlertsByClusterName
 	for _, alert := range entityAlerts {
 		if _, found := alertsMap[alert.ClusterName]; !found {

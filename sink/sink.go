@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/reallyliri/kubescout/alert"
 	"go.uber.org/multierr"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 type Sink interface {
@@ -41,19 +41,13 @@ func (s YamlSink) Report(alerts *alert.Alerts) error {
 }
 
 type MultiSink struct {
-	sinks []Sink
+	Sinks []Sink
 }
 
 var _ Sink = &MultiSink{}
 
-func CreateMultiSink(sinks ...Sink) *MultiSink {
-	return &MultiSink{
-		sinks: sinks,
-	}
-}
-
 func (s MultiSink) Report(alerts *alert.Alerts) (aggregatedErr error) {
-	for _, sink := range s.sinks {
+	for _, sink := range s.Sinks {
 		err := sink.Report(alerts)
 		if err != nil {
 			aggregatedErr = multierr.Append(aggregatedErr, err)
@@ -69,5 +63,14 @@ var _ Sink = &PrettySink{}
 
 func (s PrettySink) Report(alerts *alert.Alerts) error {
 	fmt.Print(alerts.String())
+	return nil
+}
+
+type DiscardSink struct {
+}
+
+var _ Sink = &DiscardSink{}
+
+func (s DiscardSink) Report(_ *alert.Alerts) error {
 	return nil
 }

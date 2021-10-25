@@ -11,8 +11,8 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/cli/v2 v2.3.0
 	go.uber.org/multierr v1.7.0
-	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.20.4
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+	k8s.io/api v0.21.0-alpha.1
 	k8s.io/apimachinery v0.21.0
-	k8s.io/client-go v0.20.4
+	k8s.io/client-go v0.21.0-alpha.1
 )

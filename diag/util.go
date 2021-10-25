@@ -167,44 +167,10 @@ func formatResourceUsage(allocatable int64, capacity int64, name string, usageTh
 	return ""
 }
 
-func toBoolMap(values []string) (boolMap map[string]bool) {
-	boolMap = make(map[string]bool, len(values))
-	for _, value := range values {
-		boolMap[value] = true
-	}
-	return
-}
-
 func hash(entityName string, message string) string {
 	sha := sha1.New()
 	sha.Write([]byte(entityName))
 	sha.Write([]byte(message))
 	asBytes := sha.Sum(nil)
 	return fmt.Sprintf("%x", asBytes)
-}
-
-func keys(m map[string]bool) []string {
-	keys := make([]string, len(m))
-	i := 0
-	for key, _ := range m {
-		keys[i] = key
-		i++
-	}
-	return keys
-}
-
-func castToString(slice []interface{}) []string {
-	result := make([]string, len(slice))
-	for i, val := range slice {
-		result[i] = val.(string)
-	}
-	return result
-}
-
-func toMap(indexes []int) map[int]bool {
-	m := make(map[int]bool, len(indexes))
-	for _, index := range indexes {
-		m[index] = true
-	}
-	return m
 }

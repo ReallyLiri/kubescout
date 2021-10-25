@@ -1,6 +1,7 @@
 package diag
 
 import (
+	"github.com/reallyliri/kubescout/internal"
 	"github.com/reallyliri/kubescout/kubeclient"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
@@ -46,7 +47,7 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	warningIndexes := []int{
 		1, 10, 11, 12,
 	}
-	skipIndexes := toMap(warningIndexes)
+	skipIndexes := internal.ToMap(warningIndexes)
 
 	verifyEventsHealthyExcept(t, events, now, skipIndexes)
 
@@ -180,7 +181,7 @@ func TestEventState_LivenessFailed(t *testing.T) {
 		132,
 	}
 
-	skipIndexes := toMap(warningIndexes)
+	skipIndexes := internal.ToMap(warningIndexes)
 
 	verifyEventsHealthyExcept(t, events, now, skipIndexes)
 

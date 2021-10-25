@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"path"
 	"runtime"
+	"sort"
 	"testing"
 	"time"
 )
@@ -26,7 +27,6 @@ func setUp(t *testing.T) (*config.Config, kubeclient.KubernetesClient) {
 
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
-	cfg.ClusterName = "diag-integration"
 	cfg.StoreFilePath = storeFile.Name()
 	cfg.MessagesDeduplicationDuration = time.Hour
 
@@ -47,19 +47,21 @@ func TestDiagnose(t *testing.T) {
 
 	now := asTime("2021-10-17T14:20:00Z")
 
-	sto, err := store.LoadOrCreate(cfg, now)
+	stor, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)
-	assert.Equal(t, 0, len(sto.EntityAlerts()))
-	err = DiagnoseCluster(client, cfg, sto, now)
+	clusterStore := stor.GetClusterStore("diag-test", now)
+	assert.Equal(t, 0, len(clusterStore.Alerts))
+	err = DiagnoseCluster(client, cfg, clusterStore, now)
 	require.Nil(t, err)
-	err = sto.Flush(now)
+	err = stor.Flush(now)
 	require.Nil(t, err)
 
-	alerts := sto.EntityAlerts()
+	alerts := clusterStore.Alerts
+	sort.Sort(alerts)
 	assert.Equal(t, 6, len(alerts))
 
 	i := 0
-	assert.Equal(t, cfg.ClusterName, alerts[i].ClusterName)
+	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "", alerts[i].Namespace)
 	assert.Equal(t, "minikube", alerts[i].Name)
 	assert.Equal(t, "Node", alerts[i].Kind)
@@ -69,7 +71,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 0, len(alerts[i].LogsByContainerName))
 
 	i = 1
-	assert.Equal(t, cfg.ClusterName, alerts[i].ClusterName)
+	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-2-broken-image-7cbf974df9-4jv8f", alerts[i].Name)
 	assert.Equal(t, "Pod", alerts[i].Kind)
@@ -87,7 +89,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, "default/test-2-broken-image-7cbf974df9-4jv8f/test-2-broken-image/logs", alerts[i].LogsByContainerName["test-2-broken-image"])
 
 	i = 2
-	assert.Equal(t, cfg.ClusterName, alerts[i].ClusterName)
+	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-3-excessive-resources-699d58f55f-q9z65", alerts[i].Name)
 	assert.Equal(t, "Pod", alerts[i].Kind)
@@ -100,7 +102,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 0, len(alerts[i].LogsByContainerName))
 
 	i = 3
-	assert.Equal(t, cfg.ClusterName, alerts[i].ClusterName)
+	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-4-crashlooping-dbdd84589-8m7kj", alerts[i].Name)
 	assert.Equal(t, "Pod", alerts[i].Kind)
@@ -114,7 +116,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, "default/test-4-crashlooping-dbdd84589-8m7kj/test-4-crashlooping/logs", alerts[i].LogsByContainerName["test-4-crashlooping"])
 
 	i = 4
-	assert.Equal(t, cfg.ClusterName, alerts[i].ClusterName)
+	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-5-completed-757685986-qxbqp", alerts[i].Name)
 	assert.Equal(t, "Pod", alerts[i].Kind)
@@ -128,7 +130,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, "default/test-5-completed-757685986-qxbqp/test-5-completed/logs", alerts[i].LogsByContainerName["test-5-completed"])
 
 	i = 5
-	assert.Equal(t, cfg.ClusterName, alerts[i].ClusterName)
+	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-6-crashlooping-init-644545f5b7-l468n", alerts[i].Name)
 	assert.Equal(t, "Pod", alerts[i].Kind)
@@ -147,24 +149,28 @@ func TestDiagnoseRepeatingCallAfterShortTime(t *testing.T) {
 	cfg, client := setUp(t)
 
 	now := asTime("2021-10-17T14:20:00Z")
+	clusterName := "diag-test-short"
 
-	store1, err := store.LoadOrCreate(cfg, now)
+	store1, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)
-	assert.Equal(t, 0, len(store1.EntityAlerts()))
-	err = DiagnoseCluster(client, cfg, store1, now)
+	clusterStore1 := store1.GetClusterStore(clusterName, now)
+	assert.Equal(t, 0, len(clusterStore1.Alerts))
+	err = DiagnoseCluster(client, cfg, clusterStore1, now)
 	require.Nil(t, err)
-	assert.Equal(t, 6, len(store1.EntityAlerts()))
+	assert.Equal(t, 6, len(clusterStore1.Alerts))
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
 	nearFuture := now.Add(time.Minute)
 
-	store2, err := store.LoadOrCreate(cfg, nearFuture)
+	store2, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)
 
-	err = DiagnoseCluster(client, cfg, store2, nearFuture)
+	clusterStore2 := store2.GetClusterStore(clusterName, nearFuture)
+
+	err = DiagnoseCluster(client, cfg, clusterStore2, nearFuture)
 	require.Nil(t, err)
-	assert.Equal(t, 0, len(store2.EntityAlerts()))
+	assert.Equal(t, 0, len(clusterStore2.Alerts))
 	err = store2.Flush(nearFuture)
 	require.Nil(t, err)
 }
@@ -173,24 +179,28 @@ func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
 	cfg, client := setUp(t)
 
 	now := asTime("2021-10-17T14:20:00Z")
+	clusterName := "diag-test-long"
 
-	store1, err := store.LoadOrCreate(cfg, now)
+	store1, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)
-	assert.Equal(t, 0, len(store1.EntityAlerts()))
-	err = DiagnoseCluster(client, cfg, store1, now)
+	clusterStore1 := store1.GetClusterStore(clusterName, now)
+	assert.Equal(t, 0, len(clusterStore1.Alerts))
+	err = DiagnoseCluster(client, cfg, clusterStore1, now)
 	require.Nil(t, err)
-	assert.Equal(t, 6, len(store1.EntityAlerts()))
+	assert.Equal(t, 6, len(clusterStore1.Alerts))
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
 	farFuture := now.Add(time.Hour + time.Minute)
 
-	store2, err := store.LoadOrCreate(cfg, farFuture)
+	store2, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)
 
-	err = DiagnoseCluster(client, cfg, store2, farFuture)
+	clusterStore2 := store2.GetClusterStore(clusterName, farFuture)
+
+	err = DiagnoseCluster(client, cfg, clusterStore2, farFuture)
 	require.Nil(t, err)
-	assert.Equal(t, 6, len(store2.EntityAlerts()))
+	assert.Equal(t, 6, len(clusterStore2.Alerts))
 	err = store2.Flush(farFuture)
 	require.Nil(t, err)
 }

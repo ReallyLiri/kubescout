@@ -1,6 +1,7 @@
 package diag
 
 import (
+	"github.com/reallyliri/kubescout/internal"
 	"github.com/reallyliri/kubescout/kubeclient"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
@@ -29,7 +30,7 @@ func TestReplicaSetState_ExceededQuota(t *testing.T) {
 		0, 1, 2, 3, 5, 6, 10, 13,
 	}
 
-	skipIndexes := toMap(errorSets)
+	skipIndexes := internal.ToMap(errorSets)
 
 	now := asTime("2021-07-27T11:35:00Z")
 

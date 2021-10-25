@@ -1,12 +1,11 @@
 package config
 
 import (
-	"errors"
 	"flag"
 	"fmt"
+	"github.com/reallyliri/kubescout/sink"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
-	"io/fs"
 	"k8s.io/client-go/util/homedir"
 	"os"
 	"path/filepath"
@@ -25,10 +24,12 @@ type Config struct {
 	NodeResourceUsageThreshold       float64
 	ExcludeNamespaces                []string
 	IncludeNamespaces                []string
-	ClusterName                      string
 	MessagesDeduplicationDuration    time.Duration
 	StoreFilePath                    string
 	OutputMode                       string
+	ContextName                      string
+	AllContexts                      bool
+	ExcludeContexts                  []string
 }
 
 var Flags = []cli.Flag{
@@ -53,8 +54,8 @@ var Flags = []cli.Flag{
 	},
 	&cli.StringFlag{
 		Name:     "kubeconfig",
-		Aliases:  []string{"c"},
-		Usage:    "path to kubeconfig file, defaults to ~/.kube/config",
+		Aliases:  []string{"k"},
+		Usage:    "path to kubeconfig file, defaults to the value of env var KUBECONFIG or ~/.kube/config",
 		Required: false,
 	},
 	&cli.StringFlag{
@@ -109,12 +110,6 @@ var Flags = []cli.Flag{
 		Usage:    "namespaces to include (will skip any not listed if this option is used)",
 		Required: false,
 	},
-	&cli.StringFlag{
-		Name:     "name",
-		Aliases:  []string{"n"},
-		Usage:    "name of the scouted cluster",
-		Required: true,
-	},
 	&cli.IntFlag{
 		Name:     "dedup-minutes",
 		Aliases:  []string{"d"},
@@ -133,7 +128,27 @@ var Flags = []cli.Flag{
 		Name:     "output",
 		Aliases:  []string{"o"},
 		Value:    "pretty",
-		Usage:    "output mode, one of pretty/json/yaml",
+		Usage:    "output mode, one of pretty/json/yaml/discard",
+		Required: false,
+	},
+	&cli.StringFlag{
+		Name:     "context",
+		Aliases:  []string{"c"},
+		Value:    "",
+		Usage:    "context name to use from kubeconfig, defaults to current context",
+		Required: false,
+	},
+	&cli.BoolFlag{
+		Name:     "all-contexts",
+		Aliases:  []string{"a"},
+		Value:    false,
+		Usage:    "iterate all kubeconfig contexts, 'context' flag will be ignored if this flag is set",
+		Required: false,
+	},
+	&cli.StringFlag{
+		Name:     "exclude-contexts",
+		Value:    "",
+		Usage:    "a comma separated list of kubeconfig context names to skip, only relevant if 'all-contexts' flag is set",
 		Required: false,
 	},
 }
@@ -187,21 +202,12 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		NodeResourceUsageThreshold:       c.Float64("node-resource-usage-threshold"),
 		ExcludeNamespaces:                splitListFlag(c.String("exclude-ns")),
 		IncludeNamespaces:                splitListFlag(c.String("include-ns")),
-		ClusterName:                      c.String("name"),
 		MessagesDeduplicationDuration:    time.Minute * time.Duration(c.Int("dedup-minutes")),
 		StoreFilePath:                    c.String("store-filepath"),
 		OutputMode:                       c.String("output"),
-	}
-
-	if config.KubeconfigFilePath == "" {
-		homedirPath := homedir.HomeDir()
-		if homedirPath == "" {
-			return nil, fmt.Errorf("failed to determine homedir path")
-		}
-		config.KubeconfigFilePath = filepath.Join(homedirPath, ".kube/config")
-	}
-	if _, err := os.Stat(config.KubeconfigFilePath); errors.Is(err, fs.ErrNotExist) {
-		return nil, fmt.Errorf("kubeconfig does not exist at provided path '%v'", config.KubeconfigFilePath)
+		ContextName:                      c.String("context"),
+		AllContexts:                      c.Bool("all-contexts"),
+		ExcludeContexts:                  splitListFlag(c.String("exclude-contexts")),
 	}
 
 	if config.StoreFilePath != "" {
@@ -235,5 +241,41 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		log.SetLevel(log.InfoLevel)
 	}
 
+	if config.KubeconfigFilePath == "" {
+		config.KubeconfigFilePath, err = defaultKubeconfigPath()
+		if err != nil || config.KubeconfigFilePath == "" {
+			return nil, fmt.Errorf("failed to determine default kubeconfig file path: %v", err)
+		}
+	}
+
 	return config, nil
+}
+
+func defaultKubeconfigPath() (string, error) {
+	if filePath := os.Getenv("KUBECONFIG"); filePath != "" {
+		return filePath, nil
+	}
+
+	homedirPath := homedir.HomeDir()
+	if homedirPath == "" {
+		return "", fmt.Errorf("failed to determine homedir path")
+	}
+
+	return filepath.Join(homedirPath, ".kube", "config"), nil
+}
+
+func (config *Config) DefaultSink() sink.Sink {
+	switch config.OutputMode {
+	case "json":
+		return &sink.JsonSink{}
+	case "yaml":
+		return &sink.YamlSink{}
+	case "pretty":
+		return &sink.PrettySink{}
+	case "discard":
+		return &sink.DiscardSink{}
+	default:
+		log.Errorf("output mode '%v' is not supported -- using pretty mode", config.OutputMode)
+		return &sink.PrettySink{}
+	}
 }

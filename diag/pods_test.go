@@ -1,6 +1,7 @@
 package diag
 
 import (
+	"github.com/reallyliri/kubescout/internal"
 	"github.com/reallyliri/kubescout/kubeclient"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
@@ -348,7 +349,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 18,
 	}
 
-	skipIndexes := toMap(unhealthyIndexes)
+	skipIndexes := internal.ToMap(unhealthyIndexes)
 
 	now := asTime("2021-07-18T07:42:00Z")
 	verifyPodsHealthyExcept(t, pods, now, skipIndexes)
