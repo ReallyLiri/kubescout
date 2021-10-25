@@ -181,7 +181,7 @@ func TestIntegration(t *testing.T) {
 
 	defer func() { cleanUp(manager) }()
 
-	time.Sleep(time.Minute * time.Duration(2))
+	time.Sleep(time.Minute * time.Duration(3))
 
 	verifyClusterReadyForTest(t, client)
 
@@ -197,8 +197,8 @@ func TestIntegration(t *testing.T) {
 	require.NotNil(t, verifySink.alerts)
 	assert.Equal(t, 1, len(verifySink.alerts.AlertsByClusterName))
 	assert.NotNil(t, verifySink.alerts.AlertsByClusterName["minikube"])
-
 	relevantMessagesFirstRun := verifySink.alerts.AlertsByClusterName["minikube"]
+	verifySink.alerts = nil
 	verifyAlertsForFullDiagRun(t, relevantMessagesFirstRun)
 
 	storeContent, err := ioutil.ReadFile(configuration.StoreFilePath)
@@ -209,8 +209,10 @@ func TestIntegration(t *testing.T) {
 	err = pkg.Scout(configuration, verifySink)
 	require.Nil(t, err)
 
-	relevantMessagesSecondRun := verifySink.alerts.AlertsByClusterName["minikube"]
-	verifyAlertsForSilencedRun(t, relevantMessagesSecondRun)
+	assert.Nil(t, verifySink.alerts)
+	if verifySink.alerts != nil {
+		verifySink.alerts = nil
+	}
 
 	log.Infof("sleeping to get de-dup grace time to pass")
 	time.Sleep(time.Minute)
@@ -219,7 +221,11 @@ func TestIntegration(t *testing.T) {
 	err = pkg.Scout(configuration, verifySink)
 	require.Nil(t, err)
 
+	require.NotNil(t, verifySink.alerts)
+	assert.Equal(t, 1, len(verifySink.alerts.AlertsByClusterName))
+	assert.NotNil(t, verifySink.alerts.AlertsByClusterName["minikube"])
 	relevantMessagesThirdRun := verifySink.alerts.AlertsByClusterName["minikube"]
+	verifySink.alerts = nil
 	verifyAlertsForFullDiagRun(t, relevantMessagesThirdRun)
 }
 
@@ -234,26 +240,6 @@ func verifyAlertsForFullDiagRun(t *testing.T, alerts alert.EntityAlerts) {
 	assert.Equal(t, 5, len(alerts))
 	for i, entityAlert := range alerts {
 		assertMessage(t, expectedFormatsFirstRun[i], entityAlert.String())
-	}
-}
-
-func verifyAlertsForSilencedRun(t *testing.T, alerts alert.EntityAlerts) {
-	// ideally we'd have 0 messages, but sometimes we get some first run messages on delay and they shouldn't be silenced
-	if len(alerts) > 3 {
-		assert.Fail(t, "too many messages on second run: %v", len(alerts))
-	}
-	expectedFormat := `Pod default/test-* is un-healthy:
-*test-*
-Logs of container test-*:
---------
-1
-2
-3
-4
-5
---------`
-	for _, entityAlert := range alerts {
-		assertMessage(t, expectedFormat, entityAlert.String())
 	}
 }
 
