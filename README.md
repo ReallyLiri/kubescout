@@ -13,81 +13,160 @@ api.
 Output example:
 
 ```
-Found 13 alerts for cluster minikube:
-Pod default/test-2-broken-image-7cbf974df9-g2tqp is un-healthy
-        Pod is in Pending phase
-        test-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image "nginx:l4t3st"
+Found 5 alerts for cluster minikube:
+Pod default/test-2-broken-image-7cbf974df9-6zvr8 is un-healthy:
+Pod is in Pending phase
+test-2-broken-image still waiting due to ErrImagePull: rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown
+Event by kubelet: Failed x4 since 25 Oct 21 07:26 UTC (last seen 15 seconds ago):
+	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown
+Event by kubelet: Failed x4 since 25 Oct 21 07:26 UTC (last seen 15 seconds ago):
+	Error: ErrImagePull
+Event by kubelet: Failed x5 since 25 Oct 21 07:26 UTC (last seen 1 second ago):
+	Error: ImagePullBackOff
 ----------------
-Event on Pod test-2-broken-image-7cbf974df9-g2tqp due to Failed (at 21 Oct 21 06:21 UTC, 7 minutes ago):
-        Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown
+Pod default/test-3-excessive-resources-699d58f55f-rxr2l is un-healthy:
+Pod is in Pending phase
+Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 1 minute ago)
+Event by default-scheduler: FailedScheduling since 25 Oct 21 07:26 UTC (last seen 1 minute ago):
+	0/1 nodes are available: 1 Insufficient memory.
 ----------------
-Event on Pod test-2-broken-image-7cbf974df9-g2tqp due to Failed (at 21 Oct 21 06:21 UTC, 7 minutes ago):
-        Error: ErrImagePull
+Pod default/test-4-crashlooping-dbdd84589-j6r8v is un-healthy:
+test-4-crashlooping terminated due to Error (exit code 1)
+test-4-crashlooping had restarted 4 times, last exit due to Error (exit code 1)
+Event by kubelet: BackOff x8 since 25 Oct 21 07:26 UTC (last seen 19 seconds ago):
+	Back-off restarting failed container
+Logs of container test-4-crashlooping:
+--------
+1
+2
+3
+4
+5
+--------
 ----------------
-Event on Pod test-2-broken-image-7cbf974df9-g2tqp due to Failed (at 21 Oct 21 06:22 UTC, 7 minutes ago):
-        Error: ImagePullBackOff
+Pod default/test-5-completed-757685986-s58rv is un-healthy:
+test-5-completed still waiting due to CrashLoopBackOff: back-off 1m20s restarting failed container
+test-5-completed had restarted 4 times, last exit due to Completed (exit code 0)
+Event by kubelet: BackOff x7 since 25 Oct 21 07:26 UTC (last seen 25 seconds ago):
+	Back-off restarting failed container
+Logs of container test-5-completed:
+--------
+1
+2
+3
+4
+5
+--------
 ----------------
-Pod default/test-3-excessive-resources-699d58f55f-52xbb is un-healthy
-        Pod is in Pending phase
-        Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 9 minutes ago)
+Pod default/test-6-crashlooping-init-644545f5b7-sffvr is un-healthy:
+Pod is in Pending phase
+test-6-crashlooping-init-container (init) terminated due to Error (exit code 1)
+test-6-crashlooping-init-container (init) had restarted 4 times, last exit due to Error (exit code 1)
+Event by kubelet: BackOff x8 since 25 Oct 21 07:26 UTC (last seen 20 seconds ago):
+	Back-off restarting failed container
+Logs of container test-6-crashlooping-init-container:
+--------
+1
+2
+3
+4
+5
+--------
 ----------------
-Event on Pod test-3-excessive-resources-699d58f55f-52xbb due to FailedScheduling (at unavailable time, unknown time ago):
-        0/1 nodes are available: 1 Insufficient memory.
-----------------
-Pod default/test-4-crashlooping-dbdd84589-mwtxk is un-healthy
-        test-4-crashlooping still waiting due to CrashLoopBackOff: back-off 5m0s restarting failed container
-        test-4-crashlooping had restarted 6 times, last exit due to Error (exit code 1)
-logs of container test-4-crashlooping:
-<<<<<<<<<<
-...
->>>>>>>>>>
-----------------
-Event on Pod test-4-crashlooping-dbdd84589-mwtxk due to BackOff (at 21 Oct 21 06:25 UTC, 4 minutes ago):
-        Back-off restarting failed container
-----------------
-Pod default/test-5-completed-757685986-7v2hm is un-healthy
-        test-5-completed still waiting due to CrashLoopBackOff: back-off 5m0s restarting failed container
-        test-5-completed had restarted 6 times, last exit due to Completed (exit code 0)
-logs of container test-5-completed:
-<<<<<<<<<<
-...
->>>>>>>>>>
-----------------
-Event on Pod test-5-completed-757685986-7v2hm due to BackOff (at 21 Oct 21 06:24 UTC, 4 minutes ago):
-        Back-off restarting failed container
-----------------
-Pod default/test-6-crashlooping-init-644545f5b7-xpfsb is un-healthy
-        Pod is in Pending phase
-        test-6-crashlooping-init-container (init) still waiting due to CrashLoopBackOff: back-off 5m0s restarting failed container
-        test-6-crashlooping-init-container (init) had restarted 6 times, last exit due to Error (exit code 1)
-logs of container test-6-crashlooping-init-container:
-<<<<<<<<<<
-...
->>>>>>>>>>
-----------------
-Event on Pod test-6-crashlooping-init-644545f5b7-xpfsb due to BackOff (at 21 Oct 21 06:25 UTC, 4 minutes ago):
-        Back-off restarting failed container
 ```
 
 Or in json format:
 
 ```json
 {
-  "cluster_name": "minikube",
-  "content": [
-    "Pod default/test-2-broken-image-7cbf974df9-g2tqp is un-healthy\n\tPod is in Pending phase\n\ttest-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image \"nginx:l4t3st\"",
-    "Event on Pod test-2-broken-image-7cbf974df9-g2tqp due to Failed (at 21 Oct 21 06:20 UTC, 10 seconds ago):\n\tFailed to pull image \"nginx:l4t3st\": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown",
-    "Event on Pod test-2-broken-image-7cbf974df9-g2tqp due to Failed (at 21 Oct 21 06:20 UTC, 10 seconds ago):\n\tError: ErrImagePull",
-    "Event on Pod test-2-broken-image-7cbf974df9-g2tqp due to Failed (at 21 Oct 21 06:20 UTC, 25 seconds ago):\n\tError: ImagePullBackOff",
-    "Pod default/test-3-excessive-resources-699d58f55f-52xbb is un-healthy\n\tPod is in Pending phase\n\tUnschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 42 seconds ago)",
-    "Event on Pod test-3-excessive-resources-699d58f55f-52xbb due to FailedScheduling (at unavailable time, unknown time ago):\n\t0/1 nodes are available: 1 Insufficient memory.",
-    "Pod default/test-4-crashlooping-dbdd84589-mwtxk is un-healthy\n\ttest-4-crashlooping terminated due to Error (exit code 1)\nlogs of container test-4-crashlooping:\n\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\n1\n2\n3\n4\n5\n\n\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e",
-    "Event on Pod test-4-crashlooping-dbdd84589-mwtxk due to BackOff (at 21 Oct 21 06:20 UTC, 7 seconds ago):\n\tBack-off restarting failed container",
-    "Pod default/test-5-completed-757685986-7v2hm is un-healthy\n\ttest-5-completed still waiting due to CrashLoopBackOff: back-off 10s restarting failed container\nlogs of container test-5-completed:\n\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\n1\n2\n3\n4\n5\n\n\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e",
-    "Event on Pod test-5-completed-757685986-7v2hm due to BackOff (at 21 Oct 21 06:20 UTC, 18 seconds ago):\n\tBack-off restarting failed container",
-    "Pod default/test-6-crashlooping-init-644545f5b7-xpfsb is un-healthy\n\tPod is in Pending phase\n\ttest-6-crashlooping-init-container (init) terminated due to Error (exit code 1)\nlogs of container test-6-crashlooping-init-container:\n\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\u003c\n1\n2\n3\n4\n5\n\n\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e",
-    "Event on Pod test-6-crashlooping-init-644545f5b7-xpfsb due to BackOff (at 21 Oct 21 06:20 UTC, 3 seconds ago):\n\tBack-off restarting failed container"
-  ]
+  "alerts_by_cluster_name": {
+    "minikube": [
+      {
+        "cluster_name": "minikube",
+        "namespace": "default",
+        "name": "test-2-broken-image-7cbf974df9-6zvr8",
+        "kind": "Pod",
+        "messages": [
+          "Pod is in Pending phase",
+          "test-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image \"nginx:l4t3st\""
+        ],
+        "events": [
+          "Event by kubelet: Failed x4 since 25 Oct 21 07:26 UTC (last seen 49 seconds ago):\n\tFailed to pull image \"nginx:l4t3st\": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown",
+          "Event by kubelet: Failed x4 since 25 Oct 21 07:26 UTC (last seen 49 seconds ago):\n\tError: ErrImagePull",
+          "Event by kubelet: Failed x6 since 25 Oct 21 07:26 UTC (last seen 23 seconds ago):\n\tError: ImagePullBackOff"
+        ],
+        "logs_by_container_name": {},
+        "timestamp": "2021-10-25T07:28:49.24639Z"
+      },
+      {
+        "cluster_name": "minikube",
+        "namespace": "default",
+        "name": "test-3-excessive-resources-699d58f55f-rxr2l",
+        "kind": "Pod",
+        "messages": [
+          "Pod is in Pending phase",
+          "Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 2 minutes ago)"
+        ],
+        "events": [
+          "Event by default-scheduler: FailedScheduling since 25 Oct 21 07:26 UTC (last seen 2 minutes ago):\n\t0/1 nodes are available: 1 Insufficient memory."
+        ],
+        "logs_by_container_name": {},
+        "timestamp": "2021-10-25T07:28:49.24639Z"
+      },
+      {
+        "cluster_name": "minikube",
+        "namespace": "default",
+        "name": "test-4-crashlooping-dbdd84589-j6r8v",
+        "kind": "Pod",
+        "messages": [
+          "test-4-crashlooping still waiting due to CrashLoopBackOff: back-off 1m20s restarting failed container",
+          "test-4-crashlooping had restarted 4 times, last exit due to Error (exit code 1)"
+        ],
+        "events": [
+          "Event by kubelet: BackOff x8 since 25 Oct 21 07:26 UTC (last seen 53 seconds ago):\n\tBack-off restarting failed container"
+        ],
+        "logs_by_container_name": {
+          "test-4-crashlooping": "1\n2\n3\n4\n5"
+        },
+        "timestamp": "2021-10-25T07:28:49.24639Z"
+      },
+      {
+        "cluster_name": "minikube",
+        "namespace": "default",
+        "name": "test-5-completed-757685986-s58rv",
+        "kind": "Pod",
+        "messages": [
+          "test-5-completed still waiting due to CrashLoopBackOff: back-off 1m20s restarting failed container",
+          "test-5-completed had restarted 4 times, last exit due to Completed (exit code 0)"
+        ],
+        "events": [
+          "Event by kubelet: BackOff x7 since 25 Oct 21 07:26 UTC (last seen 59 seconds ago):\n\tBack-off restarting failed container"
+        ],
+        "logs_by_container_name": {
+          "test-5-completed": "1\n2\n3\n4\n5"
+        },
+        "timestamp": "2021-10-25T07:28:49.24639Z"
+      },
+      {
+        "cluster_name": "minikube",
+        "namespace": "default",
+        "name": "test-6-crashlooping-init-644545f5b7-sffvr",
+        "kind": "Pod",
+        "messages": [
+          "Pod is in Pending phase",
+          "test-6-crashlooping-init-container (init) still waiting due to CrashLoopBackOff: back-off 1m20s restarting failed container",
+          "test-6-crashlooping-init-container (init) had restarted 4 times, last exit due to Error (exit code 1)"
+        ],
+        "events": [
+          "Event by kubelet: BackOff x8 since 25 Oct 21 07:26 UTC (last seen 54 seconds ago):\n\tBack-off restarting failed container"
+        ],
+        "logs_by_container_name": {
+          "test-6-crashlooping-init-container": "1\n2\n3\n4\n5"
+        },
+        "timestamp": "2021-10-25T07:28:49.24639Z"
+      }
+    ]
+  }
 }
 ```
 

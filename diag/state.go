@@ -50,8 +50,11 @@ func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 			logs, err := context.client.GetPodLogs(pod.Namespace, pod.Name, containerStatus.Name)
 			if err != nil {
 				log.Errorf("failed to get logs of %v/%v/%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
-			} else if logs != "" {
-				state.logsCollections[containerStatus.Name] = logs
+			} else {
+				logs = strings.TrimSpace(logs)
+				if logs != "" {
+					state.logsCollections[containerStatus.Name] = logs
+				}
 			}
 		}
 		anyMessage = anyMessage || anyMessageForContainer

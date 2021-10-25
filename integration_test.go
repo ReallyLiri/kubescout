@@ -225,7 +225,6 @@ Logs of container test-*:
 3
 4
 5
-
 --------`
 	for _, entityAlert := range alerts {
 		assertMessage(t, expectedFormat, entityAlert.String())
@@ -260,7 +259,6 @@ Logs of container test-4-crashlooping:
 3
 4
 5
-
 --------`,
 
 	`Pod default/test-5-completed-* is un-healthy:
@@ -274,7 +272,6 @@ Logs of container test-5-completed:
 3
 4
 5
-
 --------`,
 
 	`Pod default/test-6-crashlooping-init-* is un-healthy:
@@ -289,7 +286,6 @@ Logs of container test-6-crashlooping-init-container:
 3
 4
 5
-
 --------`,
 
 	`unexpected`,
