@@ -30,12 +30,15 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 
 	stor, err := store.LoadOrCreate(configuration)
 	if err != nil {
-		return fmt.Errorf("failed to load store: %v", err)
+		return err
 	}
 
 	alerts := alert.NewAlerts()
 
 	contextNames, err := configuration.ContextNames(contextManager)
+	if err != nil {
+		return err
+	}
 
 	var aggregatedErr error
 	for _, contextName := range contextNames {

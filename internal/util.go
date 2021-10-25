@@ -3,7 +3,7 @@ package internal
 func Keys(m map[string]bool) []string {
 	keys := make([]string, len(m))
 	i := 0
-	for key, _ := range m {
+	for key := range m {
 		keys[i] = key
 		i++
 	}

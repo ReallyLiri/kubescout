@@ -47,7 +47,7 @@ func (manager *configContextManager) GetCurrentContext() string {
 
 func (manager *configContextManager) GetContextNames() (names []string, err error) {
 
-	for name, _ := range manager.kubeconfig.Contexts {
+	for name := range manager.kubeconfig.Contexts {
 		if name != "" {
 			names = append(names, name)
 		}
