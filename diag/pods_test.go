@@ -66,7 +66,7 @@ func TestPodState_PodPendingTooLong(t *testing.T) {
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 2, len(messages))
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -100,7 +100,7 @@ func TestPodState_StuckInitializing(t *testing.T) {
 		log.Debug(state.String())
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.name)
-		messages := state.messages
+		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
 		require.Equal(t, 3, len(messages))
 		require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -126,7 +126,7 @@ func TestPodState_EvictedOnInodes(t *testing.T) {
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Pod is in Failed phase due to Evicted: The node was low on resource: inodes.", messages[0])
@@ -149,7 +149,7 @@ func TestPodState_EvictedOnMemory(t *testing.T) {
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Pod is in Failed phase due to Evicted: The node was low on resource: memory. Container memory-bomb-container was using 24GB, which exceeds its request of 0.", messages[0])
@@ -173,7 +173,7 @@ func TestPodState_EvictedOnDiskPressure(t *testing.T) {
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Pod is in Failed phase due to Evicted: The node was low on resource: ephemeral-storage. Container queue-consumer was using 811kB, which exceeds its request of 0. Container app6 was using 103GB, which exceeds its request of 0.", messages[0])
@@ -214,7 +214,7 @@ func TestPodState_CreateFailed(t *testing.T) {
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "queue-consumer still waiting due to CreateContainerError: context deadline exceeded", messages[0])
@@ -267,7 +267,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.name)
-		messages := state.messages
+		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
 		require.Equal(t, 3, len(messages))
 		require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -285,7 +285,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.name)
-		messages := state.messages
+		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
 		if len(messages) == 2 {
 			require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -321,7 +321,7 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "queue had restarted 5 times, last exit due to Error (exit code 137)", messages[0])
@@ -332,7 +332,7 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages = state.messages
+	messages = state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "app9 had restarted 7 times, last exit due to OOMKilled (exit code 137)", messages[0])
@@ -359,7 +359,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	log.Debugf("%v) %v", 0, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 2, len(messages))
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -371,7 +371,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages = state.messages
+	messages = state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 2, len(messages))
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -392,7 +392,7 @@ func TestPodState_PodUnschedulableDueToInsufficientMemory(t *testing.T) {
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 2, len(messages))
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -418,7 +418,7 @@ func TestPodState_JobFailed(t *testing.T) {
 		log.Debugf("%v) %v", i, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.name)
-		messages := state.messages
+		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
 		require.Equal(t, 2, len(messages))
 		require.Equal(t, "Pod is in Failed phase", messages[0])
@@ -440,7 +440,7 @@ func TestPodState_PodsStuckTerminating(t *testing.T) {
 		log.Debugf("%v) %v", i, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.name)
-		messages := state.messages
+		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
 		require.GreaterOrEqual(t, len(messages), 1)
 		require.Equal(t, "Pod is Terminating since 9 minutes ago (deletion grace is 30 sec)", messages[0])
@@ -460,7 +460,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	log.Debugf("%v) %v", 0, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages := state.messages
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.GreaterOrEqual(t, len(messages), 2)
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -471,7 +471,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages = state.messages
+	messages = state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.GreaterOrEqual(t, len(messages), 2)
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -482,7 +482,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	log.Debugf("%v) %v", 2, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages = state.messages
+	messages = state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.GreaterOrEqual(t, len(messages), 2)
 	require.Equal(t, "Pod is in Pending phase", messages[0])
@@ -503,7 +503,7 @@ func TestPodState_AllPodsPending(t *testing.T) {
 		log.Debugf("%v) %v", i, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.name)
-		messages := state.messages
+		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
 		require.Equal(t, 1, len(messages))
 		require.Equal(t, "Pod is in Pending phase", messages[0])

@@ -172,9 +172,7 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *e
 		builder.WriteString(strings.Join(lines, "\n\t"))
 	}
 
-	message := builder.String()
-	state.message = cleanMessage(message)
-	state.hash = hash(state.involvedObject, normalizeMessage(message))
+	state.message = builder.String()
 	return state, nil
 }
 

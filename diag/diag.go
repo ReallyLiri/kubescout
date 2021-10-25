@@ -54,19 +54,19 @@ func (context *diagContext) handleEntityState(state *entityState, namespace stri
 		Timestamp:           context.now,
 	}
 
-	hashes := state.hashes.Values()
 	addedHashes := make(map[string]bool)
-	for i, message := range state.messages {
-		messageHash := hashes[i].(string)
+	for _, message := range state.messages {
+		messageHash := hash(state.name, normalizeMessage(message))
 		if !addedHashes[messageHash] && context.store.ShouldAdd(messageHash, context.now) {
 			addedHashes[messageHash] = true
-			entityAlert.Messages = append(entityAlert.Messages, message)
+			entityAlert.Messages = append(entityAlert.Messages, cleanMessage(message))
 		}
 	}
 	for _, event := range events {
-		if !addedHashes[event.hash] && context.store.ShouldAdd(event.hash, context.now) {
-			addedHashes[event.hash] = true
-			entityAlert.Events = append(entityAlert.Events, event.message)
+		messageHash := hash(event.involvedObject, normalizeMessage(event.message))
+		if !addedHashes[messageHash] && context.store.ShouldAdd(messageHash, context.now) {
+			addedHashes[messageHash] = true
+			entityAlert.Events = append(entityAlert.Events, cleanMessage(event.message))
 		}
 	}
 	if len(addedHashes) == 0 {
@@ -97,12 +97,13 @@ func (context *diagContext) handleStandaloneEvent(state *eventState) (stored boo
 		Timestamp:           context.now,
 	}
 
-	if !context.store.ShouldAdd(state.hash, context.now) {
+	messageHash := hash(state.involvedObject, normalizeMessage(state.message))
+	if !context.store.ShouldAdd(messageHash, context.now) {
 		return false
 	}
-	entityAlert.Events = append(entityAlert.Events, state.message)
+	entityAlert.Events = append(entityAlert.Events, cleanMessage(state.message))
 
-	context.store.Add(entityAlert, []string{state.hash}, context.now)
+	context.store.Add(entityAlert, []string{messageHash}, context.now)
 	return true
 }
 

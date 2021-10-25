@@ -193,6 +193,14 @@ func keys(m map[string]bool) []string {
 	return keys
 }
 
+func castToString(slice []interface{}) []string {
+	result := make([]string, len(slice))
+	for i, val := range slice {
+		result[i] = val.(string)
+	}
+	return result
+}
+
 func toMap(indexes []int) map[int]bool {
 	m := make(map[int]bool, len(indexes))
 	for _, index := range indexes {

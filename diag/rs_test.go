@@ -41,7 +41,7 @@ func TestReplicaSetState_ExceededQuota(t *testing.T) {
 		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.name)
-		messages := state.messages
+		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
 		require.Equal(t, 1, len(messages))
 		require.True(t, strings.HasPrefix(messages[0], "Failed Create: pods \""))

@@ -2,7 +2,7 @@ package diag
 
 import (
 	"fmt"
-	"github.com/goombaio/orderedset"
+	"github.com/goombaio/orderedmap"
 	"strings"
 	"time"
 )
@@ -10,7 +10,6 @@ import (
 type entityState struct {
 	name            string
 	kind            string
-	hashes          *orderedset.OrderedSet
 	messages        []string
 	logsCollections map[string]string
 }
@@ -18,7 +17,6 @@ type entityState struct {
 type eventState struct {
 	involvedObject     string
 	involvedObjectKind string
-	hash               string
 	message            string
 	timestamp          time.Time
 	namespace          string
@@ -28,7 +26,6 @@ func newState(name, kind string) *entityState {
 	return &entityState{
 		name:            name,
 		kind:            kind,
-		hashes:          orderedset.NewOrderedSet(),
 		messages:        []string{},
 		logsCollections: map[string]string{},
 	}
@@ -46,6 +43,15 @@ func (state *entityState) String() string {
 	return strings.Join(messages, "\n\t")
 }
 
+func (state *entityState) cleanMessages() []string {
+	cleanMessages := orderedmap.NewOrderedMap()
+	for _, message := range state.messages {
+		a := cleanMessage(message)
+		cleanMessages.Put(a, true)
+	}
+	return castToString(cleanMessages.Keys())
+}
+
 func (state *entityState) appendMessage(format string, a ...interface{}) {
 	var message string
 	if len(a) > 0 {
@@ -56,12 +62,7 @@ func (state *entityState) appendMessage(format string, a ...interface{}) {
 	if message == "" {
 		return
 	}
-	messageHash := hash(state.name, normalizeMessage(message))
-	if state.hashes.Contains(messageHash) {
-		return
-	}
-	state.hashes.Add(messageHash)
-	state.messages = append(state.messages, cleanMessage(message))
+	state.messages = append(state.messages, message)
 }
 
 func (state *eventState) isHealthy() bool {
@@ -73,4 +74,8 @@ func (state *eventState) String() string {
 		return fmt.Sprintf("%v has a healthy event\n", state.involvedObject)
 	}
 	return fmt.Sprintf("Event on %v %v: %v", state.involvedObjectKind, state.involvedObject, state.message)
+}
+
+func (state *eventState) cleanMessage() string {
+	return cleanMessage(state.message)
 }
