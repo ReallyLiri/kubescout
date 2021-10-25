@@ -170,14 +170,6 @@ Or in json format:
 }
 ```
 
-## Roadmap
-
-* Usage: Dockerfile, kube manifests, helm, job, cronjob
-* Feature: Node resources (disk, inodes, processes)
-* Feature: Node native service problems (kubelet, docker, containerd)
-* Feature: Automatic fix actions
-* Feature: Nodes defragmentation
-
 ## Usage
 
 ### Kubernetes Native
@@ -188,16 +180,16 @@ TBD
 
 ```
 NAME:
-   kubescout - 0.1.3 - Scout for alarming issues in your Kubernetes cluster
+   kubescout - 0.1.5 - Scout for alarming issues in your Kubernetes cluster
 
 USAGE:
-   kubescout             --name value   [optional flags]
+   kubescout                   [optional flags]
 
 OPTIONS:
    --verbose, --vv                        Log verbose (default: false)
    --logs-tail value                      Length of logs tail when reporting of a problematic pod's logs (default: 250)
    --events-limit value                   Limits of namespace events to fetch (default: 150)
-   --kubeconfig value, -c value           path to kubeconfig file, defaults to ~/.kube/config
+   --kubeconfig value, -k value           path to kubeconfig file, defaults to the value of env var KUBECONFIG or ~/.kube/config
    --time-format value, -f value          format for printing timestamps (default: "02 Jan 06 15:04 MST")
    --locale value, -l value               localization to use when printing timestamps (default: "UTC")
    --pod-creation-grace-sec value         grace time in seconds since pod creation (default: 30)
@@ -206,9 +198,12 @@ OPTIONS:
    --node-resource-usage-threshold value  node resources usage threshold (default: 0.85)
    --exclude-ns value, -e value           namespaces to skip
    --include-ns value, -i value           namespaces to include (will skip any not listed if this option is used)
-   --name value, -n value                 name of the scouted cluster
    --dedup-minutes value, -d value        number of minutes to silence duplicated or already observed alerts or 0 if this feature should not be applied (default: 60)
    --store-filepath value, -s value       path to store file where duplicated message information will be persisted or empty string if this feature should not be applied (default: "kube-scout.store.json")
+   --output value, -o value               output mode, one of pretty/json/yaml/discard (default: "pretty")
+   --context value, -c value              context name to use from kubeconfig, defaults to current context
+   --all-contexts, -a                     iterate all kubeconfig contexts, 'context' flag will be ignored if this flag is set (default: false)
+   --exclude-contexts value               a comma separated list of kubeconfig context names to skip, only relevant if 'all-contexts' flag is set
    --help, -h                             show help (default: false)
    --version, -v                          print the version (default: false)
 ```
