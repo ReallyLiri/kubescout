@@ -176,8 +176,8 @@ func TestIntegration(t *testing.T) {
 	require.NotNil(t, vSink.alerts)
 	assert.Equal(t, 1, len(vSink.alerts.AlertsByClusterName))
 	assert.NotNil(t, vSink.alerts.AlertsByClusterName["minikube"])
-	vSink.alerts = nil
 	verifyAlertsForFullDiagRun(t, vSink.alerts.AlertsByClusterName["minikube"])
+	vSink.alerts = nil
 
 	storeContent, err := ioutil.ReadFile(cfg.StoreFilePath)
 	require.Nil(t, err)
@@ -189,6 +189,7 @@ func TestIntegration(t *testing.T) {
 
 	if vSink.alerts != nil {
 		verifyAlertsForSilencedRun(t, vSink.alerts.AlertsByClusterName["minikube"])
+		vSink.alerts = nil
 	}
 
 	log.Infof("sleeping to get de-dup grace time to pass")
@@ -201,8 +202,8 @@ func TestIntegration(t *testing.T) {
 	require.NotNil(t, vSink.alerts)
 	assert.Equal(t, 1, len(vSink.alerts.AlertsByClusterName))
 	assert.NotNil(t, vSink.alerts.AlertsByClusterName["minikube"])
-	vSink.alerts = nil
 	verifyAlertsForFullDiagRun(t, vSink.alerts.AlertsByClusterName["minikube"])
+	vSink.alerts = nil
 }
 
 func assertMessage(t *testing.T, expectedFormat string, actualMessage string) {
