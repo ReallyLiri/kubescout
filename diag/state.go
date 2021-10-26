@@ -8,8 +8,42 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"strconv"
 	"strings"
-	"time"
 )
+
+func (context *diagContext) getOrAddState(namespace, kind, name string) *entityState {
+	eName := entityName{
+		namespace: namespace,
+		kind:      kind,
+		name:      name,
+	}
+	state, found := context.statesByName[eName]
+	if !found {
+		state = newState(eName)
+		context.statesByName[eName] = state
+	}
+	return state
+}
+
+func (context *diagContext) addEventState(namespace, kind, name string) *eventState {
+	eName := entityName{
+		namespace: namespace,
+		kind:      kind,
+		name:      name,
+	}
+	eventsOfEntity, exists := context.eventsByName[eName]
+	if !exists {
+		eventsOfEntity = []*eventState{}
+	}
+	evState := &eventState{
+		name: entityName{
+			namespace: namespace,
+			kind:      kind,
+			name:      name,
+		},
+	}
+	context.eventsByName[eName] = append(eventsOfEntity, evState)
+	return evState
+}
 
 func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStatus, initContainers bool, context *diagContext) bool {
 	subTitle := ""
@@ -62,8 +96,8 @@ func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStat
 	return anyMessage
 }
 
-func (context *diagContext) podState(pod *v1.Pod, now time.Time) (state *entityState, err error) {
-	state = newState(pod.Name, "Pod")
+func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error) {
+	state = context.getOrAddState(pod.Namespace, "Pod", pod.Name)
 
 	podPhase := pod.Status.Phase
 	if podPhase == v1.PodSucceeded {
@@ -74,7 +108,7 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time) (state *entityS
 	if pod.Status.StartTime != nil {
 		baselineTime = pod.Status.StartTime.Time
 	}
-	sinceCreation := now.Sub(baselineTime).Seconds()
+	sinceCreation := context.now.Sub(baselineTime).Seconds()
 	if sinceCreation < context.config.PodCreationGracePeriodSeconds {
 		return
 	}
@@ -88,12 +122,12 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time) (state *entityS
 		state.appendMessage("Pod is in %v phase due to %v: %v", podPhase, statusReason, statusMessage)
 	} else if pod.DeletionTimestamp != nil {
 		deletionTime := (*pod.DeletionTimestamp).Time
-		if now.Sub(deletionTime).Seconds() > float64(valueOrDefault(pod.DeletionGracePeriodSeconds, context.config.PodTerminationGracePeriodSeconds)) {
+		if context.now.Sub(deletionTime).Seconds() > float64(valueOrDefault(pod.DeletionGracePeriodSeconds, context.config.PodTerminationGracePeriodSeconds)) {
 			suffix := ""
 			if pod.DeletionGracePeriodSeconds != nil && *pod.DeletionGracePeriodSeconds != 0 {
 				suffix = fmt.Sprintf(" (deletion grace is %v sec)", *pod.DeletionGracePeriodSeconds)
 			}
-			state.appendMessage("Pod is Terminating since %v%v", wrapTemporal(formatDuration(deletionTime, now)), suffix)
+			state.appendMessage("Pod is Terminating since %v%v", wrapTemporal(formatDuration(deletionTime, context.now)), suffix)
 		}
 	} else if podPhase != v1.PodRunning {
 		state.appendMessage("Pod is in %v phase", podPhase)
@@ -105,7 +139,12 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time) (state *entityS
 	if !anyStatusMessage && pod.DeletionTimestamp == nil {
 		for _, condition := range pod.Status.Conditions {
 			if condition.Status != "True" {
-				state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), condition.Message, wrapTemporal(formatDuration(condition.LastTransitionTime.Time, now)))
+				state.appendMessage(
+					"%v: %v (last transition: %v)",
+					splitToWords(condition.Reason),
+					condition.Message,
+					wrapTemporal(formatDuration(condition.LastTransitionTime.Time, context.now)),
+				)
 			}
 		}
 	}
@@ -113,14 +152,9 @@ func (context *diagContext) podState(pod *v1.Pod, now time.Time) (state *entityS
 	return
 }
 
-func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *eventState, err error) {
-	involvedObject := event.InvolvedObject
+func (context *diagContext) eventState(event *v1.Event) (state *eventState, err error) {
 
-	state = &eventState{
-		involvedObject:     involvedObject.Name,
-		involvedObjectKind: involvedObject.Kind,
-		namespace:          event.Namespace,
-	}
+	state = context.addEventState(event.InvolvedObject.Namespace, event.InvolvedObject.Kind, event.InvolvedObject.Name)
 
 	state.timestamp = event.EventTime.Time
 	if state.timestamp.IsZero() {
@@ -158,7 +192,7 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *e
 	builder.WriteString(fmt.Sprintf(
 		"since %v (last seen %v)",
 		wrapTemporal(formatTime(state.timestamp, context.config.TimeFormat, context.config.Locale)),
-		wrapTemporal(formatDuration(lastTimestamp, now)),
+		wrapTemporal(formatDuration(lastTimestamp, context.now)),
 	))
 
 	if event.Message != "" {
@@ -179,8 +213,8 @@ func (context *diagContext) eventState(event *v1.Event, now time.Time) (state *e
 	return state, nil
 }
 
-func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckResources bool) (state *entityState, err error) {
-	state = newState(node.Name, "Node")
+func (context *diagContext) nodeState(node *v1.Node, forceCheckResources bool) (state *entityState, err error) {
+	state = context.getOrAddState(node.Namespace, "Node", node.Name)
 
 	for _, condition := range node.Status.Conditions {
 		switch condition.Type {
@@ -193,7 +227,12 @@ func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckRe
 				continue
 			}
 		}
-		state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), formatUnitsSize(condition.Message), wrapTemporal(formatDuration(condition.LastTransitionTime.Time, now)))
+		state.appendMessage(
+			"%v: %v (last transition: %v)",
+			splitToWords(condition.Reason),
+			formatUnitsSize(condition.Message),
+			wrapTemporal(formatDuration(condition.LastTransitionTime.Time, context.now)),
+		)
 	}
 
 	if !state.isHealthy() && !forceCheckResources {
@@ -221,8 +260,8 @@ func (context *diagContext) nodeState(node *v1.Node, now time.Time, forceCheckRe
 	return
 }
 
-func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time.Time) (state *entityState, err error) {
-	state = newState(replicaSet.Name, "ReplicaSet")
+func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet) (state *entityState, err error) {
+	state = context.getOrAddState(replicaSet.Namespace, "ReplicaSet", replicaSet.Name)
 
 	specDesiredReplicas := replicaSet.Spec.Replicas
 	var desiredReplicas int
@@ -251,7 +290,12 @@ func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet, now time
 	}
 
 	for _, condition := range replicaSet.Status.Conditions {
-		state.appendMessage("%v: %v (last transition: %v)", splitToWords(condition.Reason), formatUnitsSize(condition.Message), wrapTemporal(formatDuration(condition.LastTransitionTime.Time, now)))
+		state.appendMessage(
+			"%v: %v (last transition: %v)",
+			splitToWords(condition.Reason),
+			formatUnitsSize(condition.Message),
+			wrapTemporal(formatDuration(condition.LastTransitionTime.Time, context.now)),
+		)
 	}
 	return
 }

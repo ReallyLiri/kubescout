@@ -62,7 +62,7 @@ func TestPodState_PodPendingTooLong(t *testing.T) {
 	require.NotEmpty(t, pods)
 
 	pendingPod := pods[0]
-	state, err := testContext().podState(&pendingPod, asTime("2021-07-18T07:15:00Z"))
+	state, err := testContext(asTime("2021-07-18T07:15:00Z")).podState(&pendingPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -96,7 +96,7 @@ func TestPodState_StuckInitializing(t *testing.T) {
 
 	for _, index := range pendingInitializationIndexes {
 		podStuckInitializing := pods[index]
-		state, err := testContext().podState(&podStuckInitializing, now)
+		state, err := testContext(now).podState(&podStuckInitializing)
 		require.Nil(t, err)
 		log.Debug(state.String())
 		require.False(t, state.isHealthy())
@@ -122,7 +122,7 @@ func TestPodState_EvictedOnInodes(t *testing.T) {
 	})
 
 	evictedPod := pods[6]
-	state, err := testContext().podState(&evictedPod, now)
+	state, err := testContext(now).podState(&evictedPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -145,7 +145,7 @@ func TestPodState_EvictedOnMemory(t *testing.T) {
 	})
 
 	evictedPod := pods[0]
-	state, err := testContext().podState(&evictedPod, now)
+	state, err := testContext(now).podState(&evictedPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -169,7 +169,7 @@ func TestPodState_EvictedOnDiskPressure(t *testing.T) {
 	})
 
 	evictedPod := pods[13]
-	state, err := testContext().podState(&evictedPod, now)
+	state, err := testContext(now).podState(&evictedPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -210,7 +210,7 @@ func TestPodState_CreateFailed(t *testing.T) {
 	require.Nil(t, err)
 
 	failingPod := pods[6]
-	state, err := testContextWithClient(mockClient).podState(&failingPod, now)
+	state, err := testContextWithClient(now, mockClient).podState(&failingPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -263,7 +263,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 
 	for _, index := range crashloopingIndexes {
 		crashingPod := pods[index]
-		state, err := testContextWithClient(mockClient).podState(&crashingPod, now)
+		state, err := testContextWithClient(now, mockClient).podState(&crashingPod)
 		require.Nil(t, err)
 		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())
@@ -281,7 +281,7 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 
 	for _, index := range initializingIndexes {
 		initializingPods := pods[index]
-		state, err := testContext().podState(&initializingPods, now)
+		state, err := testContext(now).podState(&initializingPods)
 		require.Nil(t, err)
 		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())
@@ -317,7 +317,7 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	})
 
 	restartingPod := pods[11]
-	state, err := testContext().podState(&restartingPod, now)
+	state, err := testContext(now).podState(&restartingPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -328,7 +328,7 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	require.Equal(t, "queue had restarted 5 times, last exit due to Error (exit code 137)", messages[0])
 
 	restartingPod = pods[13]
-	state, err = testContext().podState(&restartingPod, now)
+	state, err = testContext(now).podState(&restartingPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -355,7 +355,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	verifyPodsHealthyExcept(t, pods, now, skipIndexes)
 
 	restartingPod := pods[0]
-	state, err := testContext().podState(&restartingPod, now)
+	state, err := testContext(now).podState(&restartingPod)
 	require.Nil(t, err)
 	log.Debugf("%v) %v", 0, state)
 	require.False(t, state.isHealthy())
@@ -367,7 +367,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	require.Equal(t, "run-migrations (init) had restarted 5 times", messages[1])
 
 	pendingPod := pods[1]
-	state, err = testContext().podState(&pendingPod, now)
+	state, err = testContext(now).podState(&pendingPod)
 	require.Nil(t, err)
 	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
@@ -388,7 +388,7 @@ func TestPodState_PodUnschedulableDueToInsufficientMemory(t *testing.T) {
 	now := asTime("2021-07-18T07:42:00Z")
 
 	unschedulablePod := pods[0]
-	state, err := testContext().podState(&unschedulablePod, now)
+	state, err := testContext(now).podState(&unschedulablePod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -414,7 +414,7 @@ func TestPodState_JobFailed(t *testing.T) {
 		if i == 0 {
 			continue
 		}
-		state, err := testContext().podState(&failedPod, now)
+		state, err := testContext(now).podState(&failedPod)
 		require.Nil(t, err)
 		log.Debugf("%v) %v", i, state)
 		require.False(t, state.isHealthy())
@@ -436,7 +436,7 @@ func TestPodState_PodsStuckTerminating(t *testing.T) {
 	now := asTime("2021-10-05T16:55:00Z")
 
 	for i, terminatingPod := range pods {
-		state, err := testContext().podState(&terminatingPod, now)
+		state, err := testContext(now).podState(&terminatingPod)
 		require.Nil(t, err)
 		log.Debugf("%v) %v", i, state)
 		require.False(t, state.isHealthy())
@@ -456,7 +456,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 
 	now := asTime("2021-10-12T12:05:00Z")
 
-	state, err := testContext().podState(&pods[0], now)
+	state, err := testContext(now).podState(&pods[0])
 	require.Nil(t, err)
 	log.Debugf("%v) %v", 0, state)
 	require.False(t, state.isHealthy())
@@ -467,7 +467,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	require.Equal(t, "Pod is in Pending phase", messages[0])
 	require.Equal(t, "nginx-1 still waiting due to ImagePullBackOff: Back-off pulling image \"nginx:l4t3st\"", messages[1])
 
-	state, err = testContext().podState(&pods[1], now)
+	state, err = testContext(now).podState(&pods[1])
 	require.Nil(t, err)
 	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
@@ -478,7 +478,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	require.Equal(t, "Pod is in Pending phase", messages[0])
 	require.Equal(t, "Unschedulable: 0/7 nodes are available: 7 Insufficient memory. (last transition: 4 minutes ago)", messages[1])
 
-	state, err = testContext().podState(&pods[2], now)
+	state, err = testContext(now).podState(&pods[2])
 	require.Nil(t, err)
 	log.Debugf("%v) %v", 2, state)
 	require.False(t, state.isHealthy())
@@ -499,7 +499,7 @@ func TestPodState_AllPodsPending(t *testing.T) {
 	now := asTime("2021-10-19T09:00:00Z")
 
 	for i, pod := range pods {
-		state, err := testContext().podState(&pod, now)
+		state, err := testContext(now).podState(&pod)
 		require.Nil(t, err)
 		log.Debugf("%v) %v", i, state)
 		require.False(t, state.isHealthy())

@@ -5,6 +5,7 @@ import (
 	"github.com/reallyliri/kubescout/internal"
 	"github.com/reallyliri/kubescout/kubecontext"
 	log "github.com/sirupsen/logrus"
+	"sort"
 )
 
 func (config *Config) ContextNames(contextManager kubecontext.ConfigContextManager) ([]string, error) {
@@ -20,7 +21,7 @@ func (config *Config) ContextNames(contextManager kubecontext.ConfigContextManag
 		return nil, err
 	}
 	namesSet := internal.ToBoolMap(names)
-	if nameToUse != "" {
+	if !config.AllContexts {
 		_, found := namesSet[nameToUse]
 		if found {
 			log.Infof("Will use context %v", nameToUse)
@@ -35,5 +36,7 @@ func (config *Config) ContextNames(contextManager kubecontext.ConfigContextManag
 
 	log.Infof("Will iterate %v contexts", len(namesSet))
 
-	return internal.Keys(namesSet), nil
+	names = internal.Keys(namesSet)
+	sort.Strings(names)
+	return names, nil
 }

@@ -8,25 +8,27 @@ import (
 	"time"
 )
 
+type entityName struct {
+	namespace string
+	kind      string
+	name      string
+}
+
 type entityState struct {
-	name            string
-	kind            string
+	name            entityName
 	messages        []string
 	logsCollections map[string]string
 }
 
 type eventState struct {
-	involvedObject     string
-	involvedObjectKind string
-	message            string
-	timestamp          time.Time
-	namespace          string
+	name      entityName
+	message   string
+	timestamp time.Time
 }
 
-func newState(name, kind string) *entityState {
+func newState(entityName entityName) *entityState {
 	return &entityState{
-		name:            name,
-		kind:            kind,
+		name:            entityName,
 		messages:        []string{},
 		logsCollections: map[string]string{},
 	}
@@ -38,9 +40,9 @@ func (state *entityState) isHealthy() bool {
 
 func (state *entityState) String() string {
 	if state.isHealthy() {
-		return fmt.Sprintf("%v is healthy\n", state.name)
+		return fmt.Sprintf("%v is healthy\n", state.name.name)
 	}
-	messages := append([]string{fmt.Sprintf("%v %v is un-healthy", state.kind, state.name)}, state.cleanMessages()...)
+	messages := append([]string{fmt.Sprintf("%v %v is un-healthy", state.name.kind, state.name.name)}, state.cleanMessages()...)
 	return strings.Join(messages, "\n\t")
 }
 
@@ -72,9 +74,9 @@ func (state *eventState) isHealthy() bool {
 
 func (state *eventState) String() string {
 	if state.isHealthy() {
-		return fmt.Sprintf("%v has a healthy event\n", state.involvedObject)
+		return fmt.Sprintf("%v has a healthy event\n", state.name.name)
 	}
-	return fmt.Sprintf("Event on %v %v: %v", state.involvedObjectKind, state.involvedObject, cleanMessage(state.message))
+	return fmt.Sprintf("Event on %v %v: %v", state.name.kind, state.name.name, cleanMessage(state.message))
 }
 
 func (state *eventState) cleanMessage() string {

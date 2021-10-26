@@ -37,7 +37,7 @@ func TestReplicaSetState_ExceededQuota(t *testing.T) {
 	verifyReplicaSetsHealthyExcept(t, sets, now, skipIndexes)
 
 	for _, index := range errorSets {
-		state, err := testContext().replicaSetState(&sets[index], now)
+		state, err := testContext(now).replicaSetState(&sets[index])
 		require.Nil(t, err)
 		log.Debugf("%v) %v", index, state)
 		require.False(t, state.isHealthy())

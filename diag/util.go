@@ -116,6 +116,9 @@ func formatDuration(olderDate time.Time, newerDate time.Time) string {
 	if olderDate.IsZero() {
 		return "unknown time ago"
 	}
+	if newerDate.Before(olderDate) {
+		return "now"
+	}
 	return humanize.RelTime(olderDate, newerDate, "ago", "")
 }
 
@@ -167,9 +170,11 @@ func formatResourceUsage(allocatable int64, capacity int64, name string, usageTh
 	return ""
 }
 
-func hash(entityName string, message string) string {
+func hash(entityName entityName, message string) string {
 	sha := sha1.New()
-	sha.Write([]byte(entityName))
+	sha.Write([]byte(entityName.namespace))
+	sha.Write([]byte(entityName.kind))
+	sha.Write([]byte(entityName.name))
 	sha.Write([]byte(message))
 	asBytes := sha.Sum(nil)
 	return fmt.Sprintf("%x", asBytes)

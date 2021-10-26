@@ -24,7 +24,7 @@ func TestNodeState_NodeInUnknownState(t *testing.T) {
 	require.NotEmpty(t, nodes)
 
 	now := asTime("2021-10-13T15:00:00Z")
-	state, err := testContext().nodeState(&nodes[0], now, true)
+	state, err := testContext(now).nodeState(&nodes[0], true)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
@@ -43,7 +43,7 @@ func TestNodeState_ExcessiveCpu(t *testing.T) {
 
 	now := asTime("2021-07-19T15:00:00Z")
 
-	state, err := testContext().nodeState(&nodes[0], now, true)
+	state, err := testContext(now).nodeState(&nodes[0], true)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())

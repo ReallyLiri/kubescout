@@ -181,7 +181,7 @@ func TestIntegration(t *testing.T) {
 
 	defer func() { cleanUp(manager) }()
 
-	time.Sleep(time.Minute * time.Duration(3))
+	time.Sleep(time.Minute * time.Duration(2))
 
 	verifyClusterReadyForTest(t, client)
 
@@ -211,6 +211,9 @@ func TestIntegration(t *testing.T) {
 
 	assert.Nil(t, verifySink.alerts)
 	if verifySink.alerts != nil {
+		for _, entityAlert := range verifySink.alerts.AlertsByClusterName["minikube"] {
+			assert.Empty(t, entityAlert.String()) // printing for debugging
+		}
 		verifySink.alerts = nil
 	}
 

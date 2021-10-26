@@ -27,6 +27,7 @@ type Config struct {
 	MessagesDeduplicationDuration    time.Duration
 	StoreFilePath                    string
 	OutputMode                       string
+	Iterations                       int
 	ContextName                      string
 	AllContexts                      bool
 	ExcludeContexts                  []string
@@ -131,6 +132,13 @@ var Flags = []cli.Flag{
 		Usage:    "output mode, one of pretty/json/yaml/discard",
 		Required: false,
 	},
+	&cli.IntFlag{
+		Name:     "iterations",
+		Aliases:  []string{"it"},
+		Value:    3,
+		Usage:    "number of diag iterations, meant to better capture constantly changing states",
+		Required: false,
+	},
 	&cli.StringFlag{
 		Name:     "context",
 		Aliases:  []string{"c"},
@@ -205,6 +213,7 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		MessagesDeduplicationDuration:    time.Minute * time.Duration(c.Int("dedup-minutes")),
 		StoreFilePath:                    c.String("store-filepath"),
 		OutputMode:                       c.String("output"),
+		Iterations:                       c.Int("iterations"),
 		ContextName:                      c.String("context"),
 		AllContexts:                      c.Bool("all-contexts"),
 		ExcludeContexts:                  splitListFlag(c.String("exclude-contexts")),
@@ -246,6 +255,10 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		if err != nil || config.KubeconfigFilePath == "" {
 			return nil, fmt.Errorf("failed to determine default kubeconfig file path: %v", err)
 		}
+	}
+
+	if config.Iterations <= 0 {
+		return nil, fmt.Errorf("number of iterations is invalid: %v", config.Iterations)
 	}
 
 	return config, nil
