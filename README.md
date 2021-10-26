@@ -259,8 +259,8 @@ func main() {
 	_ = kubescout.Scout(nil, nil)
 	
 	// example using Slack webhook as sink:
-	configuration, _ := kubescoutconfig.DefaultConfig()
-	configuration.KubeconfigFilePath = "/root/configs/staging-kubeconfig"
+	cfg, _ := kubescoutconfig.DefaultConfig()
+	cfg.KubeconfigFilePath = "/root/configs/staging-kubeconfig"
 	sink, _ := kubescoutsink.CreateWebSink(
 		"https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX",
 		func(request *http.Request) error {
@@ -275,7 +275,7 @@ func main() {
 		},
 		false,
 	)
-	_ = kubescout.Scout(configuration, sink)
+	_ = kubescout.Scout(cfg, sink)
 }
 ```
 

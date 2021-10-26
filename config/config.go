@@ -3,10 +3,10 @@ package config
 import (
 	"flag"
 	"fmt"
+	"github.com/reallyliri/kubescout/kubeconfig"
 	"github.com/reallyliri/kubescout/sink"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
-	"k8s.io/client-go/util/homedir"
 	"os"
 	"path/filepath"
 	"time"
@@ -251,7 +251,7 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 	}
 
 	if config.KubeconfigFilePath == "" {
-		config.KubeconfigFilePath, err = defaultKubeconfigPath()
+		config.KubeconfigFilePath, err = kubeconfig.DefaultKubeconfigPath()
 		if err != nil || config.KubeconfigFilePath == "" {
 			return nil, fmt.Errorf("failed to determine default kubeconfig file path: %v", err)
 		}
@@ -262,19 +262,6 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 	}
 
 	return config, nil
-}
-
-func defaultKubeconfigPath() (string, error) {
-	if filePath := os.Getenv("KUBECONFIG"); filePath != "" {
-		return filePath, nil
-	}
-
-	homedirPath := homedir.HomeDir()
-	if homedirPath == "" {
-		return "", fmt.Errorf("failed to determine homedir path")
-	}
-
-	return filepath.Join(homedirPath, ".kube", "config"), nil
 }
 
 func (config *Config) DefaultSink() sink.Sink {

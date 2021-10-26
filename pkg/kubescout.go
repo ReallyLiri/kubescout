@@ -6,7 +6,7 @@ import (
 	"github.com/reallyliri/kubescout/config"
 	"github.com/reallyliri/kubescout/diag"
 	"github.com/reallyliri/kubescout/kubeclient"
-	"github.com/reallyliri/kubescout/kubecontext"
+	"github.com/reallyliri/kubescout/kubeconfig"
 	"github.com/reallyliri/kubescout/sink"
 	"github.com/reallyliri/kubescout/store"
 	log "github.com/sirupsen/logrus"
@@ -16,38 +16,40 @@ import (
 )
 
 // Scout the cluster for alerts. All parameters are optional, default values will be assigned, see CLI documentation.
-func Scout(configuration *config.Config, alertSink sink.Sink) error {
+func Scout(cfg *config.Config, alertSink sink.Sink) error {
 	if alertSink == nil {
-		alertSink = configuration.DefaultSink()
+		alertSink = cfg.DefaultSink()
 	}
 
-	contextManager, err := kubecontext.LoadKubeConfig(configuration.KubeconfigFilePath)
+	stor, err := store.LoadOrCreate(cfg)
 	if err != nil {
 		return err
 	}
 
-	now := time.Now().UTC()
+	kconf, err := kubeconfig.LoadKubeconfig(cfg.KubeconfigFilePath)
+	if err != nil {
+		return err
+	}
 
-	stor, err := store.LoadOrCreate(configuration)
+	contextNames, err := kubeconfig.ContextNames(
+		kconf,
+		cfg.ContextName,
+		cfg.AllContexts,
+		cfg.ExcludeContexts,
+	)
 	if err != nil {
 		return err
 	}
 
 	alerts := alert.NewAlerts()
 
-	contextNames, err := configuration.ContextNames(contextManager)
-	if err != nil {
-		return err
-	}
+	now := time.Now().UTC()
 
 	var aggregatedErr error
 	for _, contextName := range contextNames {
-		err = contextManager.SetCurrentContext(contextName)
-		if err != nil {
-			aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to set context to %v: %v", contextName, err))
-		}
+		kconf.CurrentContext = contextName
 
-		client, err := kubeclient.CreateClient(configuration)
+		client, err := kubeclient.CreateClient(cfg, kconf)
 
 		if err != nil {
 			aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to build kuberentes client for %v: %v", contextName, err))
@@ -55,7 +57,7 @@ func Scout(configuration *config.Config, alertSink sink.Sink) error {
 
 		clusterStore := stor.GetClusterStore(contextName, now)
 
-		err = diag.DiagnoseCluster(client, configuration, clusterStore, now)
+		err = diag.DiagnoseCluster(client, cfg, clusterStore, now)
 		if err != nil {
 			aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to diagnose cluster %v: %v", contextName, err))
 		}

@@ -7,7 +7,7 @@ import (
 	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
 	"github.com/reallyliri/kubescout/kubeclient"
-	"github.com/reallyliri/kubescout/kubecontext"
+	"github.com/reallyliri/kubescout/kubeconfig"
 	"github.com/reallyliri/kubescout/pkg"
 	"github.com/reallyliri/kubescout/sink"
 	log "github.com/sirupsen/logrus"
@@ -51,21 +51,15 @@ func verifyMinikubeRunning() error {
 	return nil
 }
 
-func verifyKubeconfigHasMinikube(kubeconfigFilePath string) (kubecontext.ConfigContextManager, error) {
-	manager, err := kubecontext.LoadKubeConfig(kubeconfigFilePath)
+func verifyKubeconfigSetToMinikube() error {
+	output, err := runCommand("kubectl", "config", "current-context")
 	if err != nil {
-		return nil, err
+		return err
 	}
-	names, err := manager.GetContextNames()
-	if err != nil {
-		return nil, err
+	if output != "minikube" {
+		return fmt.Errorf("current kube context is set to '%v', please set it to minikube and re-run the test", output)
 	}
-	for _, name := range names {
-		if name == "minikube" {
-			return manager, nil
-		}
-	}
-	return nil, fmt.Errorf("minikube context not found in default kubeconfig")
+	return nil
 }
 
 func applyManifests() error {
@@ -127,49 +121,37 @@ func (s *verifySink) Report(alerts *alert.Alerts) error {
 	return nil
 }
 
-func cleanUp(manager kubecontext.ConfigContextManager) {
-	err := manager.SetCurrentContext("minikube")
-	if err != nil {
-		log.Error(err.Error() + "\n")
-		return
-	}
-
+func cleanUp() {
 	log.Infof("cleaning up namespace ...\n")
-	err = cleanupDefaultNamespace()
-	if err != nil {
-		log.Error(err.Error() + "\n")
-	}
-
-	err = manager.TearDown()
+	err := cleanupDefaultNamespace()
 	if err != nil {
 		log.Error(err.Error() + "\n")
 	}
 }
 
 func TestIntegration(t *testing.T) {
-	configuration, err := config.DefaultConfig()
+	cfg, err := config.DefaultConfig()
 	require.Nil(t, err)
 
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
 
 	log.Infof("using store file at '%v'\n", storeFile.Name())
-	configuration.StoreFilePath = storeFile.Name()
-	configuration.MessagesDeduplicationDuration = time.Minute
-	configuration.ExcludeNamespaces = []string{"kube-system"}
-	configuration.OutputMode = "discard"
-	configuration.ContextName = "minikube"
+	cfg.StoreFilePath = storeFile.Name()
+	cfg.MessagesDeduplicationDuration = time.Minute
+	cfg.ExcludeNamespaces = []string{"kube-system"}
+	cfg.OutputMode = "discard"
+	cfg.ContextName = "minikube"
 
 	err = verifyMinikubeRunning()
 	require.Nil(t, err)
 
-	manager, err := verifyKubeconfigHasMinikube(configuration.KubeconfigFilePath)
+	err = verifyKubeconfigSetToMinikube()
 	require.Nil(t, err)
 
-	err = manager.SetCurrentContext("minikube")
+	kconf, err := kubeconfig.LoadKubeconfig(cfg.KubeconfigFilePath)
 	require.Nil(t, err)
-
-	client, err := kubeclient.CreateClient(configuration)
+	client, err := kubeclient.CreateClient(cfg, kconf)
 	require.Nil(t, err)
 
 	verifyClusterInitialState(t, client)
@@ -179,19 +161,16 @@ func TestIntegration(t *testing.T) {
 
 	log.Infof("set up completed, sleeping to give namespace time to stabilize ...\n")
 
-	defer func() { cleanUp(manager) }()
+	defer cleanUp()
 
-	time.Sleep(time.Minute * time.Duration(2))
+	time.Sleep(time.Minute * time.Duration(3))
 
 	verifyClusterReadyForTest(t, client)
-
-	err = manager.TearDown()
-	require.Nil(t, err)
 
 	verifySink := &verifySink{}
 
 	log.Infof("running 1/3 diagnose call ...\n")
-	err = pkg.Scout(configuration, verifySink)
+	err = pkg.Scout(cfg, verifySink)
 	require.Nil(t, err)
 
 	require.NotNil(t, verifySink.alerts)
@@ -201,12 +180,12 @@ func TestIntegration(t *testing.T) {
 	verifySink.alerts = nil
 	verifyAlertsForFullDiagRun(t, relevantMessagesFirstRun)
 
-	storeContent, err := ioutil.ReadFile(configuration.StoreFilePath)
+	storeContent, err := ioutil.ReadFile(cfg.StoreFilePath)
 	require.Nil(t, err)
 	require.NotEmpty(t, storeContent)
 
 	log.Infof("running 2/3 diagnose call ...\n")
-	err = pkg.Scout(configuration, verifySink)
+	err = pkg.Scout(cfg, verifySink)
 	require.Nil(t, err)
 
 	assert.Nil(t, verifySink.alerts)
@@ -221,7 +200,7 @@ func TestIntegration(t *testing.T) {
 	time.Sleep(time.Minute)
 
 	log.Infof("running 3/3 diagnose call ...\n")
-	err = pkg.Scout(configuration, verifySink)
+	err = pkg.Scout(cfg, verifySink)
 	require.Nil(t, err)
 
 	require.NotNil(t, verifySink.alerts)

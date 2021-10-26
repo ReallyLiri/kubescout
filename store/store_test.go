@@ -13,11 +13,11 @@ func TestStoreCreateAndFlush(t *testing.T) {
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
 
-	configuration := &config.Config{
+	cfg := &config.Config{
 		StoreFilePath:                 storeFile.Name(),
 		MessagesDeduplicationDuration: time.Minute,
 	}
-	store, err := LoadOrCreate(configuration)
+	store, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 
 	content, err := ioutil.ReadFile(storeFile.Name())
@@ -37,11 +37,11 @@ func TestStoreAddFlow(t *testing.T) {
 	require.Nil(t, err)
 	now := time.Now().UTC()
 
-	configuration := &config.Config{
+	cfg := &config.Config{
 		StoreFilePath:                 storeFile.Name(),
 		MessagesDeduplicationDuration: time.Minute,
 	}
-	store, err := LoadOrCreate(configuration)
+	store, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 
 	clusterStore := store.GetClusterStore("test", now)
@@ -75,11 +75,11 @@ func TestLoadAfterFlush(t *testing.T) {
 	require.Nil(t, err)
 	now := time.Now().UTC()
 
-	configuration := &config.Config{
+	cfg := &config.Config{
 		StoreFilePath:                 storeFile.Name(),
 		MessagesDeduplicationDuration: time.Minute,
 	}
-	store, err := LoadOrCreate(configuration)
+	store, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 
 	clusterStore := store.GetClusterStore("test", now)
@@ -88,7 +88,7 @@ func TestLoadAfterFlush(t *testing.T) {
 	require.Equal(t, 1, len(clusterStore.Alerts))
 	require.Equal(t, 3, len(clusterStore.HashWithTimestamp))
 
-	storeReloaded, err := LoadOrCreate(configuration)
+	storeReloaded, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 	clusterStoreReloaded := storeReloaded.GetClusterStore("test", now)
 	require.Equal(t, 0, len(clusterStoreReloaded.Alerts))
@@ -97,7 +97,7 @@ func TestLoadAfterFlush(t *testing.T) {
 	err = store.Flush(now)
 	require.Nil(t, err)
 
-	storeReloaded, err = LoadOrCreate(configuration)
+	storeReloaded, err = LoadOrCreate(cfg)
 	require.Nil(t, err)
 	clusterStoreReloaded = storeReloaded.GetClusterStore("test", now)
 	require.Equal(t, 0, len(clusterStoreReloaded.Alerts))
@@ -109,11 +109,11 @@ func TestLoadAfterLongTime(t *testing.T) {
 	require.Nil(t, err)
 	now := time.Now().UTC()
 
-	configuration := &config.Config{
+	cfg := &config.Config{
 		StoreFilePath:                 storeFile.Name(),
 		MessagesDeduplicationDuration: time.Minute,
 	}
-	store, err := LoadOrCreate(configuration)
+	store, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 
 	clusterStore := store.GetClusterStore("test", now)
@@ -124,7 +124,7 @@ func TestLoadAfterLongTime(t *testing.T) {
 	err = store.Flush(now)
 	require.Nil(t, err)
 
-	storeReloaded, err := LoadOrCreate(configuration)
+	storeReloaded, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 	clusterStoreReloaded := storeReloaded.GetClusterStore("test", now.Add(time.Second*time.Duration(50)))
 	require.Equal(t, 0, len(clusterStoreReloaded.Alerts))
@@ -132,7 +132,7 @@ func TestLoadAfterLongTime(t *testing.T) {
 	err = storeReloaded.Flush(now)
 	require.Nil(t, err)
 
-	storeReloaded, err = LoadOrCreate(configuration)
+	storeReloaded, err = LoadOrCreate(cfg)
 	require.Nil(t, err)
 	clusterStoreReloaded = storeReloaded.GetClusterStore("test", now.Add(time.Minute*time.Duration(3)))
 	require.Equal(t, 0, len(clusterStoreReloaded.Alerts))
@@ -146,11 +146,11 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
 
-	configuration := &config.Config{
+	cfg := &config.Config{
 		StoreFilePath:                 storeFile.Name(),
 		MessagesDeduplicationDuration: time.Minute,
 	}
-	store1, err := LoadOrCreate(configuration)
+	store1, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 	cluster1Store1 := store1.GetClusterStore("test-1", now)
 
@@ -160,7 +160,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
-	store2, err := LoadOrCreate(configuration)
+	store2, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 	cluster2Store2 := store2.GetClusterStore("test-2", now)
 	require.Equal(t, 0, len(cluster2Store2.Alerts))
@@ -170,7 +170,7 @@ func TestStoreForMultipleClusters(t *testing.T) {
 
 	require.Equal(t, 2, len(store2.ClusterStoresByName))
 
-	store3, err := LoadOrCreate(configuration)
+	store3, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 	cluster3Store3 := store3.GetClusterStore("test-3", now)
 	require.Nil(t, err)
@@ -192,11 +192,11 @@ func TestJsonContent(t *testing.T) {
 	storeFile, err := ioutil.TempFile(t.TempDir(), "*.store.json")
 	require.Nil(t, err)
 
-	configuration := &config.Config{
+	cfg := &config.Config{
 		StoreFilePath:                 storeFile.Name(),
 		MessagesDeduplicationDuration: time.Minute,
 	}
-	store, err := LoadOrCreate(configuration)
+	store, err := LoadOrCreate(cfg)
 	require.Nil(t, err)
 	clusterStore := store.GetClusterStore("test-json", now)
 

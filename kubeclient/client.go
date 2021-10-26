@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/reallyliri/kubescout/config"
+	"github.com/reallyliri/kubescout/kubeconfig"
 	log "github.com/sirupsen/logrus"
 	"io"
 	v12 "k8s.io/api/apps/v1"
@@ -13,6 +14,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
+	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"strings"
 )
 
@@ -32,16 +34,18 @@ type remoteKubernetesClient struct {
 
 var _ KubernetesClient = &remoteKubernetesClient{}
 
-func CreateClient(config *config.Config) (KubernetesClient, error) {
+func CreateClient(config *config.Config, kubeconfig kubeconfig.KubeConfig) (KubernetesClient, error) {
 
 	kubeconfigFilePath := config.KubeconfigFilePath
 	log.Debugf("Building kubernetes client from kubeconfig '%v'\n", kubeconfigFilePath)
-	kubeconfig, err := clientcmd.BuildConfigFromFlags("", kubeconfigFilePath)
+	fullKubeconfig, err := clientcmd.BuildConfigFromKubeconfigGetter("", func() (*clientcmdapi.Config, error) {
+		return kubeconfig, nil
+	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to build kubeconfig from '%v': %v", kubeconfigFilePath, err)
 	}
 
-	clientSet, err := kubernetes.NewForConfig(kubeconfig)
+	clientSet, err := kubernetes.NewForConfig(fullKubeconfig)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create kubernetes client: %v", err)
 	}

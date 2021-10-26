@@ -60,11 +60,10 @@ func (context *diagContext) handleEntityState(state *entityState, events []*even
 		isHealthy = false
 	}
 	if isHealthy {
-		log.Tracef(state.String())
+		log.Trace(state.String())
 		return false
 	}
 
-	log.Infof(state.String())
 	entityAlert := &alert.EntityAlert{
 		ClusterName:         context.store.Cluster,
 		Namespace:           state.name.namespace,
@@ -91,13 +90,17 @@ func (context *diagContext) handleEntityState(state *entityState, events []*even
 			entityAlert.Events = append(entityAlert.Events, cleanMessage(event.message))
 		}
 	}
-	if len(addedHashes) == 0 {
-		return false
-	}
-	entityAlert.LogsByContainerName = state.logsCollections
 
-	context.store.Add(entityAlert, internal.Keys(addedHashes), context.now)
-	return true
+	deduped := len(addedHashes) == 0
+	if !deduped {
+		log.Infof("[DEDUPPED] %v", state)
+	} else {
+		log.Info(state.String())
+		entityAlert.LogsByContainerName = state.logsCollections
+		context.store.Add(entityAlert, internal.Keys(addedHashes), context.now)
+	}
+
+	return deduped
 }
 
 func (context *diagContext) handleStandaloneEvent(state *eventState) (stored bool) {

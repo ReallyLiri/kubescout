@@ -19,9 +19,9 @@ type EntityAlert struct {
 	Namespace           string            `json:"namespace"`
 	Name                string            `json:"name"`
 	Kind                string            `json:"kind"`
-	Messages            []string          `json:"messages"`
-	Events              []string          `json:"events"`
-	LogsByContainerName map[string]string `json:"logs_by_container_name"`
+	Messages            []string          `json:"messages,omitempty"`
+	Events              []string          `json:"events,omitempty"`
+	LogsByContainerName map[string]string `json:"logs_by_container_name,omitempty"`
 	Timestamp           time.Time         `json:"timestamp"`
 }
 

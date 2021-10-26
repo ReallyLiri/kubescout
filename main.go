@@ -30,11 +30,11 @@ OPTIONS:
 		Flags:   config.Flags,
 		Version: VERSION,
 		Action: func(ctx *cli.Context) error {
-			configuration, err := config.ParseConfig(ctx)
+			cfg, err := config.ParseConfig(ctx)
 			if err != nil {
 				return err
 			}
-			return pkg.Scout(configuration, nil)
+			return pkg.Scout(cfg, nil)
 		},
 	}
 
