@@ -92,7 +92,7 @@ func (context *diagContext) handleEntityState(state *entityState, events []*even
 	}
 
 	deduped := len(addedHashes) == 0
-	if !deduped {
+	if deduped {
 		log.Infof("[DEDUPPED] %v", state)
 	} else {
 		log.Info(state.String())

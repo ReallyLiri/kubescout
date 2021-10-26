@@ -170,6 +170,7 @@ users:
 `
 	kubeconfigPath := createKubeconfig(t, content)
 	kubeconfig, err := LoadKubeconfig(kubeconfigPath)
+	require.Nil(t, err)
 
 	names, err := ContextNames(
 		kubeconfig,
@@ -177,7 +178,6 @@ users:
 		false,
 		[]string{},
 	)
-
 	require.Nil(t, err)
 	require.Equal(t, []string{"c1"}, names)
 }
@@ -217,6 +217,7 @@ users:
 `
 	kubeconfigPath := createKubeconfig(t, content)
 	kubeconfig, err := LoadKubeconfig(kubeconfigPath)
+	require.Nil(t, err)
 
 	names, err := ContextNames(
 		kubeconfig,
@@ -224,7 +225,6 @@ users:
 		false,
 		[]string{},
 	)
-
 	require.Nil(t, err)
 	require.Equal(t, []string{"c2"}, names)
 }
@@ -264,6 +264,7 @@ users:
 `
 	kubeconfigPath := createKubeconfig(t, content)
 	kubeconfig, err := LoadKubeconfig(kubeconfigPath)
+	require.Nil(t, err)
 
 	_, err = ContextNames(
 		kubeconfig,
@@ -271,7 +272,6 @@ users:
 		false,
 		[]string{},
 	)
-
 	require.NotNil(t, err)
 }
 
@@ -310,6 +310,7 @@ users:
 `
 	kubeconfigPath := createKubeconfig(t, content)
 	kubeconfig, err := LoadKubeconfig(kubeconfigPath)
+	require.Nil(t, err)
 
 	names, err := ContextNames(
 		kubeconfig,
@@ -317,7 +318,6 @@ users:
 		true,
 		[]string{},
 	)
-
 	require.Nil(t, err)
 	require.Equal(t, []string{"c1", "c2", "c3"}, names)
 }
@@ -357,6 +357,7 @@ users:
 `
 	kubeconfigPath := createKubeconfig(t, content)
 	kubeconfig, err := LoadKubeconfig(kubeconfigPath)
+	require.Nil(t, err)
 
 	names, err := ContextNames(
 		kubeconfig,
@@ -364,7 +365,6 @@ users:
 		true,
 		[]string{},
 	)
-
 	require.Nil(t, err)
 	require.Equal(t, []string{"c1", "c2", "c3"}, names)
 }
@@ -404,6 +404,7 @@ users:
 `
 	kubeconfigPath := createKubeconfig(t, content)
 	kubeconfig, err := LoadKubeconfig(kubeconfigPath)
+	require.Nil(t, err)
 
 	names, err := ContextNames(
 		kubeconfig,
@@ -411,7 +412,6 @@ users:
 		true,
 		[]string{"c2"},
 	)
-
 	require.Nil(t, err)
 	require.Equal(t, []string{"c1", "c3"}, names)
 }
@@ -458,6 +458,7 @@ users:
 `
 	kubeconfigPath := createKubeconfig(t, content)
 	kubeconfig, err := LoadKubeconfig(kubeconfigPath)
+	require.Nil(t, err)
 
 	names, err := ContextNames(
 		kubeconfig,
