@@ -170,6 +170,13 @@ func formatResourceUsage(allocatable int64, capacity int64, name string, usageTh
 	return ""
 }
 
+func formatPlural(count int, singular string, plural string) string {
+	if count == 1 {
+		return singular
+	}
+	return fmt.Sprintf("%v %v", count, plural)
+}
+
 func hash(entityName entityName, message string) string {
 	sha := sha1.New()
 	sha.Write([]byte(entityName.namespace))

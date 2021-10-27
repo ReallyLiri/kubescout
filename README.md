@@ -13,27 +13,23 @@ api.
 Output example:
 
 ```
-Found 5 alerts for cluster minikube:
-Pod default/test-2-broken-image-7cbf974df9-6zvr8 is un-healthy:
-Pod is in Pending phase
-test-2-broken-image still waiting due to ErrImagePull: rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown
-Event by kubelet: Failed x4 since 25 Oct 21 07:26 UTC (last seen 15 seconds ago):
+Pod default/test-2-broken-image-7cbf974df9-gbnk9 is un-healthy:
+Container test-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image "nginx:l4t3st"
+Event by kubelet: Failed x4 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):
 	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown
-Event by kubelet: Failed x4 since 25 Oct 21 07:26 UTC (last seen 15 seconds ago):
+Event by kubelet: Failed x4 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):
 	Error: ErrImagePull
-Event by kubelet: Failed x5 since 25 Oct 21 07:26 UTC (last seen 1 second ago):
+Event by kubelet: Failed x6 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):
 	Error: ImagePullBackOff
 ----------------
-Pod default/test-3-excessive-resources-699d58f55f-rxr2l is un-healthy:
-Pod is in Pending phase
-Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 1 minute ago)
-Event by default-scheduler: FailedScheduling since 25 Oct 21 07:26 UTC (last seen 1 minute ago):
+Pod default/test-3-excessive-resources-699d58f55f-9gfft is un-healthy:
+Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 4 minutes ago)
+Event by default-scheduler: FailedScheduling since 27 Oct 21 14:20 UTC (last seen 4 minutes ago):
 	0/1 nodes are available: 1 Insufficient memory.
 ----------------
-Pod default/test-4-crashlooping-dbdd84589-j6r8v is un-healthy:
-test-4-crashlooping terminated due to Error (exit code 1)
-test-4-crashlooping had restarted 4 times, last exit due to Error (exit code 1)
-Event by kubelet: BackOff x8 since 25 Oct 21 07:26 UTC (last seen 19 seconds ago):
+Pod default/test-4-crashlooping-dbdd84589-jvplc is un-healthy:
+Container test-4-crashlooping is in CrashLoopBackOff: restarted 5 times, last exit due to Error (exit code 1)
+Event by kubelet: BackOff x7 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):
 	Back-off restarting failed container
 Logs of container test-4-crashlooping:
 --------
@@ -44,10 +40,9 @@ Logs of container test-4-crashlooping:
 5
 --------
 ----------------
-Pod default/test-5-completed-757685986-s58rv is un-healthy:
-test-5-completed still waiting due to CrashLoopBackOff: back-off 1m20s restarting failed container
-test-5-completed had restarted 4 times, last exit due to Completed (exit code 0)
-Event by kubelet: BackOff x7 since 25 Oct 21 07:26 UTC (last seen 25 seconds ago):
+Pod default/test-5-completed-757685986-r4tg2 is un-healthy:
+Container test-5-completed is in CrashLoopBackOff: restarted 5 times, last exit due to Completed (exit code 0)
+Event by kubelet: BackOff x8 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):
 	Back-off restarting failed container
 Logs of container test-5-completed:
 --------
@@ -58,11 +53,11 @@ Logs of container test-5-completed:
 5
 --------
 ----------------
-Pod default/test-6-crashlooping-init-644545f5b7-sffvr is un-healthy:
-Pod is in Pending phase
+Pod default/test-6-crashlooping-init-644545f5b7-bsvrn is un-healthy:
+Container test-6-crashlooping-init-container (init) is in CrashLoopBackOff: restarted 5 times, last exit due to Error (exit code 1)
 test-6-crashlooping-init-container (init) terminated due to Error (exit code 1)
-test-6-crashlooping-init-container (init) had restarted 4 times, last exit due to Error (exit code 1)
-Event by kubelet: BackOff x8 since 25 Oct 21 07:26 UTC (last seen 20 seconds ago):
+Container test-6-crashlooping-init-container (init) restarted 5 times
+Event by kubelet: BackOff x8 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):
 	Back-off restarting failed container
 Logs of container test-6-crashlooping-init-container:
 --------
@@ -84,86 +79,79 @@ Or in json format:
       {
         "cluster_name": "minikube",
         "namespace": "default",
-        "name": "test-2-broken-image-7cbf974df9-6zvr8",
+        "name": "test-2-broken-image-7cbf974df9-gbnk9",
         "kind": "Pod",
         "messages": [
-          "Pod is in Pending phase",
-          "test-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image \"nginx:l4t3st\""
+          "Container test-2-broken-image still waiting due to ErrImagePull: rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown",
+          "Container test-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image \"nginx:l4t3st\""
         ],
         "events": [
-          "Event by kubelet: Failed x4 since 25 Oct 21 07:26 UTC (last seen 49 seconds ago):\n\tFailed to pull image \"nginx:l4t3st\": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown",
-          "Event by kubelet: Failed x4 since 25 Oct 21 07:26 UTC (last seen 49 seconds ago):\n\tError: ErrImagePull",
-          "Event by kubelet: Failed x6 since 25 Oct 21 07:26 UTC (last seen 23 seconds ago):\n\tError: ImagePullBackOff"
+          "Event by kubelet: Failed x4 since 27 Oct 21 14:20 UTC (last seen 1 minute ago):\n\tFailed to pull image \"nginx:l4t3st\": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown",
+          "Event by kubelet: Failed x4 since 27 Oct 21 14:20 UTC (last seen 1 minute ago):\n\tError: ErrImagePull",
+          "Event by kubelet: Failed x6 since 27 Oct 21 14:20 UTC (last seen 1 minute ago):\n\tError: ImagePullBackOff"
         ],
-        "logs_by_container_name": {},
-        "timestamp": "2021-10-25T07:28:49.24639Z"
+        "timestamp": "2021-10-27T14:24:21.181725Z"
       },
       {
         "cluster_name": "minikube",
         "namespace": "default",
-        "name": "test-3-excessive-resources-699d58f55f-rxr2l",
+        "name": "test-3-excessive-resources-699d58f55f-9gfft",
         "kind": "Pod",
         "messages": [
-          "Pod is in Pending phase",
-          "Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 2 minutes ago)"
+          "Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 3 minutes ago)"
         ],
         "events": [
-          "Event by default-scheduler: FailedScheduling since 25 Oct 21 07:26 UTC (last seen 2 minutes ago):\n\t0/1 nodes are available: 1 Insufficient memory."
+          "Event by default-scheduler: FailedScheduling since 27 Oct 21 14:20 UTC (last seen 3 minutes ago):\n\t0/1 nodes are available: 1 Insufficient memory."
         ],
-        "logs_by_container_name": {},
-        "timestamp": "2021-10-25T07:28:49.24639Z"
+        "timestamp": "2021-10-27T14:24:21.181725Z"
       },
       {
         "cluster_name": "minikube",
         "namespace": "default",
-        "name": "test-4-crashlooping-dbdd84589-j6r8v",
+        "name": "test-4-crashlooping-dbdd84589-jvplc",
         "kind": "Pod",
         "messages": [
-          "test-4-crashlooping still waiting due to CrashLoopBackOff: back-off 1m20s restarting failed container",
-          "test-4-crashlooping had restarted 4 times, last exit due to Error (exit code 1)"
+          "Container test-4-crashlooping is in CrashLoopBackOff: restarted 5 times, last exit due to Error (exit code 1)"
         ],
         "events": [
-          "Event by kubelet: BackOff x8 since 25 Oct 21 07:26 UTC (last seen 53 seconds ago):\n\tBack-off restarting failed container"
+          "Event by kubelet: BackOff x7 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):\n\tBack-off restarting failed container"
         ],
         "logs_by_container_name": {
           "test-4-crashlooping": "1\n2\n3\n4\n5"
         },
-        "timestamp": "2021-10-25T07:28:49.24639Z"
+        "timestamp": "2021-10-27T14:24:21.181725Z"
       },
       {
         "cluster_name": "minikube",
         "namespace": "default",
-        "name": "test-5-completed-757685986-s58rv",
+        "name": "test-5-completed-757685986-r4tg2",
         "kind": "Pod",
         "messages": [
-          "test-5-completed still waiting due to CrashLoopBackOff: back-off 1m20s restarting failed container",
-          "test-5-completed had restarted 4 times, last exit due to Completed (exit code 0)"
+          "Container test-5-completed is in CrashLoopBackOff: restarted 5 times, last exit due to Completed (exit code 0)"
         ],
         "events": [
-          "Event by kubelet: BackOff x7 since 25 Oct 21 07:26 UTC (last seen 59 seconds ago):\n\tBack-off restarting failed container"
+          "Event by kubelet: BackOff x8 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):\n\tBack-off restarting failed container"
         ],
         "logs_by_container_name": {
           "test-5-completed": "1\n2\n3\n4\n5"
         },
-        "timestamp": "2021-10-25T07:28:49.24639Z"
+        "timestamp": "2021-10-27T14:24:21.181725Z"
       },
       {
         "cluster_name": "minikube",
         "namespace": "default",
-        "name": "test-6-crashlooping-init-644545f5b7-sffvr",
+        "name": "test-6-crashlooping-init-644545f5b7-bsvrn",
         "kind": "Pod",
         "messages": [
-          "Pod is in Pending phase",
-          "test-6-crashlooping-init-container (init) still waiting due to CrashLoopBackOff: back-off 1m20s restarting failed container",
-          "test-6-crashlooping-init-container (init) had restarted 4 times, last exit due to Error (exit code 1)"
+          "Container test-6-crashlooping-init-container (init) is in CrashLoopBackOff: restarted 5 times, last exit due to Error (exit code 1)"
         ],
         "events": [
-          "Event by kubelet: BackOff x8 since 25 Oct 21 07:26 UTC (last seen 54 seconds ago):\n\tBack-off restarting failed container"
+          "Event by kubelet: BackOff x8 since 27 Oct 21 14:20 UTC (last seen 2 minutes ago):\n\tBack-off restarting failed container"
         ],
         "logs_by_container_name": {
           "test-6-crashlooping-init-container": "1\n2\n3\n4\n5"
         },
-        "timestamp": "2021-10-25T07:28:49.24639Z"
+        "timestamp": "2021-10-27T14:24:21.181725Z"
       }
     ]
   }
@@ -290,7 +278,7 @@ func main() {
 ```bash
 # vet and lint
 go vet
-docker run --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint run --deadline=65s
+docker run --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint run --deadline=180s
 # tests
 go test -v ./...
 # integration tests (requires minikube)

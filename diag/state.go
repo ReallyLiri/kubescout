@@ -6,6 +6,7 @@ import (
 	v12 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -45,55 +46,146 @@ func (context *diagContext) addEventState(namespace, kind, name string) *eventSt
 	return evState
 }
 
-func (state *entityState) checkStatuses(pod *v1.Pod, statuses []v1.ContainerStatus, initContainers bool, context *diagContext) bool {
-	subTitle := ""
-	if initContainers {
-		subTitle = " (init)"
+var ignoreWaitingReasons = map[string]bool{
+	"CrashLoopBackOff":  true,
+	"Completed":         true,
+	"ContainerCreating": true,
+	"PodInitializing":   true,
+}
+
+func (state *entityState) checkContainerStatuses(pod *v1.Pod, context *diagContext) {
+
+	var waitingToCreate []string
+	var waitingToInitialize []string
+	anyRunProblems := false
+
+	subTitle := " (init)"
+	allInitContainersHealthy := true
+	for _, containerStatus := range pod.Status.InitContainerStatuses {
+		runProblems, containerWaitingToCreate, containerWaitingToInitialize := state.checkContainerStatus(pod, containerStatus, subTitle, context)
+		if containerWaitingToCreate {
+			waitingToCreate = append(waitingToCreate, containerStatus.Name+subTitle)
+		} else if containerWaitingToInitialize {
+			waitingToInitialize = append(waitingToInitialize, containerStatus.Name+subTitle)
+		}
+		if runProblems {
+			allInitContainersHealthy = false
+			anyRunProblems = true
+		}
 	}
-	anyMessage := false
-	for _, containerStatus := range statuses {
-		anyMessageForContainer := false
-		stateTerminated := containerStatus.State.Terminated
-		stateWaiting := containerStatus.State.Waiting
-		if stateTerminated != nil {
-			terminatedReason := stateTerminated.Reason
-			if terminatedReason != "Completed" {
+
+	if allInitContainersHealthy {
+		for _, containerStatus := range pod.Status.ContainerStatuses {
+			runProblems, containerWaitingToCreate, containerWaitingToInitialize := state.checkContainerStatus(pod, containerStatus, "", context)
+			if containerWaitingToCreate {
+				waitingToCreate = append(waitingToCreate, containerStatus.Name)
+			} else if containerWaitingToInitialize {
+				waitingToInitialize = append(waitingToInitialize, containerStatus.Name)
+			}
+			anyRunProblems = anyRunProblems || runProblems
+		}
+	}
+
+	var pending *[]string
+	pendingVerb := ""
+	if len(waitingToCreate) > 0 {
+		pendingVerb = "creating"
+		pending = &waitingToCreate
+	} else if len(waitingToInitialize) > 0 {
+		pendingVerb = "initializing"
+		pending = &waitingToInitialize
+	}
+
+	if pending != nil {
+		sort.Strings(*pending)
+		state.appendMessage(
+			"%v still %v [ %v ] (since %v)",
+			wrapTemporal(formatPlural(len(*pending), "One container is", "containers are")),
+			pendingVerb,
+			strings.Join(*pending, ", "),
+			wrapTemporal(formatDuration(pod.CreationTimestamp.Time, context.now)),
+		)
+	}
+
+	if pod.Status.Phase != v1.PodRunning && !anyRunProblems && len(state.messages) == 0 {
+		anyConditionMessage := false
+		for _, condition := range pod.Status.Conditions {
+			if condition.Status != "True" {
+				anyConditionMessage = true
+				state.appendMessage(
+					"%v: %v (last transition: %v)",
+					splitToWords(condition.Reason),
+					condition.Message,
+					wrapTemporal(formatDuration(condition.LastTransitionTime.Time, context.now)),
+				)
+			}
+		}
+		if !anyConditionMessage {
+			sinceCreation := context.now.Sub(pod.CreationTimestamp.Time).Seconds()
+			if pod.Status.Phase != v1.PodPending || sinceCreation >= context.config.PodStartingGracePeriodSeconds {
+				state.appendMessage("Pod is in %v phase (since %v)", pod.Status.Phase, wrapTemporal(formatDuration(pod.CreationTimestamp.Time, context.now)))
+			}
+		}
+	}
+}
+
+func (state *entityState) checkContainerStatus(pod *v1.Pod, containerStatus v1.ContainerStatus, subTitle string, context *diagContext) (runProblems bool, waitingToCreate bool, waitingToInitialize bool) {
+	shouldCollectLogs := false
+	title := fmt.Sprintf("Container %v%v", containerStatus.Name, subTitle)
+	stateTerminated := containerStatus.State.Terminated
+	stateWaiting := containerStatus.State.Waiting
+	if stateTerminated != nil {
+		terminatedReason := stateTerminated.Reason
+		if terminatedReason != "Completed" {
+			runProblems = true
+			sinceTerminated := context.now.Sub(stateTerminated.FinishedAt.Time).Seconds()
+			if sinceTerminated >= float64(context.config.PodTerminationGracePeriodSeconds) {
 				state.appendMessage("%v%v terminated due to %v (exit code %v)", containerStatus.Name, subTitle, terminatedReason, stateTerminated.ExitCode)
-				anyMessageForContainer = true
 			}
 		}
-		if stateWaiting != nil && stateWaiting.Reason != "ContainerCreating" && stateWaiting.Reason != "PodInitializing" {
-			message := stateWaiting.Message
-			detailsIndex := strings.Index(message, "restarting failed container")
-			if detailsIndex >= 0 {
-				message = message[:(detailsIndex + 27)]
-			}
-			state.appendMessage("%v%v still waiting due to %v: %v", containerStatus.Name, subTitle, stateWaiting.Reason, wrapTemporal(message))
-			anyMessageForContainer = true
-		}
-		if containerStatus.RestartCount > context.config.PodRestartGraceCount {
-			stateTerminated = containerStatus.LastTerminationState.Terminated
-			if stateTerminated != nil {
-				state.appendMessage("%v%v had restarted %v times, last exit due to %v (exit code %v)", containerStatus.Name, subTitle, wrapTemporal(containerStatus.RestartCount), stateTerminated.Reason, stateTerminated.ExitCode)
-			} else {
-				state.appendMessage("%v%v had restarted %v times", containerStatus.Name, subTitle, wrapTemporal(containerStatus.RestartCount))
-			}
-			anyMessageForContainer = true
-		}
-		if anyMessageForContainer && context.client != nil {
-			logs, err := context.client.GetPodLogs(pod.Namespace, pod.Name, containerStatus.Name)
-			if err != nil {
-				log.Errorf("failed to get logs of %v/%v/%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
-			} else {
-				logs = strings.TrimSpace(logs)
-				if logs != "" {
-					state.logsCollections[containerStatus.Name] = logs
-				}
-			}
-		}
-		anyMessage = anyMessage || anyMessageForContainer
 	}
-	return anyMessage
+
+	if stateWaiting != nil {
+		runProblems = true
+		sinceCreation := context.now.Sub(pod.CreationTimestamp.Time).Seconds()
+		startingGracePassed := sinceCreation >= context.config.PodStartingGracePeriodSeconds
+		if stateWaiting.Reason == "ContainerCreating" && startingGracePassed {
+			waitingToCreate = true
+		} else if stateWaiting.Reason == "PodInitializing" && startingGracePassed {
+			waitingToInitialize = true
+		} else if !ignoreWaitingReasons[stateWaiting.Reason] {
+			state.appendMessage("%v still waiting due to %v: %v", title, stateWaiting.Reason, wrapTemporal(stateWaiting.Message))
+			shouldCollectLogs = true
+		}
+	}
+
+	if containerStatus.RestartCount > context.config.PodRestartGraceCount {
+		runProblems = true
+		stateTerminated = containerStatus.LastTerminationState.Terminated
+		prefix := title
+		if stateWaiting != nil {
+			prefix = fmt.Sprintf("%v is in %v:", title, stateWaiting.Reason)
+		}
+		if stateTerminated != nil {
+			state.appendMessage("%v restarted %v times, last exit due to %v (exit code %v)", prefix, wrapTemporal(containerStatus.RestartCount), stateTerminated.Reason, stateTerminated.ExitCode)
+		} else {
+			state.appendMessage("%v restarted %v times", prefix, wrapTemporal(containerStatus.RestartCount))
+		}
+		shouldCollectLogs = true
+	}
+
+	if shouldCollectLogs && context.client != nil {
+		logs, err := context.client.GetPodLogs(pod.Namespace, pod.Name, containerStatus.Name)
+		if err != nil {
+			log.Errorf("failed to get logs of %v/%v/%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
+		} else {
+			logs = strings.TrimSpace(logs)
+			if logs != "" {
+				state.logsCollections[containerStatus.Name] = logs
+			}
+		}
+	}
+	return
 }
 
 func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error) {
@@ -129,25 +221,11 @@ func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error
 			}
 			state.appendMessage("Pod is Terminating since %v%v", wrapTemporal(formatDuration(deletionTime, context.now)), suffix)
 		}
-	} else if podPhase != v1.PodRunning {
+	} else if podPhase != v1.PodRunning && podPhase != v1.PodPending {
 		state.appendMessage("Pod is in %v phase", podPhase)
 	}
 
-	anyStatusMessage := state.checkStatuses(pod, pod.Status.ContainerStatuses, false, context)
-	anyStatusMessage = anyStatusMessage || state.checkStatuses(pod, pod.Status.InitContainerStatuses, true, context)
-
-	if !anyStatusMessage && pod.DeletionTimestamp == nil {
-		for _, condition := range pod.Status.Conditions {
-			if condition.Status != "True" {
-				state.appendMessage(
-					"%v: %v (last transition: %v)",
-					splitToWords(condition.Reason),
-					condition.Message,
-					wrapTemporal(formatDuration(condition.LastTransitionTime.Time, context.now)),
-				)
-			}
-		}
-	}
+	state.checkContainerStatuses(pod, context)
 
 	return
 }

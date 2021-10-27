@@ -187,8 +187,11 @@ func TestIntegration(t *testing.T) {
 	err = pkg.Scout(cfg, vSink)
 	require.Nil(t, err)
 
+	assert.Nil(t, vSink.alerts)
 	if vSink.alerts != nil {
-		verifyAlertsForSilencedRun(t, vSink.alerts.AlertsByClusterName["minikube"])
+		for _, entityAlert := range vSink.alerts.AlertsByClusterName["minikube"] {
+			assert.Fail(t, entityAlert.String())
+		}
 		vSink.alerts = nil
 	}
 
@@ -213,26 +216,6 @@ func assertMessage(t *testing.T, expectedFormat string, actualMessage string) {
 	assert.True(t, matched, "did not match\nExpected:\n%v\nActual:\n%v", expectedFormat, actualMessage)
 }
 
-func verifyAlertsForSilencedRun(t *testing.T, alerts alert.EntityAlerts) {
-	// ideally we'd have 0 messages, but sometimes we get some first run messages on delay and they shouldn't be silenced
-	if len(alerts) > 3 {
-		assert.Fail(t, "too many messages on second run: %v", len(alerts))
-	}
-	expectedFormat := `Pod default/test-* is un-healthy:
-*test-*
-Logs of container test-*:
---------
-1
-2
-3
-4
-5
---------`
-	for _, entityAlert := range alerts {
-		assertMessage(t, expectedFormat, entityAlert.String())
-	}
-}
-
 func verifyAlertsForFullDiagRun(t *testing.T, alerts alert.EntityAlerts) {
 	assert.Equal(t, 5, len(alerts))
 	for i, entityAlert := range alerts {
@@ -242,8 +225,7 @@ func verifyAlertsForFullDiagRun(t *testing.T, alerts alert.EntityAlerts) {
 
 var expectedFormatsFirstRun = []string{
 	`Pod default/test-2-broken-image-* is un-healthy:
-Pod is in Pending phase
-test-2-broken-image still waiting due to *
+Container test-2-broken-image still waiting due to *
 Event by kubelet: Failed x* since * (last seen * ago):
 	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown
 Event by kubelet: Failed x* since * (last seen * ago):
@@ -252,7 +234,6 @@ Event by kubelet: Failed x* since * (last seen * ago):
 	Error: ImagePullBackOff`,
 
 	`Pod default/test-3-excessive-resources-* is un-healthy:
-Pod is in Pending phase
 Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: * ago)
 Event by default-scheduler: FailedScheduling *since * (last seen * ago):
 	0/1 nodes are available: 1 Insufficient memory.`,
@@ -284,7 +265,6 @@ Logs of container test-5-completed:
 --------`,
 
 	`Pod default/test-6-crashlooping-init-* is un-healthy:
-Pod is in Pending phase
 *test-6-crashlooping-init-container (init) *
 Event by kubelet: BackOff x* since * (last seen * ago):
 	Back-off restarting failed container

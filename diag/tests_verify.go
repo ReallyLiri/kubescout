@@ -48,7 +48,7 @@ func verifyNodeHealthy(t *testing.T, node v1.Node, now time.Time, index int) {
 	log.Debugf("%v) %v", index, state)
 	assert.True(t, state.isHealthy())
 	assert.NotEmpty(t, state.name)
-	assert.Empty(t, state.messages)
+	assert.Empty(t, state.cleanMessages())
 }
 
 func verifyAllPodsHealthy(t *testing.T, pods []v1.Pod, now time.Time) {
@@ -70,7 +70,7 @@ func verifyPodHealthy(t *testing.T, pod *v1.Pod, now time.Time, index int) {
 	log.Debugf("%v) %v", index, state)
 	assert.True(t, state.isHealthy())
 	assert.NotEmpty(t, state.name)
-	assert.Empty(t, state.messages)
+	assert.Empty(t, state.cleanMessages())
 }
 
 func verifyAllReplicaSetsHealthy(t *testing.T, replicaSets []v12.ReplicaSet, now time.Time) {
@@ -92,5 +92,5 @@ func verifyReplicaSetHealthy(t *testing.T, replicaSet v12.ReplicaSet, now time.T
 	log.Debugf("%v) %v", index, state)
 	assert.True(t, state.isHealthy())
 	assert.NotEmpty(t, state.name)
-	assert.Empty(t, state.messages)
+	assert.Empty(t, state.cleanMessages())
 }

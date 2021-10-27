@@ -19,6 +19,7 @@ type Config struct {
 	TimeFormat                       string
 	Locale                           *time.Location
 	PodCreationGracePeriodSeconds    float64
+	PodStartingGracePeriodSeconds    float64
 	PodTerminationGracePeriodSeconds int64
 	PodRestartGraceCount             int32
 	NodeResourceUsageThreshold       float64
@@ -75,13 +76,19 @@ var Flags = []cli.Flag{
 	},
 	&cli.Float64Flag{
 		Name:     "pod-creation-grace-sec",
-		Value:    30,
-		Usage:    "grace period in seconds since pod creation",
+		Value:    5,
+		Usage:    "grace period in seconds since pod creation before checking its statuses",
+		Required: false,
+	},
+	&cli.Int64Flag{
+		Name:     "pod-starting-grace-sec",
+		Value:    600,
+		Usage:    "grace period in seconds since pod creation before alarming on non running states",
 		Required: false,
 	},
 	&cli.Int64Flag{
 		Name:     "pod-termination-grace-sec",
-		Value:    30,
+		Value:    60,
 		Usage:    "grace period in seconds since pod termination",
 		Required: false,
 	},
@@ -205,6 +212,7 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		KubeconfigFilePath:               c.String("kubeconfig"),
 		TimeFormat:                       c.String("time-format"),
 		PodCreationGracePeriodSeconds:    c.Float64("pod-creation-grace-sec"),
+		PodStartingGracePeriodSeconds: c.Float64("pod-starting-grace-sec"),
 		PodTerminationGracePeriodSeconds: c.Int64("pod-termination-grace-sec"),
 		PodRestartGraceCount:             int32(c.Int("pod-restart-grace-count")),
 		NodeResourceUsageThreshold:       c.Float64("node-resource-usage-threshold"),

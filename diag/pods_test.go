@@ -4,6 +4,7 @@ import (
 	"github.com/reallyliri/kubescout/internal"
 	"github.com/reallyliri/kubescout/kubeclient"
 	log "github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"strings"
 	"testing"
@@ -62,16 +63,15 @@ func TestPodState_PodPendingTooLong(t *testing.T) {
 	require.NotEmpty(t, pods)
 
 	pendingPod := pods[0]
-	state, err := testContext(asTime("2021-07-18T07:15:00Z")).podState(&pendingPod)
+	state, err := testContext(asTime("2021-07-18T07:25:00Z")).podState(&pendingPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
 	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Pod is in Pending phase", messages[0])
-	require.True(t, strings.HasPrefix(messages[1], "Containers Not Ready: containers with unready status: [memory-bomb-container] (last transition: 1 minute ago)"))
+	require.Equal(t, 1, len(messages))
+	require.Equal(t, "One container is still creating [ memory-bomb-container ] (since 11 minutes ago)", messages[0])
 }
 
 func TestPodState_StuckInitializing(t *testing.T) {
@@ -103,10 +103,12 @@ func TestPodState_StuckInitializing(t *testing.T) {
 		require.NotEmpty(t, state.name)
 		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
-		require.Equal(t, 3, len(messages))
-		require.Equal(t, "Pod is in Pending phase", messages[0])
-		require.True(t, strings.HasPrefix(messages[1], "Containers Not Initialized: containers with incomplete status: ["))
-		require.True(t, strings.HasPrefix(messages[2], "Containers Not Ready: containers with unready status: ["))
+		assert.Equal(t, 1, len(messages))
+		assert.True(t,
+			strings.HasPrefix(messages[0], "One container is still initializing [ ") ||
+				strings.Index(messages[0], " containers are still initializing [ ") == 1,
+			messages[0],
+		)
 	}
 }
 
@@ -186,7 +188,7 @@ func TestPodState_EvictedOnMemory_ButContainerIsTooNew(t *testing.T) {
 	require.NotNil(t, pods)
 	require.NotEmpty(t, pods)
 
-	now := asTime("2021-07-18T10:58:10Z") // 10 sec after pod was created
+	now := asTime("2021-07-18T10:58:02Z") // 2 sec after pod was created
 
 	verifyAllPodsHealthy(t, pods, now)
 }
@@ -218,7 +220,7 @@ func TestPodState_CreateFailed(t *testing.T) {
 	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
-	require.Equal(t, "queue-consumer still waiting due to CreateContainerError: context deadline exceeded", messages[0])
+	require.Equal(t, "Container queue-consumer still waiting due to CreateContainerError: context deadline exceeded", messages[0])
 	require.Equal(t, 1, len(state.logsCollections))
 	require.Equal(t, "ci/app6-go-6595586ddf-5t9hx/queue-consumer/logs", state.logsCollections["queue-consumer"])
 }
@@ -270,13 +272,12 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		require.NotEmpty(t, state.name)
 		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
-		require.Equal(t, 3, len(messages))
-		require.Equal(t, "Pod is in Pending phase", messages[0])
-		require.Equal(t, "wait-for-database (init) still waiting due to CrashLoopBackOff: back-off 5m0s restarting failed container", messages[1])
-		require.Equal(t, "wait-for-database (init) had restarted 6 times, last exit due to Error (exit code 1)", messages[2])
-		require.Equal(t, 1, len(state.logsCollections))
-		require.True(t, strings.HasPrefix(state.logsCollections["wait-for-database"], "ci/"))
-		require.True(t, strings.HasSuffix(state.logsCollections["wait-for-database"], "/wait-for-database/logs"))
+		assert.Equal(t, 2, len(messages))
+		assert.Equal(t, "Container wait-for-database (init) is in CrashLoopBackOff: restarted 6 times, last exit due to Error (exit code 1)", messages[0])
+		assert.True(t, strings.Index(messages[1], " containers are still initializing [ ") > 0, messages[1])
+		assert.Equal(t, 1, len(state.logsCollections))
+		assert.True(t, strings.HasPrefix(state.logsCollections["wait-for-database"], "ci/"))
+		assert.True(t, strings.HasSuffix(state.logsCollections["wait-for-database"], "/wait-for-database/logs"))
 	}
 
 	for _, index := range initializingIndexes {
@@ -288,16 +289,13 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		require.NotEmpty(t, state.name)
 		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
-		if len(messages) == 2 {
-			require.Equal(t, "Pod is in Pending phase", messages[0])
-			require.True(t, strings.HasPrefix(messages[1], "Containers Not Ready: containers with unready status: ["))
-		} else {
-			require.Equal(t, 3, len(messages))
-			require.Equal(t, "Pod is in Pending phase", messages[0])
-			require.True(t, strings.HasPrefix(messages[1], "Containers Not Initialized: containers with incomplete status: ["))
-			require.True(t, strings.HasPrefix(messages[2], "Containers Not Ready: containers with unready status: ["))
-		}
-		require.Equal(t, 0, len(state.logsCollections))
+		assert.Equal(t, 1, len(messages))
+		assert.True(t,
+			strings.HasPrefix(messages[0], "One container is still initializing [ ") ||
+				strings.HasPrefix(messages[0], "One container is still creating [ "),
+			messages[0],
+		)
+		assert.Equal(t, 0, len(state.logsCollections))
 	}
 }
 
@@ -325,7 +323,7 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
-	require.Equal(t, "queue had restarted 5 times, last exit due to Error (exit code 137)", messages[0])
+	require.Equal(t, "Container queue restarted 5 times, last exit due to Error (exit code 137)", messages[0])
 
 	restartingPod = pods[13]
 	state, err = testContext(now).podState(&restartingPod)
@@ -336,7 +334,7 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	messages = state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
-	require.Equal(t, "app9 had restarted 7 times, last exit due to OOMKilled (exit code 137)", messages[0])
+	require.Equal(t, "Container app9 restarted 7 times, last exit due to OOMKilled (exit code 137)", messages[0])
 }
 
 func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
@@ -351,7 +349,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 
 	skipIndexes := internal.ToMap(unhealthyIndexes)
 
-	now := asTime("2021-07-18T07:42:00Z")
+	now := asTime("2021-07-18T08:42:00Z")
 	verifyPodsHealthyExcept(t, pods, now, skipIndexes)
 
 	restartingPod := pods[0]
@@ -362,9 +360,8 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	require.NotEmpty(t, state.name)
 	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Pod is in Pending phase", messages[0])
-	require.Equal(t, "run-migrations (init) had restarted 5 times", messages[1])
+	require.Equal(t, 1, len(messages))
+	require.Equal(t, "Container run-migrations (init) restarted 5 times", messages[0])
 
 	pendingPod := pods[1]
 	state, err = testContext(now).podState(&pendingPod)
@@ -374,9 +371,8 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	require.NotEmpty(t, state.name)
 	messages = state.cleanMessages()
 	require.NotEmpty(t, messages)
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Pod is in Pending phase", messages[0])
-	require.Equal(t, "Containers Not Ready: containers with unready status: [app10 queue-consumer] (last transition: 5 minutes ago)", messages[1])
+	require.Equal(t, 1, len(messages))
+	require.Equal(t, "2 containers are still initializing [ app10, queue-consumer ] (since 1 hour ago)", messages[0])
 }
 
 func TestPodState_PodUnschedulableDueToInsufficientMemory(t *testing.T) {
@@ -395,9 +391,8 @@ func TestPodState_PodUnschedulableDueToInsufficientMemory(t *testing.T) {
 	require.NotEmpty(t, state.name)
 	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Pod is in Pending phase", messages[0])
-	require.Equal(t, "Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 15 minutes ago)", messages[1])
+	require.Equal(t, 1, len(messages))
+	require.Equal(t, "Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 15 minutes ago)", messages[0])
 }
 
 func TestPodState_JobFailed(t *testing.T) {
@@ -421,9 +416,9 @@ func TestPodState_JobFailed(t *testing.T) {
 		require.NotEmpty(t, state.name)
 		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
-		require.Equal(t, 2, len(messages))
-		require.Equal(t, "Pod is in Failed phase", messages[0])
-		require.Equal(t, "smoke-tester terminated due to Error (exit code 1)", messages[1])
+		assert.Equal(t, 2, len(messages))
+		assert.Equal(t, "Pod is in Failed phase", messages[0])
+		assert.Equal(t, "smoke-tester terminated due to Error (exit code 1)", messages[1])
 	}
 }
 
@@ -454,7 +449,7 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	require.NotNil(t, pods)
 	require.NotEmpty(t, pods)
 
-	now := asTime("2021-10-12T12:05:00Z")
+	now := asTime("2021-10-12T12:17:00Z")
 
 	state, err := testContext(now).podState(&pods[0])
 	require.Nil(t, err)
@@ -463,9 +458,8 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	require.NotEmpty(t, state.name)
 	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
-	require.GreaterOrEqual(t, len(messages), 2)
-	require.Equal(t, "Pod is in Pending phase", messages[0])
-	require.Equal(t, "nginx-1 still waiting due to ImagePullBackOff: Back-off pulling image \"nginx:l4t3st\"", messages[1])
+	require.GreaterOrEqual(t, len(messages), 1)
+	require.Equal(t, "Container nginx-1 still waiting due to ImagePullBackOff: Back-off pulling image \"nginx:l4t3st\"", messages[0])
 
 	state, err = testContext(now).podState(&pods[1])
 	require.Nil(t, err)
@@ -474,9 +468,8 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	require.NotEmpty(t, state.name)
 	messages = state.cleanMessages()
 	require.NotEmpty(t, messages)
-	require.GreaterOrEqual(t, len(messages), 2)
-	require.Equal(t, "Pod is in Pending phase", messages[0])
-	require.Equal(t, "Unschedulable: 0/7 nodes are available: 7 Insufficient memory. (last transition: 4 minutes ago)", messages[1])
+	require.GreaterOrEqual(t, len(messages), 1)
+	require.Equal(t, "Unschedulable: 0/7 nodes are available: 7 Insufficient memory. (last transition: 16 minutes ago)", messages[0])
 
 	state, err = testContext(now).podState(&pods[2])
 	require.Nil(t, err)
@@ -485,9 +478,8 @@ func TestPodState_MultipleProblems(t *testing.T) {
 	require.NotEmpty(t, state.name)
 	messages = state.cleanMessages()
 	require.NotEmpty(t, messages)
-	require.GreaterOrEqual(t, len(messages), 2)
-	require.Equal(t, "Pod is in Pending phase", messages[0])
-	require.Equal(t, "Containers Not Ready: containers with unready status: [nginx-3] (last transition: 4 minutes ago)", messages[1])
+	require.GreaterOrEqual(t, len(messages), 1)
+	require.Equal(t, "One container is still creating [ nginx-3 ] (since 16 minutes ago)", messages[0])
 }
 
 func TestPodState_AllPodsPending(t *testing.T) {
@@ -496,7 +488,7 @@ func TestPodState_AllPodsPending(t *testing.T) {
 	require.NotNil(t, pods)
 	require.NotEmpty(t, pods)
 
-	now := asTime("2021-10-19T09:00:00Z")
+	now := asTime("2021-10-19T08:27:00Z")
 
 	for i, pod := range pods {
 		state, err := testContext(now).podState(&pod)
@@ -507,6 +499,17 @@ func TestPodState_AllPodsPending(t *testing.T) {
 		messages := state.cleanMessages()
 		require.NotEmpty(t, messages)
 		require.Equal(t, 1, len(messages))
-		require.Equal(t, "Pod is in Pending phase", messages[0])
+		require.True(t, strings.HasPrefix(messages[0], "Pod is in Pending phase (since "), messages[0])
 	}
+}
+
+func TestPodState_AllPodsPendingForShortTime(t *testing.T) {
+	pods, err := kubeclient.GetPods(t, "pending_all.json")
+	require.Nil(t, err)
+	require.NotNil(t, pods)
+	require.NotEmpty(t, pods)
+
+	now := asTime("2021-10-19T08:11:00Z")
+
+	verifyAllPodsHealthy(t, pods, now)
 }

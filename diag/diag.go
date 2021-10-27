@@ -93,7 +93,7 @@ func (context *diagContext) handleEntityState(state *entityState, events []*even
 
 	deduped := len(addedHashes) == 0
 	if deduped {
-		log.Infof("[DEDUPPED] %v", state)
+		log.Infof("[DEDUPED] %v", state)
 	} else {
 		log.Info(state.String())
 		entityAlert.LogsByContainerName = state.logsCollections
@@ -159,6 +159,7 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 	for i := range iter.N(cfg.Iterations) {
 		if i > 0 {
 			time.Sleep(sleepBetweenIterations)
+			context.now = context.now.Add(sleepBetweenIterations)
 		}
 		err := context.clusterIteration(i)
 		if err != nil {
