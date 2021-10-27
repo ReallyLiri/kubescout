@@ -10,17 +10,17 @@ type webSink struct {
 	postUrl          string
 	customizeRequest CustomizeRequest
 	responseVerify   ResponseVerify
-	tlsSkipVerify    bool
+	transportGetter  TransportGetter
 }
 
 var _ Sink = &webSink{}
 
-func CreateWebSink(postUrl string, customizeRequest CustomizeRequest, responseVerify ResponseVerify, tlsSkipVerify bool) (Sink, error) {
+func CreateWebSink(postUrl string, transportGetter TransportGetter, customizeRequest CustomizeRequest, responseVerify ResponseVerify, tlsSkipVerify bool) (Sink, error) {
 	return &webSink{
 		postUrl:          postUrl,
 		customizeRequest: customizeRequest,
 		responseVerify:   responseVerify,
-		tlsSkipVerify:    tlsSkipVerify,
+		transportGetter:  transportGetter,
 	}, nil
 }
 
@@ -30,7 +30,7 @@ func (sink webSink) Report(alerts *alert.Alerts) error {
 		return fmt.Errorf("failed to serialize alert to json: %v", err)
 	}
 
-	_, err = postHttp(sink.postUrl, body, sink.customizeRequest, sink.responseVerify, sink.tlsSkipVerify)
+	_, err = postHttp(sink.postUrl, body, sink.transportGetter, sink.customizeRequest, sink.responseVerify)
 
 	return err
 }

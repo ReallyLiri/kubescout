@@ -246,6 +246,7 @@ go get github.com/reallyliri/kubescout
 package example
 
 import (
+	"crypto/tls"
 	"fmt"
 	kubescoutconfig "github.com/reallyliri/kubescout/config"
 	kubescout "github.com/reallyliri/kubescout/pkg"
@@ -254,15 +255,20 @@ import (
 )
 
 func main() {
-	
+
 	// simple default execution:
 	_ = kubescout.Scout(nil, nil)
-	
+
 	// example using Slack webhook as sink:
 	cfg, _ := kubescoutconfig.DefaultConfig()
 	cfg.KubeconfigFilePath = "/root/configs/staging-kubeconfig"
 	sink, _ := kubescoutsink.CreateWebSink(
 		"https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX",
+		func() (http.RoundTripper, error) {
+			skipVerifyTransport := http.DefaultTransport.(*http.Transport).Clone()
+			skipVerifyTransport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+			return skipVerifyTransport, nil
+		},
 		func(request *http.Request) error {
 			request.Header.Add("Content-Type", "application/json")
 			return nil

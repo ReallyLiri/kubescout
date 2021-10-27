@@ -2,17 +2,18 @@ package sink
 
 import (
 	"bytes"
-	"crypto/tls"
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
+type TransportGetter func() (http.RoundTripper, error)
+
 type CustomizeRequest func(request *http.Request) error
 
 type ResponseVerify func(response *http.Response, responseBody string) error
 
-func postHttp(url string, body []byte, customizeRequest CustomizeRequest, responseVerify ResponseVerify, tlsSkipVerify bool) (string, error) {
+func postHttp(url string, body []byte, transportGetter TransportGetter, customizeRequest CustomizeRequest, responseVerify ResponseVerify) (string, error) {
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
 	if err != nil {
 		return "", fmt.Errorf("failed to construct http request to %v: %v", url, err)
@@ -27,10 +28,11 @@ func postHttp(url string, body []byte, customizeRequest CustomizeRequest, respon
 
 	client := http.DefaultClient
 
-	if tlsSkipVerify {
-		skipVerifyTransport := http.DefaultTransport.(*http.Transport).Clone()
-		skipVerifyTransport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-		client.Transport = skipVerifyTransport
+	if transportGetter != nil {
+		client.Transport, err = transportGetter()
+		if err != nil {
+			return "", fmt.Errorf("failed to get http client transport: %v", err)
+		}
 	}
 
 	log.Debugf("posting to %v ...", url)
