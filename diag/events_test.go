@@ -4,6 +4,7 @@ import (
 	"github.com/reallyliri/kubescout/internal"
 	"github.com/reallyliri/kubescout/kubeclient"
 	log "github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"strings"
 	"testing"
@@ -29,7 +30,7 @@ func TestEventState_StandardEvents(t *testing.T) {
 	require.NotEmpty(t, state.name.name)
 	messages := strings.Split(state.cleanMessage(), "\n")
 	require.Equal(t, 4, len(messages))
-	require.Equal(t, "Event by kubelet: Unhealthy x2 since 12 Oct 21 13:54 UTC (last seen 26 seconds ago):", messages[0])
+	require.Equal(t, "Event by kubelet: Unhealthy x2 since 12 Oct 21 13:54 UTC, 41 seconds ago (last seen 26 seconds ago):", messages[0])
 	require.Equal(t, "\tLiveness probe failed:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current", messages[1])
 	require.Equal(t, "\tDload  Upload   Total   Spent    Left  Speed", messages[2])
 	require.Equal(t, "\t0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) Failed to connect to localhost port 8095: Connection refused", messages[3])
@@ -57,9 +58,9 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name.name)
 	messages := strings.Split(state.cleanMessage(), "\n")
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event by kubelet: Failed x351 since 12 Oct 21 12:00 UTC (last seen 9 minutes ago):", messages[0])
-	require.Equal(t, "\tError: ImagePullBackOff", messages[1])
+	assert.Equal(t, 2, len(messages))
+	assert.Equal(t, "Event by kubelet: Failed x351 since 12 Oct 21 12:00 UTC, 1 hour ago (last seen 9 minutes ago):", messages[0])
+	assert.Equal(t, "\tError: ImagePullBackOff", messages[1])
 
 	state, err = testContext(now).eventState(&events[10])
 	require.Nil(t, err)
@@ -67,9 +68,9 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name.name)
 	messages = strings.Split(state.cleanMessage(), "\n")
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event by default-scheduler: FailedScheduling x476 since 12 Oct 21 12:01 UTC (last seen 4 minutes ago):", messages[0])
-	require.Equal(t, "\t0/7 nodes are available: 7 Insufficient memory.", messages[1])
+	assert.Equal(t, 2, len(messages))
+	assert.Equal(t, "Event by default-scheduler: FailedScheduling x476 since 12 Oct 21 12:01 UTC, 1 hour ago (last seen 4 minutes ago):", messages[0])
+	assert.Equal(t, "\t0/7 nodes are available: 7 Insufficient memory.", messages[1])
 
 	state, err = testContext(now).eventState(&events[11])
 	require.Nil(t, err)
@@ -77,9 +78,9 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name.name)
 	messages = strings.Split(state.cleanMessage(), "\n")
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event by kubelet: FailedMount x10 since 12 Oct 21 12:02 UTC (last seen 3 minutes ago):", messages[0])
-	require.Equal(t, "\tUnable to attach or mount volumes: unmounted volumes=[nginx-pvc], unattached volumes=[default-token-6xwwv nginx-pvc]: timed out waiting for the condition", messages[1])
+	assert.Equal(t, 2, len(messages))
+	assert.Equal(t, "Event by kubelet: FailedMount x10 since 12 Oct 21 12:02 UTC, 1 hour ago (last seen 3 minutes ago):", messages[0])
+	assert.Equal(t, "\tUnable to attach or mount volumes: unmounted volumes=[nginx-pvc], unattached volumes=[default-token-6xwwv nginx-pvc]: timed out waiting for the condition", messages[1])
 
 	state, err = testContext(now).eventState(&events[12])
 	require.Nil(t, err)
@@ -87,9 +88,9 @@ func TestEventState_MountFailedEvents(t *testing.T) {
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name.name)
 	messages = strings.Split(state.cleanMessage(), "\n")
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event by kubelet: FailedMount x28 since 12 Oct 21 12:05 UTC (last seen 5 minutes ago):", messages[0])
-	require.Equal(t, "\tUnable to attach or mount volumes: unmounted volumes=[nginx-pvc], unattached volumes=[nginx-pvc default-token-6xwwv]: timed out waiting for the condition", messages[1])
+	assert.Equal(t, 2, len(messages))
+	assert.Equal(t, "Event by kubelet: FailedMount x28 since 12 Oct 21 12:05 UTC, 1 hour ago (last seen 5 minutes ago):", messages[0])
+	assert.Equal(t, "\tUnable to attach or mount volumes: unmounted volumes=[nginx-pvc], unattached volumes=[nginx-pvc default-token-6xwwv]: timed out waiting for the condition", messages[1])
 }
 
 func TestEventState_NodeProblemDetector(t *testing.T) {
@@ -107,8 +108,8 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name.name)
 	messages := strings.Split(state.cleanMessage(), "\n")
-	require.Equal(t, 1, len(messages))
-	require.Equal(t, "Event by sysctl-monitor: NodeSysctlChange x29 since 07 Oct 21 05:24 UTC (last seen 1 hour ago)", messages[0])
+	assert.Equal(t, 1, len(messages))
+	assert.Equal(t, "Event by sysctl-monitor: NodeSysctlChange x29 since 07 Oct 21 05:24 UTC, 1 week ago (last seen 1 hour ago)", messages[0])
 
 	state, err = testContext(now).eventState(&events[1])
 	require.Nil(t, err)
@@ -116,9 +117,9 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name.name)
 	messages = strings.Split(state.cleanMessage(), "\n")
-	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event by kernel-monitor: KernelOops since 14 Oct 21 06:10 UTC (last seen 19 minutes ago):", messages[0])
-	require.Equal(t, "\tkernel: BUG: unable to handle kernel NULL pointer dereference at TESTING", messages[1])
+	assert.Equal(t, 2, len(messages))
+	assert.Equal(t, "Event by kernel-monitor: KernelOops since 14 Oct 21 06:10 UTC, 19 minutes ago:", messages[0])
+	assert.Equal(t, "\tkernel: BUG: unable to handle kernel NULL pointer dereference at TESTING", messages[1])
 }
 
 func TestEventState_FailedJobs(t *testing.T) {
@@ -141,7 +142,7 @@ func TestEventState_FailedJobs(t *testing.T) {
 	require.NotEmpty(t, state.name.name)
 	messages := strings.Split(state.cleanMessage(), "\n")
 	require.Equal(t, 2, len(messages))
-	require.Equal(t, "Event by job-controller: BackoffLimitExceeded since 21 Oct 21 10:06 UTC (last seen 53 minutes ago):", messages[0])
+	require.Equal(t, "Event by job-controller: BackoffLimitExceeded since 21 Oct 21 10:06 UTC, 53 minutes ago:", messages[0])
 	require.Equal(t, "\tJob has reached the specified backoff limit", messages[1])
 }
 

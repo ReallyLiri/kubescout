@@ -3,8 +3,6 @@ module github.com/reallyliri/kubescout
 go 1.16
 
 require (
-	github.com/bradfitz/iter v0.0.0-20191230175014-e8f45d346db8 // indirect
-	github.com/drgrib/iter v0.0.0-20170410174532-f217f3c890f6
 	github.com/dustin/go-humanize v1.0.0
 	github.com/fatih/camelcase v1.0.0
 	github.com/goombaio/orderedmap v0.0.0-20180925151256-3da0e2f905f9

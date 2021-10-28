@@ -170,7 +170,7 @@ TBD
 
 ```
 NAME:
-   kubescout - 0.1.5 - Scout for alarming issues in your Kubernetes cluster
+   kubescout - 0.1.7 - Scout for alarming issues in your Kubernetes cluster
 
 USAGE:
    kubescout                   [optional flags]
@@ -191,7 +191,6 @@ OPTIONS:
    --dedup-minutes value, -d value        time in minutes to silence duplicate or already observed alerts, or 0 to disable deduplication (default: 60)
    --store-filepath value, -s value       path to store file where state will be persisted or empty string to disable persistency (default: "kube-scout.store.json")
    --output value, -o value               output mode, one of pretty/json/yaml/discard (default: "pretty")
-   --iterations value, --it value         number of diag iterations, meant to better capture constantly changing states (default: 3)
    --context value, -c value              context name to use from kubeconfig, defaults to current context
    --all-contexts, -a                     iterate all kubeconfig contexts, 'context' flag will be ignored if this flag is set (default: false)
    --exclude-contexts value               a comma separated list of kubeconfig context names to skip, only relevant if 'all-contexts' flag is set

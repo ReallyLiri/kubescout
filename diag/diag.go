@@ -1,7 +1,6 @@
 package diag
 
 import (
-	"github.com/drgrib/iter"
 	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
 	"github.com/reallyliri/kubescout/internal"
@@ -11,8 +10,6 @@ import (
 	"go.uber.org/multierr"
 	"time"
 )
-
-const sleepBetweenIterations = time.Second * time.Duration(3)
 
 type diagContext struct {
 	config                *config.Config
@@ -156,15 +153,9 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 
 	log.Infof("Diagnosing cluster %v ...", store.Cluster)
 
-	for i := range iter.N(cfg.Iterations) {
-		if i > 0 {
-			time.Sleep(sleepBetweenIterations)
-			context.now = context.now.Add(sleepBetweenIterations)
-		}
-		err := context.clusterIteration(i)
-		if err != nil {
-			return err
-		}
+	err := context.collectStates()
+	if err != nil {
+		return err
 	}
 
 	for name, state := range context.statesByName {
@@ -183,7 +174,7 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 	return
 }
 
-func (context *diagContext) clusterIteration(i int) error {
+func (context *diagContext) collectStates() error {
 	client := context.client
 	namespaces, err := client.GetNamespaces()
 	if err != nil {
@@ -192,7 +183,7 @@ func (context *diagContext) clusterIteration(i int) error {
 
 	var aggregatedError error
 
-	log.Debugf("Discovered %v namespaces (iter=%v)", len(namespaces), i)
+	log.Debugf("Discovered %v namespaces", len(namespaces))
 	for _, namespace := range namespaces {
 		namespaceName := namespace.Name
 		if !context.isNamespaceRelevant(namespaceName) {
@@ -203,7 +194,7 @@ func (context *diagContext) clusterIteration(i int) error {
 		if err != nil {
 			aggregatedError = multierr.Append(aggregatedError, err)
 		} else {
-			log.Debugf("Discovered %v events in namespace %v (iter=%v)", len(events), namespaceName, i)
+			log.Debugf("Discovered %v events in namespace %v", len(events), namespaceName)
 			for _, event := range events {
 				_, err = context.eventState(&event)
 				if err != nil {
@@ -216,7 +207,7 @@ func (context *diagContext) clusterIteration(i int) error {
 		if err != nil {
 			aggregatedError = multierr.Append(aggregatedError, err)
 		} else {
-			log.Debugf("Discovered %v pods in namespace %v (iter=%v)", len(pods), namespaceName, i)
+			log.Debugf("Discovered %v pods in namespace %v", len(pods), namespaceName)
 			for _, pod := range pods {
 				_, err = context.podState(&pod)
 				if err != nil {
@@ -229,7 +220,7 @@ func (context *diagContext) clusterIteration(i int) error {
 		if err != nil {
 			aggregatedError = multierr.Append(aggregatedError, err)
 		} else {
-			log.Debugf("Discovered %v replica sets in namespace %v (iter=%v)", len(replicaSets), namespaceName, i)
+			log.Debugf("Discovered %v replica sets in namespace %v", len(replicaSets), namespaceName)
 			for _, replicaSet := range replicaSets {
 				_, err = context.replicaSetState(&replicaSet)
 				if err != nil {
@@ -243,7 +234,7 @@ func (context *diagContext) clusterIteration(i int) error {
 	if err != nil {
 		aggregatedError = multierr.Append(aggregatedError, err)
 	} else {
-		log.Debugf("Discovered %v nodes (iter=%v)", len(nodes), i)
+		log.Debugf("Discovered %v nodes", len(nodes))
 		for _, node := range nodes {
 			_, err = context.nodeState(&node, false)
 			if err != nil {

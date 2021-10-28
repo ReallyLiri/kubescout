@@ -230,67 +230,6 @@ func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error
 	return
 }
 
-func (context *diagContext) eventState(event *v1.Event) (state *eventState, err error) {
-
-	state = context.addEventState(event.InvolvedObject.Namespace, event.InvolvedObject.Kind, event.InvolvedObject.Name)
-
-	state.timestamp = event.EventTime.Time
-	if state.timestamp.IsZero() {
-		state.timestamp = event.FirstTimestamp.Time
-	}
-
-	if event.Type == "Normal" {
-		return state, nil
-	}
-
-	source := event.Source.Component
-	if source == "" {
-		source = event.ReportingController
-	}
-
-	lastTimestamp := state.timestamp
-	count := int32(1)
-	if event.Series != nil {
-		lastTimestamp = event.Series.LastObservedTime.Time
-		count = event.Series.Count
-	} else if event.Count > 1 {
-		lastTimestamp = event.LastTimestamp.Time
-		count = event.Count
-	}
-
-	builder := strings.Builder{}
-	builder.WriteString(fmt.Sprintf(
-		"Event by %v: %v ",
-		source,
-		event.Reason,
-	))
-	if count > 1 {
-		builder.WriteString(fmt.Sprintf("x%v ", wrapTemporal(count)))
-	}
-	builder.WriteString(fmt.Sprintf(
-		"since %v (last seen %v)",
-		wrapTemporal(formatTime(state.timestamp, context.config.TimeFormat, context.config.Locale)),
-		wrapTemporal(formatDuration(lastTimestamp, context.now)),
-	))
-
-	if event.Message != "" {
-		var lines []string
-		for _, line := range strings.Split(event.Message, "\n") {
-			line = strings.TrimSpace(line)
-			if line != "" {
-				lines = append(lines, line)
-			}
-		}
-		if len(lines) > 0 {
-			builder.WriteString(":\n\t")
-		}
-		builder.WriteString(strings.Join(lines, "\n\t"))
-	}
-
-	state.message = builder.String()
-	return state, nil
-}
-
 func (context *diagContext) nodeState(node *v1.Node, forceCheckResources bool) (state *entityState, err error) {
 	state = context.getOrAddState(node.Namespace, "Node", node.Name)
 
@@ -376,4 +315,73 @@ func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet) (state *
 		)
 	}
 	return
+}
+
+func (context *diagContext) eventState(event *v1.Event) (state *eventState, err error) {
+
+	state = context.addEventState(event.InvolvedObject.Namespace, event.InvolvedObject.Kind, event.InvolvedObject.Name)
+
+	if event.Type == "Normal" {
+		return state, nil
+	}
+
+	source := event.Source.Component
+	if source == "" {
+		source = event.ReportingController
+	}
+
+	firstTimestamp := event.FirstTimestamp.Time
+	if firstTimestamp.IsZero() {
+		firstTimestamp = event.EventTime.Time
+	}
+
+	lastTimestamp := event.EventTime.Time
+	count := int32(1)
+	if event.Series != nil && !event.Series.LastObservedTime.IsZero() {
+		lastTimestamp = event.Series.LastObservedTime.Time
+		count = event.Series.Count
+	} else if event.Count > 1 && !event.LastTimestamp.IsZero() {
+		lastTimestamp = event.LastTimestamp.Time
+		count = event.Count
+	}
+
+	builder := strings.Builder{}
+	builder.WriteString(fmt.Sprintf(
+		"Event by %v: %v ",
+		source,
+		event.Reason,
+	))
+	if count > 1 {
+		builder.WriteString(fmt.Sprintf("x%v ", wrapTemporal(count)))
+	}
+
+	builder.WriteString(fmt.Sprintf(
+		"since %v, %v",
+		wrapTemporal(formatTime(firstTimestamp, context.config.TimeFormat, context.config.Locale)),
+		wrapTemporal(formatDuration(firstTimestamp, context.now)),
+	))
+
+	if firstTimestamp != lastTimestamp && !lastTimestamp.IsZero() {
+		builder.WriteString(wrapTemporal(fmt.Sprintf(
+			" (last seen %v)",
+			formatDuration(lastTimestamp, context.now),
+		)))
+	}
+
+	if event.Message != "" {
+		var lines []string
+		for _, line := range strings.Split(event.Message, "\n") {
+			line = strings.TrimSpace(line)
+			if line != "" {
+				lines = append(lines, line)
+			}
+		}
+		if len(lines) > 0 {
+			builder.WriteString(":\n\t")
+		}
+		builder.WriteString(strings.Join(lines, "\n\t"))
+	}
+
+	state.message = builder.String()
+	return state, nil
 }

@@ -5,7 +5,6 @@ import (
 	"github.com/goombaio/orderedmap"
 	"github.com/reallyliri/kubescout/internal"
 	"strings"
-	"time"
 )
 
 type entityName struct {
@@ -23,7 +22,6 @@ type entityState struct {
 type eventState struct {
 	name      entityName
 	message   string
-	timestamp time.Time
 }
 
 func newState(entityName entityName) *entityState {

@@ -67,7 +67,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, "Node", alerts[i].Kind)
 	assert.Equal(t, 0, len(alerts[i].Messages))
 	assert.Equal(t, 1, len(alerts[i].Events))
-	assert.Equal(t, `Event by sysctl-monitor: NodeSysctlChange x53 since 17 Oct 21 14:15 UTC (last seen 4 minutes ago)`, alerts[i].Events[0])
+	assert.Equal(t, `Event by sysctl-monitor: NodeSysctlChange x53 since 17 Oct 21 14:15 UTC, 4 minutes ago`, alerts[i].Events[0])
 	assert.Equal(t, 0, len(alerts[i].LogsByContainerName))
 
 	i = 1
@@ -78,11 +78,11 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].Messages))
 	assert.Equal(t, "Container test-2-broken-image still waiting due to ImagePullBackOff: Back-off pulling image \"nginx:l4t3st\"", alerts[i].Messages[0])
 	assert.Equal(t, 3, len(alerts[i].Events))
-	assert.Equal(t, `Event by kubelet: Failed x4 since 17 Oct 21 14:15 UTC (last seen 2 minutes ago):
+	assert.Equal(t, `Event by kubelet: Failed x4 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 2 minutes ago):
 	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`, alerts[i].Events[0])
-	assert.Equal(t, `Event by kubelet: Failed x4 since 17 Oct 21 14:15 UTC (last seen 2 minutes ago):
+	assert.Equal(t, `Event by kubelet: Failed x4 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 2 minutes ago):
 	Error: ErrImagePull`, alerts[i].Events[1])
-	assert.Equal(t, `Event by kubelet: Failed x6 since 17 Oct 21 14:15 UTC (last seen 2 minutes ago):
+	assert.Equal(t, `Event by kubelet: Failed x6 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 2 minutes ago):
 	Error: ImagePullBackOff`, alerts[i].Events[2])
 	assert.Equal(t, 1, len(alerts[i].LogsByContainerName))
 	assert.Equal(t, "default/test-2-broken-image-7cbf974df9-4jv8f/test-2-broken-image/logs", alerts[i].LogsByContainerName["test-2-broken-image"])
@@ -95,7 +95,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].Messages))
 	assert.Equal(t, "Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: 4 minutes ago)", alerts[i].Messages[0])
 	assert.Equal(t, 1, len(alerts[i].Events))
-	assert.Equal(t, `Event by default-scheduler: FailedScheduling since 17 Oct 21 14:15 UTC (last seen 4 minutes ago):
+	assert.Equal(t, `Event by default-scheduler: FailedScheduling since 17 Oct 21 14:15 UTC, 4 minutes ago:
 	0/1 nodes are available: 1 Insufficient memory.`, alerts[i].Events[0])
 	assert.Equal(t, 0, len(alerts[i].LogsByContainerName))
 
@@ -107,7 +107,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].Messages))
 	assert.Equal(t, "Container test-4-crashlooping is in CrashLoopBackOff: restarted 4 times, last exit due to Error (exit code 1)", alerts[i].Messages[0])
 	assert.Equal(t, 1, len(alerts[i].Events))
-	assert.Equal(t, `Event by kubelet: BackOff x8 since 17 Oct 21 14:15 UTC (last seen 3 minutes ago):
+	assert.Equal(t, `Event by kubelet: BackOff x8 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 3 minutes ago):
 	Back-off restarting failed container`, alerts[i].Events[0])
 	assert.Equal(t, 1, len(alerts[i].LogsByContainerName))
 	assert.Equal(t, "default/test-4-crashlooping-dbdd84589-8m7kj/test-4-crashlooping/logs", alerts[i].LogsByContainerName["test-4-crashlooping"])
@@ -120,7 +120,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].Messages))
 	assert.Equal(t, "Container test-5-completed is in CrashLoopBackOff: restarted 4 times, last exit due to Completed (exit code 0)", alerts[i].Messages[0])
 	assert.Equal(t, 1, len(alerts[i].Events))
-	assert.Equal(t, `Event by kubelet: BackOff x8 since 17 Oct 21 14:15 UTC (last seen 2 minutes ago):
+	assert.Equal(t, `Event by kubelet: BackOff x8 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 2 minutes ago):
 	Back-off restarting failed container`, alerts[i].Events[0])
 	assert.Equal(t, 1, len(alerts[i].LogsByContainerName))
 	assert.Equal(t, "default/test-5-completed-757685986-qxbqp/test-5-completed/logs", alerts[i].LogsByContainerName["test-5-completed"])
@@ -133,7 +133,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].Messages))
 	assert.Equal(t, "Container test-6-crashlooping-init-container (init) is in CrashLoopBackOff: restarted 4 times, last exit due to Error (exit code 1)", alerts[i].Messages[0])
 	assert.Equal(t, 1, len(alerts[i].Events))
-	assert.Equal(t, `Event by kubelet: BackOff x7 since 17 Oct 21 14:15 UTC (last seen 3 minutes ago):
+	assert.Equal(t, `Event by kubelet: BackOff x7 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 3 minutes ago):
 	Back-off restarting failed container`, alerts[i].Events[0])
 	assert.Equal(t, 1, len(alerts[i].LogsByContainerName))
 	assert.Equal(t, "default/test-6-crashlooping-init-644545f5b7-l468n/test-6-crashlooping-init-container/logs", alerts[i].LogsByContainerName["test-6-crashlooping-init-container"])
