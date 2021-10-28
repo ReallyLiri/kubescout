@@ -235,7 +235,7 @@ Event by kubelet: Failed x* since * (last seen * ago):
 
 	`Pod default/test-3-excessive-resources-* is un-healthy:
 Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: * ago)
-Event by default-scheduler: FailedScheduling *since * (last seen * ago):
+Event by default-scheduler: FailedScheduling *since * ago*:
 	0/1 nodes are available: 1 Insufficient memory.`,
 
 	`Pod default/test-4-crashlooping-* is un-healthy:
