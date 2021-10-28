@@ -158,6 +158,8 @@ Or in json format:
 }
 ```
 
+![slack](https://i.imgur.com/03yuM55.png)
+
 ## Usage
 
 ### Kubernetes Native
