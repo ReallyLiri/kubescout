@@ -81,3 +81,52 @@ func Test_cleanMessage(t *testing.T) {
 	assert.Equal(t, "tt<t/>t", cleanMessage("t<t>t<t/></t>t"))
 	assert.Equal(t, "ttt", cleanMessage("t<t>t</t></t>t"))
 }
+
+func Test_dedup(t *testing.T) {
+	items := []interface{}{
+		"Frodo Baggins", "Tom Sawyer", "Bilbo Baggin", "Samuel L. Jackson", "F. Baggins", "Frody Baggins", "Bilbo Baggins",
+	}
+	deduped := dedup(items, func(item interface{}) string {
+		return item.(string)
+	}, 0.7)
+	assert.Len(t, deduped, 5)
+
+	deduped = dedup(items, func(item interface{}) string {
+		return item.(string)
+	}, 1)
+	assert.Len(t, deduped, 7)
+
+	deduped = dedup(items, func(item interface{}) string {
+		return item.(string)
+	}, 0)
+	assert.Len(t, deduped, 1)
+
+	items = []interface{}{
+		"Tom", "Dick", "Harry",
+	}
+	deduped = dedup(items, func(item interface{}) string {
+		return item.(string)
+	}, 0.7)
+	assert.Len(t, deduped, 3)
+
+	items = []interface{}{
+		"Tom", "Dick", "Harry", "Harry", "Dick", "Tom",
+	}
+	deduped = dedup(items, func(item interface{}) string {
+		return item.(string)
+	}, 0.7)
+	assert.Len(t, deduped, 3)
+
+	items = []interface{}{
+		`Event by kubelet: Failed x since , :
+	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`,
+		`Event by kubelet: Failed x since , :
+	Error: ErrImagePull`,
+		`Event by kubelet: Failed x since , :
+	Error: ImagePullBackOff`,
+	}
+	deduped = dedup(items, func(item interface{}) string {
+		return item.(string)
+	}, 0.6)
+	assert.Len(t, deduped, 2)
+}

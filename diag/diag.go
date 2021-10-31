@@ -8,6 +8,7 @@ import (
 	"github.com/reallyliri/kubescout/store"
 	log "github.com/sirupsen/logrus"
 	"go.uber.org/multierr"
+	"sort"
 	"time"
 )
 
@@ -49,7 +50,8 @@ func testContextWithClient(now time.Time, client kubeclient.KubernetesClient) *d
 	}
 }
 
-func unhealthyEvents(state *entityState, events []*eventState) (unhealthy []*eventState) {
+func unhealthyEvents(state *entityState, events []*eventState) []*eventState {
+	var unhealthy []*eventState
 	for _, evState := range events {
 		if evState.isHealthy() {
 			continue
@@ -62,7 +64,29 @@ func unhealthyEvents(state *entityState, events []*eventState) (unhealthy []*eve
 		}
 		unhealthy = append(unhealthy, evState)
 	}
-	return
+
+	sort.SliceStable(unhealthy, func(i, j int) bool {
+		message1 := normalizeMessage(unhealthy[i].message)
+		message2 := normalizeMessage(unhealthy[j].message)
+		return message1 > message2 // sorting reverse
+	})
+
+	cast := make([]interface{}, len(unhealthy))
+	for i, item := range unhealthy {
+		cast[i] = item
+	}
+	const similarityThreshold = 0.6
+	indexes := dedup(cast, func(item interface{}) string {
+		return normalizeMessage(item.(*eventState).message)
+	}, similarityThreshold)
+	if indexes == nil || unhealthy == nil {
+		return unhealthy
+	}
+	dedupedUnhealthy := make([]*eventState, len(indexes))
+	for i, index := range indexes {
+		dedupedUnhealthy[i] = unhealthy[index]
+	}
+	return dedupedUnhealthy
 }
 
 func (context *diagContext) handleEntityState(state *entityState, events []*eventState) (stored bool) {

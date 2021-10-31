@@ -171,7 +171,7 @@ func (state *entityState) checkContainerStatus(pod *v1.Pod, containerStatus v1.C
 		if err != nil {
 			log.Errorf("failed to get logs of %v/%v/%v: %v", pod.Namespace, pod.Name, containerStatus.Name, err)
 		} else {
-			logs = strings.TrimSpace(logs)
+			logs = strings.TrimSpace(strings.ReplaceAll(logs, "\r", "\n"))
 			if logs != "" {
 				state.logsCollections[containerStatus.Name] = logs
 			}
@@ -372,6 +372,7 @@ func (context *diagContext) eventState(event *v1.Event) (state *eventState, err 
 	}
 
 	if event.Message != "" {
+		event.Message = strings.ReplaceAll(event.Message, "\r", "\n")
 		var lines []string
 		for _, line := range strings.Split(event.Message, "\n") {
 			line = strings.TrimSpace(line)

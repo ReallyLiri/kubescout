@@ -3,6 +3,7 @@ package diag
 import (
 	"crypto/sha1"
 	"fmt"
+	"github.com/adrg/strutil/metrics"
 	"github.com/dustin/go-humanize"
 	"github.com/fatih/camelcase"
 	log "github.com/sirupsen/logrus"
@@ -19,6 +20,7 @@ var kiRegex *regexp.Regexp
 var miRegex *regexp.Regexp
 var giRegex *regexp.Regexp
 var mRegex *regexp.Regexp
+var levenshtein *metrics.Levenshtein
 
 func init() {
 	var err error
@@ -38,6 +40,11 @@ func init() {
 	if err != nil {
 		panic(fmt.Errorf("failed to compile regex: %v", err))
 	}
+	levenshtein = metrics.NewLevenshtein()
+	levenshtein.CaseSensitive = true
+	levenshtein.InsertCost = 3
+	levenshtein.DeleteCost = 3
+	levenshtein.ReplaceCost = 1
 }
 
 func normalizeMessage(message string) string {
@@ -185,4 +192,57 @@ func hash(entityName entityName, message string) string {
 	sha.Write([]byte(message))
 	asBytes := sha.Sum(nil)
 	return fmt.Sprintf("%x", asBytes)
+}
+
+var dedupThreshold = 65
+
+func forI(from int, until int, action func(int) bool) {
+	i := from
+	for {
+		if i >= until {
+			return
+		}
+		shouldContinue := action(i)
+		if !shouldContinue {
+			return
+		}
+		i++
+	}
+}
+
+func max(a int, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
+}
+
+func dedup(items []interface{}, dedupOnValue func(interface{}) string, similarityThreshold float64) []int {
+	if len(items) == 0 {
+		return nil
+	}
+	values := make([]string, len(items))
+	for i, item := range items {
+		values[i] = dedupOnValue(item)
+	}
+
+	var indexes []int
+	forI(0, len(values), func(i int) bool {
+		anySimilar := false
+		forI(0, i, func(j int) bool {
+			distance := levenshtein.Distance(values[i], values[j])
+			score := 1 - float64(distance)/float64(max(len(values[i]), len(values[j])))
+			if score >= similarityThreshold {
+				anySimilar = true
+				return false
+			}
+			return true
+		})
+		if !anySimilar {
+			indexes = append(indexes, i)
+		}
+		return true
+	})
+
+	return indexes
 }

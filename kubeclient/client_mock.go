@@ -2,10 +2,12 @@ package kubeclient
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	v12 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
+	"os"
 )
 
 type mockKubernetesClient struct {
@@ -54,6 +56,16 @@ func fromJson(filePath string, targetObject interface{}) error {
 	return nil
 }
 
+func fileRelevant(filePath string) bool {
+	if filePath == "" {
+		return false
+	}
+	if _, err := os.Stat(filePath); errors.Is(err, os.ErrNotExist) {
+		return false
+	}
+	return true
+}
+
 func CreateMockClient(
 	nodesJsonFilePath string,
 	namespacesJsonFilePath string,
@@ -69,31 +81,31 @@ func CreateMockClient(
 		replicaSets: &v12.ReplicaSetList{},
 		events:      &v1.EventList{},
 	}
-	if len(nodesJsonFilePath) > 0 {
+	if fileRelevant(nodesJsonFilePath) {
 		err = fromJson(nodesJsonFilePath, &client.nodes)
 		if err != nil {
 			return nil, err
 		}
 	}
-	if len(namespacesJsonFilePath) > 0 {
+	if fileRelevant(namespacesJsonFilePath) {
 		err = fromJson(namespacesJsonFilePath, &client.namespaces)
 		if err != nil {
 			return nil, err
 		}
 	}
-	if len(podsJsonFilePath) > 0 {
+	if fileRelevant(podsJsonFilePath) {
 		err = fromJson(podsJsonFilePath, &client.pods)
 		if err != nil {
 			return nil, err
 		}
 	}
-	if len(rsJsonFilePath) > 0 {
+	if fileRelevant(rsJsonFilePath) {
 		err = fromJson(rsJsonFilePath, &client.replicaSets)
 		if err != nil {
 			return nil, err
 		}
 	}
-	if len(eventsFilePath) > 0 {
+	if fileRelevant(eventsFilePath) {
 		err = fromJson(eventsFilePath, &client.events)
 		if err != nil {
 			return nil, err

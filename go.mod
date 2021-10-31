@@ -3,6 +3,7 @@ module github.com/reallyliri/kubescout
 go 1.16
 
 require (
+	github.com/adrg/strutil v0.2.3
 	github.com/dustin/go-humanize v1.0.0
 	github.com/fatih/camelcase v1.0.0
 	github.com/goombaio/orderedmap v0.0.0-20180925151256-3da0e2f905f9
