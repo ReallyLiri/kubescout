@@ -204,3 +204,45 @@ func TestEventState_LivenessFailed(t *testing.T) {
 		)
 	}
 }
+
+func TestEventState_EndpointsWarning(t *testing.T) {
+	events, err := kubeclient.GetEvents(t, "endpoints.json")
+	require.Nil(t, err)
+	require.NotNil(t, events)
+	require.NotEmpty(t, events)
+	require.Equal(t, 26, len(events))
+
+	now := asTime("2021-10-31T08:45:30Z")
+
+	warningIndexes := []int{
+		24,
+	}
+
+	skipIndexes := internal.ToMap(warningIndexes)
+
+	verifyEventsHealthyExcept(t, events, now, skipIndexes)
+
+	state, err := testContext(now).eventState(&events[24])
+	require.Nil(t, err)
+	log.Debug(state.String())
+	require.False(t, state.isHealthy())
+	assert.Equal(t, "api-nodeport", state.name.name)
+	assert.Equal(t, "Endpoints", state.name.kind)
+	assert.Equal(t, "ci", state.name.namespace)
+	messages := strings.Split(state.cleanMessage(), "\n")
+	assert.Equal(t, 2, len(messages))
+	assert.Equal(t, "Event by endpoint-controller: FailedToUpdateEndpoint since 31 Oct 21 08:29 UTC, 16 minutes ago:", messages[0])
+	assert.Equal(t, "\tFailed to update endpoint ch/api-nodeport: Operation cannot be fulfilled on endpoints \"api-nodeport\": the object has been modified; please apply your changes to the latest version and try again", messages[1])
+}
+
+func TestEventState_StartedEventsShouldBeIgnored(t *testing.T) {
+	events, err := kubeclient.GetEvents(t, "started_events.json")
+	require.Nil(t, err)
+	require.NotNil(t, events)
+	require.NotEmpty(t, events)
+	require.Equal(t, 103, len(events))
+
+	now := asTime("2021-10-31T08:45:30Z")
+
+	verifyEventsHealthyExcept(t, events, now, map[int]bool{})
+}

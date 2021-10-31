@@ -58,19 +58,9 @@ func TestDiagnose(t *testing.T) {
 
 	alerts := clusterStore.Alerts
 	sort.Sort(alerts)
-	assert.Equal(t, 6, len(alerts))
+	assert.Equal(t, 5, len(alerts))
 
 	i := 0
-	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
-	assert.Equal(t, "", alerts[i].Namespace)
-	assert.Equal(t, "minikube", alerts[i].Name)
-	assert.Equal(t, "Node", alerts[i].Kind)
-	assert.Equal(t, 0, len(alerts[i].Messages))
-	assert.Equal(t, 1, len(alerts[i].Events))
-	assert.Equal(t, `Event by sysctl-monitor: NodeSysctlChange x53 since 17 Oct 21 14:15 UTC, 4 minutes ago`, alerts[i].Events[0])
-	assert.Equal(t, 0, len(alerts[i].LogsByContainerName))
-
-	i = 1
 	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-2-broken-image-7cbf974df9-4jv8f", alerts[i].Name)
@@ -87,7 +77,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].LogsByContainerName))
 	assert.Equal(t, "default/test-2-broken-image-7cbf974df9-4jv8f/test-2-broken-image/logs", alerts[i].LogsByContainerName["test-2-broken-image"])
 
-	i = 2
+	i++
 	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-3-excessive-resources-699d58f55f-q9z65", alerts[i].Name)
@@ -99,7 +89,7 @@ func TestDiagnose(t *testing.T) {
 	0/1 nodes are available: 1 Insufficient memory.`, alerts[i].Events[0])
 	assert.Equal(t, 0, len(alerts[i].LogsByContainerName))
 
-	i = 3
+	i++
 	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-4-crashlooping-dbdd84589-8m7kj", alerts[i].Name)
@@ -112,7 +102,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].LogsByContainerName))
 	assert.Equal(t, "default/test-4-crashlooping-dbdd84589-8m7kj/test-4-crashlooping/logs", alerts[i].LogsByContainerName["test-4-crashlooping"])
 
-	i = 4
+	i++
 	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-5-completed-757685986-qxbqp", alerts[i].Name)
@@ -125,7 +115,7 @@ func TestDiagnose(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].LogsByContainerName))
 	assert.Equal(t, "default/test-5-completed-757685986-qxbqp/test-5-completed/logs", alerts[i].LogsByContainerName["test-5-completed"])
 
-	i = 5
+	i++
 	assert.Equal(t, clusterStore.Cluster, alerts[i].ClusterName)
 	assert.Equal(t, "default", alerts[i].Namespace)
 	assert.Equal(t, "test-6-crashlooping-init-644545f5b7-l468n", alerts[i].Name)
@@ -151,7 +141,7 @@ func TestDiagnoseRepeatingCallAfterShortTime(t *testing.T) {
 	assert.Equal(t, 0, len(clusterStore1.Alerts))
 	err = DiagnoseCluster(client, cfg, clusterStore1, now)
 	require.Nil(t, err)
-	assert.Equal(t, 6, len(clusterStore1.Alerts))
+	assert.Equal(t, 5, len(clusterStore1.Alerts))
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
@@ -181,7 +171,7 @@ func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
 	assert.Equal(t, 0, len(clusterStore1.Alerts))
 	err = DiagnoseCluster(client, cfg, clusterStore1, now)
 	require.Nil(t, err)
-	assert.Equal(t, 6, len(clusterStore1.Alerts))
+	assert.Equal(t, 5, len(clusterStore1.Alerts))
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
@@ -194,7 +184,7 @@ func TestDiagnoseRepeatingCallAfterLongTime(t *testing.T) {
 
 	err = DiagnoseCluster(client, cfg, clusterStore2, farFuture)
 	require.Nil(t, err)
-	assert.Equal(t, 6, len(clusterStore2.Alerts))
+	assert.Equal(t, 5, len(clusterStore2.Alerts))
 	err = store2.Flush(farFuture)
 	require.Nil(t, err)
 }

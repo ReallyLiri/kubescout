@@ -25,22 +25,13 @@ func (context *diagContext) getOrAddState(namespace, kind, name string) *entityS
 	return state
 }
 
-func (context *diagContext) addEventState(namespace, kind, name string) *eventState {
-	eName := entityName{
-		namespace: namespace,
-		kind:      kind,
-		name:      name,
-	}
+func (context *diagContext) addEventState(eName entityName) *eventState {
 	eventsOfEntity, exists := context.eventsByName[eName]
 	if !exists {
 		eventsOfEntity = []*eventState{}
 	}
 	evState := &eventState{
-		name: entityName{
-			namespace: namespace,
-			kind:      kind,
-			name:      name,
-		},
+		name: eName,
 	}
 	context.eventsByName[eName] = append(eventsOfEntity, evState)
 	return evState
@@ -317,11 +308,27 @@ func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet) (state *
 	return
 }
 
+var eventReasonsToIgnore = map[string]bool{
+	"NodeSysctlChange": true,
+	"ContainerdStart":  true,
+	"DockerStart":      true,
+	"KubeletStart":     true,
+}
+
 func (context *diagContext) eventState(event *v1.Event) (state *eventState, err error) {
+	var eName entityName
+	if event.InvolvedObject.Name != "" {
+		eName.namespace = event.InvolvedObject.Namespace
+		eName.kind = event.InvolvedObject.Kind
+		eName.name = event.InvolvedObject.Name
+	} else {
+		eName.kind = "Cluster"
+	}
+	state = context.addEventState(eName)
 
-	state = context.addEventState(event.InvolvedObject.Namespace, event.InvolvedObject.Kind, event.InvolvedObject.Name)
-
-	if event.Type == "Normal" {
+	if event.Type == "Normal" ||
+		eventReasonsToIgnore[event.Reason] ||
+		(event.Reason == "NodeNotReady" && event.Message == "Node is not ready") {
 		return state, nil
 	}
 
