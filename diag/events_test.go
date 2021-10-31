@@ -102,21 +102,12 @@ func TestEventState_NodeProblemDetector(t *testing.T) {
 
 	now := asTime("2021-10-14T06:30:00Z")
 
-	state, err := testContext(now).eventState(&events[0])
-	require.Nil(t, err)
-	log.Debugf("%v) %v", 0, state)
-	require.False(t, state.isHealthy())
-	require.NotEmpty(t, state.name.name)
-	messages := strings.Split(state.cleanMessage(), "\n")
-	assert.Equal(t, 1, len(messages))
-	assert.Equal(t, "Event by sysctl-monitor: NodeSysctlChange x29 since 07 Oct 21 05:24 UTC, 1 week ago (last seen 1 hour ago)", messages[0])
-
-	state, err = testContext(now).eventState(&events[1])
+	state, err := testContext(now).eventState(&events[1])
 	require.Nil(t, err)
 	log.Debugf("%v) %v", 1, state)
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name.name)
-	messages = strings.Split(state.cleanMessage(), "\n")
+	messages := strings.Split(state.cleanMessage(), "\n")
 	assert.Equal(t, 2, len(messages))
 	assert.Equal(t, "Event by kernel-monitor: KernelOops since 14 Oct 21 06:10 UTC, 19 minutes ago:", messages[0])
 	assert.Equal(t, "\tkernel: BUG: unable to handle kernel NULL pointer dereference at TESTING", messages[1])
@@ -193,8 +184,8 @@ func TestEventState_LivenessFailed(t *testing.T) {
 		require.False(t, state.isHealthy())
 		require.NotEmpty(t, state.name.name)
 		messages := strings.Split(state.cleanMessage(), "\n")
-		require.True(t, len(messages) >= 2)
-		require.True(t, len(messages) <= 5)
+		require.True(t, len(messages) >= 2, len(messages))
+		require.True(t, len(messages) <= 9, len(messages))
 		require.True(t, strings.HasPrefix(messages[0], "Event by kubelet: "))
 		require.True(t, strings.Index(messages[0], "Unhealthy ") > 0 || strings.Index(messages[0], "BackOff ") > 0)
 		require.True(t,
@@ -214,25 +205,7 @@ func TestEventState_EndpointsWarning(t *testing.T) {
 
 	now := asTime("2021-10-31T08:45:30Z")
 
-	warningIndexes := []int{
-		24,
-	}
-
-	skipIndexes := internal.ToMap(warningIndexes)
-
-	verifyEventsHealthyExcept(t, events, now, skipIndexes)
-
-	state, err := testContext(now).eventState(&events[24])
-	require.Nil(t, err)
-	log.Debug(state.String())
-	require.False(t, state.isHealthy())
-	assert.Equal(t, "api-nodeport", state.name.name)
-	assert.Equal(t, "Endpoints", state.name.kind)
-	assert.Equal(t, "ci", state.name.namespace)
-	messages := strings.Split(state.cleanMessage(), "\n")
-	assert.Equal(t, 2, len(messages))
-	assert.Equal(t, "Event by endpoint-controller: FailedToUpdateEndpoint since 31 Oct 21 08:29 UTC, 16 minutes ago:", messages[0])
-	assert.Equal(t, "\tFailed to update endpoint ch/api-nodeport: Operation cannot be fulfilled on endpoints \"api-nodeport\": the object has been modified; please apply your changes to the latest version and try again", messages[1])
+	verifyEventsHealthyExcept(t, events, now, map[int]bool{})
 }
 
 func TestEventState_StartedEventsShouldBeIgnored(t *testing.T) {

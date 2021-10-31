@@ -194,9 +194,7 @@ func hash(entityName entityName, message string) string {
 	return fmt.Sprintf("%x", asBytes)
 }
 
-var dedupThreshold = 65
-
-func forI(from int, until int, action func(int) bool) {
+func forRange(from int, until int, action func(int) bool) {
 	i := from
 	for {
 		if i >= until {
@@ -227,9 +225,9 @@ func dedup(items []interface{}, dedupOnValue func(interface{}) string, similarit
 	}
 
 	var indexes []int
-	forI(0, len(values), func(i int) bool {
+	forRange(0, len(values), func(i int) bool {
 		anySimilar := false
-		forI(0, i, func(j int) bool {
+		forRange(0, i, func(j int) bool {
 			distance := levenshtein.Distance(values[i], values[j])
 			score := 1 - float64(distance)/float64(max(len(values[i]), len(values[j])))
 			if score >= similarityThreshold {
