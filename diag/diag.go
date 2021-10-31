@@ -22,6 +22,12 @@ type diagContext struct {
 	eventsByName          map[entityName][]*eventState
 }
 
+var excludeStandaloneEventsOnKinds = map[string]bool{
+	"Pod":        true,
+	"Node":       true,
+	"ReplicaSet": true,
+}
+
 func testContext(now time.Time) *diagContext {
 	return testContextWithClient(now, nil)
 }
@@ -101,13 +107,17 @@ func (context *diagContext) handleEntityState(state *entityState, events []*even
 }
 
 func (context *diagContext) handleStandaloneEvent(state *eventState) (stored bool) {
-	isHealthy := state.isHealthy()
-	if isHealthy {
+	if state.isHealthy() {
 		log.Tracef(state.String())
 		return false
 	}
 
 	log.Infof(state.String())
+
+	if excludeStandaloneEventsOnKinds[state.name.kind] {
+		return false
+	}
+
 	entityAlert := &alert.EntityAlert{
 		ClusterName:         context.store.Cluster,
 		Namespace:           state.name.namespace,
