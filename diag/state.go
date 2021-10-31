@@ -308,13 +308,6 @@ func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet) (state *
 	return
 }
 
-var eventReasonsToIgnore = map[string]bool{
-	"NodeSysctlChange": true,
-	"ContainerdStart":  true,
-	"DockerStart":      true,
-	"KubeletStart":     true,
-}
-
 func (context *diagContext) eventState(event *v1.Event) (state *eventState, err error) {
 	var eName entityName
 	if event.InvolvedObject.Name != "" {
@@ -324,11 +317,10 @@ func (context *diagContext) eventState(event *v1.Event) (state *eventState, err 
 	} else {
 		eName.kind = "Cluster"
 	}
+
 	state = context.addEventState(eName)
 
-	if event.Type == "Normal" ||
-		eventReasonsToIgnore[event.Reason] ||
-		(event.Reason == "NodeNotReady" && event.Message == "Node is not ready") {
+	if context.isEventHealthy(event) {
 		return state, nil
 	}
 
@@ -391,4 +383,18 @@ func (context *diagContext) eventState(event *v1.Event) (state *eventState, err 
 
 	state.message = builder.String()
 	return state, nil
+}
+
+var eventReasonsToIgnore = map[string]bool{
+	"NodeSysctlChange": true,
+	"ContainerdStart":  true,
+	"DockerStart":      true,
+	"KubeletStart":     true,
+}
+
+func (context *diagContext) isEventHealthy(event *v1.Event) bool {
+	return event.Type == "Normal" ||
+		eventReasonsToIgnore[event.Reason] ||
+		(event.Reason == "NodeNotReady" && event.Message == "Node is not ready") ||
+		strings.HasSuffix(event.Message, "please apply your changes to the latest version and try again")
 }
