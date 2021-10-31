@@ -28,6 +28,8 @@ var excludeStandaloneEventsOnKinds = map[string]bool{
 	"ReplicaSet": true,
 }
 
+const graceTimeForEventSinceEntityCreation = time.Second * time.Duration(5)
+
 func testContext(now time.Time) *diagContext {
 	return testContextWithClient(now, nil)
 }
@@ -47,18 +49,25 @@ func testContextWithClient(now time.Time, client kubeclient.KubernetesClient) *d
 	}
 }
 
-func unhealthyEvents(events []*eventState) (unhealthy []*eventState) {
-	for _, state := range events {
-		if !state.isHealthy() {
-			unhealthy = append(unhealthy, state)
+func unhealthyEvents(state *entityState, events []*eventState) (unhealthy []*eventState) {
+	for _, evState := range events {
+		if evState.isHealthy() {
+			continue
 		}
+		if !evState.lastTimestamp.IsZero() && !state.createdTimestamp.IsZero() {
+			sinceCreation := evState.lastTimestamp.Sub(state.createdTimestamp)
+			if sinceCreation < graceTimeForEventSinceEntityCreation {
+				continue
+			}
+		}
+		unhealthy = append(unhealthy, evState)
 	}
 	return
 }
 
 func (context *diagContext) handleEntityState(state *entityState, events []*eventState) (stored bool) {
 	isHealthy := state.isHealthy()
-	events = unhealthyEvents(events)
+	events = unhealthyEvents(state, events)
 	if state.name.kind == "Node" && len(events) > 0 {
 		isHealthy = false
 	}
@@ -72,6 +81,7 @@ func (context *diagContext) handleEntityState(state *entityState, events []*even
 		Namespace:           state.name.namespace,
 		Name:                state.name.name,
 		Kind:                state.name.kind,
+		Node:                state.node,
 		Messages:            []string{},
 		Events:              []string{},
 		LogsByContainerName: map[string]string{},
@@ -160,8 +170,6 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		statesByName:          map[entityName]*entityState{},
 		eventsByName:          map[entityName][]*eventState{},
 	}
-
-	log.Infof("Diagnosing cluster %v ...", store.Cluster)
 
 	err := context.collectStates()
 	if err != nil {

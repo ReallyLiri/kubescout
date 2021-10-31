@@ -9,9 +9,10 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 )
 
-func (context *diagContext) getOrAddState(namespace, kind, name string) *entityState {
+func (context *diagContext) getOrAddState(namespace, kind, name string, createdTimestamp time.Time) *entityState {
 	eName := entityName{
 		namespace: namespace,
 		kind:      kind,
@@ -19,7 +20,7 @@ func (context *diagContext) getOrAddState(namespace, kind, name string) *entityS
 	}
 	state, found := context.statesByName[eName]
 	if !found {
-		state = newState(eName)
+		state = newState(eName, createdTimestamp)
 		context.statesByName[eName] = state
 	}
 	return state
@@ -180,7 +181,7 @@ func (state *entityState) checkContainerStatus(pod *v1.Pod, containerStatus v1.C
 }
 
 func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error) {
-	state = context.getOrAddState(pod.Namespace, "Pod", pod.Name)
+	state = context.getOrAddState(pod.Namespace, "Pod", pod.Name, pod.ObjectMeta.CreationTimestamp.Time)
 
 	podPhase := pod.Status.Phase
 	if podPhase == v1.PodSucceeded {
@@ -195,6 +196,8 @@ func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error
 	if sinceCreation < context.config.PodCreationGracePeriodSeconds {
 		return
 	}
+
+	state.node = pod.Spec.NodeName
 
 	statusReason := pod.Status.Reason
 	if statusReason != "" {
@@ -222,7 +225,7 @@ func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error
 }
 
 func (context *diagContext) nodeState(node *v1.Node, forceCheckResources bool) (state *entityState, err error) {
-	state = context.getOrAddState(node.Namespace, "Node", node.Name)
+	state = context.getOrAddState(node.Namespace, "Node", node.Name, node.ObjectMeta.CreationTimestamp.Time)
 
 	for _, condition := range node.Status.Conditions {
 		switch condition.Type {
@@ -269,7 +272,7 @@ func (context *diagContext) nodeState(node *v1.Node, forceCheckResources bool) (
 }
 
 func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet) (state *entityState, err error) {
-	state = context.getOrAddState(replicaSet.Namespace, "ReplicaSet", replicaSet.Name)
+	state = context.getOrAddState(replicaSet.Namespace, "ReplicaSet", replicaSet.Name, replicaSet.ObjectMeta.CreationTimestamp.Time)
 
 	specDesiredReplicas := replicaSet.Spec.Replicas
 	var desiredReplicas int
@@ -343,6 +346,7 @@ func (context *diagContext) eventState(event *v1.Event) (state *eventState, err 
 		lastTimestamp = event.LastTimestamp.Time
 		count = event.Count
 	}
+	state.lastTimestamp = lastTimestamp
 
 	builder := strings.Builder{}
 	builder.WriteString(fmt.Sprintf(

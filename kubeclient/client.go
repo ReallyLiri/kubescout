@@ -140,6 +140,10 @@ func (client *remoteKubernetesClient) GetEvents(namespace string) ([]v1.Event, e
 }
 
 func (client *remoteKubernetesClient) GetPodLogs(namespace string, podName string, containerName string) (logs string, err error) {
+	if client.config.PodLogsTail == 0 {
+		return "", nil
+	}
+
 	logsRequest := client.kubeClientSet.CoreV1().Pods(namespace).GetLogs(podName, &v1.PodLogOptions{
 		TailLines: &client.config.PodLogsTail,
 		Container: containerName,

@@ -170,20 +170,21 @@ TBD
 
 ```
 NAME:
-   kubescout - 0.1.7 - Scout for alarming issues in your Kubernetes cluster
+   kubescout - 0.1.8 - Scout for alarming issues in your Kubernetes cluster
 
 USAGE:
-   kubescout                   [optional flags]
+   kubescout                    [optional flags]
 
 OPTIONS:
    --verbose, --vv                        Verbose logging (default: false)
-   --logs-tail value                      Specifies the logs tail length when reporting logs from a problematic pod (default: 250)
+   --logs-tail value                      Specifies the logs tail length when reporting logs from a problematic pod, use 0 to disable log extraction (default: 250)
    --events-limit value                   Maximum number of namespace events to fetch (default: 150)
    --kubeconfig value, -k value           kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config
    --time-format value, -f value          timestamp print format (default: "02 Jan 06 15:04 MST")
    --locale value, -l value               timestamp print localization (default: "UTC")
-   --pod-creation-grace-sec value         grace period in seconds since pod creation (default: 30)
-   --pod-termination-grace-sec value      grace period in seconds since pod termination (default: 30)
+   --pod-creation-grace-sec value         grace period in seconds since pod creation before checking its statuses (default: 5)
+   --pod-starting-grace-sec value         grace period in seconds since pod creation before alarming on non running states (default: 600)
+   --pod-termination-grace-sec value      grace period in seconds since pod termination (default: 60)
    --pod-restart-grace-count value        grace count for pod restarts (default: 3)
    --node-resource-usage-threshold value  node resources usage threshold (default: 0.85)
    --exclude-ns value, -e value           namespaces to skip

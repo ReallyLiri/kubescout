@@ -16,9 +16,10 @@ var kindToOrder = map[string]int{
 
 type EntityAlert struct {
 	ClusterName         string            `json:"cluster_name"`
-	Namespace           string            `json:"namespace"`
+	Namespace           string            `json:"namespace,omitempty"`
 	Name                string            `json:"name"`
 	Kind                string            `json:"kind"`
+	Node                string            `json:"node,omitempty"`
 	Messages            []string          `json:"messages,omitempty"`
 	Events              []string          `json:"events,omitempty"`
 	LogsByContainerName map[string]string `json:"logs_by_container_name,omitempty"`

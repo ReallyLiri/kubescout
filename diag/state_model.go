@@ -5,6 +5,7 @@ import (
 	"github.com/goombaio/orderedmap"
 	"github.com/reallyliri/kubescout/internal"
 	"strings"
+	"time"
 )
 
 type entityName struct {
@@ -14,21 +15,25 @@ type entityName struct {
 }
 
 type entityState struct {
-	name            entityName
-	messages        []string
-	logsCollections map[string]string
+	name             entityName
+	messages         []string
+	node             string
+	createdTimestamp time.Time
+	logsCollections  map[string]string
 }
 
 type eventState struct {
-	name      entityName
-	message   string
+	name          entityName
+	message       string
+	lastTimestamp time.Time
 }
 
-func newState(entityName entityName) *entityState {
+func newState(entityName entityName, createdTimestamp time.Time) *entityState {
 	return &entityState{
-		name:            entityName,
-		messages:        []string{},
-		logsCollections: map[string]string{},
+		name:             entityName,
+		messages:         []string{},
+		createdTimestamp: createdTimestamp,
+		logsCollections:  map[string]string{},
 	}
 }
 

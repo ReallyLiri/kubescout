@@ -43,7 +43,7 @@ var Flags = []cli.Flag{
 	},
 	&cli.Int64Flag{
 		Name:     "logs-tail",
-		Usage:    "Specifies the logs tail length when reporting logs from a problematic pod",
+		Usage:    "Specifies the logs tail length when reporting logs from a problematic pod, use 0 to disable log extraction",
 		Value:    250,
 		Required: false,
 	},

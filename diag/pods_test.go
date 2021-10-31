@@ -513,3 +513,55 @@ func TestPodState_AllPodsPendingForShortTime(t *testing.T) {
 
 	verifyAllPodsHealthy(t, pods, now)
 }
+
+
+func TestPodState_PodNotReady(t *testing.T) {
+	pods, err := kubeclient.GetPods(t, "not_ready.json")
+	require.Nil(t, err)
+	require.NotNil(t, pods)
+	require.NotEmpty(t, pods)
+
+	now := asTime("2021-10-31T14:00:00Z")
+
+	verifyPodsHealthyExcept(t, pods, now, map[int]bool{
+		3: true,
+		4: true,
+		5: true,
+	})
+
+	state, err := testContext(now).podState(&pods[3])
+	require.Nil(t, err)
+	log.Debugf("%v) %v", 3, state)
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.name)
+	messages := state.cleanMessages()
+	require.NotEmpty(t, messages)
+	assert.GreaterOrEqual(t, len(messages), 5)
+	assert.Equal(t, "Pod is in Failed phase", messages[0])
+	assert.True(t, strings.Index(messages[1], "still waiting due to CreateContainerError: failed to reserve container name") > 0, messages[1])
+	assert.True(t, strings.Index(messages[2], "still waiting due to CreateContainerError: failed to reserve container name") > 0, messages[2])
+	assert.True(t, strings.Index(messages[3], "still waiting due to CreateContainerError: failed to reserve container name") > 0, messages[3])
+	assert.True(t, strings.Index(messages[4], "still waiting due to CreateContainerError: failed to reserve container name") > 0, messages[4])
+
+	state, err = testContext(now).podState(&pods[4])
+	require.Nil(t, err)
+	log.Debugf("%v) %v", 4, state)
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.name)
+	messages = state.cleanMessages()
+	require.NotEmpty(t, messages)
+	assert.GreaterOrEqual(t, len(messages), 2)
+	assert.Equal(t, "Pod is in Failed phase", messages[0])
+	assert.Equal(t, "smoke-tester terminated due to Error (exit code 1)", messages[1])
+
+	state, err = testContext(now).podState(&pods[5])
+	require.Nil(t, err)
+	log.Debugf("%v) %v", 5, state)
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.name)
+	messages = state.cleanMessages()
+	require.NotEmpty(t, messages)
+	assert.GreaterOrEqual(t, len(messages), 2)
+	assert.Equal(t, "Pod is Terminating since 5 minutes ago (deletion grace is 30 sec)", messages[0])
+	assert.Equal(t, "4 containers are still creating [ smoke-tester, smoke-tester-aio, smoke-tester-aio-non-root, smoke-tester-multinode ] (since 2 hours ago)", messages[1])
+}

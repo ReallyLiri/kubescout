@@ -21,24 +21,24 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 		alertSink = cfg.DefaultSink()
 	}
 
-	stor, err := store.LoadOrCreate(cfg)
-	if err != nil {
-		return err
+	stor, reportErr := store.LoadOrCreate(cfg)
+	if reportErr != nil {
+		return reportErr
 	}
 
-	kconf, err := kubeconfig.LoadKubeconfig(cfg.KubeconfigFilePath)
-	if err != nil {
-		return err
+	kconf, reportErr := kubeconfig.LoadKubeconfig(cfg.KubeconfigFilePath)
+	if reportErr != nil {
+		return reportErr
 	}
 
-	contextNames, err := kubeconfig.ContextNames(
+	contextNames, reportErr := kubeconfig.ContextNames(
 		kconf,
 		cfg.ContextName,
 		cfg.AllContexts,
 		cfg.ExcludeContexts,
 	)
-	if err != nil {
-		return err
+	if reportErr != nil {
+		return reportErr
 	}
 
 	alerts := alert.NewAlerts()
@@ -46,7 +46,7 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 	now := time.Now().UTC()
 
 	var aggregatedErr error
-	for _, contextName := range contextNames {
+	for i, contextName := range contextNames {
 		kconf.CurrentContext = contextName
 
 		client, err := kubeclient.CreateClient(cfg, kconf)
@@ -56,6 +56,8 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 		}
 
 		clusterStore := stor.GetClusterStore(contextName, now)
+
+		log.Infof("Diagnosing cluster %v (%v/%v) ...", contextName, i+1, len(contextNames))
 
 		err = diag.DiagnoseCluster(client, cfg, clusterStore, now)
 		if err != nil {
@@ -67,20 +69,19 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 		alerts.AddEntityAlerts(clusterAlerts)
 	}
 
-	if aggregatedErr != nil {
+	if alerts.Empty() {
 		return aggregatedErr
 	}
 
-	if alerts.Empty() {
-		return nil
-	}
-
-	err = alertSink.Report(alerts)
-	if err == nil {
+	reportErr = alertSink.Report(alerts)
+	if reportErr == nil {
 		flushErr := stor.Flush(now)
 		if flushErr != nil {
-			log.Errorf("failed to flush to store: %v", flushErr)
+			aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to flush to store: %v", flushErr))
 		}
+	} else {
+		aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to report alerts: %v", reportErr))
 	}
-	return err
+
+	return aggregatedErr
 }
