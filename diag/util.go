@@ -1,26 +1,19 @@
 package diag
 
 import (
-	"crypto/sha1"
 	"fmt"
-	"github.com/adrg/strutil/metrics"
 	"github.com/dustin/go-humanize"
 	"github.com/fatih/camelcase"
-	log "github.com/sirupsen/logrus"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
 )
 
-const temporalStart = "<t>"
-const temporalEnd = "</t>"
-
 var kiRegex *regexp.Regexp
 var miRegex *regexp.Regexp
 var giRegex *regexp.Regexp
 var mRegex *regexp.Regexp
-var levenshtein *metrics.Levenshtein
 
 func init() {
 	var err error
@@ -40,35 +33,6 @@ func init() {
 	if err != nil {
 		panic(fmt.Errorf("failed to compile regex: %v", err))
 	}
-	levenshtein = metrics.NewLevenshtein()
-	levenshtein.CaseSensitive = true
-	levenshtein.InsertCost = 3
-	levenshtein.DeleteCost = 3
-	levenshtein.ReplaceCost = 1
-}
-
-func normalizeMessage(message string) string {
-	for {
-		temporalStartIndex := strings.Index(message, temporalStart)
-		if temporalStartIndex == -1 {
-			break
-		}
-		temporalEndIndex := strings.Index(message, temporalEnd)
-		if temporalEndIndex == -1 || temporalEndIndex < temporalStartIndex {
-			log.Errorf("invalid temporal format for %v", message)
-			break
-		}
-		message = message[:temporalStartIndex] + message[(temporalEndIndex+len(temporalEnd)):]
-	}
-	return message
-}
-
-func cleanMessage(message string) string {
-	return strings.ReplaceAll(strings.ReplaceAll(message, temporalStart, ""), temporalEnd, "")
-}
-
-func wrapTemporal(item interface{}) string {
-	return fmt.Sprintf("%v%v%v", temporalStart, item, temporalEnd)
 }
 
 func splitToWords(value string) string {
@@ -182,65 +146,4 @@ func formatPlural(count int, singular string, plural string) string {
 		return singular
 	}
 	return fmt.Sprintf("%v %v", count, plural)
-}
-
-func hash(entityName entityName, message string) string {
-	sha := sha1.New()
-	sha.Write([]byte(entityName.namespace))
-	sha.Write([]byte(entityName.kind))
-	sha.Write([]byte(entityName.name))
-	sha.Write([]byte(message))
-	asBytes := sha.Sum(nil)
-	return fmt.Sprintf("%x", asBytes)
-}
-
-func forRange(from int, until int, action func(int) bool) {
-	i := from
-	for {
-		if i >= until {
-			return
-		}
-		shouldContinue := action(i)
-		if !shouldContinue {
-			return
-		}
-		i++
-	}
-}
-
-func max(a int, b int) int {
-	if a >= b {
-		return a
-	}
-	return b
-}
-
-func dedup(items []interface{}, dedupOnValue func(interface{}) string, similarityThreshold float64) []int {
-	if len(items) == 0 {
-		return nil
-	}
-	values := make([]string, len(items))
-	for i, item := range items {
-		values[i] = dedupOnValue(item)
-	}
-
-	var indexes []int
-	forRange(0, len(values), func(i int) bool {
-		anySimilar := false
-		forRange(0, i, func(j int) bool {
-			distance := levenshtein.Distance(values[i], values[j])
-			score := 1 - float64(distance)/float64(max(len(values[i]), len(values[j])))
-			if score >= similarityThreshold {
-				anySimilar = true
-				return false
-			}
-			return true
-		})
-		if !anySimilar {
-			indexes = append(indexes, i)
-		}
-		return true
-	})
-
-	return indexes
 }

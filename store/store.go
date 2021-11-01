@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
+	"github.com/reallyliri/kubescout/dedup"
+	log "github.com/sirupsen/logrus"
 	"io/fs"
 	"io/ioutil"
 	"time"
@@ -13,16 +15,16 @@ import (
 
 type Store struct {
 	ClusterStoresByName map[string]*ClusterStore `json:"cluster_stores_by_name"`
+	LastRunAt           time.Time                `json:"last_run_at"`
 	dedupDuration       time.Duration
 	filePath            string
-	LastRunAt           time.Time `json:"last_run_at"`
 }
 
 type ClusterStore struct {
-	parent            *Store
-	Cluster           string               `json:"cluster"`
-	HashWithTimestamp map[string]time.Time `json:"hash_with_timestamp"`
-	Alerts            alert.EntityAlerts   `json:"-"`
+	parent                         *Store
+	Cluster                        string                              `json:"cluster"`
+	Alerts                         alert.EntityAlerts                  `json:"-"`
+	MessagesWithTimestampPerEntity map[string]map[string]time.Time `json:"messages_with_timestamp_per_entity"`
 }
 
 func LoadOrCreate(config *config.Config) (*Store, error) {
@@ -57,34 +59,72 @@ func (store *Store) GetClusterStore(name string, now time.Time) *ClusterStore {
 	clusterStore, exists := store.ClusterStoresByName[name]
 	if !exists {
 		clusterStore = &ClusterStore{
-			Cluster:           name,
-			HashWithTimestamp: make(map[string]time.Time),
-			Alerts:            []*alert.EntityAlert{},
+			Cluster:                        name,
+			MessagesWithTimestampPerEntity: make(map[string]map[string]time.Time),
+			Alerts:                         []*alert.EntityAlert{},
 		}
 		store.ClusterStoresByName[name] = clusterStore
 	}
 	clusterStore.parent = store
-	for hash, timestamp := range clusterStore.HashWithTimestamp {
-		if store.dedupDuration > 0 && now.Sub(timestamp) > store.dedupDuration {
-			delete(clusterStore.HashWithTimestamp, hash)
+	for entityName, messagesByTimestamp := range clusterStore.MessagesWithTimestampPerEntity {
+		for message, timestamp := range messagesByTimestamp {
+			if store.dedupDuration > 0 && now.Sub(timestamp) > store.dedupDuration {
+				delete(messagesByTimestamp, message)
+			}
+		}
+		if len(messagesByTimestamp) == 0 {
+			delete(clusterStore.MessagesWithTimestampPerEntity, entityName)
 		}
 	}
 	return clusterStore
 }
 
-func (clusterStore *ClusterStore) ShouldAdd(hash string, now time.Time) bool {
-	timestamp, found := clusterStore.HashWithTimestamp[hash]
-	if !found || clusterStore.parent.dedupDuration == 0 || now.Sub(timestamp) > clusterStore.parent.dedupDuration {
-		return true
+func tryMatch(messagesByTimestamp map[string]time.Time, candidate string) (match string) {
+	if _, found := messagesByTimestamp[candidate]; found {
+		return candidate
 	}
-	return false
+
+	const similarityThreshold = 0.85
+	for stored := range messagesByTimestamp {
+		if dedup.AreSimilar(stored, candidate, similarityThreshold) {
+			return stored
+		}
+	}
+	return ""
 }
 
-func (clusterStore *ClusterStore) Add(entityAlert *alert.EntityAlert, hashes []string, now time.Time) {
-	for _, hash := range hashes {
-		clusterStore.HashWithTimestamp[hash] = now
+func (clusterStore *ClusterStore) TryAdd(entityName EntityName, message string, now time.Time) bool {
+	message = dedup.NormalizeTemporal(message)
+	truncMessage := message
+	if len(message) > 50 {
+		truncMessage = message[:50] + "..."
 	}
-	clusterStore.Alerts = append(clusterStore.Alerts, entityAlert)
+
+	messagesByTimestamp, found := clusterStore.MessagesWithTimestampPerEntity[entityName.String()]
+	if !found {
+		log.Tracef("no match was found for message '%v' for entity %v - adding it", truncMessage, entityName)
+		messagesByTimestamp = map[string]time.Time{
+			message: now,
+		}
+		clusterStore.MessagesWithTimestampPerEntity[entityName.String()] = messagesByTimestamp
+		return true
+	}
+
+	match := tryMatch(messagesByTimestamp, message)
+	if match != "" {
+		timestamp := messagesByTimestamp[match]
+		if clusterStore.parent.dedupDuration > 0 && now.Sub(timestamp) <= clusterStore.parent.dedupDuration {
+			log.Tracef("match was found for message '%v' for entity %v and its timestamp is in dedup grace time - skipping", truncMessage, entityName)
+			return false
+		}
+		log.Tracef("match was found for message '%v' for entity %v but its timestamp is out of dedup grace time - adding it", truncMessage, entityName)
+		messagesByTimestamp[message] = now
+		return true
+	}
+
+	log.Tracef("no match was found for message '%v' for entity %v - adding it", truncMessage, entityName)
+	messagesByTimestamp[message] = now
+	return true
 }
 
 func (store *Store) Flush(now time.Time) error {

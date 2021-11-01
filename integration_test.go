@@ -229,7 +229,7 @@ Container test-2-broken-image still waiting due to *
 Event by kubelet: Failed x* since * (last seen * ago):
 	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown
 Event by kubelet: Failed x* since * (last seen * ago):
-	Error: ImagePullBackOff`,
+	Error: ErrImagePull`,
 
 	`Pod default/test-3-excessive-resources-* is un-healthy:
 Unschedulable: 0/1 nodes are available: 1 Insufficient memory. (last transition: * ago)

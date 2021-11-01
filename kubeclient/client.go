@@ -168,7 +168,8 @@ func (client *remoteKubernetesClient) GetPodLogs(namespace string, podName strin
 		return "", fmt.Errorf("error in stream copy for %v/%v/%v : %v", namespace, podName, containerName, err)
 	}
 	logs = buf.String()
-	if strings.HasPrefix(logs, "unable to retrieve container logs for") {
+	if strings.HasPrefix(logs, "unable to retrieve container logs for") ||
+		strings.HasPrefix(logs, "failed to try resolving symlinks in path") {
 		return "", fmt.Errorf("failed to retrieve logs of %v/%v/%v : %v", namespace, podName, containerName, logs)
 	}
 	return logs, nil

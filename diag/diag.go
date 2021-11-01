@@ -3,12 +3,12 @@ package diag
 import (
 	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
+	"github.com/reallyliri/kubescout/dedup"
 	"github.com/reallyliri/kubescout/internal"
 	"github.com/reallyliri/kubescout/kubeclient"
 	"github.com/reallyliri/kubescout/store"
 	log "github.com/sirupsen/logrus"
 	"go.uber.org/multierr"
-	"sort"
 	"time"
 )
 
@@ -19,8 +19,8 @@ type diagContext struct {
 	includedNamespacesSet map[string]bool
 	excludedNamespacesSet map[string]bool
 	client                kubeclient.KubernetesClient
-	statesByName          map[entityName]*entityState
-	eventsByName          map[entityName][]*eventState
+	statesByName          map[store.EntityName]*entityState
+	eventsByName          map[store.EntityName][]*eventState
 }
 
 var excludeStandaloneEventsOnKinds = map[string]bool{
@@ -44,19 +44,18 @@ func testContextWithClient(now time.Time, client kubeclient.KubernetesClient) *d
 	return &diagContext{
 		config:       cfg,
 		client:       client,
-		statesByName: map[entityName]*entityState{},
-		eventsByName: map[entityName][]*eventState{},
+		statesByName: map[store.EntityName]*entityState{},
+		eventsByName: map[store.EntityName][]*eventState{},
 		now:          now,
 	}
 }
 
-func unhealthyEvents(state *entityState, events []*eventState) []*eventState {
-	var unhealthy []*eventState
+func unhealthyEvents(state *entityState, events []*eventState) (unhealthy []*eventState) {
 	for _, evState := range events {
 		if evState.isHealthy() {
 			continue
 		}
-		if !evState.lastTimestamp.IsZero() && !state.createdTimestamp.IsZero() {
+		if !evState.lastTimestamp.IsZero() && state != nil && !state.createdTimestamp.IsZero() {
 			sinceCreation := evState.lastTimestamp.Sub(state.createdTimestamp)
 			if sinceCreation < graceTimeForEventSinceEntityCreation {
 				continue
@@ -64,47 +63,25 @@ func unhealthyEvents(state *entityState, events []*eventState) []*eventState {
 		}
 		unhealthy = append(unhealthy, evState)
 	}
-
-	sort.SliceStable(unhealthy, func(i, j int) bool {
-		message1 := normalizeMessage(unhealthy[i].message)
-		message2 := normalizeMessage(unhealthy[j].message)
-		return message1 > message2 // sorting reverse
-	})
-
-	cast := make([]interface{}, len(unhealthy))
-	for i, item := range unhealthy {
-		cast[i] = item
-	}
-	const similarityThreshold = 0.6
-	indexes := dedup(cast, func(item interface{}) string {
-		return normalizeMessage(item.(*eventState).message)
-	}, similarityThreshold)
-	if indexes == nil || unhealthy == nil {
-		return unhealthy
-	}
-	dedupedUnhealthy := make([]*eventState, len(indexes))
-	for i, index := range indexes {
-		dedupedUnhealthy[i] = unhealthy[index]
-	}
-	return dedupedUnhealthy
+	return
 }
 
-func (context *diagContext) handleEntityState(state *entityState, events []*eventState) (stored bool) {
+func (context *diagContext) handleEntityState(state *entityState, events []*eventState) {
 	isHealthy := state.isHealthy()
 	events = unhealthyEvents(state, events)
-	if state.name.kind == "Node" && len(events) > 0 {
+	if state.name.Kind == "Node" && len(events) > 0 {
 		isHealthy = false
 	}
 	if isHealthy {
 		log.Trace(state.String())
-		return false
+		return
 	}
 
 	entityAlert := &alert.EntityAlert{
 		ClusterName:         context.store.Cluster,
-		Namespace:           state.name.namespace,
-		Name:                state.name.name,
-		Kind:                state.name.kind,
+		Namespace:           state.name.Namespace,
+		Name:                state.name.Name,
+		Kind:                state.name.Kind,
 		Node:                state.node,
 		Messages:            []string{},
 		Events:              []string{},
@@ -112,65 +89,59 @@ func (context *diagContext) handleEntityState(state *entityState, events []*even
 		Timestamp:           context.now,
 	}
 
-	addedHashes := make(map[string]bool)
 	for _, message := range state.messages {
-		messageHash := hash(state.name, normalizeMessage(message))
-		if !addedHashes[messageHash] && context.store.ShouldAdd(messageHash, context.now) {
-			addedHashes[messageHash] = true
-			entityAlert.Messages = append(entityAlert.Messages, cleanMessage(message))
-		}
-	}
-	for _, event := range events {
-		messageHash := hash(event.name, normalizeMessage(event.message))
-		if !addedHashes[messageHash] && context.store.ShouldAdd(messageHash, context.now) {
-			addedHashes[messageHash] = true
-			entityAlert.Events = append(entityAlert.Events, cleanMessage(event.message))
+		stored := context.store.TryAdd(state.name, message, context.now)
+		if stored {
+			entityAlert.Messages = append(entityAlert.Messages, dedup.CleanTemporal(message))
 		}
 	}
 
-	deduped := len(addedHashes) == 0
-	if deduped {
+	if len(entityAlert.Messages) == 0 {
 		log.Infof("[DEDUPED] %v", state)
-	} else {
-		log.Info(state.String())
-		entityAlert.LogsByContainerName = state.logsCollections
-		context.store.Add(entityAlert, internal.Keys(addedHashes), context.now)
+		return
 	}
 
-	return deduped
+	for _, event := range events {
+		stored := context.store.TryAdd(state.name, event.message, context.now)
+		if stored {
+			entityAlert.Events = append(entityAlert.Events, dedup.CleanTemporal(event.message))
+		}
+	}
+
+	log.Info(state.String())
+	entityAlert.LogsByContainerName = state.logsCollections
+	context.store.Alerts = append(context.store.Alerts, entityAlert)
 }
 
-func (context *diagContext) handleStandaloneEvent(state *eventState) (stored bool) {
-	if state.isHealthy() {
-		log.Tracef(state.String())
-		return false
-	}
+func (context *diagContext) handleStandaloneEvents(name store.EntityName, events []*eventState) {
 
-	log.Infof(state.String())
+	events = unhealthyEvents(nil, events)
 
-	if excludeStandaloneEventsOnKinds[state.name.kind] {
-		return false
+	if excludeStandaloneEventsOnKinds[name.Kind] {
+		return
 	}
 
 	entityAlert := &alert.EntityAlert{
 		ClusterName:         context.store.Cluster,
-		Namespace:           state.name.namespace,
-		Name:                state.name.name,
-		Kind:                state.name.kind,
+		Namespace:           name.Namespace,
+		Name:                name.Name,
+		Kind:                name.Kind,
 		Messages:            []string{},
 		Events:              []string{},
 		LogsByContainerName: map[string]string{},
 		Timestamp:           context.now,
 	}
 
-	messageHash := hash(state.name, normalizeMessage(state.message))
-	if !context.store.ShouldAdd(messageHash, context.now) {
-		return false
+	for _, event := range events {
+		stored := context.store.TryAdd(name, event.message, context.now)
+		if stored {
+			entityAlert.Events = append(entityAlert.Events, dedup.CleanTemporal(event.message))
+		}
 	}
-	entityAlert.Events = append(entityAlert.Events, cleanMessage(state.message))
 
-	context.store.Add(entityAlert, []string{messageHash}, context.now)
-	return true
+	if len(entityAlert.Events) > 0 {
+		context.store.Alerts = append(context.store.Alerts, entityAlert)
+	}
 }
 
 func (context *diagContext) isNamespaceRelevant(namespaceName string) bool {
@@ -183,16 +154,16 @@ func (context *diagContext) isNamespaceRelevant(namespaceName string) bool {
 	return true
 }
 
-func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, store *store.ClusterStore, now time.Time) (aggregatedError error) {
+func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, clusterStore *store.ClusterStore, now time.Time) (aggregatedError error) {
 	context := diagContext{
 		config:                cfg,
-		store:                 store,
+		store:                 clusterStore,
 		now:                   now,
 		includedNamespacesSet: internal.ToBoolMap(cfg.IncludeNamespaces),
 		excludedNamespacesSet: internal.ToBoolMap(cfg.ExcludeNamespaces),
 		client:                client,
-		statesByName:          map[entityName]*entityState{},
-		eventsByName:          map[entityName][]*eventState{},
+		statesByName:          map[store.EntityName]*entityState{},
+		eventsByName:          map[store.EntityName][]*eventState{},
 	}
 
 	err := context.collectStates()
@@ -205,12 +176,8 @@ func DiagnoseCluster(client kubeclient.KubernetesClient, cfg *config.Config, sto
 		delete(context.eventsByName, name)
 	}
 
-	for _, states := range context.eventsByName {
-		for _, state := range states {
-			if !state.isHealthy() {
-				context.handleStandaloneEvent(state)
-			}
-		}
+	for entityName, states := range context.eventsByName {
+		context.handleStandaloneEvents(entityName, states)
 	}
 
 	return

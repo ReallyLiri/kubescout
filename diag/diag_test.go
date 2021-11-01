@@ -70,8 +70,8 @@ func Test_Diagnose(t *testing.T) {
 	assert.Equal(t, 2, len(alerts[i].Events))
 	assert.Equal(t, `Event by kubelet: Failed x4 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 2 minutes ago):
 	Failed to pull image "nginx:l4t3st": rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:l4t3st not found: manifest unknown: manifest unknown`, alerts[i].Events[0])
-	assert.Equal(t, `Event by kubelet: Failed x6 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 2 minutes ago):
-	Error: ImagePullBackOff`, alerts[i].Events[1])
+	assert.Equal(t, `Event by kubelet: Failed x4 since 17 Oct 21 14:15 UTC, 4 minutes ago (last seen 2 minutes ago):
+	Error: ErrImagePull`, alerts[i].Events[1])
 	assert.Equal(t, 1, len(alerts[i].LogsByContainerName))
 	assert.Equal(t, "default/test-2-broken-image-7cbf974df9-4jv8f/test-2-broken-image/logs", alerts[i].LogsByContainerName["test-2-broken-image"])
 
@@ -228,7 +228,7 @@ func Test_Diagnose_EventsDeduplicationOnLivenessCheckFail(t *testing.T) {
 
 	stor, err = store.LoadOrCreate(cfg)
 	require.Nil(t, err)
-	now = now.Add(time.Minute  * time.Duration(17))
+	now = now.Add(time.Minute * time.Duration(17))
 	clusterStore = stor.GetClusterStore(clusterName, now)
 	assert.Equal(t, 0, len(clusterStore.Alerts))
 	err = DiagnoseCluster(client, cfg, clusterStore, now)
@@ -266,15 +266,15 @@ func Test_Diagnose_EventsDeduplicationOnRpcError(t *testing.T) {
 	assert.Equal(t, 1, len(alerts[i].Messages))
 	assert.Equal(t, "4 containers are still initializing [ init-container (init), run-migrations (init), wait-for-database (init), wait-for-queue (init) ] (since 1 hour ago)", alerts[i].Messages[0])
 	assert.Equal(t, 2, len(alerts[i].Events))
-	assert.Equal(t, `Event by kubelet: FailedCreatePodSandBox x2 since 31 Oct 21 14:21 UTC, 8 minutes ago (last seen 7 minutes ago):
-	Failed to create pod sandbox: rpc error: code = Unknown desc = failed to reserve sandbox name "api-74767b9df-xxsrs_ci_6e8c94db-df75-480c-824b-92eb95e99296_0": name "api-74767b9df-xxsrs_ci_6e8c94db-df75-480c-824b-92eb95e99296_0" is reserved for "067d2ab2c9c553f48b0294d2b07926ea278a6b1ad74c716dd59b43cf3d2ca6e9"`, alerts[i].Events[0])
 	assert.Equal(t, `Event by kubelet: FailedCreatePodSandBox x18 since 31 Oct 21 13:32 UTC, 57 minutes ago (last seen now):
-	Failed to create pod sandbox: rpc error: code = DeadlineExceeded desc = context deadline exceeded`, alerts[i].Events[1])
+	Failed to create pod sandbox: rpc error: code = DeadlineExceeded desc = context deadline exceeded`, alerts[i].Events[0])
+	assert.Equal(t, `Event by kubelet: FailedCreatePodSandBox since 31 Oct 21 13:54 UTC, 35 minutes ago:
+	Failed to create pod sandbox: rpc error: code = Unknown desc = failed to reserve sandbox name "api-74767b9df-xxsrs_ci_6e8c94db-df75-480c-824b-92eb95e99296_0": name "api-74767b9df-xxsrs_ci_6e8c94db-df75-480c-824b-92eb95e99296_0" is reserved for "6e9a80c560f39bd7a0052d571903183bd099e9f6f2a7e7ccd92381dc721ac5f0"`, alerts[i].Events[1])
 	assert.Equal(t, 0, len(alerts[i].LogsByContainerName))
 
 	stor, err = store.LoadOrCreate(cfg)
 	require.Nil(t, err)
-	now = now.Add(time.Minute  * time.Duration(17))
+	now = now.Add(time.Minute * time.Duration(17))
 	clusterStore = stor.GetClusterStore(clusterName, now)
 	assert.Equal(t, 0, len(clusterStore.Alerts))
 	err = DiagnoseCluster(client, cfg, clusterStore, now)

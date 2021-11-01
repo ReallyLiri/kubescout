@@ -3,19 +3,15 @@ package diag
 import (
 	"fmt"
 	"github.com/goombaio/orderedmap"
+	"github.com/reallyliri/kubescout/dedup"
 	"github.com/reallyliri/kubescout/internal"
+	"github.com/reallyliri/kubescout/store"
 	"strings"
 	"time"
 )
 
-type entityName struct {
-	namespace string
-	kind      string
-	name      string
-}
-
 type entityState struct {
-	name             entityName
+	name             store.EntityName
 	messages         []string
 	node             string
 	createdTimestamp time.Time
@@ -23,12 +19,12 @@ type entityState struct {
 }
 
 type eventState struct {
-	name          entityName
+	name          store.EntityName
 	message       string
 	lastTimestamp time.Time
 }
 
-func newState(entityName entityName, createdTimestamp time.Time) *entityState {
+func newState(entityName store.EntityName, createdTimestamp time.Time) *entityState {
 	return &entityState{
 		name:             entityName,
 		messages:         []string{},
@@ -43,16 +39,16 @@ func (state *entityState) isHealthy() bool {
 
 func (state *entityState) String() string {
 	if state.isHealthy() {
-		return fmt.Sprintf("%v is healthy\n", state.name.name)
+		return fmt.Sprintf("%v is healthy\n", state.name.Name)
 	}
-	messages := append([]string{fmt.Sprintf("%v %v is un-healthy", state.name.kind, state.name.name)}, state.cleanMessages()...)
+	messages := append([]string{fmt.Sprintf("%v %v is un-healthy", state.name.Kind, state.name.Name)}, state.cleanMessages()...)
 	return strings.Join(messages, "\n\t")
 }
 
 func (state *entityState) cleanMessages() []string {
 	cleanMessages := orderedmap.NewOrderedMap()
 	for _, message := range state.messages {
-		a := cleanMessage(message)
+		a := dedup.CleanTemporal(message)
 		cleanMessages.Put(a, true)
 	}
 	return internal.CastToString(cleanMessages.Keys())
@@ -77,11 +73,11 @@ func (state *eventState) isHealthy() bool {
 
 func (state *eventState) String() string {
 	if state.isHealthy() {
-		return fmt.Sprintf("%v has a healthy event\n", state.name.name)
+		return fmt.Sprintf("%v has a healthy event\n", state.name.Name)
 	}
-	return fmt.Sprintf("Event on %v %v: %v", state.name.kind, state.name.name, cleanMessage(state.message))
+	return fmt.Sprintf("Event on %v %v: %v", state.name.Kind, state.name.Name, dedup.CleanTemporal(state.message))
 }
 
 func (state *eventState) cleanMessage() string {
-	return cleanMessage(state.message)
+	return dedup.CleanTemporal(state.message)
 }

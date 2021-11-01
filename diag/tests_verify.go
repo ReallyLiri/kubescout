@@ -23,7 +23,7 @@ func verifyEventHealthy(t *testing.T, event *v1.Event, now time.Time, index int)
 	assert.Nil(t, err)
 	log.Debugf("%v) %v", index, state)
 	assert.True(t, state.isHealthy())
-	assert.NotEmpty(t, state.name.kind)
+	assert.NotEmpty(t, state.name.Kind)
 	assert.Empty(t, state.message)
 }
 
