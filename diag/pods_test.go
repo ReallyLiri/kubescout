@@ -361,7 +361,7 @@ func TestPodState_ExcessiveRestartsForInitContainers(t *testing.T) {
 	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
-	require.Equal(t, "Container run-migrations (init) restarted 5 times", messages[0])
+	require.Equal(t, "2 containers are still initializing [ api, queue-consumer ] (since 1 hour ago)", messages[0])
 
 	pendingPod := pods[1]
 	state, err = testContext(now).podState(&pendingPod)

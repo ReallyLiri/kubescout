@@ -123,7 +123,13 @@ func (state *entityState) checkContainerStatuses(pod *v1.Pod, context *diagConte
 	}
 }
 
-func (state *entityState) checkContainerStatus(pod *v1.Pod, containerStatus v1.ContainerStatus, subTitle string, context *diagContext) (runProblems bool, waitingToCreate bool, waitingToInitialize bool) {
+func (state *entityState) checkContainerStatus(
+	pod *v1.Pod,
+	containerStatus v1.ContainerStatus,
+	subTitle string,
+	context *diagContext,
+	) (runProblems bool, waitingToCreate bool, waitingToInitialize bool) {
+	isInitContainer := subTitle != ""
 	shouldCollectLogs := false
 	title := fmt.Sprintf("Container %v%v", containerStatus.Name, subTitle)
 	stateTerminated := containerStatus.State.Terminated
@@ -153,7 +159,7 @@ func (state *entityState) checkContainerStatus(pod *v1.Pod, containerStatus v1.C
 		}
 	}
 
-	if containerStatus.RestartCount > context.config.PodRestartGraceCount {
+	if (!isInitContainer || runProblems) && containerStatus.RestartCount > context.config.PodRestartGraceCount {
 		runProblems = true
 		stateTerminated = containerStatus.LastTerminationState.Terminated
 		prefix := title

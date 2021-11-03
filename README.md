@@ -170,7 +170,7 @@ TBD
 
 ```
 NAME:
-   kubescout - 0.1.8 - Scout for alarming issues in your Kubernetes cluster
+   kubescout - 0.1.10 - Scout for alarming issues in your Kubernetes cluster
 
 USAGE:
    kubescout                    [optional flags]
