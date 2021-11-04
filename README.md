@@ -10,7 +10,23 @@
 An alerting tool for Kubernetes clusters issues of all types, in real time, with intelligent redundancy, and easily extendable
 api.
 
-Output example:
+- [Kube-Scout](#kube-scout)
+    + [Output Example](#output-example-)
+    * [Problems Coverage and Roadmap](#problems-coverage-and-roadmap)
+    * [CLI](#cli)
+        + [Install](#install)
+    * [Monitoring Setup](#monitoring-setup)
+        + [Run as a Kubernetes Job](#run-as-a-kubernetes-job)
+        + [Run as a Kubernetes CronJob](#run-as-a-kubernetes-cronjob)
+        + [Run as a Kubernetes Deployment](#run-as-a-kubernetes-deployment)
+        + [Install using Helm](#install-using-helm)
+        + [Run as Docker](#run-as-docker)
+        + [Native](#native)
+        + [Native Cronjob](#native-cronjob)
+        + [Go Package](#go-package)
+    * [Test and Build](#test-and-build)
+
+### Output Example
 
 ```
 Pod default/test-2-broken-image-7cbf974df9-gbnk9 is un-healthy:
@@ -160,13 +176,29 @@ Or in json format:
 
 ![slack](https://i.imgur.com/03yuM55.png)
 
-## Usage
+## Problems Coverage and Roadmap
 
-### Kubernetes Native
+* &check; Pod evictions
+  + _ Clean up
+* &check; Pod stuck terminating
+    + _ Graceful clean up
+* &check; Pod pending/unschedulable/pull-backoff
+* &check; Pod stuck initializing
+* &check; Pod excessively restating or crashloops
+* &check; Logs of relevant containers when applicable
+* &check; Node taints/unready
+* &check; Warning events on any entity
+* _ Node excessive disk usage per fs partition
+* _ Node excessive process allocation
+* _ Node excessive inode allocation
+* Warning/errors in native logs
+  + _ Docker
+  + _ Containerd
+  + _ Kubelet
+  + _ System
+* _ Helm failures
 
-TBD
-
-### CLI
+## CLI
 
 ```
 NAME:
@@ -207,7 +239,7 @@ kubescout --exclude-ns kube-system
 kubescout --include-ns default,test,prod
 ```
 
-#### Install
+### Install
 
 ```bash
 curl -s https://raw.githubusercontent.com/reallyliri/kubescout/main/install.sh | sudo bash
@@ -224,9 +256,42 @@ sudo bash install.sh
 
 then run: `kubescout -h`
 
-### Package
+## Monitoring Setup
 
-You can also use the tool as a package from your code.
+Scout your cluster(s) on a schedule or on demand with the following setup options:
+
+### Run as a Kubernetes Job
+TBD
+
+### Run as a Kubernetes CronJob 
+TBD
+
+### Run as a Kubernetes Deployment 
+TBD
+
+### Install using Helm
+TBD
+
+### Run as Docker
+TBD
+
+### Native
+Simply fetch/compile the binary and use the [CLI](#cli) with your required config options.
+
+### Native Cronjob
+Quick setup of the native binary in a cronjob should be simple enough.
+
+For example, to scout [every 3 minutes](https://crontab.guru/every-3-minutes):
+
+```bash
+if ! crontab -l | grep kubescout >/dev/null 2>&1 ; then
+    (crontab -l ; echo "*/3 * * * * kubescout --all-contexts --kubeconfig /root/.kube/config --dedup-minutes 180") | crontab -
+fi
+```
+
+### Go Package
+
+You can also use the tool as a package from your own code setup.
 
 ```
 go get github.com/reallyliri/kubescout
@@ -238,8 +303,8 @@ package example
 import (
 	"crypto/tls"
 	"fmt"
-	kubescoutconfig "github.com/reallyliri/kubescout/config"
 	kubescout "github.com/reallyliri/kubescout/pkg"
+	kubescoutconfig "github.com/reallyliri/kubescout/config"
 	kubescoutsink "github.com/reallyliri/kubescout/sink"
 	"net/http"
 )
