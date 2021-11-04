@@ -3,10 +3,10 @@ package diag
 import (
 	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
-	"github.com/reallyliri/kubescout/dedup"
 	"github.com/reallyliri/kubescout/internal"
-	"github.com/reallyliri/kubescout/kubeclient"
-	"github.com/reallyliri/kubescout/store"
+	"github.com/reallyliri/kubescout/internal/dedup"
+	"github.com/reallyliri/kubescout/internal/kubeclient"
+	"github.com/reallyliri/kubescout/internal/store"
 	log "github.com/sirupsen/logrus"
 	"go.uber.org/multierr"
 	"time"

@@ -2,8 +2,8 @@ package diag
 
 import (
 	"fmt"
-	"github.com/reallyliri/kubescout/dedup"
-	"github.com/reallyliri/kubescout/store"
+	"github.com/reallyliri/kubescout/internal/dedup"
+	"github.com/reallyliri/kubescout/internal/store"
 	log "github.com/sirupsen/logrus"
 	v12 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"

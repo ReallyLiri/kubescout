@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/reallyliri/kubescout/alert"
 	"github.com/reallyliri/kubescout/config"
-	"github.com/reallyliri/kubescout/dedup"
+	"github.com/reallyliri/kubescout/internal/dedup"
 	log "github.com/sirupsen/logrus"
 	"io/fs"
 	"io/ioutil"

@@ -3,7 +3,7 @@ package config
 import (
 	"flag"
 	"fmt"
-	"github.com/reallyliri/kubescout/kubeconfig"
+	"github.com/reallyliri/kubescout/internal/kubeconfig"
 	"github.com/reallyliri/kubescout/sink"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"

@@ -2,8 +2,8 @@ package diag
 
 import (
 	"github.com/reallyliri/kubescout/config"
-	"github.com/reallyliri/kubescout/kubeclient"
-	"github.com/reallyliri/kubescout/store"
+	"github.com/reallyliri/kubescout/internal/kubeclient"
+	"github.com/reallyliri/kubescout/internal/store"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"io/ioutil"
@@ -18,7 +18,7 @@ var apiResponsesDirectoryPath string
 
 func init() {
 	_, filePath, _, _ := runtime.Caller(0)
-	apiResponsesDirectoryPath = path.Join(filePath, "../../test-resources/api-responses")
+	apiResponsesDirectoryPath = path.Join(filePath, "../../../test-resources/api-responses")
 }
 
 func setUp(t *testing.T, resourcesDirectoryName string) (*config.Config, kubeclient.KubernetesClient) {

@@ -3,9 +3,9 @@ package diag
 import (
 	"fmt"
 	"github.com/goombaio/orderedmap"
-	"github.com/reallyliri/kubescout/dedup"
 	"github.com/reallyliri/kubescout/internal"
-	"github.com/reallyliri/kubescout/store"
+	"github.com/reallyliri/kubescout/internal/dedup"
+	"github.com/reallyliri/kubescout/internal/store"
 	"strings"
 	"time"
 )

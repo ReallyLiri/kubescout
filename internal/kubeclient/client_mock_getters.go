@@ -13,7 +13,7 @@ var apiResponsesDirectoryPath string
 
 func init() {
 	_, filePath, _, _ := runtime.Caller(0)
-	apiResponsesDirectoryPath = path.Join(filePath, "../../test-resources/api-responses")
+	apiResponsesDirectoryPath = path.Join(filePath, "../../../test-resources/api-responses")
 }
 
 func GetEvents(t *testing.T, fileName string) ([]v1.Event, error) {
