@@ -64,6 +64,12 @@ jobs:
           entrypoint: bin/kubescout
           args: --help
 
+      - name: Docker build verification
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+
       - name: Clear dummy kubeconfig
         run: rm ~/.kube/config
 

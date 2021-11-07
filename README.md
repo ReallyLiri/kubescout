@@ -273,7 +273,24 @@ TBD
 TBD
 
 ### Run as Docker
-TBD
+
+Alpine based slim image that wraps the [CLI](#cli) and used by the Kubernetes solutions.
+
+```bash
+docker run --rm -it reallyliri/kubescout:latest --help
+# or with actual kubeconfig
+docker run --rm -it \
+ -v ${HOME}/.kube/config:/root/.kube/config \
+ reallyliri/kubescout:latest -a -o json
+```
+
+Build yourself:
+
+```bash
+docker build -t kubescout .
+# then run
+docker run --rm -it kubescout --help
+```
 
 ### Native
 Simply fetch/compile the binary and use the [CLI](#cli) with your required config options.

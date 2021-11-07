@@ -53,6 +53,7 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 
 		if err != nil {
 			aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to build kuberentes client for %v: %v", contextName, err))
+			continue
 		}
 
 		clusterStore := stor.GetClusterStore(contextName, now)
@@ -62,6 +63,7 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 		err = diag.DiagnoseCluster(client, cfg, clusterStore, now)
 		if err != nil {
 			aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to diagnose cluster %v: %v", contextName, err))
+			continue
 		}
 
 		clusterAlerts := clusterStore.Alerts
