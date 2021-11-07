@@ -2,9 +2,11 @@
 
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![CI](https://github.com/ReallyLiri/kubescout/actions/workflows/ci.yaml/badge.svg?)](https://github.com/ReallyLiri/kubescout/actions/workflows/ci.yaml)
+[![DockerBuild](https://github.com/ReallyLiri/kubescout/actions/workflows/docker-build.yaml/badge.svg?)](https://github.com/ReallyLiri/kubescout/actions/workflows/docker-build.yaml)
+[![Release](https://github.com/ReallyLiri/kubescout/actions/workflows/release.yaml/badge.svg?)](https://github.com/ReallyLiri/kubescout/actions/workflows/release.yaml)
 [![Go project version](https://badge.fury.io/go/github.com%2Freallyliri%2Fkubescout.svg?)](https://badge.fury.io/go/github.com%2Freallyliri%2Fkubescout)
 [![GoDoc](https://godoc.org/github.com/reallyliri/kubescout?status.svg)](https://pkg.go.dev/github.com/reallyliri/kubescout)
-
+[![Docker](https://img.shields.io/docker/v/reallyliri/kubescout?color=%232dd59f&label=Docker)](https://hub.docker.com/repository/docker/reallyliri/kubescout)
 ![icon](kubescout.png)
 
 An alerting tool for Kubernetes clusters issues of all types, in real time, with intelligent redundancy, and easily extendable
