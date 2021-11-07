@@ -7,6 +7,7 @@
 [![Go project version](https://badge.fury.io/go/github.com%2Freallyliri%2Fkubescout.svg?)](https://badge.fury.io/go/github.com%2Freallyliri%2Fkubescout)
 [![GoDoc](https://godoc.org/github.com/reallyliri/kubescout?status.svg)](https://pkg.go.dev/github.com/reallyliri/kubescout)
 [![Docker](https://img.shields.io/docker/v/reallyliri/kubescout?color=%232dd59f&label=Docker)](https://hub.docker.com/repository/docker/reallyliri/kubescout)
+
 ![icon](kubescout.png)
 
 An alerting tool for Kubernetes clusters issues of all types, in real time, with intelligent redundancy, and easily extendable
