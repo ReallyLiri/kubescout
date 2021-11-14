@@ -139,7 +139,7 @@ func TestIntegration(t *testing.T) {
 	log.Infof("using store file at '%v'\n", storeFile.Name())
 	cfg.StoreFilePath = storeFile.Name()
 	cfg.MessagesDeduplicationDuration = time.Minute
-	cfg.ExcludeNamespaces = []string{"kube-system"}
+	cfg.IncludeNamespaces = []string{"default"}
 	cfg.OutputMode = "discard"
 	cfg.ContextName = "minikube"
 
