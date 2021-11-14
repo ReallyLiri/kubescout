@@ -128,7 +128,7 @@ func (state *entityState) checkContainerStatus(
 	containerStatus v1.ContainerStatus,
 	subTitle string,
 	context *diagContext,
-	) (runProblems bool, waitingToCreate bool, waitingToInitialize bool) {
+) (runProblems bool, waitingToCreate bool, waitingToInitialize bool) {
 	isInitContainer := subTitle != ""
 	shouldCollectLogs := false
 	title := fmt.Sprintf("Container %v%v", containerStatus.Name, subTitle)

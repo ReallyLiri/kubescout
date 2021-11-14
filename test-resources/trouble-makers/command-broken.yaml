@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: command-broken
+  labels:
+    app: command-broken
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: command-broken
+  template:
+    metadata:
+      labels:
+        app: command-broken
+    spec:
+      containers:
+        - name: command-broken
+          image: nginx
+          command: [ "shab" ]
+          ports:
+            - containerPort: 80

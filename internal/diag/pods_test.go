@@ -514,7 +514,6 @@ func TestPodState_AllPodsPendingForShortTime(t *testing.T) {
 	verifyAllPodsHealthy(t, pods, now)
 }
 
-
 func TestPodState_PodNotReady(t *testing.T) {
 	pods, err := kubeclient.GetPods(t, "not_ready.json")
 	require.Nil(t, err)
@@ -564,4 +563,33 @@ func TestPodState_PodNotReady(t *testing.T) {
 	assert.GreaterOrEqual(t, len(messages), 2)
 	assert.Equal(t, "Pod is Terminating since 5 minutes ago (deletion grace is 30 sec)", messages[0])
 	assert.Equal(t, "4 containers are still creating [ smoke-tester, smoke-tester-aio, smoke-tester-aio-non-root, smoke-tester-multinode ] (since 2 hours ago)", messages[1])
+}
+
+func TestPodState_MissingDefinitions(t *testing.T) {
+	pods, err := kubeclient.GetPods(t, "missing_definitions.json")
+	require.Nil(t, err)
+	require.NotNil(t, pods)
+	require.NotEmpty(t, pods)
+
+	now := asTime("2021-11-14T11:45:00Z")
+
+	state, err := testContext(now).podState(&pods[0])
+	require.Nil(t, err)
+	log.Debugf("%v) %v", 0, state)
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.name)
+	messages := state.cleanMessages()
+	require.NotEmpty(t, messages)
+	assert.GreaterOrEqual(t, len(messages), 1)
+	assert.Equal(t, "Container missing-configmap still waiting due to CreateContainerConfigError: configmap \"confmap\" not found", messages[0])
+
+	state, err = testContext(now).podState(&pods[1])
+	require.Nil(t, err)
+	log.Debugf("%v) %v", 1, state)
+	require.False(t, state.isHealthy())
+	require.NotEmpty(t, state.name)
+	messages = state.cleanMessages()
+	require.NotEmpty(t, messages)
+	assert.GreaterOrEqual(t, len(messages), 1)
+	assert.Equal(t, "Container missing-secret still waiting due to CreateContainerConfigError: secret \"db\" not found", messages[0])
 }

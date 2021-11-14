@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: missing-configmap
+  labels:
+    app: missing-configmap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: missing-configmap
+  template:
+    metadata:
+      labels:
+        app: missing-configmap
+    spec:
+      containers:
+        - name: missing-configmap
+          image: nginx
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: confmap
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: missing-secret
+  labels:
+    app: missing-secret
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: missing-secret
+  template:
+    metadata:
+      labels:
+        app: missing-secret
+    spec:
+      containers:
+        - name: missing-secret
+          image: nginx
+          ports:
+            - containerPort: 80
+          env:
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: db-password

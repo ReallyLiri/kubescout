@@ -1,0 +1,856 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:16Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922218",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:16Z",
+      "message": "Successfully assigned default/missing-configmap-f77cb8554-m8xkt to minikube",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:16Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b766246716ce4c",
+        "namespace": "default",
+        "resourceVersion": "922231",
+        "uid": "282068aa-f077-4724-8fad-99210e058ade"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 9,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:30:14Z",
+      "message": "Pulling image \"nginx\"",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:17Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b76624c8b784ac",
+        "namespace": "default",
+        "resourceVersion": "922366",
+        "uid": "3ef85e82-076c-47ca-a99d-403d2538c705"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:22Z",
+      "message": "Successfully pulled image \"nginx\" in 4.2670785s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:22Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b76625c70ed460",
+        "namespace": "default",
+        "resourceVersion": "922243",
+        "uid": "5c746544-5427-4b75-a21a-c88392838965"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 8,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:59Z",
+      "message": "Error: configmap \"confmap\" not found",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:22Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b76625c7108080",
+        "namespace": "default",
+        "resourceVersion": "922354",
+        "uid": "bae6d8b6-5882-460c-ab14-6c31cda375c0"
+      },
+      "reason": "Failed",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:26Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:26Z",
+      "message": "Successfully pulled image \"nginx\" in 3.2543441s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:26Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b76626b907060c",
+        "namespace": "default",
+        "resourceVersion": "922252",
+        "uid": "49a4a729-2177-4606-8e67-9e7f16b8611f"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:42Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0018918s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:42Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b7662a9398bce0",
+        "namespace": "default",
+        "resourceVersion": "922270",
+        "uid": "5ea903ac-086a-429c-bb12-dffdfa278d7d"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:56Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0630863s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:56Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b7662dd7b0e6e8",
+        "namespace": "default",
+        "resourceVersion": "922286",
+        "uid": "e404dfe0-974e-4f35-a544-105dc0ca33b0"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:29:13Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:13Z",
+      "message": "Successfully pulled image \"nginx\" in 1.9378524s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:29:13Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b76631c374addc",
+        "namespace": "default",
+        "resourceVersion": "922303",
+        "uid": "7e44f15b-13ef-42bf-95da-e923af931c13"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:29:28Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:28Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0773231s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:29:28Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b7663549e18c70",
+        "namespace": "default",
+        "resourceVersion": "922320",
+        "uid": "83d3b044-a98f-4a42-9297-2beffa75be9b"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:29:43Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:43Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0903253s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:29:43Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b76638c6b42ed0",
+        "namespace": "default",
+        "resourceVersion": "922335",
+        "uid": "e8888801-87e7-4ddd-870c-b73485fb66b9"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:29:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-configmap}",
+        "kind": "Pod",
+        "name": "missing-configmap-f77cb8554-m8xkt",
+        "namespace": "default",
+        "resourceVersion": "922228",
+        "uid": "42d14bff-d6d8-4401-b1e8-5884e3360a06"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:59Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0225521s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:29:59Z",
+        "name": "missing-configmap-f77cb8554-m8xkt.16b7663c7c498684",
+        "namespace": "default",
+        "resourceVersion": "922353",
+        "uid": "c52db5a4-7567-434d-a22c-11460659eb15"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:15Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "missing-configmap-f77cb8554",
+        "namespace": "default",
+        "resourceVersion": "922209",
+        "uid": "e16e1552-9a31-4c90-abd1-f3345584011d"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:15Z",
+      "message": "Created pod: missing-configmap-f77cb8554-m8xkt",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:16Z",
+        "name": "missing-configmap-f77cb8554.16b76624608d341c",
+        "namespace": "default",
+        "resourceVersion": "922222",
+        "uid": "805329fd-0f8c-4f7c-8fc9-fc00fb1b16b2"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:15Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "missing-configmap",
+        "namespace": "default",
+        "resourceVersion": "922207",
+        "uid": "542754b1-43b8-45ea-9077-24b23c9c4c43"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:15Z",
+      "message": "Scaled up replica set missing-configmap-f77cb8554 to 1",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:15Z",
+        "name": "missing-configmap.16b766245eae7520",
+        "namespace": "default",
+        "resourceVersion": "922213",
+        "uid": "8ce03d9e-5e2a-4765-81a7-2dd16ce0722a"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:16Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922217",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:16Z",
+      "message": "Successfully assigned default/missing-secret-7c4ddc45bc-vgnnf to minikube",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:16Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b76624670a3358",
+        "namespace": "default",
+        "resourceVersion": "922229",
+        "uid": "371a6ec0-7dd6-462a-90b7-f6bae70d3bc1"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 9,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:17Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:30:08Z",
+      "message": "Pulling image \"nginx\"",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:17Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b76624c8b748e8",
+        "namespace": "default",
+        "resourceVersion": "922362",
+        "uid": "9ef2b9cd-0fa9-4af9-8bb2-3c08f02e2849"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:20Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:20Z",
+      "message": "Successfully pulled image \"nginx\" in 2.3204989s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:20Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b766255307d3a0",
+        "namespace": "default",
+        "resourceVersion": "922237",
+        "uid": "038b7090-6b02-4d79-a144-89d11df0ad89"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 8,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:20Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:53Z",
+      "message": "Error: secret \"db\" not found",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:20Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b766255309eeb0",
+        "namespace": "default",
+        "resourceVersion": "922347",
+        "uid": "017e5565-a3b9-45f4-9e3d-e6f91cc83517"
+      },
+      "reason": "Failed",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:24Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:24Z",
+      "message": "Successfully pulled image \"nginx\" in 3.2078411s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:24Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b766263e222548",
+        "namespace": "default",
+        "resourceVersion": "922248",
+        "uid": "756917ae-d82d-4b3e-97ed-767b33eceb71"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:38Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:38Z",
+      "message": "Successfully pulled image \"nginx\" in 2.2013978s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:38Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b76629b11dba50",
+        "namespace": "default",
+        "resourceVersion": "922263",
+        "uid": "bd1fdcd0-f285-494d-b771-4d6417eee707"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:51Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:51Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0169944s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:51Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b7662caaeae31c",
+        "namespace": "default",
+        "resourceVersion": "922279",
+        "uid": "863107d5-409f-46ad-8e42-c0c85f8fc94a"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:29:06Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:06Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0152608s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:29:06Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b7663028e25798",
+        "namespace": "default",
+        "resourceVersion": "922296",
+        "uid": "2c9fb2d6-e0dc-4a40-a51e-5efeafb70546"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:29:22Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:22Z",
+      "message": "Successfully pulled image \"nginx\" in 1.9826027s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:29:22Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b76633dea0d6d8",
+        "namespace": "default",
+        "resourceVersion": "922312",
+        "uid": "bf04156b-e6e0-4fec-a4a4-678e81abaea4"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:29:36Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:36Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0896593s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:29:36Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b7663727704a1c",
+        "namespace": "default",
+        "resourceVersion": "922329",
+        "uid": "d8c210c6-c4a0-4a9d-bc66-a0d206ef97d4"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:29:53Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{missing-secret}",
+        "kind": "Pod",
+        "name": "missing-secret-7c4ddc45bc-vgnnf",
+        "namespace": "default",
+        "resourceVersion": "922227",
+        "uid": "ba510b69-80dc-475d-b3f8-08c39383f7d9"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:29:53Z",
+      "message": "Successfully pulled image \"nginx\" in 3.3556326s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:29:53Z",
+        "name": "missing-secret-7c4ddc45bc-vgnnf.16b7663b2a93e150",
+        "namespace": "default",
+        "resourceVersion": "922346",
+        "uid": "8bd8749e-5854-4f94-86ee-dee879bcd194"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:15Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "missing-secret-7c4ddc45bc",
+        "namespace": "default",
+        "resourceVersion": "922210",
+        "uid": "d9ccc51b-7646-45cf-9745-44d11ac9c066"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:15Z",
+      "message": "Created pod: missing-secret-7c4ddc45bc-vgnnf",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:15Z",
+        "name": "missing-secret-7c4ddc45bc.16b76624605e2be0",
+        "namespace": "default",
+        "resourceVersion": "922219",
+        "uid": "acbe8ad2-b23f-4098-be80-65e603738a2d"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:28:15Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "missing-secret",
+        "namespace": "default",
+        "resourceVersion": "922208",
+        "uid": "167c4692-0f68-4902-a6f3-727059fb2ea2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:28:15Z",
+      "message": "Scaled up replica set missing-secret-7c4ddc45bc to 1",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:28:15Z",
+        "name": "missing-secret.16b766245ec9401c",
+        "namespace": "default",
+        "resourceVersion": "922214",
+        "uid": "bfb573f1-98d0-4603-b316-625aef80263a"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

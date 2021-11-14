@@ -1,0 +1,334 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "command-broken-785d44fdcd-lqj5t",
+        "namespace": "default",
+        "resourceVersion": "922513",
+        "uid": "69055e50-ddc0-4eaf-a747-17379fa2fa97"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:32:41Z",
+      "message": "Successfully assigned default/command-broken-785d44fdcd-lqj5t to minikube",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:41Z",
+        "name": "command-broken-785d44fdcd-lqj5t.16b7666240fe8a04",
+        "namespace": "default",
+        "resourceVersion": "922519",
+        "uid": "6a55d1cf-ea51-4d7b-9c00-7b292d1cc1f7"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 3,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:42Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{command-broken}",
+        "kind": "Pod",
+        "name": "command-broken-785d44fdcd-lqj5t",
+        "namespace": "default",
+        "resourceVersion": "922518",
+        "uid": "69055e50-ddc0-4eaf-a747-17379fa2fa97"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:33:04Z",
+      "message": "Pulling image \"nginx\"",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:42Z",
+        "name": "command-broken-785d44fdcd-lqj5t.16b76662680c872c",
+        "namespace": "default",
+        "resourceVersion": "922548",
+        "uid": "eae7a5ca-5870-45d4-b9d3-c42771929c4f"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{command-broken}",
+        "kind": "Pod",
+        "name": "command-broken-785d44fdcd-lqj5t",
+        "namespace": "default",
+        "resourceVersion": "922518",
+        "uid": "69055e50-ddc0-4eaf-a747-17379fa2fa97"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:32:44Z",
+      "message": "Successfully pulled image \"nginx\" in 1.949404s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:44Z",
+        "name": "command-broken-785d44fdcd-lqj5t.16b76662da321c90",
+        "namespace": "default",
+        "resourceVersion": "922524",
+        "uid": "ab358508-d5cb-4448-99bb-79cc8a87e3e5"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 3,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{command-broken}",
+        "kind": "Pod",
+        "name": "command-broken-785d44fdcd-lqj5t",
+        "namespace": "default",
+        "resourceVersion": "922518",
+        "uid": "69055e50-ddc0-4eaf-a747-17379fa2fa97"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:33:06Z",
+      "message": "Created container command-broken",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:44Z",
+        "name": "command-broken-785d44fdcd-lqj5t.16b76662dd342708",
+        "namespace": "default",
+        "resourceVersion": "922553",
+        "uid": "6bcab43e-517e-4cdf-a273-d1fa44f67e9e"
+      },
+      "reason": "Created",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 3,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:44Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{command-broken}",
+        "kind": "Pod",
+        "name": "command-broken-785d44fdcd-lqj5t",
+        "namespace": "default",
+        "resourceVersion": "922518",
+        "uid": "69055e50-ddc0-4eaf-a747-17379fa2fa97"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:33:06Z",
+      "message": "Error: failed to start container \"command-broken\": Error response from daemon: OCI runtime create failed: container_linux.go:380: starting container process caused: exec: \"shab\": executable file not found in $PATH: unknown",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:44Z",
+        "name": "command-broken-785d44fdcd-lqj5t.16b76662e6fc6c00",
+        "namespace": "default",
+        "resourceVersion": "922554",
+        "uid": "8726c9ee-8eea-4fea-98cc-c962dcf9ee47"
+      },
+      "reason": "Failed",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:46Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{command-broken}",
+        "kind": "Pod",
+        "name": "command-broken-785d44fdcd-lqj5t",
+        "namespace": "default",
+        "resourceVersion": "922518",
+        "uid": "69055e50-ddc0-4eaf-a747-17379fa2fa97"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:32:46Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0239881s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:46Z",
+        "name": "command-broken-785d44fdcd-lqj5t.16b766636f59b940",
+        "namespace": "default",
+        "resourceVersion": "922531",
+        "uid": "4cef676e-0353-45a6-b11f-14fc716a716a"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 2,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:50Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{command-broken}",
+        "kind": "Pod",
+        "name": "command-broken-785d44fdcd-lqj5t",
+        "namespace": "default",
+        "resourceVersion": "922518",
+        "uid": "69055e50-ddc0-4eaf-a747-17379fa2fa97"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:33:21Z",
+      "message": "Back-off restarting failed container",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:50Z",
+        "name": "command-broken-785d44fdcd-lqj5t.16b76664610a9ef8",
+        "namespace": "default",
+        "resourceVersion": "922566",
+        "uid": "f96c0f97-01df-4b7d-90a2-bf42f8a1dd34"
+      },
+      "reason": "BackOff",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:33:06Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{command-broken}",
+        "kind": "Pod",
+        "name": "command-broken-785d44fdcd-lqj5t",
+        "namespace": "default",
+        "resourceVersion": "922518",
+        "uid": "69055e50-ddc0-4eaf-a747-17379fa2fa97"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:33:06Z",
+      "message": "Successfully pulled image \"nginx\" in 2.0336948s",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:33:06Z",
+        "name": "command-broken-785d44fdcd-lqj5t.16b76667fac885ac",
+        "namespace": "default",
+        "resourceVersion": "922552",
+        "uid": "e95b6e32-ff93-4798-b01e-bc319066ebf0"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:41Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "command-broken-785d44fdcd",
+        "namespace": "default",
+        "resourceVersion": "922510",
+        "uid": "52f5fa71-0a31-4fd7-918a-c7e86fb31902"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:32:41Z",
+      "message": "Created pod: command-broken-785d44fdcd-lqj5t",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:41Z",
+        "name": "command-broken-785d44fdcd.16b76662403d4c18",
+        "namespace": "default",
+        "resourceVersion": "922515",
+        "uid": "e60d2637-c955-44ff-9934-47506c1a429c"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2021-11-14T11:32:41Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "command-broken",
+        "namespace": "default",
+        "resourceVersion": "922509",
+        "uid": "27073867-086a-47ea-8901-c1c4e4f5af28"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2021-11-14T11:32:41Z",
+      "message": "Scaled up replica set command-broken-785d44fdcd to 1",
+      "metadata": {
+        "creationTimestamp": "2021-11-14T11:32:41Z",
+        "name": "command-broken.16b766623fa38ac4",
+        "namespace": "default",
+        "resourceVersion": "922512",
+        "uid": "cf58d6ee-10f9-4cc4-9c94-40f0697e2a82"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}
