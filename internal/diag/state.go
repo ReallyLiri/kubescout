@@ -93,6 +93,7 @@ func (state *entityState) checkContainerStatuses(pod *v1.Pod, context *diagConte
 	if pending != nil {
 		sort.Strings(*pending)
 		state.appendMessage(
+			pod.CreationTimestamp.Time,
 			"%v still %v [ %v ] (since %v)",
 			dedup.WrapTemporal(formatPlural(len(*pending), "One container is", "containers are")),
 			pendingVerb,
@@ -107,6 +108,7 @@ func (state *entityState) checkContainerStatuses(pod *v1.Pod, context *diagConte
 			if condition.Status != "True" {
 				anyConditionMessage = true
 				state.appendMessage(
+					condition.LastTransitionTime.Time,
 					"%v: %v (last transition: %v)",
 					splitToWords(condition.Reason),
 					condition.Message,
@@ -117,7 +119,12 @@ func (state *entityState) checkContainerStatuses(pod *v1.Pod, context *diagConte
 		if !anyConditionMessage {
 			sinceCreation := context.now.Sub(pod.CreationTimestamp.Time).Seconds()
 			if pod.Status.Phase != v1.PodPending || sinceCreation >= context.config.PodStartingGracePeriodSeconds {
-				state.appendMessage("Pod is in %v phase (since %v)", pod.Status.Phase, dedup.WrapTemporal(formatDuration(pod.CreationTimestamp.Time, context.now)))
+				state.appendMessage(
+					pod.CreationTimestamp.Time,
+					"Pod is in %v phase (since %v)",
+					pod.Status.Phase,
+					dedup.WrapTemporal(formatDuration(pod.CreationTimestamp.Time, context.now)),
+				)
 			}
 		}
 	}
@@ -140,7 +147,14 @@ func (state *entityState) checkContainerStatus(
 			runProblems = true
 			sinceTerminated := context.now.Sub(stateTerminated.FinishedAt.Time).Seconds()
 			if sinceTerminated >= float64(context.config.PodTerminationGracePeriodSeconds) {
-				state.appendMessage("%v%v terminated due to %v (exit code %v)", containerStatus.Name, subTitle, terminatedReason, stateTerminated.ExitCode)
+				state.appendMessage(
+					stateTerminated.FinishedAt.Time,
+					"%v%v terminated due to %v (exit code %v)",
+					containerStatus.Name,
+					subTitle,
+					terminatedReason,
+					stateTerminated.ExitCode,
+				)
 			}
 		}
 	}
@@ -154,7 +168,13 @@ func (state *entityState) checkContainerStatus(
 		} else if stateWaiting.Reason == "PodInitializing" && startingGracePassed {
 			waitingToInitialize = true
 		} else if !ignoreWaitingReasons[stateWaiting.Reason] {
-			state.appendMessage("%v still waiting due to %v: %v", title, stateWaiting.Reason, dedup.WrapTemporal(stateWaiting.Message))
+			state.appendMessage(
+				pod.CreationTimestamp.Time,
+				"%v still waiting due to %v: %v",
+				title,
+				stateWaiting.Reason,
+				dedup.WrapTemporal(stateWaiting.Message),
+			)
 			shouldCollectLogs = true
 		}
 	}
@@ -166,12 +186,35 @@ func (state *entityState) checkContainerStatus(
 		if stateWaiting != nil {
 			prefix = fmt.Sprintf("%v is in %v:", title, stateWaiting.Reason)
 		}
+
+		problemTimestamp := pod.CreationTimestamp.Time
+		started := pod.Status.StartTime != nil
 		if stateTerminated != nil {
-			state.appendMessage("%v restarted %v times, last exit due to %v (exit code %v)", prefix, dedup.WrapTemporal(containerStatus.RestartCount), stateTerminated.Reason, stateTerminated.ExitCode)
-		} else {
-			state.appendMessage("%v restarted %v times", prefix, dedup.WrapTemporal(containerStatus.RestartCount))
+			problemTimestamp = stateTerminated.FinishedAt.Time
+		} else if started {
+			problemTimestamp = pod.Status.StartTime.Time
 		}
-		shouldCollectLogs = true
+
+		timeSinceProblem := context.now.Sub(problemTimestamp)
+		if !started || timeSinceProblem <= graceTimeSinceProblemIfRunning {
+			if stateTerminated != nil {
+				state.appendMessage(
+					problemTimestamp,
+					"%v restarted %v times, last exit due to %v (exit code %v)",
+					prefix, dedup.WrapTemporal(containerStatus.RestartCount),
+					stateTerminated.Reason,
+					stateTerminated.ExitCode,
+				)
+			} else {
+				state.appendMessage(
+					problemTimestamp,
+					"%v restarted %v times",
+					prefix,
+					dedup.WrapTemporal(containerStatus.RestartCount),
+				)
+			}
+			shouldCollectLogs = true
+		}
 	}
 
 	if shouldCollectLogs && context.client != nil {
@@ -186,6 +229,13 @@ func (state *entityState) checkContainerStatus(
 		}
 	}
 	return
+}
+
+func podRunningTimestamp(pod *v1.Pod) time.Time {
+	if pod.Status.StartTime != nil {
+		return pod.Status.StartTime.Time
+	}
+	return pod.CreationTimestamp.Time
 }
 
 func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error) {
@@ -213,7 +263,11 @@ func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error
 		if statusReason == "Evicted" {
 			statusMessage = dedup.WrapTemporal(formatUnitsSize(statusMessage))
 		}
-		state.appendMessage("Pod is in %v phase due to %v: %v", podPhase, statusReason, statusMessage)
+		state.appendMessage(
+			podRunningTimestamp(pod),
+			"Pod is in %v phase due to %v: %v",
+			podPhase, statusReason, statusMessage,
+		)
 	} else if pod.DeletionTimestamp != nil {
 		deletionTime := (*pod.DeletionTimestamp).Time
 		if context.now.Sub(deletionTime).Seconds() > float64(valueOrDefault(pod.DeletionGracePeriodSeconds, context.config.PodTerminationGracePeriodSeconds)) {
@@ -221,10 +275,10 @@ func (context *diagContext) podState(pod *v1.Pod) (state *entityState, err error
 			if pod.DeletionGracePeriodSeconds != nil && *pod.DeletionGracePeriodSeconds != 0 {
 				suffix = fmt.Sprintf(" (deletion grace is %v sec)", *pod.DeletionGracePeriodSeconds)
 			}
-			state.appendMessage("Pod is Terminating since %v%v", dedup.WrapTemporal(formatDuration(deletionTime, context.now)), suffix)
+			state.appendMessage(deletionTime, "Pod is Terminating since %v%v", dedup.WrapTemporal(formatDuration(deletionTime, context.now)), suffix)
 		}
 	} else if podPhase != v1.PodRunning && podPhase != v1.PodPending {
-		state.appendMessage("Pod is in %v phase", podPhase)
+		state.appendMessage(podRunningTimestamp(pod), "Pod is in %v phase", podPhase)
 	}
 
 	state.checkContainerStatuses(pod, context)
@@ -247,6 +301,7 @@ func (context *diagContext) nodeState(node *v1.Node, forceCheckResources bool) (
 			}
 		}
 		state.appendMessage(
+			condition.LastTransitionTime.Time,
 			"%v: %v (last transition: %v)",
 			splitToWords(condition.Reason),
 			formatUnitsSize(condition.Message),
@@ -258,19 +313,19 @@ func (context *diagContext) nodeState(node *v1.Node, forceCheckResources bool) (
 		return
 	}
 
-	state.appendMessage(formatResourceUsage(
+	state.appendMessage(time.Time{}, formatResourceUsage(
 		node.Status.Allocatable.Cpu().MilliValue(),
 		node.Status.Capacity.Cpu().MilliValue(),
 		"CPU", context.config.NodeResourceUsageThreshold,
 	))
 
-	state.appendMessage(formatResourceUsage(
+	state.appendMessage(time.Time{}, formatResourceUsage(
 		node.Status.Allocatable.Memory().Value(),
 		node.Status.Capacity.Memory().Value(),
 		"Memory", context.config.NodeResourceUsageThreshold,
 	))
 
-	state.appendMessage(formatResourceUsage(
+	state.appendMessage(time.Time{}, formatResourceUsage(
 		node.Status.Allocatable.StorageEphemeral().Value(),
 		node.Status.Capacity.StorageEphemeral().Value(),
 		"Ephemeral Storage", context.config.NodeResourceUsageThreshold,
@@ -310,6 +365,7 @@ func (context *diagContext) replicaSetState(replicaSet *v12.ReplicaSet) (state *
 
 	for _, condition := range replicaSet.Status.Conditions {
 		state.appendMessage(
+			condition.LastTransitionTime.Time,
 			"%v: %v (last transition: %v)",
 			splitToWords(condition.Reason),
 			formatUnitsSize(condition.Message),
@@ -355,6 +411,7 @@ func (context *diagContext) eventState(event *v1.Event) (state *eventState, err 
 		count = event.Count
 	}
 	state.lastTimestamp = lastTimestamp
+	state.firstTimestamp = firstTimestamp
 
 	builder := strings.Builder{}
 	builder.WriteString(fmt.Sprintf(

@@ -129,6 +129,7 @@ func Test_Diagnose(t *testing.T) {
 
 func Test_Diagnose_RepeatingCallAfterShortTime(t *testing.T) {
 	cfg, client := setUp(t, "integration-test-outputs")
+	cfg.MessagesDeduplicationDuration = time.Second * time.Duration(5)
 
 	now := asTime("2021-10-17T14:20:00Z")
 	clusterName := "diag-test-short"
@@ -143,7 +144,7 @@ func Test_Diagnose_RepeatingCallAfterShortTime(t *testing.T) {
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
-	nearFuture := now.Add(time.Minute)
+	nearFuture := now.Add(time.Second)
 
 	store2, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)
@@ -159,6 +160,7 @@ func Test_Diagnose_RepeatingCallAfterShortTime(t *testing.T) {
 
 func Test_Diagnose_RepeatingCallAfterLongTime(t *testing.T) {
 	cfg, client := setUp(t, "integration-test-outputs")
+	cfg.MessagesDeduplicationDuration = time.Second * time.Duration(5)
 
 	now := asTime("2021-10-17T14:20:00Z")
 	clusterName := "diag-test-long"
@@ -173,7 +175,7 @@ func Test_Diagnose_RepeatingCallAfterLongTime(t *testing.T) {
 	err = store1.Flush(now)
 	require.Nil(t, err)
 
-	farFuture := now.Add(time.Hour + time.Minute)
+	farFuture := now.Add(time.Second * time.Duration(6))
 
 	store2, err := store.LoadOrCreate(cfg)
 	require.Nil(t, err)

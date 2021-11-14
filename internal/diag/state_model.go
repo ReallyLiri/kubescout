@@ -16,12 +16,14 @@ type entityState struct {
 	node             string
 	createdTimestamp time.Time
 	logsCollections  map[string]string
+	problemTimestamp time.Time
 }
 
 type eventState struct {
-	name          store.EntityName
-	message       string
-	lastTimestamp time.Time
+	name           store.EntityName
+	message        string
+	firstTimestamp time.Time
+	lastTimestamp  time.Time
 }
 
 func newState(entityName store.EntityName, createdTimestamp time.Time) *entityState {
@@ -54,7 +56,7 @@ func (state *entityState) cleanMessages() []string {
 	return internal.CastToString(cleanMessages.Keys())
 }
 
-func (state *entityState) appendMessage(format string, a ...interface{}) {
+func (state *entityState) appendMessage(timestamp time.Time, format string, a ...interface{}) {
 	var message string
 	if len(a) > 0 {
 		message = strings.TrimSpace(fmt.Sprintf(format, a...))
@@ -65,6 +67,7 @@ func (state *entityState) appendMessage(format string, a ...interface{}) {
 		return
 	}
 	state.messages = append(state.messages, message)
+	setMinTimestamp(&state.problemTimestamp, timestamp)
 }
 
 func (state *eventState) isHealthy() bool {

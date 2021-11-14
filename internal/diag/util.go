@@ -147,3 +147,12 @@ func formatPlural(count int, singular string, plural string) string {
 	}
 	return fmt.Sprintf("%v %v", count, plural)
 }
+
+func setMinTimestamp(current *time.Time, candidate time.Time) {
+	if candidate.IsZero() {
+		return
+	}
+	if current.IsZero() || current.After(candidate) {
+		*current = candidate
+	}
+}

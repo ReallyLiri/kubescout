@@ -242,13 +242,13 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 	require.NotNil(t, pods)
 	require.NotEmpty(t, pods)
 
-	now := asTime("2021-10-10T00:00:00Z")
+	now := asTime("2021-08-26T15:58:00Z")
 
 	crashloopingIndexes := []int{
 		0, 1, 2, 6, 13,
 	}
 	initializingIndexes := []int{
-		3, 4, 5, 9, 10,
+		9, 10,
 	}
 
 	skipIndexes := make(map[int]bool, len(crashloopingIndexes)+len(initializingIndexes))
@@ -279,39 +279,20 @@ func TestPodState_InitContainerCrashlooping(t *testing.T) {
 		assert.True(t, strings.HasPrefix(state.logsCollections["wait-for-database"], "ci/"))
 		assert.True(t, strings.HasSuffix(state.logsCollections["wait-for-database"], "/wait-for-database/logs"))
 	}
-
-	for _, index := range initializingIndexes {
-		initializingPods := pods[index]
-		state, err := testContext(now).podState(&initializingPods)
-		require.Nil(t, err)
-		log.Debugf("%v) %v", index, state)
-		require.False(t, state.isHealthy())
-		require.NotEmpty(t, state.name)
-		messages := state.cleanMessages()
-		require.NotEmpty(t, messages)
-		assert.Equal(t, 1, len(messages))
-		assert.True(t,
-			strings.HasPrefix(messages[0], "One container is still initializing [ ") ||
-				strings.HasPrefix(messages[0], "One container is still creating [ "),
-			messages[0],
-		)
-		assert.Equal(t, 0, len(state.logsCollections))
-	}
 }
 
-func TestPodState_ExcessiveRestarts(t *testing.T) {
+func TestPodState_ExcessiveRestarts1(t *testing.T) {
 	pods, err := kubeclient.GetPods(t, "excessive_restart.json")
 	require.Nil(t, err)
 	require.NotNil(t, pods)
 	require.NotEmpty(t, pods)
 
-	now := asTime("2021-10-16T10:00:00Z")
+	now := asTime("2021-07-14T13:40:00Z")
 	verifyPodsHealthyExcept(t, pods, now, map[int]bool{
 		3:  true,
 		4:  true,
 		9:  true,
 		11: true,
-		13: true,
 	})
 
 	restartingPod := pods[11]
@@ -324,14 +305,29 @@ func TestPodState_ExcessiveRestarts(t *testing.T) {
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Container queue restarted 5 times, last exit due to Error (exit code 137)", messages[0])
+}
 
-	restartingPod = pods[13]
-	state, err = testContext(now).podState(&restartingPod)
+func TestPodState_ExcessiveRestarts(t *testing.T) {
+	pods, err := kubeclient.GetPods(t, "excessive_restart.json")
+	require.Nil(t, err)
+	require.NotNil(t, pods)
+	require.NotEmpty(t, pods)
+
+	now := asTime("2021-07-18T22:36:00Z")
+	verifyPodsHealthyExcept(t, pods, now, map[int]bool{
+		3:  true,
+		4:  true,
+		9:  true,
+		13: true,
+	})
+
+	restartingPod := pods[13]
+	state, err := testContext(now).podState(&restartingPod)
 	require.Nil(t, err)
 	log.Debug(state.String())
 	require.False(t, state.isHealthy())
 	require.NotEmpty(t, state.name)
-	messages = state.cleanMessages()
+	messages := state.cleanMessages()
 	require.NotEmpty(t, messages)
 	require.Equal(t, 1, len(messages))
 	require.Equal(t, "Container app9 restarted 7 times, last exit due to OOMKilled (exit code 137)", messages[0])

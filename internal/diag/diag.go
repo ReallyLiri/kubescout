@@ -31,6 +31,8 @@ var excludeStandaloneEventsOnKinds = map[string]bool{
 
 const graceTimeForEventSinceEntityCreation = time.Second * time.Duration(5)
 
+const graceTimeSinceProblemIfRunning = time.Minute * time.Duration(10)
+
 func testContext(now time.Time) *diagContext {
 	return testContextWithClient(now, nil)
 }
@@ -99,12 +101,15 @@ func (context *diagContext) handleEntityState(state *entityState, events []*even
 	if len(entityAlert.Messages) == 0 {
 		log.Infof("[DEDUPED] %v", state)
 		return
+	} else {
+		setMinTimestamp(&entityAlert.Timestamp, state.problemTimestamp)
 	}
 
 	for _, event := range events {
 		stored := context.store.TryAdd(state.name, event.message, context.now)
 		if stored {
 			entityAlert.Events = append(entityAlert.Events, dedup.CleanTemporal(event.message))
+			setMinTimestamp(&entityAlert.Timestamp, event.firstTimestamp)
 		}
 	}
 
@@ -136,6 +141,7 @@ func (context *diagContext) handleStandaloneEvents(name store.EntityName, events
 		stored := context.store.TryAdd(name, event.message, context.now)
 		if stored {
 			entityAlert.Events = append(entityAlert.Events, dedup.CleanTemporal(event.message))
+			setMinTimestamp(&entityAlert.Timestamp, event.firstTimestamp)
 		}
 	}
 
