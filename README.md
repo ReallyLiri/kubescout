@@ -21,7 +21,6 @@ api.
     * [Monitoring Setup](#monitoring-setup)
         + [Run as a Kubernetes Job](#run-as-a-kubernetes-job)
         + [Run as a Kubernetes CronJob](#run-as-a-kubernetes-cronjob)
-        + [Run as a Kubernetes Deployment](#run-as-a-kubernetes-deployment)
         + [Install using Helm](#install-using-helm)
         + [Run as Docker](#run-as-docker)
         + [Native](#native)
@@ -264,12 +263,14 @@ then run: `kubescout -h`
 Scout your cluster(s) on a schedule or on demand with the following setup options:
 
 ### Run as a Kubernetes Job
-TBD
+
+```bash
+kubectl apply -f kubernetes/configmap.yaml
+kubectl apply -f kubernetes/rbac.yaml
+kubectl apply -f kubernetes/job.yaml
+```
 
 ### Run as a Kubernetes CronJob 
-TBD
-
-### Run as a Kubernetes Deployment 
 TBD
 
 ### Install using Helm

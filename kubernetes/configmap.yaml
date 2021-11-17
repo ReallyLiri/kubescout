@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubescout-env
+  namespace: kube-system
+data:
+  VERBOSE: "false"
+  LOGS_TAIL: "250"
+  EVENTS_LIMIT: "150"
+  TIME_FORMAT: "02 Jan 06 15:04 MST"
+  LOCALE: "UTC"
+  POD_CREATION_GRACE_SEC: "5"
+  POD_STARTING_GRACE_SEC: "600"
+  POD_TERMINATION_GRACE_SEC: "60"
+  POD_RESTART_GRACE_COUNT: "3"
+  EXCLUDE_NS: ""
+  INCLUDE_NS: ""
+  DEDUP_MINUTES: "60"
+  OUTPUT_MODE: "pretty"

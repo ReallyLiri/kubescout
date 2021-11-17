@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kubescout-job
+  namespace: kube-system
+spec:
+  parallelism: 1
+  completions: 1
+  backoffLimit: 0
+  template:
+    metadata:
+      name: kubescout
+    spec:
+      restartPolicy: "Never"
+      serviceAccountName: kubescout-sa
+      containers:
+        - name: kubescout
+          image: reallyliri/kubescout:v0.1.13
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+          envFrom:
+            - configMapRef:
+                name: kubescout-env
