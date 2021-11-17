@@ -16,6 +16,7 @@ type Config struct {
 	PodLogsTail                      int64
 	EventsLimit                      int64
 	KubeconfigFilePath               string
+	RunningInCluster                 bool
 	TimeFormat                       string
 	Locale                           *time.Location
 	PodCreationGracePeriodSeconds    float64
@@ -40,6 +41,7 @@ var Flags = []cli.Flag{
 		Usage:    "Verbose logging",
 		Required: false,
 		Value:    false,
+		EnvVars:  []string{"VERBOSE"},
 	},
 	&cli.Int64Flag{
 		Name:     "logs-tail",
@@ -56,7 +58,7 @@ var Flags = []cli.Flag{
 	&cli.StringFlag{
 		Name:     "kubeconfig",
 		Aliases:  []string{"k"},
-		Usage:    "kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config",
+		Usage:    "kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config, can be omitted when running in cluster",
 		Required: false,
 	},
 	&cli.StringFlag{
@@ -204,7 +206,7 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		KubeconfigFilePath:               c.String("kubeconfig"),
 		TimeFormat:                       c.String("time-format"),
 		PodCreationGracePeriodSeconds:    c.Float64("pod-creation-grace-sec"),
-		PodStartingGracePeriodSeconds: c.Float64("pod-starting-grace-sec"),
+		PodStartingGracePeriodSeconds:    c.Float64("pod-starting-grace-sec"),
 		PodTerminationGracePeriodSeconds: c.Int64("pod-termination-grace-sec"),
 		PodRestartGraceCount:             int32(c.Int("pod-restart-grace-count")),
 		NodeResourceUsageThreshold:       c.Float64("node-resource-usage-threshold"),
@@ -244,14 +246,14 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 	})
 	log.SetOutput(os.Stdout)
 	if c.Bool("verbose") {
-		log.SetLevel(log.DebugLevel)
+		log.SetLevel(log.TraceLevel)
 	} else {
 		log.SetLevel(log.InfoLevel)
 	}
 
 	if config.KubeconfigFilePath == "" {
-		config.KubeconfigFilePath, err = kubeconfig.DefaultKubeconfigPath()
-		if err != nil || config.KubeconfigFilePath == "" {
+		config.KubeconfigFilePath, config.RunningInCluster, err = kubeconfig.DefaultKubeconfigPath()
+		if err != nil || (config.KubeconfigFilePath == "" && !config.RunningInCluster) {
 			return nil, fmt.Errorf("failed to determine default kubeconfig file path: %v", err)
 		}
 	}

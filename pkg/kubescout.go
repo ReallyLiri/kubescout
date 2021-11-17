@@ -21,24 +21,31 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 		alertSink = cfg.DefaultSink()
 	}
 
-	stor, reportErr := store.LoadOrCreate(cfg)
-	if reportErr != nil {
-		return reportErr
+	stor, err := store.LoadOrCreate(cfg)
+	if err != nil {
+		return err
 	}
 
-	kconf, reportErr := kubeconfig.LoadKubeconfig(cfg.KubeconfigFilePath)
-	if reportErr != nil {
-		return reportErr
-	}
+	var contextNames []string
+	var kconf kubeconfig.KubeConfig
 
-	contextNames, reportErr := kubeconfig.ContextNames(
-		kconf,
-		cfg.ContextName,
-		cfg.AllContexts,
-		cfg.ExcludeContexts,
-	)
-	if reportErr != nil {
-		return reportErr
+	if cfg.RunningInCluster {
+		contextNames = []string{"in-cluster"}
+	} else {
+		kconf, err = kubeconfig.LoadKubeconfig(cfg.KubeconfigFilePath)
+		if err != nil {
+			return err
+		}
+
+		contextNames, err = kubeconfig.ContextNames(
+			kconf,
+			cfg.ContextName,
+			cfg.AllContexts,
+			cfg.ExcludeContexts,
+		)
+		if err != nil {
+			return err
+		}
 	}
 
 	alerts := alert.NewAlerts()
@@ -47,7 +54,9 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 
 	var aggregatedErr error
 	for i, contextName := range contextNames {
-		kconf.CurrentContext = contextName
+		if kconf != nil {
+			kconf.CurrentContext = contextName
+		}
 
 		client, err := kubeclient.CreateClient(cfg, kconf)
 
@@ -75,14 +84,14 @@ func Scout(cfg *config.Config, alertSink sink.Sink) error {
 		return aggregatedErr
 	}
 
-	reportErr = alertSink.Report(alerts)
-	if reportErr == nil {
+	err = alertSink.Report(alerts)
+	if err == nil {
 		flushErr := stor.Flush(now)
 		if flushErr != nil {
 			aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to flush to store: %v", flushErr))
 		}
 	} else {
-		aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to report alerts: %v", reportErr))
+		aggregatedErr = multierr.Append(aggregatedErr, fmt.Errorf("failed to report alerts: %v", err))
 	}
 
 	return aggregatedErr

@@ -12,19 +12,25 @@ import (
 	"sort"
 )
 
+const serviceAccountTokenInClusterPath = "/var/run/secrets/kubernetes.io/serviceaccount"
+
 type KubeConfig *clientcmdapi.Config
 
-func DefaultKubeconfigPath() (string, error) {
+func DefaultKubeconfigPath() (filePath string, runningInCluster bool, err error) {
+	if _, err = os.Stat(serviceAccountTokenInClusterPath); err == nil {
+		return "", true, nil
+	}
+
 	if filePath := os.Getenv("KUBECONFIG"); filePath != "" {
-		return filePath, nil
+		return filePath, false, nil
 	}
 
 	homedirPath := homedir.HomeDir()
 	if homedirPath == "" {
-		return "", fmt.Errorf("failed to determine homedir path")
+		return "", false, fmt.Errorf("failed to determine homedir path")
 	}
 
-	return filepath.Join(homedirPath, ".kube", "config"), nil
+	return filepath.Join(homedirPath, ".kube", "config"), false, nil
 }
 
 func LoadKubeconfig(configFilePath string) (KubeConfig, error) {

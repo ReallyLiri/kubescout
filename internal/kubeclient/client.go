@@ -13,6 +13,7 @@ import (
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"strings"
@@ -36,16 +37,26 @@ var _ KubernetesClient = &remoteKubernetesClient{}
 
 func CreateClient(config *config.Config, kubeconfig kubeconfig.KubeConfig) (KubernetesClient, error) {
 
-	kubeconfigFilePath := config.KubeconfigFilePath
-	log.Debugf("Building kubernetes client from kubeconfig '%v'\n", kubeconfigFilePath)
-	fullKubeconfig, err := clientcmd.BuildConfigFromKubeconfigGetter("", func() (*clientcmdapi.Config, error) {
-		return kubeconfig, nil
-	})
-	if err != nil {
-		return nil, fmt.Errorf("failed to build kubeconfig from '%v': %v", kubeconfigFilePath, err)
+	var kconf *rest.Config
+	var err error
+
+	if config.RunningInCluster {
+		kconf, err = rest.InClusterConfig()
+		if err != nil {
+			return nil, fmt.Errorf("failed to build kubeconfig from in cluster token: %v", err)
+		}
+	} else {
+		kubeconfigFilePath := config.KubeconfigFilePath
+		log.Debugf("Building kubernetes client from kubeconfig '%v'\n", kubeconfigFilePath)
+		kconf, err = clientcmd.BuildConfigFromKubeconfigGetter("", func() (*clientcmdapi.Config, error) {
+			return kubeconfig, nil
+		})
+		if err != nil {
+			return nil, fmt.Errorf("failed to build kubeconfig from '%v': %v", kubeconfigFilePath, err)
+		}
 	}
 
-	clientSet, err := kubernetes.NewForConfig(fullKubeconfig)
+	clientSet, err := kubernetes.NewForConfig(kconf)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create kubernetes client: %v", err)
 	}
