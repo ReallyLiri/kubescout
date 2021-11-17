@@ -213,7 +213,7 @@ OPTIONS:
    --verbose, --vv                        Verbose logging (default: false)
    --logs-tail value                      Specifies the logs tail length when reporting logs from a problematic pod, use 0 to disable log extraction (default: 250)
    --events-limit value                   Maximum number of namespace events to fetch (default: 150)
-   --kubeconfig value, -k value           kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config
+   --kubeconfig value, -k value           kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config, can be omitted when running in cluster
    --time-format value, -f value          timestamp print format (default: "02 Jan 06 15:04 MST")
    --locale value, -l value               timestamp print localization (default: "UTC")
    --pod-creation-grace-sec value         grace period in seconds since pod creation before checking its statuses (default: 5)

@@ -14,6 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"path"
 	"regexp"
@@ -130,6 +131,10 @@ func cleanUp() {
 }
 
 func TestIntegration(t *testing.T) {
+	contextName := "minikube"
+
+	err := os.Setenv("VERBOSE", "true")
+	require.Nil(t, err)
 	cfg, err := config.DefaultConfig()
 	require.Nil(t, err)
 
@@ -141,7 +146,7 @@ func TestIntegration(t *testing.T) {
 	cfg.MessagesDeduplicationDuration = time.Minute
 	cfg.IncludeNamespaces = []string{"default"}
 	cfg.OutputMode = "discard"
-	cfg.ContextName = "minikube"
+	cfg.ContextName = contextName
 
 	err = verifyMinikubeRunning()
 	require.Nil(t, err)
@@ -175,8 +180,8 @@ func TestIntegration(t *testing.T) {
 
 	require.NotNil(t, vSink.alerts)
 	assert.Equal(t, 1, len(vSink.alerts.AlertsByClusterName))
-	assert.NotNil(t, vSink.alerts.AlertsByClusterName["minikube"])
-	verifyAlertsForFullDiagRun(t, vSink.alerts.AlertsByClusterName["minikube"])
+	assert.NotNil(t, vSink.alerts.AlertsByClusterName[contextName])
+	verifyAlertsForFullDiagRun(t, vSink.alerts.AlertsByClusterName[contextName])
 	vSink.alerts = nil
 
 	storeContent, err := ioutil.ReadFile(cfg.StoreFilePath)
@@ -189,7 +194,7 @@ func TestIntegration(t *testing.T) {
 
 	assert.Nil(t, vSink.alerts)
 	if vSink.alerts != nil {
-		for _, entityAlert := range vSink.alerts.AlertsByClusterName["minikube"] {
+		for _, entityAlert := range vSink.alerts.AlertsByClusterName[contextName] {
 			assert.Fail(t, entityAlert.String())
 		}
 		vSink.alerts = nil
@@ -204,8 +209,8 @@ func TestIntegration(t *testing.T) {
 
 	require.NotNil(t, vSink.alerts)
 	assert.Equal(t, 1, len(vSink.alerts.AlertsByClusterName))
-	assert.NotNil(t, vSink.alerts.AlertsByClusterName["minikube"])
-	verifyAlertsForFullDiagRun(t, vSink.alerts.AlertsByClusterName["minikube"])
+	assert.NotNil(t, vSink.alerts.AlertsByClusterName[contextName])
+	verifyAlertsForFullDiagRun(t, vSink.alerts.AlertsByClusterName[contextName])
 	vSink.alerts = nil
 }
 
