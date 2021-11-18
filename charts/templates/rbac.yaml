@@ -1,4 +1,4 @@
----
+{{- if .Values.serviceAccount.create }}
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -14,8 +14,8 @@ rules:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: kubescout-sa
-  namespace: default
+  name: {{ .Values.serviceAccount.name | quote }}
+  namespace: {{ .Release.Namespace | quote }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -26,6 +26,7 @@ roleRef:
   kind: ClusterRole
   name: kubescout-cluster-role
 subjects:
-  - name: kubescout-sa
+  - name: {{ .Values.serviceAccount.name | quote }}
     kind: ServiceAccount
-    namespace: default
+    namespace: {{ .Release.Namespace | quote }}
+{{- end }}
