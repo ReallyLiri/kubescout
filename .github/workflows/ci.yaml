@@ -118,7 +118,7 @@ jobs:
           cache-from: reallyliri/kubescout:latest
 
       - name: Helm lint
-        uses: wtag/helm-lint-action@master
+        uses: igabaydulin/helm-check-action@0.1.4
         with:
-          chart_directory: chart
-          chart_name: kubescout
+          CHART_LOCATION: chart
+          CHART_VALUES: chart/values.yaml
