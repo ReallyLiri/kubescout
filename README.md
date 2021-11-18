@@ -265,19 +265,19 @@ Scout your cluster(s) on a schedule or on demand with the following setup option
 ### Install using Helm
 
 ```bash
-helm upgrade -i -n default kubescout ./charts
+helm upgrade -i -n default kubescout ./chart
 ```
 
 Values configuration examples:
 
 ```bash
-helm upgrade -i -f custom-values.yaml kubescout ./charts
+helm upgrade -i -f custom-values.yaml kubescout ./chart
 helm upgrade -i \
   --set image.tag="$(go run . --version | cut -d" " -f 3)" \
   --set run.mode="CronJob" \
   --set run.cronJob.schedule="0 0 * * *" \
   --set config.excludeNamespaces={kube-node-lease\,kube-public\,kube-system} \
-  kubescout ./charts
+  kubescout ./chart
 ```
 
 ### Run as a Kubernetes Job
@@ -292,7 +292,7 @@ helm template \
   --set image.tag="$(go run . --version | cut -d" " -f 3)" \
   --set run.mode="Job" \
   --set persistency.enable=false \
-  kubescout ./charts > kubescout-job.yaml
+  kubescout ./chart > kubescout-job.yaml
 
 kubectl apply -n $NAMESPACE -f kubescout-job.yaml
 ```
@@ -309,7 +309,7 @@ helm template \
   --set image.tag="$(go run . --version | cut -d" " -f 3)" \
   --set run.mode="CronJob" \
   --set run.cronjob.schedule="* * * * *" \
-  kubescout ./charts > kubescout-cronjob.yaml
+  kubescout ./chart > kubescout-cronjob.yaml
 
 kubectl apply -n $NAMESPACE -f kubescout-cronjob.yaml
 ```
