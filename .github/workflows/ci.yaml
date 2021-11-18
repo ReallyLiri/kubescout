@@ -124,12 +124,13 @@ jobs:
           context: .
           push: false
           cache-from: reallyliri/kubescout:latest
-          CHART_VALUES: ./chart/values.yaml
 
       - name: Verify template syntax
-        run: ! grep --include=\*.yaml -rnw chart/templates -e '{ \+{' -e '} \+}'
+        run: |
+          ! grep --include=\*.yaml -rnw chart/templates -e '{ \+{' -e '} \+}'
 
       - name: Helm lint
         uses: igabaydulin/helm-check-action@0.1.4
         env:
           CHART_LOCATION: ./chart
+          CHART_VALUES: ./chart/values.yaml
