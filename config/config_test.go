@@ -45,7 +45,7 @@ func TestFromArgs(t *testing.T) {
 	require.NotNil(t, config)
 	require.NotEqual(t, int64(0), config.PodLogsTail)
 	require.NotEqual(t, int64(0), config.EventsLimit)
-	require.Equal(t, log.DebugLevel, log.GetLevel())
+	require.Equal(t, log.TraceLevel, log.GetLevel())
 	require.Equal(t, time.Duration(17)*time.Minute, config.MessagesDeduplicationDuration)
 	require.NotEqual(t, "pretty", config.OutputMode)
 	require.NotNil(t, config.Locale)
