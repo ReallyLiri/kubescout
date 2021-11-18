@@ -119,6 +119,6 @@ jobs:
 
       - name: Helm lint
         uses: igabaydulin/helm-check-action@0.1.4
-        with:
-          CHART_LOCATION: chart
-          CHART_VALUES: chart/values.yaml
+        env:
+          CHART_LOCATION: ./chart
+          CHART_VALUES: ./chart/values.yaml
