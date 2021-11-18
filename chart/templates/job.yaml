@@ -1,0 +1,51 @@
+{{- if eq .Values.run.mode "Job" }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kubescout-{{ .Release.Revision }}
+  {{- if .Values.run.job.keepOldJobsOnUpgrade }}
+  annotations:
+    "helm.sh/resource-policy": keep
+  {{- end }}
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      name: kubescout-{{ .Release.Revision }}
+      labels:
+        app: kubescout
+    spec:
+      restartPolicy: Never
+      serviceAccountName: {{ .Values.serviceAccount.name | quote }}
+      activeDeadlineSeconds: {{ .Values.run.activeDeadlineSeconds }}
+      containers:
+        - name: kubescout
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.imagePullPolicy | quote }}
+          {{- if .Values.resources.enable }}
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu | quote }}
+              memory: {{ .Values.resources.limits.memory | quote }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu | quote }}
+              memory: {{ .Values.resources.requests.memory | quote }}
+          {{- end }}
+          envFrom:
+            - configMapRef:
+                name: kubescout-env
+          env:
+            - name: STORE_FILEPATH
+              value: /var/store/kube-scout.store.json
+          {{- if .Values.persistency.enable }}
+          volumeMounts:
+            - mountPath: "/var/store"
+              name: store
+          {{- end }}
+      {{- if .Values.persistency.enable }}
+      volumes:
+        - name: store
+          persistentVolumeClaim:
+            claimName: kubescout-pvc
+      {{- end }}
+{{- end }}

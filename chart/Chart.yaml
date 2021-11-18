@@ -1,0 +1,6 @@
+apiVersion: v2
+name: kubescout
+description: An alerting tool for Kubernetes clusters issues of all types
+type: application
+version: 0.1.0
+appVersion: 0.0.0

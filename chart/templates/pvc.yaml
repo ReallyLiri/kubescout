@@ -1,0 +1,15 @@
+{{- if .Values.persistency.enable }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kubescout-pvc
+spec:
+  {{- if .Values.persistency.storageClass }}
+  storageClassName: {{ .Values.persistency.storageClass | quote }}
+  {{- end }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.persistency.storageResourceRequst | quote }}
+  {{- end }}

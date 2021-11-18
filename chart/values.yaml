@@ -1,0 +1,45 @@
+config:
+  verboseLogging: false
+  podLogsTail: 250
+  eventsLimit: 150
+  timeFormat: "02 Jan 06 15:04 MST"
+  locale: "UTC"
+  podCreationGraceTimeSeconds: 5
+  podStartingGraceTimeSeconds: 600
+  podTerminationGraceTimeSeconds: 60
+  podRestartGraceCount: 3
+  excludeNamespaces: []
+  includeNamespaces: []
+  dedupMinutes: 60
+  outputMode: "pretty"
+
+image:
+  name: "reallyliri/kubescout"
+  tag: latest
+  imagePullPolicy: IfNotPresent
+
+serviceAccount:
+  create: true
+  name: "kubescout-sa"
+
+run:
+  mode: "Job" # or CronJob
+  activeDeadlineSeconds: 600
+  job:
+    keepOldJobsOnUpgrade: true
+  cronJob:
+    schedule: "*/10 * * * *"
+
+persistency:
+  enable: true
+  storageClass: "" # leave empty for default cluster sc
+  storageResourceRequst: "1Gi"
+
+resources:
+  enable: true
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
