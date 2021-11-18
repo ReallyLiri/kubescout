@@ -19,10 +19,9 @@ api.
     * [CLI](#cli)
         + [Install](#install)
     * [Monitoring Setup](#monitoring-setup)
+        + [Install using Helm](#install-using-helm)
         + [Run as a Kubernetes Job](#run-as-a-kubernetes-job)
         + [Run as a Kubernetes CronJob](#run-as-a-kubernetes-cronjob)
-        + [Run as a Kubernetes Deployment](#run-as-a-kubernetes-deployment)
-        + [Install using Helm](#install-using-helm)
         + [Run as Docker](#run-as-docker)
         + [Native](#native)
         + [Native Cronjob](#native-cronjob)
@@ -263,17 +262,57 @@ then run: `kubescout -h`
 
 Scout your cluster(s) on a schedule or on demand with the following setup options:
 
+### Install using Helm
+
+```bash
+helm upgrade -i -n default kubescout ./chart
+```
+
+Values configuration examples:
+
+```bash
+helm upgrade -i -f custom-values.yaml kubescout ./chart
+helm upgrade -i \
+  --set image.tag="$(go run . --version | cut -d" " -f 3)" \
+  --set run.mode="CronJob" \
+  --set run.cronJob.schedule="0 0 * * *" \
+  --set config.excludeNamespaces={kube-node-lease\,kube-public\,kube-system} \
+  kubescout ./chart
+```
+
 ### Run as a Kubernetes Job
-TBD
+
+To get the plain job manifests, you can render the Helm chart:
+
+```bash
+NAMESPACE=default
+
+helm template \
+  -n $NAMESPACE \
+  --set image.tag="$(go run . --version | cut -d" " -f 3)" \
+  --set run.mode="Job" \
+  --set persistency.enable=false \
+  kubescout ./chart > kubescout-job.yaml
+
+kubectl apply -n $NAMESPACE -f kubescout-job.yaml
+```
 
 ### Run as a Kubernetes CronJob 
-TBD
 
-### Run as a Kubernetes Deployment 
-TBD
+To get the plain cron-job manifests, you can render the Helm chart:
 
-### Install using Helm
-TBD
+```bash
+NAMESPACE=default
+
+helm template \
+  -n $NAMESPACE \
+  --set image.tag="$(go run . --version | cut -d" " -f 3)" \
+  --set run.mode="CronJob" \
+  --set run.cronjob.schedule="* * * * *" \
+  kubescout ./chart > kubescout-cronjob.yaml
+
+kubectl apply -n $NAMESPACE -f kubescout-cronjob.yaml
+```
 
 ### Run as Docker
 

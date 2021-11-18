@@ -1,0 +1,12 @@
+kubescout is installed!
+{{- if eq .Values.run.mode "Job" }}
+Running as a one time job, to see results run:
+
+    kubectl get pods --selector=app=kubescout
+    kubectl logs --selector=app=kubescout
+{{- else if eq .Values.run.mode "CronJob" }}
+Registered a Cron Job with {{ .Values.run.cronJob.schedule }} schedule
+To trigger a manual job from it:
+
+    kubectl create job --from=cronjob/kubescout kubescout-manual
+{{- end }}

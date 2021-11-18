@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubescout-env
+data:
+  VERBOSE: {{ .Values.config.verboseLogging | quote }}
+  LOGS_TAIL: {{ .Values.config.podLogsTail | quote }}
+  EVENTS_LIMIT: {{ .Values.config.eventsLimit | quote }}
+  TIME_FORMAT: {{ .Values.config.timeFormat | quote }}
+  LOCALE: {{ .Values.config.locale | quote }}
+  POD_CREATION_GRACE_SEC: {{ .Values.config.podCreationGraceTimeSeconds | quote }}
+  POD_STARTING_GRACE_SEC: {{ .Values.config.podStartingGraceTimeSeconds | quote }}
+  POD_TERMINATION_GRACE_SEC: {{ .Values.config.podTerminationGraceTimeSeconds | quote }}
+  POD_RESTART_GRACE_COUNT: {{ .Values.config.podRestartGraceCount | quote }}
+  EXCLUDE_NS: {{ join "," .Values.config.excludeNamespaces | quote }}
+  INCLUDE_NS: {{ join "," .Values.config.includeNamespaces | quote }}
+  DEDUP_MINUTES: {{ .Values.config.dedupMinutes | quote }}
+  OUTPUT_MODE: {{ .Values.config.outputMode | quote }}

@@ -48,18 +48,21 @@ var Flags = []cli.Flag{
 		Usage:    "Specifies the logs tail length when reporting logs from a problematic pod, use 0 to disable log extraction",
 		Value:    250,
 		Required: false,
+		EnvVars: []string{"LOGS_TAIL"},
 	},
 	&cli.Int64Flag{
 		Name:     "events-limit",
 		Usage:    "Maximum number of namespace events to fetch",
 		Value:    150,
 		Required: false,
+		EnvVars: []string{"EVENTS_LIMIT"},
 	},
 	&cli.StringFlag{
 		Name:     "kubeconfig",
 		Aliases:  []string{"k"},
 		Usage:    "kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config, can be omitted when running in cluster",
 		Required: false,
+		EnvVars: []string{"KUBECONFIG"},
 	},
 	&cli.StringFlag{
 		Name:     "time-format",
@@ -67,6 +70,7 @@ var Flags = []cli.Flag{
 		Value:    time.RFC822,
 		Usage:    "timestamp print format",
 		Required: false,
+		EnvVars: []string{"TIME_FORMAT"},
 	},
 	&cli.StringFlag{
 		Name:     "locale",
@@ -74,30 +78,35 @@ var Flags = []cli.Flag{
 		Value:    "UTC",
 		Usage:    "timestamp print localization",
 		Required: false,
+		EnvVars: []string{"LOCALE"},
 	},
 	&cli.Float64Flag{
 		Name:     "pod-creation-grace-sec",
 		Value:    5,
 		Usage:    "grace period in seconds since pod creation before checking its statuses",
 		Required: false,
+		EnvVars: []string{"POD_CREATION_GRACE_SEC"},
 	},
 	&cli.Int64Flag{
 		Name:     "pod-starting-grace-sec",
 		Value:    600,
 		Usage:    "grace period in seconds since pod creation before alarming on non running states",
 		Required: false,
+		EnvVars: []string{"POD_STARTING_GRACE_SEC"},
 	},
 	&cli.Int64Flag{
 		Name:     "pod-termination-grace-sec",
 		Value:    60,
 		Usage:    "grace period in seconds since pod termination",
 		Required: false,
+		EnvVars: []string{"POD_TERMINATION_GRACE_SEC"},
 	},
 	&cli.IntFlag{
 		Name:     "pod-restart-grace-count",
 		Value:    3,
 		Usage:    "grace count for pod restarts",
 		Required: false,
+		EnvVars: []string{"POD_RESTART_GRACE_COUNT"},
 	},
 	&cli.Float64Flag{
 		Name:     "node-resource-usage-threshold",
@@ -111,6 +120,7 @@ var Flags = []cli.Flag{
 		Value:    "",
 		Usage:    "namespaces to skip",
 		Required: false,
+		EnvVars: []string{"EXCLUDE_NS"},
 	},
 	&cli.StringFlag{
 		Name:     "include-ns",
@@ -118,6 +128,7 @@ var Flags = []cli.Flag{
 		Value:    "",
 		Usage:    "namespaces to include (will skip any not listed if this option is used)",
 		Required: false,
+		EnvVars: []string{"INCLUDE_NS"},
 	},
 	&cli.IntFlag{
 		Name:     "dedup-minutes",
@@ -125,6 +136,7 @@ var Flags = []cli.Flag{
 		Value:    60,
 		Usage:    "time in minutes to silence duplicate or already observed alerts, or 0 to disable deduplication",
 		Required: false,
+		EnvVars: []string{"DEDUP_MINUTES"},
 	},
 	&cli.StringFlag{
 		Name:     "store-filepath",
@@ -132,6 +144,7 @@ var Flags = []cli.Flag{
 		Value:    "kube-scout.store.json",
 		Usage:    "path to store file where state will be persisted or empty string to disable persistency",
 		Required: false,
+		EnvVars: []string{"STORE_FILEPATH"},
 	},
 	&cli.StringFlag{
 		Name:     "output",
@@ -139,6 +152,7 @@ var Flags = []cli.Flag{
 		Value:    "pretty",
 		Usage:    "output mode, one of pretty/json/yaml/discard",
 		Required: false,
+		EnvVars: []string{"OUTPUT_MODE"},
 	},
 	&cli.StringFlag{
 		Name:     "context",
