@@ -41,8 +41,8 @@ func Test_formatUnitsSize(t *testing.T) {
 }
 
 func Test_asTime(t *testing.T) {
-	asTime := asTime("2021-10-05T13:27:43Z")
-	assert.Equal(t, int64(1633440463), asTime.Unix())
+	tm := asTime("2021-10-05T13:27:43Z")
+	assert.Equal(t, int64(1633440463), tm.Unix())
 }
 
 func Test_formatResourceUsage(t *testing.T) {
@@ -50,4 +50,15 @@ func Test_formatResourceUsage(t *testing.T) {
 	assert.Equal(t, "Excessive usage of CPU: 19/20 (95.0% usage)", formatResourceUsage(1, 20, "CPU", 0.9))
 	assert.Equal(t, "", formatResourceUsage(48433408, 53485824, "Memory", 0.75))
 	assert.Equal(t, "Excessive usage of Memory: 48MB/54MB (90.6% usage)", formatResourceUsage(5052416, 53485824, "Memory", 0.75))
+}
+
+func Test_isPodExcessiveRestartProblem(t *testing.T) {
+	created := asTime("2021-11-18T10:00:00Z")
+	problem := asTime("2021-11-18T10:01:00Z")
+	started := asTime("2021-11-18T10:10:00Z")
+
+	assert.True(t, isPodExcessiveRestartProblem(asTime("2021-11-18T10:10:05Z"), created, problem, started))
+	assert.True(t, isPodExcessiveRestartProblem(asTime("2021-11-18T10:13:00Z"), created, problem, started))
+	assert.False(t, isPodExcessiveRestartProblem(asTime("2021-11-18T10:30:00Z"), created, problem, started))
+	assert.False(t, isPodExcessiveRestartProblem(asTime("2021-11-18T13:00:00Z"), created, problem, started))
 }

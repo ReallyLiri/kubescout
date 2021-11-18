@@ -130,6 +130,28 @@ func (state *entityState) checkContainerStatuses(pod *v1.Pod, context *diagConte
 	}
 }
 
+func isPodExcessiveRestartProblem(
+	now time.Time,
+	createdTimestamp time.Time,
+	problemTimestamp time.Time,
+	startedTimestamp time.Time,
+) bool {
+	healthyPeriod := now.Sub(startedTimestamp)
+	problemPeriod := problemTimestamp.Sub(createdTimestamp)
+
+	if problemPeriod < time.Second {
+		return false
+	}
+
+	if healthyPeriod < time.Minute {
+		return true
+	}
+
+	ratio := float64(healthyPeriod) / float64(problemPeriod)
+
+	return ratio < 5
+}
+
 func (state *entityState) checkContainerStatus(
 	pod *v1.Pod,
 	containerStatus v1.ContainerStatus,
@@ -195,8 +217,7 @@ func (state *entityState) checkContainerStatus(
 			problemTimestamp = pod.Status.StartTime.Time
 		}
 
-		timeSinceProblem := context.now.Sub(problemTimestamp)
-		if !started || timeSinceProblem <= graceTimeSinceProblemIfRunning {
+		if !started || isPodExcessiveRestartProblem(context.now, pod.CreationTimestamp.Time, problemTimestamp, pod.Status.StartTime.Time) {
 			if stateTerminated != nil {
 				state.appendMessage(
 					problemTimestamp,

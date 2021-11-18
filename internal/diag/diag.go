@@ -31,8 +31,6 @@ var excludeStandaloneEventsOnKinds = map[string]bool{
 
 const graceTimeForEventSinceEntityCreation = time.Second * time.Duration(5)
 
-const graceTimeSinceProblemIfRunning = time.Minute * time.Duration(10)
-
 func testContext(now time.Time) *diagContext {
 	return testContextWithClient(now, nil)
 }
