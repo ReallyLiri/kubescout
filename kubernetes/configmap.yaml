@@ -2,9 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kubescout-env
-  namespace: kube-system
 data:
-  VERBOSE: "false"
+  VERBOSE: "true"
   LOGS_TAIL: "250"
   EVENTS_LIMIT: "150"
   TIME_FORMAT: "02 Jan 06 15:04 MST"
