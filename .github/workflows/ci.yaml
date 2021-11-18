@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  logic-validation:
+  go-build-test:
     strategy:
       fail-fast: false
       matrix:
@@ -66,17 +66,6 @@ jobs:
           entrypoint: bin/kubescout
           args: --help
 
-      - name: Clear dummy kubeconfig
-        run: rm ~/.kube/config
-
-      - name: Start minikube
-        if: matrix.platform == 'ubuntu-latest'
-        uses: medyagh/setup-minikube@master
-
-      - name: Integration Test
-        if: matrix.platform == 'ubuntu-latest'
-        run: go test -v --tags=integration ./integration_test.go
-
       - name: Set binary name
         id: binname
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -101,7 +90,26 @@ jobs:
           name: ${{ steps.binname.outputs.binname }}
           path: bin/kubescout
 
-  ops-validation:
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.16'
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Start minikube
+        uses: medyagh/setup-minikube@master
+
+      - name: Integration Test
+        run: go test -v --tags=integration ./integration_test.go
+
+  docker-helm-sanity:
 
     runs-on: ubuntu-latest
     steps:
@@ -116,9 +124,12 @@ jobs:
           context: .
           push: false
           cache-from: reallyliri/kubescout:latest
+          CHART_VALUES: ./chart/values.yaml
+
+      - name: Verify template syntax
+        run: ! grep --include=\*.yaml -rnw chart/templates -e '{ \+{' -e '} \+}'
 
       - name: Helm lint
         uses: igabaydulin/helm-check-action@0.1.4
         env:
           CHART_LOCATION: ./chart
-          CHART_VALUES: ./chart/values.yaml
