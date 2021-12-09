@@ -16,9 +16,11 @@ const serviceAccountTokenInClusterPath = "/var/run/secrets/kubernetes.io/service
 
 type KubeConfig *clientcmdapi.Config
 
-func DefaultKubeconfigPath() (filePath string, runningInCluster bool, err error) {
-	if _, err = os.Stat(serviceAccountTokenInClusterPath); err == nil {
-		return "", true, nil
+func DefaultKubeconfigPath(forceNotInCluster bool) (filePath string, runningInCluster bool, err error) {
+	if !forceNotInCluster {
+		if _, err = os.Stat(serviceAccountTokenInClusterPath); err == nil {
+			return "", true, nil
+		}
 	}
 
 	if filePath := os.Getenv("KUBECONFIG"); filePath != "" {

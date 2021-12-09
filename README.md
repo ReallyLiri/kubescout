@@ -10,11 +10,12 @@
 
 ![icon](kubescout.png)
 
-An alerting tool for Kubernetes clusters issues of all types, in real time, with intelligent redundancy, and easily extendable
-api.
+An alerting tool for Kubernetes clusters issues of all types, in real time, with intelligent redundancy, and easily
+extendable api.
 
 - [Kube-Scout](#kube-scout)
     + [Output Example](#output-example-)
+
     * [Problems Coverage and Roadmap](#problems-coverage-and-roadmap)
     * [CLI](#cli)
         + [Install](#install)
@@ -181,7 +182,7 @@ Or in json format:
 ## Problems Coverage and Roadmap
 
 * &check; Pod evictions
-  + _ Clean up
+    + _ Clean up
 * &check; Pod stuck terminating
     + _ Graceful clean up
 * &check; Pod pending/unschedulable/pull-backoff
@@ -194,39 +195,40 @@ Or in json format:
 * _ Node excessive process allocation
 * _ Node excessive inode allocation
 * Warning/errors in native logs
-  + _ Docker
-  + _ Containerd
-  + _ Kubelet
-  + _ System
+    + _ Docker
+    + _ Containerd
+    + _ Kubelet
+    + _ System
 * _ Helm failures
 
 ## CLI
 
 ```
 NAME:
-   kubescout - 0.1.10 - Scout for alarming issues in your Kubernetes cluster
+   kubescout - 0.1.15 - Scout for alarming issues in your Kubernetes cluster
 
 USAGE:
    kubescout                    [optional flags]
 
 OPTIONS:
-   --verbose, --vv                        Verbose logging (default: false)
-   --logs-tail value                      Specifies the logs tail length when reporting logs from a problematic pod, use 0 to disable log extraction (default: 250)
-   --events-limit value                   Maximum number of namespace events to fetch (default: 150)
-   --kubeconfig value, -k value           kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config, can be omitted when running in cluster
-   --time-format value, -f value          timestamp print format (default: "02 Jan 06 15:04 MST")
-   --locale value, -l value               timestamp print localization (default: "UTC")
-   --pod-creation-grace-sec value         grace period in seconds since pod creation before checking its statuses (default: 5)
-   --pod-starting-grace-sec value         grace period in seconds since pod creation before alarming on non running states (default: 600)
-   --pod-termination-grace-sec value      grace period in seconds since pod termination (default: 60)
-   --pod-restart-grace-count value        grace count for pod restarts (default: 3)
+   --verbose, --vv                        Verbose logging (default: false) [$VERBOSE]
+   --logs-tail value                      Specifies the logs tail length when reporting logs from a problematic pod, use 0 to disable log extraction (default: 250) [$LOGS_TAIL]
+   --events-limit value                   Maximum number of namespace events to fetch (default: 150) [$EVENTS_LIMIT]
+   --kubeconfig value, -k value           kubeconfig file path, defaults to env var KUBECONFIG or ~/.kube/config, can be omitted when running in cluster [$KUBECONFIG]
+   --time-format value, -f value          timestamp print format (default: "02 Jan 06 15:04 MST") [$TIME_FORMAT]
+   --locale value, -l value               timestamp print localization (default: "UTC") [$LOCALE]
+   --pod-creation-grace-sec value         grace period in seconds since pod creation before checking its statuses (default: 5) [$POD_CREATION_GRACE_SEC]
+   --pod-starting-grace-sec value         grace period in seconds since pod creation before alarming on non running states (default: 600) [$POD_STARTING_GRACE_SEC]
+   --pod-termination-grace-sec value      grace period in seconds since pod termination (default: 60) [$POD_TERMINATION_GRACE_SEC]
+   --pod-restart-grace-count value        grace count for pod restarts (default: 3) [$POD_RESTART_GRACE_COUNT]
    --node-resource-usage-threshold value  node resources usage threshold (default: 0.85)
-   --exclude-ns value, -e value           namespaces to skip
-   --include-ns value, -i value           namespaces to include (will skip any not listed if this option is used)
-   --dedup-minutes value, -d value        time in minutes to silence duplicate or already observed alerts, or 0 to disable deduplication (default: 60)
-   --store-filepath value, -s value       path to store file where state will be persisted or empty string to disable persistency (default: "kube-scout.store.json")
-   --output value, -o value               output mode, one of pretty/json/yaml/discard (default: "pretty")
+   --exclude-ns value, -e value           namespaces to skip [$EXCLUDE_NS]
+   --include-ns value, -n value           namespaces to include (will skip any not listed if this option is used) [$INCLUDE_NS]
+   --dedup-minutes value, -d value        time in minutes to silence duplicate or already observed alerts, or 0 to disable deduplication (default: 60) [$DEDUP_MINUTES]
+   --store-filepath value, -s value       path to store file where state will be persisted or empty string to disable persistency (default: "kube-scout.store.json") [$STORE_FILEPATH]
+   --output value, -o value               output mode, one of pretty/json/yaml/discard (default: "pretty") [$OUTPUT_MODE]
    --context value, -c value              context name to use from kubeconfig, defaults to current context
+   --not-in-cluster                       hint to scan out of cluster even if technically kubescout is running in a pod (default: false) [$NOT_IN_CLUSTER]
    --all-contexts, -a                     iterate all kubeconfig contexts, 'context' flag will be ignored if this flag is set (default: false)
    --exclude-contexts value               a comma separated list of kubeconfig context names to skip, only relevant if 'all-contexts' flag is set
    --help, -h                             show help (default: false)
@@ -239,6 +241,7 @@ For example:
 kubescout --kubeconfig /root/.kube/config --name staging-cluster
 kubescout --exclude-ns kube-system
 kubescout --include-ns default,test,prod
+kubescout -n default -c aws-cluster
 ```
 
 ### Install
@@ -297,7 +300,7 @@ helm template \
 kubectl apply -n $NAMESPACE -f kubescout-job.yaml
 ```
 
-### Run as a Kubernetes CronJob 
+### Run as a Kubernetes CronJob
 
 To get the plain cron-job manifests, you can render the Helm chart:
 
@@ -335,9 +338,11 @@ docker run --rm -it kubescout --help
 ```
 
 ### Native
+
 Simply fetch/compile the binary and use the [CLI](#cli) with your required config options.
 
 ### Native Cronjob
+
 Quick setup of the native binary in a cronjob should be simple enough.
 
 For example, to scout [every 3 minutes](https://crontab.guru/every-3-minutes):
