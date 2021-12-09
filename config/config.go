@@ -1,6 +1,7 @@
 package config
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"github.com/reallyliri/kubescout/internal/kubeconfig"
@@ -279,6 +280,14 @@ func ParseConfig(c *cli.Context) (*Config, error) {
 		if err != nil || (config.KubeconfigFilePath == "" && !config.RunningInCluster) {
 			return nil, fmt.Errorf("failed to determine default kubeconfig file path: %v", err)
 		}
+	}
+
+	if log.GetLevel() >= log.DebugLevel {
+		configJson, err := json.MarshalIndent(config, "", " ")
+		if err != nil {
+			log.Errorf("failed to serialize config to json: %v", err)
+		}
+		log.Debugf("Loaded config:\n%v", string(configJson))
 	}
 
 	return config, nil

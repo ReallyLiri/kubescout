@@ -47,7 +47,7 @@ func CreateClient(config *config.Config, kubeconfig kubeconfig.KubeConfig) (Kube
 		}
 	} else {
 		kubeconfigFilePath := config.KubeconfigFilePath
-		log.Debugf("Building kubernetes client from kubeconfig '%v'\n", kubeconfigFilePath)
+		log.Debugf("Building kubernetes client from kubeconfig '%v'", kubeconfigFilePath)
 		kconf, err = clientcmd.BuildConfigFromKubeconfigGetter("", func() (*clientcmdapi.Config, error) {
 			return kubeconfig, nil
 		})

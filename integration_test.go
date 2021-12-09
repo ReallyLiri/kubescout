@@ -123,10 +123,10 @@ func (s *verifySink) Report(alerts *alert.Alerts) error {
 }
 
 func cleanUp() {
-	log.Infof("cleaning up namespace ...\n")
+	log.Infof("cleaning up namespace ...")
 	err := cleanupDefaultNamespace()
 	if err != nil {
-		log.Error(err.Error() + "\n")
+		log.Error(err.Error() + "")
 	}
 }
 
@@ -164,7 +164,7 @@ func TestIntegration(t *testing.T) {
 	err = applyManifests()
 	require.Nil(t, err)
 
-	log.Infof("set up completed, sleeping to give namespace time to stabilize ...\n")
+	log.Infof("set up completed, sleeping to give namespace time to stabilize ...")
 
 	defer cleanUp()
 
@@ -174,7 +174,7 @@ func TestIntegration(t *testing.T) {
 
 	vSink := &verifySink{}
 
-	log.Infof("running 1/3 diagnose call ...\n")
+	log.Infof("running 1/3 diagnose call ...")
 	err = pkg.Scout(cfg, vSink)
 	require.Nil(t, err)
 
@@ -188,7 +188,7 @@ func TestIntegration(t *testing.T) {
 	require.Nil(t, err)
 	require.NotEmpty(t, storeContent)
 
-	log.Infof("running 2/3 diagnose call ...\n")
+	log.Infof("running 2/3 diagnose call ...")
 	err = pkg.Scout(cfg, vSink)
 	require.Nil(t, err)
 
@@ -203,7 +203,7 @@ func TestIntegration(t *testing.T) {
 	log.Infof("sleeping to get de-dup grace time to pass")
 	time.Sleep(time.Minute)
 
-	log.Infof("running 3/3 diagnose call ...\n")
+	log.Infof("running 3/3 diagnose call ...")
 	err = pkg.Scout(cfg, vSink)
 	require.Nil(t, err)
 
