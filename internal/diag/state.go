@@ -321,6 +321,10 @@ func (context *diagContext) nodeState(node *v1.Node, forceCheckResources bool) (
 				continue
 			}
 		}
+		sinceLastTransition := context.now.Sub(condition.LastTransitionTime.Time)
+		if sinceLastTransition < time.Minute {
+			continue
+		}
 		state.appendMessage(
 			condition.LastTransitionTime.Time,
 			"%v: %v (last transition: %v)",
